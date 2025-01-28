@@ -1,0 +1,13 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "e:\\unrealgames\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\goobunga.init.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "e:\\unrealgames\\goobunga\\intermediate\\build\\win64\\x64\\goobungaeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "Includes": [
+            "e:\\unrealgames\\goobunga\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\goobunga\\definitions.goobunga.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

@@ -1,0 +1,8 @@
+{
+	"SourceFiles": [
+		"E:\\UnrealGames\\Goobunga\\Source\\Goobunga\\Goobunga.Build.cs",
+		"E:\\UnrealGames\\Goobunga\\Source\\Goobunga.Target.cs",
+		"E:\\UnrealGames\\Goobunga\\Source\\GoobungaEditor.Target.cs"
+	],
+	"EngineVersion": "5.5.1"
+}

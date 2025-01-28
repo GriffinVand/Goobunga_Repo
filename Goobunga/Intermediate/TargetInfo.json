@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "Goobunga",
+			"Path": "..\\Source\\Goobunga.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "GoobungaEditor",
+			"Path": "..\\Source\\GoobungaEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

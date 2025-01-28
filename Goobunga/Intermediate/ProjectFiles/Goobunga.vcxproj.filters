@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\Goobunga.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{F31BBDD1-B3E8-3BCC-9652-680E16935819}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\Goobunga.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\GoobungaEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\.vsconfig" />
+    <Filter Include="Config">
+      <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\Goobunga">
+      <UniqueIdentifier>{DD22DD35-D340-3175-93FB-DF647E947633}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\Dialogue_Component.cpp">
+      <Filter>Source\Goobunga</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Dialogue_Component.h">
+      <Filter>Source\Goobunga</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemy_Character.cpp">
+      <Filter>Source\Goobunga</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemy_Character.h">
+      <Filter>Source\Goobunga</Filter>
+    </ClCompile>
+    <None Include="..\..\Source\Goobunga\Goobunga.Build.cs">
+      <Filter>Source\Goobunga</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\Goobunga\Goobunga.cpp">
+      <Filter>Source\Goobunga</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Goobunga.h">
+      <Filter>Source\Goobunga</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Item_Base.cpp">
+      <Filter>Source\Goobunga</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Item_Base.h">
+      <Filter>Source\Goobunga</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\NPC_Character.cpp">
+      <Filter>Source\Goobunga</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\NPC_Character.h">
+      <Filter>Source\Goobunga</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Stats_Component.cpp">
+      <Filter>Source\Goobunga</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Stats_Component.h">
+      <Filter>Source\Goobunga</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Weapon_Component.cpp">
+      <Filter>Source\Goobunga</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Weapon_Component.h">
+      <Filter>Source\Goobunga</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

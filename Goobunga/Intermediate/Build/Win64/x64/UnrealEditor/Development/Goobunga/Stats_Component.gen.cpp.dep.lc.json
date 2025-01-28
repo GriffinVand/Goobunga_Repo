@@ -1,0 +1,15 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "e:\\unrealgames\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\stats_component.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "e:\\unrealgames\\goobunga\\intermediate\\build\\win64\\x64\\goobungaeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "Includes": [
+            "e:\\unrealgames\\goobunga\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\goobunga\\definitions.goobunga.h",
+            "e:\\unrealgames\\goobunga\\source\\goobunga\\stats_component.h",
+            "e:\\unrealgames\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\stats_component.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}
