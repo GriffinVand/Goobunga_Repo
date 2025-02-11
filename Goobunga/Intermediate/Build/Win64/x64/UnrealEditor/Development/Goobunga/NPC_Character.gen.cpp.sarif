@@ -3,7 +3,31 @@
     "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
     "runs": [
         {
-            "results": [],
+            "results": [
+                {
+                    "ruleId": "C1083",
+                    "level": "error",
+                    "message": {
+                        "text": "Cannot open include file: 'Goobunga/NPC_Character.h': No such file or directory"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///E:/Goobunga_Repo/Goobunga/Intermediate/Build/Win64/UnrealEditor/Inc/Goobunga/UHT/NPC_Character.gen.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///E:/Goobunga_Repo/Goobunga/Intermediate/Build/Win64/UnrealEditor/Inc/Goobunga/UHT/NPC_Character.gen.cpp"
+                                },
+                                "region": {
+                                    "startLine": 8,
+                                    "startColumn": 1
+                                }
+                            }
+                        }
+                    ]
+                }
+            ],
             "tool": {
                 "driver": {
                     "name": "MSVC",

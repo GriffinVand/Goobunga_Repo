@@ -1,6 +1,5 @@
-E:\UnrealGames\Goobunga\Source\Goobunga\Dialogue_Component.h
-E:\UnrealGames\Goobunga\Source\Goobunga\Enemy_Character.h
-E:\UnrealGames\Goobunga\Source\Goobunga\NPC_Character.h
-E:\UnrealGames\Goobunga\Source\Goobunga\Stats_Component.h
-E:\UnrealGames\Goobunga\Source\Goobunga\Weapon_Component.h
-E:\UnrealGames\Goobunga\Source\Goobunga\Item_Base.h
+E:\Goobunga_Repo\Goobunga\Source\Goobunga\Fireable.h
+E:\Goobunga_Repo\Goobunga\Source\Goobunga\Weapons\ProjectileWeapon.h
+E:\Goobunga_Repo\Goobunga\Source\Goobunga\Weapons\MeleeWeapon.h
+E:\Goobunga_Repo\Goobunga\Source\Goobunga\Weapons\Weapon.h
+E:\Goobunga_Repo\Goobunga\Source\Goobunga\Goobunga_Player.h

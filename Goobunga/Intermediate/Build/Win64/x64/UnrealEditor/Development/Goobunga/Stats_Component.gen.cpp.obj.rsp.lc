@@ -1,12 +1,12 @@
-"E:\UnrealGames\Goobunga\Intermediate\Build\Win64\UnrealEditor\Inc\Goobunga\UHT\Stats_Component.gen.cpp"
-/FI"E:\UnrealGames\Goobunga\Intermediate\Build\Win64\x64\GoobungaEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h"
-/FI"E:\UnrealGames\Goobunga\Intermediate\Build\Win64\x64\UnrealEditor\Development\Goobunga\Definitions.Goobunga.h"
-/Yu"E:\UnrealGames\Goobunga\Intermediate\Build\Win64\x64\GoobungaEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h"
-/Fp"E:\UnrealGames\Goobunga\Intermediate\Build\Win64\x64\GoobungaEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h.pch"
-/Fo"E:\UnrealGames\Goobunga\Intermediate\Build\Win64\x64\UnrealEditor\Development\Goobunga\Stats_Component.gen.cpp.lc.obj"
-/experimental:log "E:\UnrealGames\Goobunga\Intermediate\Build\Win64\x64\UnrealEditor\Development\Goobunga\Stats_Component.gen.cpp.sarif"
-/sourceDependencies"E:\UnrealGames\Goobunga\Intermediate\Build\Win64\x64\UnrealEditor\Development\Goobunga\Stats_Component.gen.cpp.dep.lc.json"
-@"E:\UnrealGames\Goobunga\Intermediate\Build\Win64\x64\UnrealEditor\Development\Goobunga\Goobunga.Shared.rsp"
+"E:\Goobunga_Repo\Goobunga\Intermediate\Build\Win64\UnrealEditor\Inc\Goobunga\UHT\Stats_Component.gen.cpp"
+/FI"E:\Goobunga_Repo\Goobunga\Intermediate\Build\Win64\x64\GoobungaEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h"
+/FI"E:\Goobunga_Repo\Goobunga\Intermediate\Build\Win64\x64\UnrealEditor\Development\Goobunga\Definitions.Goobunga.h"
+/Yu"E:\Goobunga_Repo\Goobunga\Intermediate\Build\Win64\x64\GoobungaEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h"
+/Fp"E:\Goobunga_Repo\Goobunga\Intermediate\Build\Win64\x64\GoobungaEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h.pch"
+/Fo"E:\Goobunga_Repo\Goobunga\Intermediate\Build\Win64\x64\UnrealEditor\Development\Goobunga\Stats_Component.gen.cpp.lc.obj"
+/experimental:log "E:\Goobunga_Repo\Goobunga\Intermediate\Build\Win64\x64\UnrealEditor\Development\Goobunga\Stats_Component.gen.cpp.sarif"
+/sourceDependencies"E:\Goobunga_Repo\Goobunga\Intermediate\Build\Win64\x64\UnrealEditor\Development\Goobunga\Stats_Component.gen.cpp.dep.lc.json"
+@"E:\Goobunga_Repo\Goobunga\Intermediate\Build\Win64\x64\UnrealEditor\Development\Goobunga\Goobunga.Shared.rsp"
 /d2ssa-cfg-question-
 /Zc:inline
 /nologo

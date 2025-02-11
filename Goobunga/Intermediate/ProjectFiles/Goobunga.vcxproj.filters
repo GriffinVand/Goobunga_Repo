@@ -30,16 +30,7 @@
     <Filter Include="Source\Goobunga">
       <UniqueIdentifier>{DD22DD35-D340-3175-93FB-DF647E947633}</UniqueIdentifier>
     </Filter>
-    <ClCompile Include="..\..\Source\Goobunga\Dialogue_Component.cpp">
-      <Filter>Source\Goobunga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Dialogue_Component.h">
-      <Filter>Source\Goobunga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Enemy_Character.cpp">
-      <Filter>Source\Goobunga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Enemy_Character.h">
+    <ClCompile Include="..\..\Source\Goobunga\Fireable.h">
       <Filter>Source\Goobunga</Filter>
     </ClCompile>
     <None Include="..\..\Source\Goobunga\Goobunga.Build.cs">
@@ -51,29 +42,20 @@
     <ClCompile Include="..\..\Source\Goobunga\Goobunga.h">
       <Filter>Source\Goobunga</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Item_Base.cpp">
+    <ClCompile Include="..\..\Source\Goobunga\Goobunga_Player.cpp">
       <Filter>Source\Goobunga</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Item_Base.h">
+    <ClCompile Include="..\..\Source\Goobunga\Goobunga_Player.h">
       <Filter>Source\Goobunga</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\NPC_Character.cpp">
-      <Filter>Source\Goobunga</Filter>
+    <Filter Include="Source\Goobunga\Weapons">
+      <UniqueIdentifier>{CC097E68-C714-3FBB-8CA8-77CF4B425530}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\Weapons\Weapon.cpp">
+      <Filter>Source\Goobunga\Weapons</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\NPC_Character.h">
-      <Filter>Source\Goobunga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Stats_Component.cpp">
-      <Filter>Source\Goobunga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Stats_Component.h">
-      <Filter>Source\Goobunga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Weapon_Component.cpp">
-      <Filter>Source\Goobunga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Weapon_Component.h">
-      <Filter>Source\Goobunga</Filter>
+    <ClCompile Include="..\..\Source\Goobunga\Weapons\Weapon.h">
+      <Filter>Source\Goobunga\Weapons</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
