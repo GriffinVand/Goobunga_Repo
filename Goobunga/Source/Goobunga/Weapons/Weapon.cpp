@@ -22,9 +22,17 @@ void AWeapon::Tick(float DeltaTime)
 
 }
 
-void AWeapon::FireEvent(AActor* FireInstigator)
+void AWeapon::FireEvent()
 {
 	UE_LOG(LogTemp, Display, TEXT("Weapon Fired"));
+}
+
+void AWeapon::EquipEvent(AActor* EquippingInstigator)
+{
+	if (EquippingInstigator)
+	{
+		Owner = EquippingInstigator;
+	}
 }
 
 

@@ -17,5 +17,8 @@ class GOOBUNGA_API IFireable
 	GENERATED_BODY()
 
 public:
-	virtual void FireEvent(AActor* FireInstigator) {};
+	virtual void FireEvent() {};
+	virtual void AltFireEvent() {};
+	virtual void ReloadEvent() {};
+	virtual void EquipEvent(AActor* EquippingInstigator) {};
 };
