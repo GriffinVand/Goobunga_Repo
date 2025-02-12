@@ -36,7 +36,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	UCameraComponent* FPCamera;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
-	USkeletalMeshComponent* FPMesh;
+	USpringArmComponent* CameraMeshOffset;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
+	USceneComponent* TrueLookDirection;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
 	UInputMappingContext* DefaultMappingContext;
@@ -55,10 +57,16 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
 	UInputAction* AltFireAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Equipment", meta = (AllowPrivateAccess = "true"))
+	AActor* EquippedItem;
 	
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
-	void Fire();
-	void AltFire();
+	void FireStarted();
+	void FireEnded();
+	void AltFireStarted();
+	void AltFireEnded();
 	void ApplyMovementAffect(FVector2D Movement);
+	void AimDownSights(bool AimIn);
 };

@@ -74,7 +74,6 @@ template<> GOOBUNGA_API UClass* StaticClass<AMeleeWeapon>()
 {
 	return AMeleeWeapon::StaticClass();
 }
-AMeleeWeapon::AMeleeWeapon() {}
 DEFINE_VTABLE_PTR_HELPER_CTOR(AMeleeWeapon);
 AMeleeWeapon::~AMeleeWeapon() {}
 // End Class AMeleeWeapon
@@ -83,10 +82,10 @@ AMeleeWeapon::~AMeleeWeapon() {}
 struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_MeleeWeapon_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AMeleeWeapon, AMeleeWeapon::StaticClass, TEXT("AMeleeWeapon"), &Z_Registration_Info_UClass_AMeleeWeapon, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMeleeWeapon), 2039371052U) },
+		{ Z_Construct_UClass_AMeleeWeapon, AMeleeWeapon::StaticClass, TEXT("AMeleeWeapon"), &Z_Registration_Info_UClass_AMeleeWeapon, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMeleeWeapon), 2430939610U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_MeleeWeapon_h_1069036168(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_MeleeWeapon_h_3643162662(TEXT("/Script/Goobunga"),
 	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_MeleeWeapon_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_MeleeWeapon_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

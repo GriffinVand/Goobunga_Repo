@@ -6,6 +6,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Math/UnrealMathUtility.h"
+#include "Fireable.h"
 // Sets default values
 AGoobunga_Player::AGoobunga_Player()
 {
@@ -14,11 +15,13 @@ AGoobunga_Player::AGoobunga_Player()
 
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	CameraBoom->SetupAttachment(RootComponent);
-	FPMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FPMesh"));
 	FPCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FPCamera"));
-	FPMesh->SetupAttachment(FPCamera);
 	FPCamera->SetupAttachment(CameraBoom);
-	
+	CameraMeshOffset = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraMeshOffset"));
+	CameraMeshOffset->SetupAttachment(FPCamera);
+	TrueLookDirection = CreateDefaultSubobject<USceneComponent>(TEXT("TrueLookDirection"));
+	TrueLookDirection->SetupAttachment(CameraMeshOffset);
+	GetMesh()->SetupAttachment(CameraMeshOffset);
 }
 
 // Called when the game starts or when spawned
@@ -55,8 +58,12 @@ void AGoobunga_Player::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AGoobunga_Player::Look);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &AGoobunga_Player::Jump);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &AGoobunga_Player::StopJumping);
-		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Started, this, &AGoobunga_Player::Fire);
-		EnhancedInputComponent->BindAction(AltFireAction, ETriggerEvent::Started, this, &AGoobunga_Player::AltFire);
+		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Started, this, &AGoobunga_Player::FireStarted);
+		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Completed, this, &AGoobunga_Player::FireEnded);
+		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Canceled, this, &AGoobunga_Player::FireEnded);
+		EnhancedInputComponent->BindAction(AltFireAction, ETriggerEvent::Started, this, &AGoobunga_Player::AltFireStarted);
+		EnhancedInputComponent->BindAction(AltFireAction, ETriggerEvent::Completed, this, &AGoobunga_Player::AltFireEnded);
+		EnhancedInputComponent->BindAction(AltFireAction, ETriggerEvent::Canceled, this, &AGoobunga_Player::AltFireEnded);
 	}
 }
 
@@ -88,13 +95,53 @@ void AGoobunga_Player::ApplyMovementAffect(FVector2D MoveVector)
 	FPCamera->SetFieldOfView(NewFOV);
 }
 
-void AGoobunga_Player::Fire()
+void AGoobunga_Player::FireStarted()
 {
-	
+	if (EquippedItem && EquippedItem->Implements<UFireable>())
+	{
+		IFireable* FireableInterface = Cast<IFireable>(EquippedItem);
+		if (FireableInterface)
+		{
+			FireableInterface->FireEvent();
+			UE_LOG(LogTemp, Display, TEXT("Called fire event"));
+		}
+		else {UE_LOG(LogTemp, Warning, TEXT("Could not call fire event"));}
+	}
+	else {UE_LOG(LogTemp, Warning, TEXT("Could not call fire event"));}
+}
+void AGoobunga_Player::FireEnded()
+{
+	UE_LOG(LogTemp, Display, TEXT("Fire ended"));
 }
 
-void AGoobunga_Player::AltFire()
+//On alt-fire(right mouse) started, check if the equipped item can ADS
+//If so just perform ADS. If not, allow the equipped item to handle alt-fire
+void AGoobunga_Player::AltFireStarted()
 {
-	
+	if (EquippedItem && EquippedItem->Implements<UFireable>())
+	{
+		IFireable* FireableInterface = Cast<IFireable>(EquippedItem);
+		if (FireableInterface)
+		{
+			if (FireableInterface->CanADS())
+			{
+				AimDownSights(true);
+			}
+			else {FireableInterface->AltFireEvent();}
+		}
+	}
+	UE_LOG(LogTemp, Display, TEXT("Alt fire started"))
 }
+
+//On alt-fire(right mouse) ended if 
+void AGoobunga_Player::AltFireEnded()
+{
+	AimDownSights(false);
+	UE_LOG(LogTemp, Display, TEXT("Alt fire ended"))
+}
+
+void AGoobunga_Player::AimDownSights(bool AimIn)
+{
+}
+
 

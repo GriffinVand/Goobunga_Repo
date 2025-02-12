@@ -17,11 +17,12 @@ class GOOBUNGA_API AProjectileWeapon : public AWeapon
 public:
 	AProjectileWeapon();
 
-public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Projectile, meta = (AllowPrivateAccess = "true"))
-	AActor* Projectile;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
-	float ProjectileSpeed = 500.f;
+	TSubclassOf<AActor> ProjectileClass;
+
+public:
+	virtual void FireEvent() override;
+	
 	
 	
 };

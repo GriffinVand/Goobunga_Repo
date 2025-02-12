@@ -13,5 +13,7 @@ UCLASS()
 class GOOBUNGA_API AMeleeWeapon : public AWeapon
 {
 	GENERATED_BODY()
-	
+
+public:
+	AMeleeWeapon();
 };

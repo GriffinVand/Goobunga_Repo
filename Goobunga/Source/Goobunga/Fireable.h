@@ -21,4 +21,5 @@ public:
 	virtual void AltFireEvent() {};
 	virtual void ReloadEvent() {};
 	virtual void EquipEvent(AActor* EquippingInstigator) {};
+	virtual bool CanADS() {return false;}
 };
