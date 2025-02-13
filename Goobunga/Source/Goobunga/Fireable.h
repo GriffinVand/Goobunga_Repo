@@ -22,4 +22,7 @@ public:
 	virtual void ReloadEvent() {};
 	virtual void EquipEvent(AActor* EquippingInstigator) {};
 	virtual bool CanADS() {return false;}
+	virtual float GetADSSpeed() { return 0.0f; }
+	virtual FTransform GetADSTransform() { return FTransform(); }
+	
 };

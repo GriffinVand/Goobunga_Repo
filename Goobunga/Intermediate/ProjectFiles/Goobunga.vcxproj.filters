@@ -51,6 +51,18 @@
     <Filter Include="Source\Goobunga\Weapons">
       <UniqueIdentifier>{CC097E68-C714-3FBB-8CA8-77CF4B425530}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\Weapons\CatGun.cpp">
+      <Filter>Source\Goobunga\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Weapons\CatGun.h">
+      <Filter>Source\Goobunga\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Weapons\HitScanWeapon.cpp">
+      <Filter>Source\Goobunga\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Weapons\HitScanWeapon.h">
+      <Filter>Source\Goobunga\Weapons</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Weapons\MeleeWeapon.cpp">
       <Filter>Source\Goobunga\Weapons</Filter>
     </ClCompile>

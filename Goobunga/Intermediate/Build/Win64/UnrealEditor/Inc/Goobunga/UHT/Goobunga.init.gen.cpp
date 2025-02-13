@@ -17,7 +17,7 @@ void EmptyLinkFunctionForGeneratedCodeGoobunga_init() {}
 				nullptr,
 				0,
 				PKG_CompiledIn | 0x00000000,
-				0x691F0B78,
+				0xAB7A1404,
 				0x2C836EB1,
 				METADATA_PARAMS(0, nullptr)
 			};
@@ -25,5 +25,5 @@ void EmptyLinkFunctionForGeneratedCodeGoobunga_init() {}
 		}
 		return Z_Registration_Info_UPackage__Script_Goobunga.OuterSingleton;
 	}
-	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_Goobunga(Z_Construct_UPackage__Script_Goobunga, TEXT("/Script/Goobunga"), Z_Registration_Info_UPackage__Script_Goobunga, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x691F0B78, 0x2C836EB1));
+	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_Goobunga(Z_Construct_UPackage__Script_Goobunga, TEXT("/Script/Goobunga"), Z_Registration_Info_UPackage__Script_Goobunga, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0xAB7A1404, 0x2C836EB1));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

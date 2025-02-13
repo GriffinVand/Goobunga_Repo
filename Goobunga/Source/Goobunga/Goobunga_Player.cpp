@@ -22,6 +22,9 @@ AGoobunga_Player::AGoobunga_Player()
 	TrueLookDirection = CreateDefaultSubobject<USceneComponent>(TEXT("TrueLookDirection"));
 	TrueLookDirection->SetupAttachment(CameraMeshOffset);
 	GetMesh()->SetupAttachment(CameraMeshOffset);
+	TransitionCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("TransitionCamera"));
+	TransitionCamera->SetupAttachment(RootComponent);
+	TransitionCamera->SetActive(false);
 }
 
 // Called when the game starts or when spawned
@@ -45,6 +48,7 @@ void AGoobunga_Player::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	ApplyMovementAffect(FVector2d(0,0));
+	UpdateCamera();
 }
 
 // Called to bind functionality to input
@@ -125,7 +129,7 @@ void AGoobunga_Player::AltFireStarted()
 		{
 			if (FireableInterface->CanADS())
 			{
-				AimDownSights(true);
+				StartAimDownSights();
 			}
 			else {FireableInterface->AltFireEvent();}
 		}
@@ -133,15 +137,77 @@ void AGoobunga_Player::AltFireStarted()
 	UE_LOG(LogTemp, Display, TEXT("Alt fire started"))
 }
 
-//On alt-fire(right mouse) ended if 
+//On alt-fire(right mouse) ended 
 void AGoobunga_Player::AltFireEnded()
 {
-	AimDownSights(false);
+	EndAimDownSights();
 	UE_LOG(LogTemp, Display, TEXT("Alt fire ended"))
 }
 
-void AGoobunga_Player::AimDownSights(bool AimIn)
+void AGoobunga_Player::StartAimDownSights()
 {
+	TransitionCamera->SetActive(true);
+	FPCamera->SetActive(false);
+	ActiveCamera = TransitionCamera;
+	bAiming = true;
+	
+	UE_LOG(LogTemp, Warning, TEXT("Start ADS"))
 }
+
+//Reset the target camera to our first person camera
+//Update camera will handle this
+void AGoobunga_Player::EndAimDownSights()
+{
+	if ( APlayerController* PC = Cast<APlayerController>(GetController()) )
+	{
+		PC->SetViewTarget(this);
+		UE_LOG(LogTemp, Display, TEXT("Set view target to player"))
+	}
+	else { UE_LOG(LogTemp, Warning, TEXT("Could not get player controller"))}
+	bAiming = false;
+	ActiveCamera = TransitionCamera;
+	UE_LOG(LogTemp, Display, TEXT("End ADS"));
+}
+
+
+void AGoobunga_Player::UpdateCamera()
+{
+	if (ActiveCamera == TransitionCamera)
+	{
+		UE_LOG(LogTemp, Display, TEXT("Camera updated"));
+		FTransform Current = TransitionCamera->GetComponentTransform();
+		FTransform Target;
+		IFireable* FireableInterface = Cast<IFireable>(EquippedItem);
+		if (bAiming)
+		{
+			FireableInterface ?  Target = FireableInterface->GetADSTransform() : Target = FPCamera->GetComponentTransform();
+		}
+		else { Target = FPCamera->GetComponentTransform(); }
+		float Progress = FMath::Clamp((TransitionCameraTimerElapsed / TransitionCameraTimer), 0, 1);
+		FVector NewLocation = FMath::Lerp(Current.GetLocation(), Target.GetLocation(), Progress);
+		FRotator NewRotation = FMath::Lerp(Current.Rotator(), Target.Rotator(), Progress);
+		if (NewLocation.Equals(Target.GetLocation()))
+		{
+			if ( APlayerController* PC = Cast<APlayerController>(GetController()) )
+			{
+				if (bAiming && EquippedItem)
+				{
+					PC->SetViewTarget(EquippedItem);
+					ActiveCamera = nullptr;
+				}
+				else
+				{
+					FPCamera->SetActive(true);
+					TransitionCamera->SetActive(false);
+					PC->SetViewTarget(this);
+					ActiveCamera = FPCamera;
+				}
+			}
+		}
+		
+	}
+}
+
+
 
 

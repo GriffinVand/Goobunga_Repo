@@ -3,11 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Camera/CameraComponent.h"
 #include "GameFramework/Actor.h"
 #include "Goobunga/Fireable.h"
 #include "Weapon.generated.h"
 
 class UNiagaraSystem;
+class UCameraComponent;
 
 UCLASS()
 class GOOBUNGA_API AWeapon : public AActor, public IFireable
@@ -20,11 +22,17 @@ public:
     
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Mesh, meta = (AllowPrivateAccess = "true"))
 	USkeletalMeshComponent* WeaponMesh;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	UCameraComponent* AimDownSightCam;
     
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Context, meta = (AllowPrivateAccess = "true"))
 	AActor* WeaponOwner;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	bool ADS = false;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	float ADSTime = 0.5f;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	float ADSSpeed = 1.f;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	float FireRate = 1.f;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
@@ -55,5 +63,7 @@ public:
 	virtual void FireEvent() override;
 	virtual void AltFireEvent() override;
 	virtual bool CanADS() override {return ADS;}
+	virtual float GetADSSpeed() override { return ADSTime * ADSSpeed;}
+	virtual FTransform GetADSTransform() override { return AimDownSightCam->GetComponentTransform(); }
 
 };

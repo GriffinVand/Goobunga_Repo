@@ -1,5 +1,6 @@
 
 #include "Weapon.h"
+#include "Camera/CameraComponent.h"
 // Sets default values
 AWeapon::AWeapon()
 {
@@ -7,6 +8,8 @@ AWeapon::AWeapon()
 	PrimaryActorTick.bCanEverTick = true;
 
 	WeaponMesh = CreateDefaultSubobject<USkeletalMeshComponent>("WeaponMesh");
+	AimDownSightCam = CreateDefaultSubobject<UCameraComponent>("AimDownSightCam");
+	AimDownSightCam->SetupAttachment(WeaponMesh, "Camera_Location");
 }
 
 // Called when the game starts or when spawned
