@@ -25,12 +25,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* AimDownSightCam;
     
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Context, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Context, meta = (AllowPrivateAccess = "true"))
 	AActor* WeaponOwner;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	bool ADS = false;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
-	float ADSTime = 0.5f;
+	float ADSTime = 2.f;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	float ADSSpeed = 1.f;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
@@ -62,8 +62,9 @@ public:
 	virtual void EquipEvent(AActor* EquippingInstigator) override;
 	virtual void FireEvent() override;
 	virtual void AltFireEvent() override;
+	virtual void ReloadEvent() override;
 	virtual bool CanADS() override {return ADS;}
 	virtual float GetADSSpeed() override { return ADSTime * ADSSpeed;}
-	virtual FTransform GetADSTransform() override { return AimDownSightCam->GetComponentTransform(); }
+	virtual UCameraComponent* GetADSCamera() override { return AimDownSightCam; }
 
 };

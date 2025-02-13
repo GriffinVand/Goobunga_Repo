@@ -4,9 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
+#include "Camera/CameraComponent.h"
 #include "Fireable.generated.h"
 
-UINTERFACE(MinimalAPI)
+UINTERFACE(MinimalAPI, BlueprintType)
 class UFireable : public UInterface
 {
 	GENERATED_BODY()
@@ -17,12 +18,19 @@ class GOOBUNGA_API IFireable
 	GENERATED_BODY()
 
 public:
-	virtual void FireEvent() {};
-	virtual void AltFireEvent() {};
-	virtual void ReloadEvent() {};
-	virtual void EquipEvent(AActor* EquippingInstigator) {};
-	virtual bool CanADS() {return false;}
-	virtual float GetADSSpeed() { return 0.0f; }
-	virtual FTransform GetADSTransform() { return FTransform(); }
+	
+	virtual void FireEvent() = 0;
+	
+	virtual void AltFireEvent()  = 0;
+	
+	virtual void ReloadEvent()  = 0;
+	
+	virtual void EquipEvent(AActor* EquippingInstigator)  = 0;
+	
+	virtual bool CanADS()  = 0;
+	
+	virtual float GetADSSpeed()  = 0;
+	
+	virtual UCameraComponent* GetADSCamera()  = 0;
 	
 };
