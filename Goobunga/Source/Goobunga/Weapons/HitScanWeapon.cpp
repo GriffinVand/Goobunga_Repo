@@ -3,6 +3,8 @@
 
 #include "HitScanWeapon.h"
 
+#include "Goobunga/Goobunga_Player.h"
+
 AHitScanWeapon::AHitScanWeapon()
 {
 	
@@ -28,6 +30,15 @@ void AHitScanWeapon::FireEvent()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("No Hit"));
 	}
+	if (Owner)
+	{
+		if (AGoobunga_Player* OwnerRef = Cast<AGoobunga_Player>(Owner))
+		{
+			OwnerRef->PlayAnimMontage(OwnerFireAnimation);
+		}
+		
+	}
+	WeaponMesh->GetAnimInstance()->Montage_Play(WeaponFireAnimation);
 }
 
 void AHitScanWeapon::SpawnTrailProjectile()

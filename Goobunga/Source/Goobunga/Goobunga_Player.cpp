@@ -7,6 +7,7 @@
 #include "Camera/CameraComponent.h"
 #include "Math/UnrealMathUtility.h"
 #include "Fireable.h"
+#include "Components/TimelineComponent.h"
 // Sets default values
 AGoobunga_Player::AGoobunga_Player()
 {
@@ -19,6 +20,8 @@ AGoobunga_Player::AGoobunga_Player()
 	FPCamera->SetupAttachment(CameraBoom);
 	CameraMeshOffset = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraMeshOffset"));
 	CameraMeshOffset->SetupAttachment(FPCamera);
+	CameraMeshOffset->bEnableCameraRotationLag = true;
+	CameraMeshOffset->CameraRotationLagSpeed = MeshLag;
 	TrueLookDirection = CreateDefaultSubobject<USceneComponent>(TEXT("TrueLookDirection"));
 	TrueLookDirection->SetupAttachment(CameraMeshOffset);
 	GetMesh()->SetupAttachment(CameraMeshOffset);
@@ -44,8 +47,8 @@ void AGoobunga_Player::BeginPlay()
 void AGoobunga_Player::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	ApplyMovementAffect(FVector2d(0,0));
-	UpdateCamera();
+
+	UpdateAimDownSights();
 }
 
 // Called to bind functionality to input
@@ -73,14 +76,13 @@ void AGoobunga_Player::Move(const FInputActionValue& Value)
 	const FVector2d MoveVector = Value.Get<FVector2d>();
 	AddMovementInput(GetActorForwardVector() * MoveVector.Y);
 	AddMovementInput(GetActorRightVector() * MoveVector.X);
-	ApplyMovementAffect(MoveVector);
 }
 
 void AGoobunga_Player::Look(const FInputActionValue& Value)
 {
-	const FVector2d MoveVector = Value.Get<FVector2d>();
-	AddControllerPitchInput(MoveVector.Y * -1);
-	AddControllerYawInput(MoveVector.X);
+	const FVector2d LookVector = Value.Get<FVector2d>();
+	AddControllerPitchInput(LookVector.Y * -1);
+	AddControllerYawInput(LookVector.X);
 }
 
 void AGoobunga_Player::ApplyMovementAffect(FVector2D MoveVector)
@@ -127,6 +129,7 @@ void AGoobunga_Player::AltFireStarted()
 			if (FireableInterface->CanADS())
 			{
 				StartAimDownSights();
+				UE_LOG(LogTemp, Display, TEXT("Call start ADS"))
 			}
 			else { FireableInterface->AltFireEvent(); }
 		}
@@ -137,24 +140,41 @@ void AGoobunga_Player::AltFireStarted()
 //On alt-fire(right mouse) ended 
 void AGoobunga_Player::AltFireEnded()
 {
-	EndAimDownSights();
+	StopAimDownSights();
 	UE_LOG(LogTemp, Display, TEXT("Alt fire ended"))
 }
 
 void AGoobunga_Player::StartAimDownSights()
 {
-
+	bAiming = true;
 }
 
-void AGoobunga_Player::EndAimDownSights()
+void AGoobunga_Player::StopAimDownSights()
 {
-
+	bAiming = false;
 }
 
-
-void AGoobunga_Player::UpdateCamera()
+void AGoobunga_Player::UpdateAimDownSights()
 {
+	
+	float TargetAimAlpha = bAiming ? 1.f : 0.f;
+	float TargetAimSpeed = 1.f;
+	if (EquippedItem && EquippedItem->Implements<UFireable>())
+	{
+		if (IFireable* FireableInterface = Cast<IFireable>(EquippedItem))
+		{
+			TargetAimSpeed = FireableInterface->GetADSSpeed();
+		}
+		else { UE_LOG(LogTemp, Warning, TEXT("Cast to fireable interface failed")); }
+	}
+	else { UE_LOG(LogTemp, Warning, TEXT("Equipped item not found")); }
 
+	CurrentAimAlpha = FMath::FInterpConstantTo(CurrentAimAlpha, TargetAimAlpha, GetWorld()->GetDeltaSeconds(), TargetAimSpeed);
+	float NewFOV = FMath::Lerp(90, 70, CurrentAimAlpha);
+	FPCamera->SetFieldOfView(NewFOV);
+	float NewVignette = FMath::Lerp(0.f, 0.5f, CurrentAimAlpha);
+	FPCamera->PostProcessSettings.VignetteIntensity = NewVignette;
+	CameraMeshOffset->CameraRotationLagSpeed = FMath::Lerp(MeshLag, 100.f, CurrentAimAlpha);
 }
 
 

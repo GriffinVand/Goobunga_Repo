@@ -12,7 +12,7 @@ void EmptyLinkFunctionForGeneratedCodeWeapon() {}
 // Begin Cross Module References
 COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector2D();
 ENGINE_API UClass* Z_Construct_UClass_AActor();
-ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
+ENGINE_API UClass* Z_Construct_UClass_ACharacter_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_UAnimMontage_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_UCameraComponent_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_USkeletalMeshComponent_NoRegister();
@@ -106,7 +106,7 @@ struct Z_Construct_UClass_AWeapon_Statics
 		{ "Category", "Animation" },
 		{ "ModuleRelativePath", "Weapons/Weapon.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_UserFireAnimation_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_OwnerFireAnimation_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "Animation" },
 		{ "ModuleRelativePath", "Weapons/Weapon.h" },
@@ -126,7 +126,7 @@ struct Z_Construct_UClass_AWeapon_Statics
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_HitForce;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_FireEffect;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_WeaponFireAnimation;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_UserFireAnimation;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_OwnerFireAnimation;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static const UECodeGen_Private::FImplementedInterfaceParams InterfaceParams[];
@@ -137,7 +137,7 @@ struct Z_Construct_UClass_AWeapon_Statics
 };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_WeaponMesh = { "WeaponMesh", nullptr, (EPropertyFlags)0x001000000008001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, WeaponMesh), Z_Construct_UClass_USkeletalMeshComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WeaponMesh_MetaData), NewProp_WeaponMesh_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_AimDownSightCam = { "AimDownSightCam", nullptr, (EPropertyFlags)0x001000000008001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, AimDownSightCam), Z_Construct_UClass_UCameraComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AimDownSightCam_MetaData), NewProp_AimDownSightCam_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_WeaponOwner = { "WeaponOwner", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, WeaponOwner), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WeaponOwner_MetaData), NewProp_WeaponOwner_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_WeaponOwner = { "WeaponOwner", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, WeaponOwner), Z_Construct_UClass_ACharacter_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WeaponOwner_MetaData), NewProp_WeaponOwner_MetaData) };
 void Z_Construct_UClass_AWeapon_Statics::NewProp_ADS_SetBit(void* Obj)
 {
 	((AWeapon*)Obj)->ADS = 1;
@@ -152,7 +152,7 @@ const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AWeapon_Static
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_HitForce = { "HitForce", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, HitForce), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_HitForce_MetaData), NewProp_HitForce_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_FireEffect = { "FireEffect", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, FireEffect), Z_Construct_UClass_UNiagaraSystem_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FireEffect_MetaData), NewProp_FireEffect_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_WeaponFireAnimation = { "WeaponFireAnimation", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, WeaponFireAnimation), Z_Construct_UClass_UAnimMontage_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WeaponFireAnimation_MetaData), NewProp_WeaponFireAnimation_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_UserFireAnimation = { "UserFireAnimation", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, UserFireAnimation), Z_Construct_UClass_UAnimMontage_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_UserFireAnimation_MetaData), NewProp_UserFireAnimation_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_OwnerFireAnimation = { "OwnerFireAnimation", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, OwnerFireAnimation), Z_Construct_UClass_UAnimMontage_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OwnerFireAnimation_MetaData), NewProp_OwnerFireAnimation_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AWeapon_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_WeaponMesh,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_AimDownSightCam,
@@ -167,7 +167,7 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AWeapon_S
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_HitForce,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_FireEffect,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_WeaponFireAnimation,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_UserFireAnimation,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_OwnerFireAnimation,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AWeapon_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_AWeapon_Statics::DependentSingletons[])() = {
@@ -210,14 +210,14 @@ AWeapon::~AWeapon() {}
 // End Class AWeapon
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Weapon_h_Statics
+struct Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Weapon_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AWeapon, AWeapon::StaticClass, TEXT("AWeapon"), &Z_Registration_Info_UClass_AWeapon, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AWeapon), 3666008710U) },
+		{ Z_Construct_UClass_AWeapon, AWeapon::StaticClass, TEXT("AWeapon"), &Z_Registration_Info_UClass_AWeapon, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AWeapon), 3066309635U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Weapon_h_2176819046(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Weapon_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Weapon_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Weapon_h_4065717814(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Weapon_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Weapon_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

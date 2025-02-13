@@ -30,6 +30,9 @@
     <Filter Include="Source\Goobunga">
       <UniqueIdentifier>{DD22DD35-D340-3175-93FB-DF647E947633}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\Fireable.cpp">
+      <Filter>Source\Goobunga</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Fireable.h">
       <Filter>Source\Goobunga</Filter>
     </ClCompile>

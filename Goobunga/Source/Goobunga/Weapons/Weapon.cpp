@@ -1,6 +1,7 @@
 
 #include "Weapon.h"
 #include "Camera/CameraComponent.h"
+#include "Goobunga/Goobunga_Player.h"
 // Sets default values
 AWeapon::AWeapon()
 {
@@ -31,6 +32,15 @@ void AWeapon::Tick(float DeltaTime)
 
 void AWeapon::FireEvent() 
 {
+	if (Owner)
+	{
+		if (AGoobunga_Player* OwnerRef = Cast<AGoobunga_Player>(Owner))
+		{
+			OwnerRef->PlayAnimMontage(OwnerFireAnimation);
+		}
+		
+	}
+	WeaponMesh->GetAnimInstance()->Montage_Play(WeaponFireAnimation);
 	UE_LOG(LogTemp, Display, TEXT("Weapon Fired"));
 }
 
@@ -39,7 +49,7 @@ void AWeapon::AltFireEvent()
 	UE_LOG(LogTemp, Display, TEXT("Weapon Alt Fired"));
 }
 
-void AWeapon::EquipEvent(AActor* EquippingInstigator) 
+void AWeapon::EquipEvent(ACharacter* EquippingInstigator) 
 {
 	if (EquippingInstigator)
 	{

@@ -26,7 +26,7 @@ public:
 	UCameraComponent* AimDownSightCam;
     
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Context, meta = (AllowPrivateAccess = "true"))
-	AActor* WeaponOwner;
+	ACharacter* WeaponOwner;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	bool ADS = false;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
@@ -48,7 +48,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Animation, meta = (AllowPrivateAccess = "true"))
 	UAnimMontage* WeaponFireAnimation;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Animation, meta = (AllowPrivateAccess = "true"))
-	UAnimMontage* UserFireAnimation;
+	UAnimMontage* OwnerFireAnimation;
 	
 	
 protected:
@@ -59,7 +59,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	virtual void EquipEvent(AActor* EquippingInstigator) override;
+	virtual void EquipEvent(ACharacter* EquippingInstigator) override;
 	virtual void FireEvent() override;
 	virtual void AltFireEvent() override;
 	virtual void ReloadEvent() override;
