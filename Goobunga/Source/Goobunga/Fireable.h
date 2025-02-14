@@ -20,6 +20,8 @@ class GOOBUNGA_API IFireable
 public:
 	
 	virtual void FireEvent() = 0;
+
+	virtual void EndFireEvent() = 0;
 	
 	virtual void AltFireEvent()  = 0;
 	

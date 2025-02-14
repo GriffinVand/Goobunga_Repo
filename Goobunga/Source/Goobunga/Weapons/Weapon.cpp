@@ -27,21 +27,37 @@ void AWeapon::BeginPlay()
 void AWeapon::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	UpdateWeapon();
 }
+
+void AWeapon::UpdateWeapon()
+{
+	FireCooldown+=GetWorld()->GetDeltaSeconds();
+	if (bFiring && FireCooldown>FireRate)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("firing? %hs"), bFiring ? "true" : "false");
+		FireCooldown=0;
+		FireWeapon();
+	}
+}
+
+void AWeapon::FireWeapon()
+{
+	UE_LOG(LogTemp, Display, TEXT("Fire weapon generic"));
+}
+
+
 
 void AWeapon::FireEvent() 
 {
-	if (Owner)
-	{
-		if (AGoobunga_Player* OwnerRef = Cast<AGoobunga_Player>(Owner))
-		{
-			OwnerRef->PlayAnimMontage(OwnerFireAnimation);
-		}
-		
-	}
-	WeaponMesh->GetAnimInstance()->Montage_Play(WeaponFireAnimation);
+	bFiring = true;
 	UE_LOG(LogTemp, Display, TEXT("Weapon Fired"));
+}
+
+void AWeapon::EndFireEvent()
+{
+	bFiring = false;
+	UE_LOG(LogTemp, Display, TEXT("Weapon Fire Ended"));
 }
 
 void AWeapon::AltFireEvent() 
@@ -61,6 +77,35 @@ void AWeapon::ReloadEvent()
 {
 	UE_LOG(LogTemp, Display, TEXT("Reload"));
 }
+
+void AWeapon::PlayAnimationSimultaneous(FName AnimationName)
+{
+	if (UAnimMontage** OwnerMontage = OwnerAnimations.Find(AnimationName))
+	{
+		if (AGoobunga_Player* Player = Cast<AGoobunga_Player>(WeaponOwner))
+		{
+			if (UAnimInstance* PlayerABP = Player->FPMesh->GetAnimInstance())
+			{
+				PlayerABP->Montage_Play(*OwnerMontage);
+				UE_LOG(LogTemp, Display, TEXT("Playing animation: %s on player"), *AnimationName.ToString());
+			}
+			else { UE_LOG(LogTemp, Warning, TEXT("Anim instance of owner not found")); }
+		}
+		else { UE_LOG(LogTemp, Warning, TEXT("Cast to player failed")); }
+	}
+	else { UE_LOG(LogTemp, Warning, TEXT("Owner montage not found by name: %s"), *AnimationName.ToString()); }
+	if (UAnimMontage** WeaponMontage = WeaponAnimations.Find(AnimationName))
+	{
+		if (UAnimInstance* WeaponABP = WeaponMesh->GetAnimInstance())
+		{
+			WeaponABP->Montage_Play(*WeaponMontage);
+			UE_LOG(LogTemp, Display, TEXT("Playing animation: %s on weapon"), *AnimationName.ToString());
+		}
+		else { UE_LOG(LogTemp, Warning, TEXT("Anim instance of weapon not found")); }
+	}
+	else { UE_LOG(LogTemp, Warning, TEXT("Weapon montage not found by name: %s"), *AnimationName.ToString());}
+}
+
 
 
 

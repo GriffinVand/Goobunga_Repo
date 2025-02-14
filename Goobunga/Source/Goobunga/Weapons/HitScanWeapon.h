@@ -19,8 +19,8 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile", meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<AActor> TrailProjectileClass;
-
-	virtual void FireEvent() override;
+	
+	virtual void FireWeapon() override;
 
 	void SpawnTrailProjectile();
 };

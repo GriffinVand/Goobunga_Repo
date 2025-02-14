@@ -3,14 +3,13 @@
 
 #include "HitScanWeapon.h"
 
-#include "Goobunga/Goobunga_Player.h"
-
 AHitScanWeapon::AHitScanWeapon()
 {
 	
 }
 
-void AHitScanWeapon::FireEvent()
+
+void AHitScanWeapon::FireWeapon()
 {
 	FHitResult HitResult;
 	FTransform FireTransform = WeaponMesh->GetSocketTransform("Fire_Location");
@@ -30,7 +29,9 @@ void AHitScanWeapon::FireEvent()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("No Hit"));
 	}
+	PlayAnimationSimultaneous("Fire");
 }
+
 
 void AHitScanWeapon::SpawnTrailProjectile()
 {

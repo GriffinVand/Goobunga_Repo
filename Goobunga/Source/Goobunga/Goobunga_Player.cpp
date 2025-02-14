@@ -23,7 +23,8 @@ AGoobunga_Player::AGoobunga_Player()
 	CameraMeshOffset->CameraRotationLagSpeed = MeshLag;
 	TrueLookDirection = CreateDefaultSubobject<USceneComponent>(TEXT("TrueLookDirection"));
 	TrueLookDirection->SetupAttachment(CameraMeshOffset);
-	GetMesh()->SetupAttachment(CameraMeshOffset);
+	FPMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FPMesh"));
+	FPMesh->SetupAttachment(CameraMeshOffset);
 }
 
 // Called when the game starts or when spawned
@@ -113,6 +114,13 @@ void AGoobunga_Player::FireStarted()
 }
 void AGoobunga_Player::FireEnded()
 {
+	IFireable* FireableInterface = Cast<IFireable>(EquippedItem);
+	if (FireableInterface)
+	{
+		FireableInterface->EndFireEvent();
+		UE_LOG(LogTemp, Display, TEXT("Called endfire event"));
+	}
+	else {UE_LOG(LogTemp, Warning, TEXT("Could not call endfire event"));}
 	UE_LOG(LogTemp, Display, TEXT("Fire ended"));
 }
 
