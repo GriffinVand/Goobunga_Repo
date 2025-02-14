@@ -7,7 +7,6 @@
 #include "Camera/CameraComponent.h"
 #include "Math/UnrealMathUtility.h"
 #include "Fireable.h"
-#include "Components/TimelineComponent.h"
 // Sets default values
 AGoobunga_Player::AGoobunga_Player()
 {
