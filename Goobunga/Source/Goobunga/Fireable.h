@@ -27,7 +27,7 @@ public:
 	
 	virtual void ReloadEvent()  = 0;
 	
-	virtual void EquipEvent(ACharacter* EquippingInstigator)  = 0;
+	virtual void EquipEvent(AActor* EquippingInstigator)  = 0;
 	
 	virtual bool CanADS()  = 0;
 	

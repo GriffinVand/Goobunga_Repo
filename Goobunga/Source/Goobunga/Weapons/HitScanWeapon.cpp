@@ -2,6 +2,7 @@
 
 
 #include "HitScanWeapon.h"
+#include "Goobunga/PlayerCallables.h"
 
 AHitScanWeapon::AHitScanWeapon()
 {
@@ -30,6 +31,7 @@ void AHitScanWeapon::FireWeapon()
 		UE_LOG(LogTemp, Warning, TEXT("No Hit"));
 	}
 	PlayAnimationSimultaneous("Fire");
+	ApplyRecoil();
 }
 
 

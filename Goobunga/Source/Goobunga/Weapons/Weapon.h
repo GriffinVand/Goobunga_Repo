@@ -26,7 +26,7 @@ public:
 	UCameraComponent* AimDownSightCam;
     
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Context, meta = (AllowPrivateAccess = "true"))
-	ACharacter* WeaponOwner;
+	AActor* WeaponOwner;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	bool ADS = false;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
@@ -42,7 +42,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	float Accuracy = 1.f;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
-	FVector2D Recoil = FVector2D(0, 1);
+	FVector RecoilDirection = FVector(0, -1, 0);
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	FVector RecoilIntensity = FVector(1, 1, 1);
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	float HitForce = 0.f;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Visuals, meta = (AllowPrivateAccess = "true"))
@@ -67,8 +69,9 @@ public:
 
 	virtual void UpdateWeapon();
 	virtual void FireWeapon();
+	virtual void ApplyRecoil();
 	
-	virtual void EquipEvent(ACharacter* EquippingInstigator) override;
+	virtual void EquipEvent(AActor* EquippingInstigator) override;
 	virtual void FireEvent() override;
 	virtual void EndFireEvent() override;
 	virtual void AltFireEvent() override;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "PlayerCallables.h"
 #include "GameFramework/Character.h"
 #include "Goobunga_Player.generated.h"
 
@@ -11,7 +12,7 @@ class UCameraComponent;
 class USpringArmComponent;
 ;
 UCLASS()
-class GOOBUNGA_API AGoobunga_Player : public ACharacter
+class GOOBUNGA_API AGoobunga_Player : public ACharacter, public IPlayerCallables
 {
 	GENERATED_BODY()
 
@@ -47,6 +48,9 @@ protected:
 	
 	bool bAiming = false;
 	float CurrentAimAlpha = 0.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
+	FVector AimOffset = FVector::ZeroVector;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
 	UInputMappingContext* DefaultMappingContext;
@@ -74,4 +78,7 @@ protected:
 	void StartAimDownSights();
 	void StopAimDownSights();
 	void UpdateAimDownSights();
+
+	virtual void ApplyAimOffset(FVector OffsetDirection, FVector OffsetIntensity) override;
+	void UpdateAimOffset();
 };

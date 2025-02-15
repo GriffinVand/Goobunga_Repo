@@ -1,5 +1,6 @@
 
 #include "Weapon.h"
+#include "Goobunga/PlayerCallables.h"
 #include "Camera/CameraComponent.h"
 #include "Goobunga/Goobunga_Player.h"
 // Sets default values
@@ -65,7 +66,7 @@ void AWeapon::AltFireEvent()
 	UE_LOG(LogTemp, Display, TEXT("Weapon Alt Fired"));
 }
 
-void AWeapon::EquipEvent(ACharacter* EquippingInstigator) 
+void AWeapon::EquipEvent(AActor* EquippingInstigator) 
 {
 	if (EquippingInstigator)
 	{
@@ -104,6 +105,19 @@ void AWeapon::PlayAnimationSimultaneous(FName AnimationName)
 		else { UE_LOG(LogTemp, Warning, TEXT("Anim instance of weapon not found")); }
 	}
 	else { UE_LOG(LogTemp, Warning, TEXT("Weapon montage not found by name: %s"), *AnimationName.ToString());}
+}
+
+void AWeapon::ApplyRecoil()
+{
+	if (WeaponOwner)
+	{
+		if (IPlayerCallables* PlayerCallablesInterface = Cast<IPlayerCallables>(WeaponOwner))
+		{
+			PlayerCallablesInterface->ApplyAimOffset(RecoilDirection, RecoilIntensity);
+		}
+		else { UE_LOG(LogTemp, Warning, TEXT("Player callable interface cast failed")); }
+	}
+	else { UE_LOG(LogTemp, Warning, TEXT("Weapon owner not found")); }
 }
 
 

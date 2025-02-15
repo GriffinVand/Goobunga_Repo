@@ -49,6 +49,7 @@ void AGoobunga_Player::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	UpdateAimDownSights();
+	UpdateAimOffset();
 }
 
 // Called to bind functionality to input
@@ -183,6 +184,19 @@ void AGoobunga_Player::UpdateAimDownSights()
 	FPCamera->PostProcessSettings.VignetteIntensity = NewVignette;
 	CameraMeshOffset->CameraRotationLagSpeed = FMath::Lerp(MeshLag, 100.f, CurrentAimAlpha);
 }
+
+void AGoobunga_Player::ApplyAimOffset(FVector OffsetDirection, FVector OffsetIntensity)
+{
+	UE_LOG(LogTemp, Display, TEXT("Apply Aim offset: %s"), *(OffsetDirection * OffsetIntensity).ToString());
+	AimOffset += (OffsetDirection * OffsetIntensity);
+}
+
+void AGoobunga_Player::UpdateAimOffset()
+{
+	AimOffset = FMath::VInterpTo(AimOffset, FVector::ZeroVector, GetWorld()->GetDeltaSeconds(), 5.f);
+	if (AimOffset != FVector::ZeroVector) { UE_LOG(LogTemp, Display, TEXT("Update Aim offset: %s"), *AimOffset.ToString()); }
+}
+
 
 
 

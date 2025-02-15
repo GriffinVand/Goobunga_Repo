@@ -13,7 +13,9 @@
             "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\source\\goobunga\\fireable.h",
             "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\fireable.generated.h",
             "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\weapon.generated.h",
-            "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\hitscanweapon.generated.h"
+            "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\hitscanweapon.generated.h",
+            "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\source\\goobunga\\playercallables.h",
+            "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\playercallables.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []
