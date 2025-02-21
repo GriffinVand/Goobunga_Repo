@@ -51,6 +51,21 @@
     <ClCompile Include="..\..\Source\Goobunga\Goobunga_Player.h">
       <Filter>Source\Goobunga</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\PlayerCallables.cpp">
+      <Filter>Source\Goobunga</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\PlayerCallables.h">
+      <Filter>Source\Goobunga</Filter>
+    </ClCompile>
+    <Filter Include="Source\Goobunga\Enemies">
+      <UniqueIdentifier>{950A9B7A-B4A6-372F-AC67-98A81EBDADB6}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\BaseEnemyAIController.cpp">
+      <Filter>Source\Goobunga\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\BaseEnemyAIController.h">
+      <Filter>Source\Goobunga\Enemies</Filter>
+    </ClCompile>
     <Filter Include="Source\Goobunga\Weapons">
       <UniqueIdentifier>{CC097E68-C714-3FBB-8CA8-77CF4B425530}</UniqueIdentifier>
     </Filter>

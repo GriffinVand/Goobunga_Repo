@@ -22,6 +22,7 @@ class GOOBUNGA_API IPlayerCallables
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-
-	virtual void ApplyAimOffset(FVector OffsetDirection, FVector OffsetIntensity) = 0;
+	
+	virtual void ApplyAimOffset(FVector AimOffsetInput) = 0;
+	virtual TArray<FVector> GetAimDirection() = 0;
 };

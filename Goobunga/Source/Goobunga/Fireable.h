@@ -24,6 +24,8 @@ public:
 	virtual void EndFireEvent() = 0;
 	
 	virtual void AltFireEvent()  = 0;
+
+	virtual void EndAltFireEvent() = 0;
 	
 	virtual void ReloadEvent()  = 0;
 	
@@ -32,7 +34,7 @@ public:
 	virtual bool CanADS()  = 0;
 	
 	virtual float GetADSSpeed()  = 0;
-	
-	virtual UCameraComponent* GetADSCamera()  = 0;
+
+	virtual void UpdateAccuracy(float NewAccuracy) = 0;
 	
 };

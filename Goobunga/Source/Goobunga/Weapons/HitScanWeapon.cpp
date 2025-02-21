@@ -2,7 +2,12 @@
 
 
 #include "HitScanWeapon.h"
+
+#include "NiagaraComponent.h"
+#include "NiagaraFunctionLibrary.h"
+#include "AssetTypeActions/AssetDefinition_SoundBase.h"
 #include "Goobunga/PlayerCallables.h"
+#include "Kismet/GameplayStatics.h"
 
 AHitScanWeapon::AHitScanWeapon()
 {
@@ -12,30 +17,60 @@ AHitScanWeapon::AHitScanWeapon()
 
 void AHitScanWeapon::FireWeapon()
 {
-	FHitResult HitResult;
-	FTransform FireTransform = WeaponMesh->GetSocketTransform("Fire_Location");
-	FVector Start = FireTransform.GetLocation();
-	FVector End = Start + (FireTransform.GetRotation().GetForwardVector() * 2500);
-
-	FCollisionQueryParams QueryParams;
-	QueryParams.AddIgnoredActor(this);
-
-	bool bHit = GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ECollisionChannel::ECC_Visibility, QueryParams);
-	if (bHit)
+	if (WeaponOwner)
 	{
-		DrawDebugLine(GetWorld(), Start, HitResult.ImpactPoint, FColor::Red);
-		UE_LOG(LogTemp, Display, TEXT("Hit: %s"), *HitResult.GetActor()->GetName());
+		if (IPlayerCallables* PlayerCallablesInterface = Cast<IPlayerCallables>(WeaponOwner))
+		{
+
+			//Line trace from player cam forward. If hit, line trace from gun barrel to that location
+			//Uses owner true look location
+			FVector OwnerStart = PlayerCallablesInterface->GetAimDirection()[0];
+			FVector OwnerDirection = PlayerCallablesInterface->GetAimDirection()[1];
+			FHitResult HitResult;
+			FCollisionQueryParams QueryParams;
+			QueryParams.AddIgnoredActor(this);
+			QueryParams.AddIgnoredActor(WeaponOwner);
+
+			bool OwnerTrace = GetWorld()->LineTraceSingleByChannel(HitResult, OwnerStart, OwnerStart + OwnerDirection*10000, ECollisionChannel::ECC_WorldStatic, QueryParams);
+
+			FVector HitLocation = OwnerStart + OwnerDirection*10000;
+			if (OwnerTrace)
+			{
+				HitLocation = HitResult.Location;
+			}
+			FTransform FireTransform = WeaponMesh->GetSocketTransform("Fire_Location");
+			FVector WeaponStart = FireTransform.GetLocation();
+			FVector FireDirection = HitLocation - WeaponStart;
+			float FirePitchOffset = FMath::FRandRange(-CurrentSpread.X, CurrentSpread.X);
+			float FireYawOffset = FMath::FRandRange(-CurrentSpread.Y, CurrentSpread.Y);
+			FRotator FireOffset = FRotator(FirePitchOffset, FireYawOffset, 0.f) * CurrentControl;
+			FireDirection = FireOffset.RotateVector(FireDirection);
+			bool WeaponTrace = GetWorld()->LineTraceSingleByChannel(HitResult, WeaponStart, WeaponStart + FireDirection*10000, ECollisionChannel::ECC_WorldStatic, QueryParams);
+			HitLocation = WeaponStart + FireDirection*10000;
+			if (WeaponTrace)
+			{
+				HitLocation = HitResult.Location;
+				DrawDebugLine(GetWorld(), WeaponStart, HitLocation, FColor::Green);
+			}
+			else { DrawDebugLine(GetWorld(), WeaponStart, HitLocation, FColor::Red); }
+			DrawDebugSphere(GetWorld(), HitLocation, 10, 10, FColor::Blue, false, 3.f);
+
+			//Spawn trail from barrel to hit location
+			SpawnTrailSystem(HitLocation);
+			//Play fire sound if possible
+			if (FireSound)
+				UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
+
+			//Try play fire animation
+			PlayAnimationSimultaneous("Fire");
+			//Apply recoil to owner after firing has stopped
+			ApplyRecoil();
+		}
 	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("No Hit"));
-	}
-	PlayAnimationSimultaneous("Fire");
-	ApplyRecoil();
 }
 
-
-void AHitScanWeapon::SpawnTrailProjectile()
+//Self-explanatory
+void AHitScanWeapon::SpawnTrailProjectile(FVector Direction)
 {
 	if (TrailProjectileClass)
 	{
@@ -43,8 +78,23 @@ void AHitScanWeapon::SpawnTrailProjectile()
 		FActorSpawnParameters SpawnParameters;
 		SpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 	
-		GetWorld()->SpawnActor<AActor>(TrailProjectileClass, SpawnTransform.GetLocation(), SpawnTransform.Rotator(), SpawnParameters);
+		GetWorld()->SpawnActor<AActor>(TrailProjectileClass, SpawnTransform.GetLocation(), Direction.Rotation(), SpawnParameters);
 		UE_LOG(LogTemp, Display, TEXT("Spawned trail projectile"));
 	}
 	else {UE_LOG(LogTemp, Warning, TEXT("Could not spawn trail projectile"))}
 }
+
+//Self-explanatory
+void AHitScanWeapon::SpawnTrailSystem(FVector TrailEnd)
+{
+	if (TrailSystem)
+	{
+		UE_LOG(LogTemp, Display, TEXT("Spawned trail system"));
+		FTransform TrailStart = WeaponMesh->GetSocketTransform("Fire_Location");
+		UNiagaraComponent* Trail = UNiagaraFunctionLibrary::SpawnSystemAttached(TrailSystem, WeaponMesh, "Fire_Location", TrailStart.GetLocation(), FRotator(0, 0, 0), EAttachLocation::KeepWorldPosition, true, true);
+		Trail->SetVectorParameter("BeamEnd", TrailEnd);
+		DrawDebugSphere(GetWorld(), TrailEnd, 10, 10, FColor::Blue, false, 3);
+		Trail->Activate(true);
+	}
+}
+

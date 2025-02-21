@@ -22,39 +22,73 @@ public:
     
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Mesh, meta = (AllowPrivateAccess = "true"))
 	USkeletalMeshComponent* WeaponMesh;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	UCameraComponent* AimDownSightCam;
-    
+
+	//Owning actor
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Context, meta = (AllowPrivateAccess = "true"))
 	AActor* WeaponOwner;
+
+	//ADS information
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	bool ADS = false;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	float ADSTime = 2.f;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	float ADSSpeed = 1.f;
+
+	//Default stats
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	float FireRate = 1.f;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	float FireCooldown = FireRate;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	int BaseDamage = 1.f;
+
+	//Recoil effect applied to owner controller
+	//Lower values = more control. 0 is perfect
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
-	float Accuracy = 1.f;
+	float HipControl = 1.f;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
-	FVector RecoilDirection = FVector(0, -1, 0);
+	float AimControl = 0.3f;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
-	FVector RecoilIntensity = FVector(1, 1, 1);
+	float CurrentControl = 1.f;
+
+	//Weapon random spread leaving barrel
+	//Lower accuracy values = more accurate
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	FVector2D HipSpread = FVector2D(2, 2);
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	FVector2D AimSpread = FVector2D(.3, .3);
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	FVector2D CurrentSpread = FVector2D(.3, .3);
+
+	//Directions of recoil. Final recoil is direction*intensity
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	FVector RecoilDirectionMin = FVector(1, 1, 1);
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	FVector RecoilDirectionMax = FVector(1, 1, 1);
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	FVector RecoilIntensityMin = FVector(1, 1, 1);
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	FVector RecoilIntensityMax = FVector(1, 1, 1);
+
+	//Weapon may apply physical force when fired
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	float HitForce = 0.f;
+
+	//Effect to play when fired
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Visuals, meta = (AllowPrivateAccess = "true"))
 	UNiagaraSystem* FireEffect;
+	//Sound to play when fired
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Audio, meta = (AllowPrivateAccess = "true"))
+	USoundBase* FireSound;
 
+	//Animations are stored in two maps. Uses names to find corresponding animations
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animation, meta = (AllowPrivateAccess = "true"))
 	TMap<FName, UAnimMontage*> WeaponAnimations;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animation, meta = (AllowPrivateAccess = "true"))
 	TMap<FName, UAnimMontage*> OwnerAnimations;
 
+	//Controlled by owner input
 	bool bFiring = false;
 	
 protected:
@@ -67,17 +101,23 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	virtual void UpdateWeapon();
-	virtual void FireWeapon();
-	virtual void ApplyRecoil();
-	
-	virtual void EquipEvent(AActor* EquippingInstigator) override;
+	//Fireable interface functions
 	virtual void FireEvent() override;
 	virtual void EndFireEvent() override;
 	virtual void AltFireEvent() override;
+	virtual void EndAltFireEvent() override;
 	virtual void ReloadEvent() override;
+	//Does this weapon allow ads
 	virtual bool CanADS() override {return ADS;}
 	virtual float GetADSSpeed() override { return ADSTime * ADSSpeed;}
-	virtual UCameraComponent* GetADSCamera() override { return AimDownSightCam; }
+	virtual void UpdateAccuracy(float NewAccuracy) override;
+	virtual void EquipEvent(AActor* EquippingInstigator) override;
 
+	//Self-explanatory
+	virtual void FireWeapon();
+	//Sends recoil information to owner
+	virtual void ApplyRecoil();
+	virtual void UpdateWeapon();
+	virtual void PlayFireEffect();
+	
 };

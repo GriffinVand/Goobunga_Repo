@@ -19,8 +19,12 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile", meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<AActor> TrailProjectileClass;
-	
-	virtual void FireWeapon() override;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Visual", meta = (AllowPrivateAccess = "true"))
+	UNiagaraSystem* TrailSystem;
 
-	void SpawnTrailProjectile();
+	virtual void FireWeapon() override;
+	
+	void SpawnTrailProjectile(FVector Direction);
+	//System to mimic bullet trail although damage is hitscan
+	void SpawnTrailSystem(FVector TrailEnd);
 };
