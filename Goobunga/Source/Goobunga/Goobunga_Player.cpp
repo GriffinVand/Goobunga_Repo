@@ -98,6 +98,7 @@ void AGoobunga_Player::Move(const FInputActionValue& Value)
 void AGoobunga_Player::EndMove()
 {
 	MovingForward = false;
+	SprintEnded();
 }
 
 
@@ -126,8 +127,11 @@ void AGoobunga_Player::SprintStarted()
 //Decrease movement speed, release movement direction
 void AGoobunga_Player::SprintEnded()
 {
-	Sprinting = false;
-	GetCharacterMovement()->MaxWalkSpeed = 800.f;
+	if (!MovingForward)
+	{
+		Sprinting = false;
+		GetCharacterMovement()->MaxWalkSpeed = 800.f;	
+	}
 }
 
 //Rolls FPCamera when moving right or left //Alters FPCamera FOV when moving forward or backwards
@@ -228,7 +232,7 @@ void AGoobunga_Player::UpdateAimDownSights()
 	float NewFOV = FMath::Lerp(90, 70, CurrentAimAlpha);
 	Sensitivity = DefaultSensitivity * NewFOV / 90;
 	FPCamera->SetFieldOfView(NewFOV);
-	float NewVignette = FMath::Lerp(0.f, 0.5f, CurrentAimAlpha);
+	float NewVignette = FMath::Lerp(0.f, 1.f, CurrentAimAlpha);
 	FPCamera->PostProcessSettings.VignetteIntensity = NewVignette;
 	CameraMeshOffset->CameraRotationLagSpeed = FMath::Lerp(MeshLag, 100.f, CurrentAimAlpha);
 }
