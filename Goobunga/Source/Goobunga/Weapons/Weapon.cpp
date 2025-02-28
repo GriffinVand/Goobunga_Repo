@@ -64,11 +64,25 @@ void AWeapon::EndFireEvent()
 //
 void AWeapon::AltFireEvent() 
 {
+	if (ADS)
+	{
+		if (IPlayerCallables* PlayerCallablesInterface = Cast<IPlayerCallables>(WeaponOwner))
+		{
+			PlayerCallablesInterface->StartAimDownSights();
+		}
+	}
 	UE_LOG(LogTemp, Display, TEXT("Weapon Alt Fired"));
 }
 //
 void AWeapon::EndAltFireEvent()
 {
+	if (ADS)
+	{
+		if (IPlayerCallables* PlayerCallablesInterface = Cast<IPlayerCallables>(WeaponOwner))
+		{
+			PlayerCallablesInterface->StopAimDownSights();
+		}
+	}
 	UE_LOG(LogTemp, Display, TEXT("Weapon Alt Fire Ended"));
 }
 //

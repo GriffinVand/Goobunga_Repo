@@ -31,7 +31,7 @@ void AHitScanWeapon::FireWeapon()
 			QueryParams.AddIgnoredActor(this);
 			QueryParams.AddIgnoredActor(WeaponOwner);
 
-			bool OwnerTrace = GetWorld()->LineTraceSingleByChannel(HitResult, OwnerStart, OwnerStart + OwnerDirection*10000, ECollisionChannel::ECC_WorldStatic, QueryParams);
+			bool OwnerTrace = GetWorld()->LineTraceSingleByChannel(HitResult, OwnerStart, OwnerStart + OwnerDirection*10000, ECollisionChannel::ECC_WorldDynamic, QueryParams);
 
 			FVector HitLocation = OwnerStart + OwnerDirection*10000;
 			if (OwnerTrace)
@@ -45,7 +45,7 @@ void AHitScanWeapon::FireWeapon()
 			float FireYawOffset = FMath::FRandRange(-CurrentSpread.Y, CurrentSpread.Y);
 			FRotator FireOffset = FRotator(FirePitchOffset, FireYawOffset, 0.f) * CurrentControl;
 			FireDirection = FireOffset.RotateVector(FireDirection);
-			bool WeaponTrace = GetWorld()->LineTraceSingleByChannel(HitResult, WeaponStart, WeaponStart + FireDirection*10000, ECollisionChannel::ECC_WorldStatic, QueryParams);
+			bool WeaponTrace = GetWorld()->LineTraceSingleByChannel(HitResult, WeaponStart, WeaponStart + FireDirection*10000, ECollisionChannel::ECC_WorldDynamic, QueryParams);
 			HitLocation = WeaponStart + FireDirection*10000;
 			if (WeaponTrace)
 			{

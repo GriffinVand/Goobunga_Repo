@@ -14,16 +14,17 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define GOOBUNGA_BaseEnemy_generated_h
 
-#define FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_12_INCLASS_NO_PURE_DECLS \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_13_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesABaseEnemy(); \
 	friend struct Z_Construct_UClass_ABaseEnemy_Statics; \
 public: \
 	DECLARE_CLASS(ABaseEnemy, ACharacter, COMPILED_IN_FLAGS(0 | CLASS_Config), CASTCLASS_None, TEXT("/Script/Goobunga"), NO_API) \
-	DECLARE_SERIALIZER(ABaseEnemy)
+	DECLARE_SERIALIZER(ABaseEnemy) \
+	virtual UObject* _getUObject() const override { return const_cast<ABaseEnemy*>(this); }
 
 
-#define FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_12_ENHANCED_CONSTRUCTORS \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_13_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	ABaseEnemy(ABaseEnemy&&); \
@@ -35,12 +36,12 @@ public: \
 	NO_API virtual ~ABaseEnemy();
 
 
-#define FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_9_PROLOG
-#define FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_12_GENERATED_BODY \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_10_PROLOG
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_13_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_12_INCLASS_NO_PURE_DECLS \
-	FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_12_ENHANCED_CONSTRUCTORS \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_13_INCLASS_NO_PURE_DECLS \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_13_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -48,7 +49,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> GOOBUNGA_API UClass* StaticClass<class ABaseEnemy>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h
+#define CURRENT_FILE_ID FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

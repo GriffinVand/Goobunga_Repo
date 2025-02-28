@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Goobunga/Combat/CombatCallables.h"
 #include "BaseEnemy.generated.h"
 
 UCLASS()
-class GOOBUNGA_API ABaseEnemy : public ACharacter
+class GOOBUNGA_API ABaseEnemy : public ACharacter, public ICombatCallables
 {
 	GENERATED_BODY()
 
@@ -25,10 +26,12 @@ public:
 
 	UPROPERTY(EditDefaultsOnly)
 	class UBehaviorTree* BehaviorTree;
-
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	int Health;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stats, meta = (AllowPrivateAccess = "true"))
-	int MaxHealth = 1;
+	int MaxHealth = 10;
+
+	virtual void CombatDamage(float Damage, TArray<EDamageType> DamageTypes) override {};
 
 };

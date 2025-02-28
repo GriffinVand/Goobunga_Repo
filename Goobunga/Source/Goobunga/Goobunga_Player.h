@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "PlayerCallables.h"
+#include "Combat/CombatCallables.h"
 #include "GameFramework/Character.h"
 #include "Goobunga_Player.generated.h"
 
@@ -12,7 +13,7 @@ class UCameraComponent;
 class USpringArmComponent;
 ;
 UCLASS()
-class GOOBUNGA_API AGoobunga_Player : public ACharacter, public IPlayerCallables
+class GOOBUNGA_API AGoobunga_Player : public ACharacter, public IPlayerCallables, public ICombatCallables
 {
 	GENERATED_BODY()
 
@@ -63,19 +64,28 @@ protected:
 	FVector AimOffset = FVector::ZeroVector;
 	//Hand rotation matching movement direction
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
-	float HandTilt = 0.f;
+	float HandTiltX = 0.f;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
+	float HandTiltY = 0.f;
 
 	//Movement
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	bool Sprinting = false;
 	bool MovingForward = false;
+	bool Busy = false;
 	//
 	//Input
 	//
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
 	UInputMappingContext* DefaultMappingContext;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
-	UInputAction* MoveAction;
+	UInputAction* MoveRightAction;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UInputAction* MoveLeftAction;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UInputAction* MoveFwdAction;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UInputAction* MoveBackAction;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
 	UInputAction* LookAction;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
@@ -94,7 +104,7 @@ protected:
 	//Basic move look
 	void Move(const FInputActionValue& Value);
 	//When moving stops
-	void EndMove();
+	void EndMove(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
 
 	//Called on fire event started
@@ -112,11 +122,14 @@ protected:
 	void SprintEnded();
 	
 	void ApplyMovementAffect(FVector2D Movement);
-	void StartAimDownSights();
-	void StopAimDownSights();
+	virtual void StartAimDownSights() override;
+	virtual void StopAimDownSights() override;
 	void UpdateAimDownSights();
+	void UpdateAimOffset();
+	void StopCombatActions();
+
+	virtual void CombatDamage(float Damage, TArray<EDamageType> DamageTypes) override {}
 
 	virtual void ApplyAimOffset(FVector AimOffsetInput) override;
 	virtual TArray<FVector> GetAimDirection() override;
-	void UpdateAimOffset();
 };

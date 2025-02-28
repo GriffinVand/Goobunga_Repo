@@ -21,6 +21,7 @@ ENHANCEDINPUT_API UClass* Z_Construct_UClass_UInputAction_NoRegister();
 ENHANCEDINPUT_API UClass* Z_Construct_UClass_UInputMappingContext_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_AGoobunga_Player();
 GOOBUNGA_API UClass* Z_Construct_UClass_AGoobunga_Player_NoRegister();
+GOOBUNGA_API UClass* Z_Construct_UClass_UCombatCallables_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_UPlayerCallables_NoRegister();
 UPackage* Z_Construct_UPackage__Script_Goobunga();
 // End Cross Module References
@@ -117,7 +118,7 @@ struct Z_Construct_UClass_AGoobunga_Player_Statics
 		{ "ToolTip", "Used for actual controller look offset" },
 #endif
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_HandTilt_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_HandTiltX_MetaData[] = {
 		{ "AllowPrivateAccess", "TRUE" },
 		{ "Category", "Goobunga_Player" },
 #if !UE_BUILD_SHIPPING
@@ -127,6 +128,11 @@ struct Z_Construct_UClass_AGoobunga_Player_Statics
 #if !UE_BUILD_SHIPPING
 		{ "ToolTip", "Hand rotation matching movement direction" },
 #endif
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_HandTiltY_MetaData[] = {
+		{ "AllowPrivateAccess", "TRUE" },
+		{ "Category", "Goobunga_Player" },
+		{ "ModuleRelativePath", "Goobunga_Player.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Sprinting_MetaData[] = {
 		{ "AllowPrivateAccess", "TRUE" },
@@ -150,7 +156,22 @@ struct Z_Construct_UClass_AGoobunga_Player_Statics
 		{ "ToolTip", "Input" },
 #endif
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_MoveAction_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_MoveRightAction_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Input" },
+		{ "ModuleRelativePath", "Goobunga_Player.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_MoveLeftAction_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Input" },
+		{ "ModuleRelativePath", "Goobunga_Player.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_MoveFwdAction_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Input" },
+		{ "ModuleRelativePath", "Goobunga_Player.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_MoveBackAction_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "Input" },
 		{ "ModuleRelativePath", "Goobunga_Player.h" },
@@ -200,11 +221,15 @@ struct Z_Construct_UClass_AGoobunga_Player_Statics
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_MeshLag;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_CurrentAimAlpha;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_AimOffset;
-	static const UECodeGen_Private::FFloatPropertyParams NewProp_HandTilt;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_HandTiltX;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_HandTiltY;
 	static void NewProp_Sprinting_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_Sprinting;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_DefaultMappingContext;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_MoveAction;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_MoveRightAction;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_MoveLeftAction;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_MoveFwdAction;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_MoveBackAction;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_LookAction;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_JumpAction;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_FireAction;
@@ -227,14 +252,18 @@ const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGoobunga_Play
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_MeshLag = { "MeshLag", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, MeshLag), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MeshLag_MetaData), NewProp_MeshLag_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_CurrentAimAlpha = { "CurrentAimAlpha", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, CurrentAimAlpha), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CurrentAimAlpha_MetaData), NewProp_CurrentAimAlpha_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_AimOffset = { "AimOffset", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, AimOffset), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AimOffset_MetaData), NewProp_AimOffset_MetaData) };
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_HandTilt = { "HandTilt", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, HandTilt), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_HandTilt_MetaData), NewProp_HandTilt_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_HandTiltX = { "HandTiltX", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, HandTiltX), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_HandTiltX_MetaData), NewProp_HandTiltX_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_HandTiltY = { "HandTiltY", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, HandTiltY), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_HandTiltY_MetaData), NewProp_HandTiltY_MetaData) };
 void Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_Sprinting_SetBit(void* Obj)
 {
 	((AGoobunga_Player*)Obj)->Sprinting = 1;
 }
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_Sprinting = { "Sprinting", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AGoobunga_Player), &Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_Sprinting_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Sprinting_MetaData), NewProp_Sprinting_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_DefaultMappingContext = { "DefaultMappingContext", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, DefaultMappingContext), Z_Construct_UClass_UInputMappingContext_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DefaultMappingContext_MetaData), NewProp_DefaultMappingContext_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_MoveAction = { "MoveAction", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, MoveAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MoveAction_MetaData), NewProp_MoveAction_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_MoveRightAction = { "MoveRightAction", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, MoveRightAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MoveRightAction_MetaData), NewProp_MoveRightAction_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_MoveLeftAction = { "MoveLeftAction", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, MoveLeftAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MoveLeftAction_MetaData), NewProp_MoveLeftAction_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_MoveFwdAction = { "MoveFwdAction", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, MoveFwdAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MoveFwdAction_MetaData), NewProp_MoveFwdAction_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_MoveBackAction = { "MoveBackAction", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, MoveBackAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MoveBackAction_MetaData), NewProp_MoveBackAction_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_LookAction = { "LookAction", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, LookAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_LookAction_MetaData), NewProp_LookAction_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_JumpAction = { "JumpAction", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, JumpAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JumpAction_MetaData), NewProp_JumpAction_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_FireAction = { "FireAction", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, FireAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FireAction_MetaData), NewProp_FireAction_MetaData) };
@@ -250,10 +279,14 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AGoobunga
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_MeshLag,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_CurrentAimAlpha,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_AimOffset,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_HandTilt,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_HandTiltX,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_HandTiltY,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_Sprinting,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_DefaultMappingContext,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_MoveAction,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_MoveRightAction,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_MoveLeftAction,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_MoveFwdAction,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_MoveBackAction,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_LookAction,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_JumpAction,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_FireAction,
@@ -269,6 +302,7 @@ UObject* (*const Z_Construct_UClass_AGoobunga_Player_Statics::DependentSingleton
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AGoobunga_Player_Statics::DependentSingletons) < 16);
 const UECodeGen_Private::FImplementedInterfaceParams Z_Construct_UClass_AGoobunga_Player_Statics::InterfaceParams[] = {
 	{ Z_Construct_UClass_UPlayerCallables_NoRegister, (int32)VTABLE_OFFSET(AGoobunga_Player, IPlayerCallables), false },  // 4286987948
+	{ Z_Construct_UClass_UCombatCallables_NoRegister, (int32)VTABLE_OFFSET(AGoobunga_Player, ICombatCallables), false },  // 1814843369
 };
 const UECodeGen_Private::FClassParams Z_Construct_UClass_AGoobunga_Player_Statics::ClassParams = {
 	&AGoobunga_Player::StaticClass,
@@ -302,14 +336,14 @@ AGoobunga_Player::~AGoobunga_Player() {}
 // End Class AGoobunga_Player
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_Statics
+struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AGoobunga_Player, AGoobunga_Player::StaticClass, TEXT("AGoobunga_Player"), &Z_Registration_Info_UClass_AGoobunga_Player, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AGoobunga_Player), 183892653U) },
+		{ Z_Construct_UClass_AGoobunga_Player, AGoobunga_Player::StaticClass, TEXT("AGoobunga_Player"), &Z_Registration_Info_UClass_AGoobunga_Player, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AGoobunga_Player), 2677993227U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_2689443206(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_2704084164(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

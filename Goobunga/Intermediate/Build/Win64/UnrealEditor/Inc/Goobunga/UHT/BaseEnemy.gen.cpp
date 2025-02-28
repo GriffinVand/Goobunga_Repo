@@ -14,6 +14,7 @@ AIMODULE_API UClass* Z_Construct_UClass_UBehaviorTree_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_ACharacter();
 GOOBUNGA_API UClass* Z_Construct_UClass_ABaseEnemy();
 GOOBUNGA_API UClass* Z_Construct_UClass_ABaseEnemy_NoRegister();
+GOOBUNGA_API UClass* Z_Construct_UClass_UCombatCallables_NoRegister();
 UPackage* Z_Construct_UPackage__Script_Goobunga();
 // End Cross Module References
 
@@ -54,6 +55,7 @@ struct Z_Construct_UClass_ABaseEnemy_Statics
 	static const UECodeGen_Private::FIntPropertyParams NewProp_MaxHealth;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
+	static const UECodeGen_Private::FImplementedInterfaceParams InterfaceParams[];
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<ABaseEnemy>::IsAbstract,
 	};
@@ -73,6 +75,9 @@ UObject* (*const Z_Construct_UClass_ABaseEnemy_Statics::DependentSingletons[])()
 	(UObject* (*)())Z_Construct_UPackage__Script_Goobunga,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ABaseEnemy_Statics::DependentSingletons) < 16);
+const UECodeGen_Private::FImplementedInterfaceParams Z_Construct_UClass_ABaseEnemy_Statics::InterfaceParams[] = {
+	{ Z_Construct_UClass_UCombatCallables_NoRegister, (int32)VTABLE_OFFSET(ABaseEnemy, ICombatCallables), false },  // 1814843369
+};
 const UECodeGen_Private::FClassParams Z_Construct_UClass_ABaseEnemy_Statics::ClassParams = {
 	&ABaseEnemy::StaticClass,
 	"Game",
@@ -80,11 +85,11 @@ const UECodeGen_Private::FClassParams Z_Construct_UClass_ABaseEnemy_Statics::Cla
 	DependentSingletons,
 	nullptr,
 	Z_Construct_UClass_ABaseEnemy_Statics::PropPointers,
-	nullptr,
+	InterfaceParams,
 	UE_ARRAY_COUNT(DependentSingletons),
 	0,
 	UE_ARRAY_COUNT(Z_Construct_UClass_ABaseEnemy_Statics::PropPointers),
-	0,
+	UE_ARRAY_COUNT(InterfaceParams),
 	0x009000A4u,
 	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ABaseEnemy_Statics::Class_MetaDataParams), Z_Construct_UClass_ABaseEnemy_Statics::Class_MetaDataParams)
 };
@@ -105,14 +110,14 @@ ABaseEnemy::~ABaseEnemy() {}
 // End Class ABaseEnemy
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_Statics
+struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ABaseEnemy, ABaseEnemy::StaticClass, TEXT("ABaseEnemy"), &Z_Registration_Info_UClass_ABaseEnemy, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABaseEnemy), 1604444257U) },
+		{ Z_Construct_UClass_ABaseEnemy, ABaseEnemy::StaticClass, TEXT("ABaseEnemy"), &Z_Registration_Info_UClass_ABaseEnemy, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABaseEnemy), 1735431591U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_1921098751(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_2294852384(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

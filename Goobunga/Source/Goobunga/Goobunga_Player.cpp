@@ -62,9 +62,18 @@ void AGoobunga_Player::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent))
 	{
-		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AGoobunga_Player::Move);
-		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Canceled, this, &AGoobunga_Player::EndMove);
-		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Completed, this, &AGoobunga_Player::EndMove);
+		EnhancedInputComponent->BindAction(MoveRightAction, ETriggerEvent::Triggered, this, &AGoobunga_Player::Move);
+		EnhancedInputComponent->BindAction(MoveRightAction, ETriggerEvent::Canceled, this, &AGoobunga_Player::EndMove);
+		EnhancedInputComponent->BindAction(MoveRightAction, ETriggerEvent::Completed, this, &AGoobunga_Player::EndMove);
+		EnhancedInputComponent->BindAction(MoveLeftAction, ETriggerEvent::Triggered, this, &AGoobunga_Player::Move);
+		EnhancedInputComponent->BindAction(MoveLeftAction, ETriggerEvent::Canceled, this, &AGoobunga_Player::EndMove);
+		EnhancedInputComponent->BindAction(MoveLeftAction, ETriggerEvent::Completed, this, &AGoobunga_Player::EndMove);
+		EnhancedInputComponent->BindAction(MoveFwdAction, ETriggerEvent::Triggered, this, &AGoobunga_Player::Move);
+		EnhancedInputComponent->BindAction(MoveFwdAction, ETriggerEvent::Canceled, this, &AGoobunga_Player::EndMove);
+		EnhancedInputComponent->BindAction(MoveFwdAction, ETriggerEvent::Completed, this, &AGoobunga_Player::EndMove);
+		EnhancedInputComponent->BindAction(MoveBackAction, ETriggerEvent::Triggered, this, &AGoobunga_Player::Move);
+		EnhancedInputComponent->BindAction(MoveBackAction, ETriggerEvent::Canceled, this, &AGoobunga_Player::EndMove);
+		EnhancedInputComponent->BindAction(MoveBackAction, ETriggerEvent::Completed, this, &AGoobunga_Player::EndMove);
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AGoobunga_Player::Look);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &AGoobunga_Player::Jump);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &AGoobunga_Player::StopJumping);
@@ -74,31 +83,25 @@ void AGoobunga_Player::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		EnhancedInputComponent->BindAction(AltFireAction, ETriggerEvent::Started, this, &AGoobunga_Player::AltFireStarted);
 		EnhancedInputComponent->BindAction(AltFireAction, ETriggerEvent::Completed, this, &AGoobunga_Player::AltFireEnded);
 		EnhancedInputComponent->BindAction(AltFireAction, ETriggerEvent::Canceled, this, &AGoobunga_Player::AltFireEnded);
-		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Triggered, this, &AGoobunga_Player::SprintStarted);
+		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Started, this, &AGoobunga_Player::SprintStarted);
 		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Canceled, this, &AGoobunga_Player::SprintEnded);
 		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &AGoobunga_Player::SprintEnded);
 	}
 }
 
+//Called on movement triggered
 void AGoobunga_Player::Move(const FInputActionValue& Value)
 {
 	const FVector2d MoveVector = Value.Get<FVector2d>();
-	MovingForward = MoveVector.Y > 0;
-	if (Sprinting == true && MovingForward)
-	{
-		AddMovementInput(GetActorForwardVector() * MoveVector.Y);
-		ApplyMovementAffect(MoveVector);
-		return;
-	}
+	UE_LOG(LogTemp, Display, TEXT("Move: %f, %f"), MoveVector.X, MoveVector.Y);
 	AddMovementInput(GetActorForwardVector() * MoveVector.Y);
 	AddMovementInput(GetActorRightVector() * MoveVector.X);
 	ApplyMovementAffect(MoveVector);
 }
 
-void AGoobunga_Player::EndMove()
+//Called when movement stops being triggered
+void AGoobunga_Player::EndMove(const FInputActionValue& Value)
 {
-	MovingForward = false;
-	SprintEnded();
 }
 
 
@@ -112,44 +115,35 @@ void AGoobunga_Player::Look(const FInputActionValue& Value)
 //Stop weapon activity including aiming, increase move speed, and lock movement to forward
 void AGoobunga_Player::SprintStarted()
 {
-	if (!GetCharacterMovement()->IsFalling() && MovingForward)
+	if (!GetCharacterMovement()->IsFalling())
 	{
+	
 		Sprinting = true;
 		GetCharacterMovement()->MaxWalkSpeed = 1200.f;
-	}
-	else
-	{
-		Sprinting = false;
-		GetCharacterMovement()->MaxWalkSpeed = 800.f;
 	}
 }
 
 //Decrease movement speed, release movement direction
 void AGoobunga_Player::SprintEnded()
 {
-	if (!MovingForward)
-	{
-		Sprinting = false;
-		GetCharacterMovement()->MaxWalkSpeed = 800.f;	
-	}
+	Sprinting = false;
+	GetCharacterMovement()->MaxWalkSpeed = 800.f;	
 }
 
 //Rolls FPCamera when moving right or left //Alters FPCamera FOV when moving forward or backwards
 void AGoobunga_Player::ApplyMovementAffect(FVector2D MoveVector)
 {
-	float NextHandTilt = FMath::FInterpTo(HandTilt, MoveVector.X * 10, GetWorld()->GetDeltaSeconds(), 5.f);
-	HandTilt = NextHandTilt;
-
-	float CurrentFOV = FPCamera->FieldOfView;
-	float TargetFOV = 90 + (MoveVector.Y * 10);
-	float NewFOV = FMath::FInterpTo(CurrentFOV, TargetFOV, GetWorld()->GetDeltaSeconds(), 5.f);
-	FPCamera->SetFieldOfView(NewFOV);
+	float NextHandTiltX = FMath::FInterpTo(HandTiltX, MoveVector.X * 20, GetWorld()->GetDeltaSeconds(), 5.f);
+	HandTiltX = NextHandTiltX;
+	float NextHandTiltY = FMath::FInterpTo(HandTiltY, MoveVector.Y * 10, GetWorld()->GetDeltaSeconds(), 5.f);
+	HandTiltY = NextHandTiltY;
+	
 }
 
 //On fire event started alert equipped item, allowing it to handle necessary logic
 void AGoobunga_Player::FireStarted()
 {
-	if (EquippedItem && EquippedItem->Implements<UFireable>())
+	if (EquippedItem && EquippedItem->Implements<UFireable>() && !Sprinting)
 	{
 		IFireable* FireableInterface = Cast<IFireable>(EquippedItem);
 		if (FireableInterface)
@@ -178,17 +172,12 @@ void AGoobunga_Player::FireEnded()
 //If so just perform ADS. If not, allow the equipped item to handle alt-fire
 void AGoobunga_Player::AltFireStarted()
 {
-	if (EquippedItem && EquippedItem->Implements<UFireable>())
+	if (EquippedItem && EquippedItem->Implements<UFireable>() && !Sprinting)
 	{
 		IFireable* FireableInterface = Cast<IFireable>(EquippedItem);
 		if (FireableInterface)
 		{
-			if (FireableInterface->CanADS())
-			{
-				StartAimDownSights();
-				UE_LOG(LogTemp, Display, TEXT("Call start ADS"))
-			}
-			else { FireableInterface->AltFireEvent(); }
+			FireableInterface->AltFireEvent();
 		}
 	}
 	UE_LOG(LogTemp, Display, TEXT("Alt fire started"))
@@ -198,7 +187,14 @@ void AGoobunga_Player::AltFireStarted()
 //Generic call to stop ads. Has no effect if weapon does not allow ads
 void AGoobunga_Player::AltFireEnded()
 {
-	StopAimDownSights();
+	if (EquippedItem && EquippedItem->Implements<UFireable>() && !Sprinting)
+	{
+		IFireable* FireableInterface = Cast<IFireable>(EquippedItem);
+		if (FireableInterface)
+		{
+			FireableInterface->EndAltFireEvent();
+		}
+	}
 	UE_LOG(LogTemp, Display, TEXT("Alt fire ended"))
 }
 
@@ -228,7 +224,7 @@ void AGoobunga_Player::UpdateAimDownSights()
 	}
 	else { UE_LOG(LogTemp, Warning, TEXT("Equipped item not found")); }
 
-	CurrentAimAlpha = FMath::FInterpConstantTo(CurrentAimAlpha, TargetAimAlpha, GetWorld()->GetDeltaSeconds(), TargetAimSpeed);
+	CurrentAimAlpha = FMath::FInterpTo(CurrentAimAlpha, TargetAimAlpha, GetWorld()->GetDeltaSeconds(), TargetAimSpeed);
 	float NewFOV = FMath::Lerp(90, 70, CurrentAimAlpha);
 	Sensitivity = DefaultSensitivity * NewFOV / 90;
 	FPCamera->SetFieldOfView(NewFOV);
@@ -256,6 +252,14 @@ TArray<FVector> AGoobunga_Player::GetAimDirection()
 {
 	return {TrueLookDirection->GetComponentLocation(), TrueLookDirection->GetForwardVector()};
 }
+
+//Stop any active combat actions ie:fire,aim.
+//Typically used for sprinting
+void AGoobunga_Player::StopCombatActions()
+{
+	
+}
+
 
 
 
