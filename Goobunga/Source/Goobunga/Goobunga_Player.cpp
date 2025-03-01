@@ -52,7 +52,7 @@ void AGoobunga_Player::Tick(float DeltaTime)
 
 	UpdateAimDownSights();
 	UpdateAimOffset();
-	ApplyMovementAffect(FVector2D(0,0));
+	UpdateMovement();
 }
 
 // Called to bind functionality to input
@@ -62,16 +62,19 @@ void AGoobunga_Player::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent))
 	{
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AGoobunga_Player::Move);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Canceled, this, &AGoobunga_Player::EndMove);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Completed, this, &AGoobunga_Player::EndMove);
 		EnhancedInputComponent->BindAction(MoveRightAction, ETriggerEvent::Triggered, this, &AGoobunga_Player::Move);
 		EnhancedInputComponent->BindAction(MoveRightAction, ETriggerEvent::Canceled, this, &AGoobunga_Player::EndMove);
 		EnhancedInputComponent->BindAction(MoveRightAction, ETriggerEvent::Completed, this, &AGoobunga_Player::EndMove);
-		EnhancedInputComponent->BindAction(MoveLeftAction, ETriggerEvent::Triggered, this, &AGoobunga_Player::Move);
+		EnhancedInputComponent->BindAction(MoveLeftAction, ETriggerEvent::Started, this, &AGoobunga_Player::Move);
 		EnhancedInputComponent->BindAction(MoveLeftAction, ETriggerEvent::Canceled, this, &AGoobunga_Player::EndMove);
 		EnhancedInputComponent->BindAction(MoveLeftAction, ETriggerEvent::Completed, this, &AGoobunga_Player::EndMove);
-		EnhancedInputComponent->BindAction(MoveFwdAction, ETriggerEvent::Triggered, this, &AGoobunga_Player::Move);
+		EnhancedInputComponent->BindAction(MoveFwdAction, ETriggerEvent::Started, this, &AGoobunga_Player::Move);
 		EnhancedInputComponent->BindAction(MoveFwdAction, ETriggerEvent::Canceled, this, &AGoobunga_Player::EndMove);
 		EnhancedInputComponent->BindAction(MoveFwdAction, ETriggerEvent::Completed, this, &AGoobunga_Player::EndMove);
-		EnhancedInputComponent->BindAction(MoveBackAction, ETriggerEvent::Triggered, this, &AGoobunga_Player::Move);
+		EnhancedInputComponent->BindAction(MoveBackAction, ETriggerEvent::Started, this, &AGoobunga_Player::Move);
 		EnhancedInputComponent->BindAction(MoveBackAction, ETriggerEvent::Canceled, this, &AGoobunga_Player::EndMove);
 		EnhancedInputComponent->BindAction(MoveBackAction, ETriggerEvent::Completed, this, &AGoobunga_Player::EndMove);
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AGoobunga_Player::Look);
@@ -93,15 +96,14 @@ void AGoobunga_Player::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 void AGoobunga_Player::Move(const FInputActionValue& Value)
 {
 	const FVector2d MoveVector = Value.Get<FVector2d>();
+	MovementDirection = MoveVector;
 	UE_LOG(LogTemp, Display, TEXT("Move: %f, %f"), MoveVector.X, MoveVector.Y);
-	AddMovementInput(GetActorForwardVector() * MoveVector.Y);
-	AddMovementInput(GetActorRightVector() * MoveVector.X);
-	ApplyMovementAffect(MoveVector);
 }
 
 //Called when movement stops being triggered
 void AGoobunga_Player::EndMove(const FInputActionValue& Value)
 {
+	MovementDirection = FVector2d(0,0);
 }
 
 
@@ -138,6 +140,13 @@ void AGoobunga_Player::ApplyMovementAffect(FVector2D MoveVector)
 	float NextHandTiltY = FMath::FInterpTo(HandTiltY, MoveVector.Y * 10, GetWorld()->GetDeltaSeconds(), 5.f);
 	HandTiltY = NextHandTiltY;
 	
+}
+
+void AGoobunga_Player::UpdateMovement()
+{
+	AddMovementInput(GetActorForwardVector() * MovementDirection.Y);
+	AddMovementInput(GetActorRightVector() * MovementDirection.X);
+	ApplyMovementAffect(MovementDirection);
 }
 
 //On fire event started alert equipped item, allowing it to handle necessary logic
@@ -224,7 +233,7 @@ void AGoobunga_Player::UpdateAimDownSights()
 	}
 	else { UE_LOG(LogTemp, Warning, TEXT("Equipped item not found")); }
 
-	CurrentAimAlpha = FMath::FInterpTo(CurrentAimAlpha, TargetAimAlpha, GetWorld()->GetDeltaSeconds(), TargetAimSpeed);
+	CurrentAimAlpha = FMath::FInterpConstantTo(CurrentAimAlpha, TargetAimAlpha, GetWorld()->GetDeltaSeconds(), TargetAimSpeed);
 	float NewFOV = FMath::Lerp(90, 70, CurrentAimAlpha);
 	Sensitivity = DefaultSensitivity * NewFOV / 90;
 	FPCamera->SetFieldOfView(NewFOV);

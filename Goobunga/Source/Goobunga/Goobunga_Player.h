@@ -73,11 +73,14 @@ protected:
 	bool Sprinting = false;
 	bool MovingForward = false;
 	bool Busy = false;
+	FVector2d MovementDirection = FVector2d(0,0);
 	//
 	//Input
 	//
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
 	UInputMappingContext* DefaultMappingContext;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UInputAction* MoveAction;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
 	UInputAction* MoveRightAction;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
@@ -122,6 +125,7 @@ protected:
 	void SprintEnded();
 	
 	void ApplyMovementAffect(FVector2D Movement);
+	void UpdateMovement();
 	virtual void StartAimDownSights() override;
 	virtual void StopAimDownSights() override;
 	void UpdateAimDownSights();

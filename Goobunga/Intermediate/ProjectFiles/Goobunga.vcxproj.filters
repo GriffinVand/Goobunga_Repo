@@ -57,6 +57,33 @@
     <ClCompile Include="..\..\Source\Goobunga\PlayerCallables.h">
       <Filter>Source\Goobunga</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\PlayerStates.cpp">
+      <Filter>Source\Goobunga</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\PlayerStates.h">
+      <Filter>Source\Goobunga</Filter>
+    </ClCompile>
+    <Filter Include="Source\Goobunga\Combat">
+      <UniqueIdentifier>{8879B5B3-86F1-34AB-ADBD-DE30FAA0BED8}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\Combat\CombatCallables.cpp">
+      <Filter>Source\Goobunga\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Combat\CombatCallables.h">
+      <Filter>Source\Goobunga\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Combat\DamageTypes.cpp">
+      <Filter>Source\Goobunga\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Combat\DamageTypes.h">
+      <Filter>Source\Goobunga\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Combat\StatusTypes.cpp">
+      <Filter>Source\Goobunga\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Combat\StatusTypes.h">
+      <Filter>Source\Goobunga\Combat</Filter>
+    </ClCompile>
     <Filter Include="Source\Goobunga\Enemies">
       <UniqueIdentifier>{950A9B7A-B4A6-372F-AC67-98A81EBDADB6}</UniqueIdentifier>
     </Filter>
