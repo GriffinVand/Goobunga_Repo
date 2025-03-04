@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "FacialAnimationComponent.h"
 #include "PlayerCallables.h"
 #include "Combat/CombatCallables.h"
 #include "GameFramework/Character.h"
@@ -45,20 +46,29 @@ public:
 	//Used to calculate where player is truly aiming(not always center screen)
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	USceneComponent* TrueLookDirection;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
+	UFacialAnimationComponent* FacialAnimationComponent;
 
 protected:
 
+	//2D Animation
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
+	UMaterialInterface* PlayerFaceMaterial;
+	
 	//Lag amount of spring arm
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
-	float MeshLag = 10.f;
+	float MeshLag = 15.f;
 
 	//Aim related
 	bool bAiming = false;
+	//0 to 1, 1 being full ads, 0 being full hip
 	UPROPERTY(EditAnywhere, meta=(AllowPrivateAccess=true))
 	float CurrentAimAlpha = 0.f;
 	float DefaultSensitivity = 0.5;
 	float Sensitivity = DefaultSensitivity;
-
+	FVector2D MouseLookDirection = FVector2D::ZeroVector;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
+	FVector2D LookRotationOffset = FVector2D::ZeroVector;
 	//Used for actual controller look offset
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	FVector AimOffset = FVector::ZeroVector;
@@ -79,8 +89,6 @@ protected:
 	//
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
 	UInputMappingContext* DefaultMappingContext;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
-	UInputAction* MoveAction;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
 	UInputAction* MoveRightAction;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
@@ -131,6 +139,7 @@ protected:
 	void UpdateAimDownSights();
 	void UpdateAimOffset();
 	void StopCombatActions();
+	void UpdateLookVelocity(float DeltaTime);
 
 	virtual void CombatDamage(float Damage, TArray<EDamageType> DamageTypes) override {}
 

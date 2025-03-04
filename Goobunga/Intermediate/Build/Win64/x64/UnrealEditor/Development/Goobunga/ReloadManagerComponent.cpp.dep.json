@@ -1,0 +1,19 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\source\\goobunga\\reloadmanagercomponent.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\goobungaeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "Includes": [
+            "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\goobunga\\definitions.goobunga.h",
+            "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\source\\goobunga\\reloadmanagercomponent.h",
+            "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\source\\goobunga\\combat\\reloadpatterns.h",
+            "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\reloadmanagercomponent.generated.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\experimental\\chaos\\public\\chaos\\utilities.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\experimental\\chaos\\public\\chaos\\uniformgrid.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\experimental\\chaos\\public\\chaos\\dynamicparticles.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

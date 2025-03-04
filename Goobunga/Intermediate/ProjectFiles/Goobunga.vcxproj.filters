@@ -30,6 +30,12 @@
     <Filter Include="Source\Goobunga">
       <UniqueIdentifier>{DD22DD35-D340-3175-93FB-DF647E947633}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\FacialAnimationComponent.cpp">
+      <Filter>Source\Goobunga</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\FacialAnimationComponent.h">
+      <Filter>Source\Goobunga</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Fireable.cpp">
       <Filter>Source\Goobunga</Filter>
     </ClCompile>
@@ -63,6 +69,12 @@
     <ClCompile Include="..\..\Source\Goobunga\PlayerStates.h">
       <Filter>Source\Goobunga</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\ReloadManagerComponent.cpp">
+      <Filter>Source\Goobunga</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\ReloadManagerComponent.h">
+      <Filter>Source\Goobunga</Filter>
+    </ClCompile>
     <Filter Include="Source\Goobunga\Combat">
       <UniqueIdentifier>{8879B5B3-86F1-34AB-ADBD-DE30FAA0BED8}</UniqueIdentifier>
     </Filter>
@@ -76,6 +88,12 @@
       <Filter>Source\Goobunga\Combat</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Combat\DamageTypes.h">
+      <Filter>Source\Goobunga\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Combat\ReloadPatterns.cpp">
+      <Filter>Source\Goobunga\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Combat\ReloadPatterns.h">
       <Filter>Source\Goobunga\Combat</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Combat\StatusTypes.cpp">
