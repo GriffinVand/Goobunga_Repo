@@ -19,13 +19,7 @@ UReloadManagerComponent::UReloadManagerComponent()
 	ReloadPatternMap.Add(EReloadPattern::Right, TArray<FVector2D>{FVector2D(0,0), FVector2D(1, 0)});
 	ReloadPatternMap.Add(EReloadPattern::Up, TArray<FVector2D>{FVector2D(0,0), FVector2D(0, 1)});
 	ReloadPatternMap.Add(EReloadPattern::Down, TArray<FVector2D>{FVector2D(0,0), FVector2D(0, -1)});
-	TArray<FVector2D> CirclePoints = {};
-	for (int i = 1; i <= 16; i++)
-	{
-		float X = FMath::Cos(i * (( 2* PI)/16));
-		float Y = FMath::Sin(i * (( 2* PI)/16));
-		CirclePoints.Add(FVector2D(X, Y));
-	}
+	TArray<FVector2D> CirclePoints = {FVector2D(0,-1), FVector2D(1, 0), FVector2D(0, 1), FVector2D(-1, 0), FVector2D(0, -1)};
 	ReloadPatternMap.Add(EReloadPattern::Circle, CirclePoints);
 }
 
@@ -63,7 +57,10 @@ void UReloadManagerComponent::StartReload(TArray<EReloadPattern> NewPatternSeque
 				CurrentProgress = 0.f;
 				LastPoint = CurrentPattern[0];
 				NextPoint = CurrentPattern[1];
+				UE_LOG(LogTemp, Display, TEXT("CurrentPoint: %f, %f"), LastPoint.X, LastPoint.Y);
+				UE_LOG(LogTemp, Display, TEXT("NextPoint: %f, %f"), NextPoint.X, NextPoint.Y);
 				CreateReloadWidget();
+				
 				return;
 			}
 		}
@@ -89,9 +86,7 @@ void UReloadManagerComponent::UpdateReload()
 	FVector2D ActualDirection = (NewMouseLocation - CenterScreen).GetSafeNormal();
 
 	float MovementSpeed = (NewMouseLocation - CenterScreen).Size();
-	UE_LOG(LogTemp, Warning, TEXT("MouseSpeedOrg: %f"), MovementSpeed);
 	MovementSpeed = FMath::GetMappedRangeValueClamped(FVector2D(0.f, 400.f), FVector2D(0.f, 1.f), MovementSpeed);
-	UE_LOG(LogTemp, Warning, TEXT("MouseSpeedAdj: %f"), MovementSpeed);
 	
 	//Reset mouse location
 	PC->SetMouseLocation(CenterScreen.X, CenterScreen.Y);
@@ -100,16 +95,21 @@ void UReloadManagerComponent::UpdateReload()
 	if (FVector2D::DotProduct(ExpectedDirection, ActualDirection) > 0.6)
 	{
 		//Updates current progress based on predefined progress rate and the actual speed of mouse or magnitude of traversal
-		CurrentProgress += GetWorld()->GetDeltaSeconds() * ProgressRate * MovementSpeed;
-		UE_LOG(LogTemp, Display, TEXT("Current progress: %f"), CurrentProgress);
+		float TotalSegs = ReloadPatternMap[CurrentPatternSequence[0]].Num();
+		float CurrentSegs = TotalSegs - CurrentPattern.Num();
+		CurrentProgress += GetWorld()->GetDeltaSeconds() * (ProgressRate * TotalSegs-1) * MovementSpeed;
+		TotalProgress = (CurrentSegs + CurrentProgress) / (TotalSegs - 1);
+		//UE_LOG(LogTemp, Display, TEXT("Current progress: %f"), CurrentProgress);
 		if (CurrentProgress >= 1.f)
 		{
 			LastPoint = NextPoint;
 			CurrentPattern.RemoveAt(0);
 			if (CurrentPattern.Num() > 1)
 			{
-				UE_LOG(LogTemp, Display, TEXT("Next Point"));
-				NextPoint = CurrentPattern[0];
+				CurrentProgress = 0.f;
+				NextPoint = CurrentPattern[1];
+				UE_LOG(LogTemp, Display, TEXT("CurrentPoint: %f, %f"), LastPoint.X, LastPoint.Y);
+				UE_LOG(LogTemp, Display, TEXT("NextPoint: %f, %f"), NextPoint.X, NextPoint.Y);
 				return;
 			}
 			CurrentPatternSequence.RemoveAt(0);
@@ -119,9 +119,12 @@ void UReloadManagerComponent::UpdateReload()
 				CurrentPattern = ReloadPatternMap[CurrentPatternSequence[0]];
 				if (CurrentPattern.Num() > 1)
 				{
+					TotalProgress = 0.f;
 					CurrentProgress = 0.f;
 					LastPoint = CurrentPattern[0];
 					NextPoint = CurrentPattern[1];
+					UE_LOG(LogTemp, Display, TEXT("CurrentPoint: %f, %f"), LastPoint.X, LastPoint.Y);
+					UE_LOG(LogTemp, Display, TEXT("NextPoint: %f, %f"), NextPoint.X, NextPoint.Y);
 					return;
 				}
 			}

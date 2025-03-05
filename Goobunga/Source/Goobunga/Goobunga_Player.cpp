@@ -199,6 +199,10 @@ void AGoobunga_Player::UpdateMovement()
 //On fire event started alert equipped item, allowing it to handle necessary logic
 void AGoobunga_Player::FireStarted()
 {
+	if (Reloading)
+	{
+		ReloadManagerComponent->StopReload(false);
+	}
 	if (Sprinting)
 	{
 		SprintEnded();
@@ -232,6 +236,10 @@ void AGoobunga_Player::FireEnded()
 //If so just perform ADS. If not, allow the equipped item to handle alt-fire
 void AGoobunga_Player::AltFireStarted()
 {
+	if (Reloading)
+	{
+		ReloadManagerComponent->StopReload(false);
+	}
 	if (Sprinting)
 	{
 		SprintEnded();
