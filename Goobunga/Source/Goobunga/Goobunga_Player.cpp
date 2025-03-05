@@ -7,6 +7,7 @@
 #include "Camera/CameraComponent.h"
 #include "Math/UnrealMathUtility.h"
 #include "Fireable.h"
+#include "ReloadManagerComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 // Sets default values
 AGoobunga_Player::AGoobunga_Player()
@@ -28,6 +29,7 @@ AGoobunga_Player::AGoobunga_Player()
 	FPMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FPMesh"));
 	FPMesh->SetupAttachment(CameraMeshOffset);
 	FacialAnimationComponent = CreateDefaultSubobject<UFacialAnimationComponent>(TEXT("FacialAnimationComponent"));
+	ReloadManagerComponent = CreateDefaultSubobject<UReloadManagerComponent>(TEXT("ReloadManagerComponent"));
 	
 	
 }
@@ -91,6 +93,7 @@ void AGoobunga_Player::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Started, this, &AGoobunga_Player::SprintStarted);
 		//EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Canceled, this, &AGoobunga_Player::SprintEnded);
 		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &AGoobunga_Player::SprintEnded);
+		EnhancedInputComponent->BindAction(ReloadAction, ETriggerEvent::Started, this, &AGoobunga_Player::StartReload);
 	}
 }
 
@@ -116,11 +119,34 @@ void AGoobunga_Player::Move(const FInputActionValue& Value)
 //Called when movement stops being triggered
 void AGoobunga_Player::EndMove(const FInputActionValue& Value)
 {
+	
+}
+
+void AGoobunga_Player::StartReload()
+{
+	if (Sprinting)
+	{
+		SprintEnded();
+	}
+	if (!Reloading)
+	{
+		UE_LOG(LogTemp, Display, TEXT("PlayerStartReload"));
+		Reloading = true;
+		TArray<EReloadPattern> TempReloadPattern = TArray{EReloadPattern::Left, EReloadPattern::Right, EReloadPattern::Up, EReloadPattern::Down, EReloadPattern::Circle};
+		ReloadManagerComponent->StartReload(TempReloadPattern);
+	}
+}
+
+void AGoobunga_Player::EndReload(bool Success)
+{
+	UE_LOG(LogTemp, Display, TEXT("PlayerEndReload"));
+	Reloading = false;
 }
 
 //Called when look input detected. 
 void AGoobunga_Player::Look(const FInputActionValue& Value)
 {
+	if (Reloading) { ReloadManagerComponent->UpdateReload(); return; }
 	const FVector2d LookVector = Value.Get<FVector2d>();
 	MouseLookDirection += LookVector;
 }
@@ -135,6 +161,7 @@ void AGoobunga_Player::SprintStarted()
 			FireEnded();
 			AltFireEnded();
 			StopAimDownSights();
+			if (ReloadManagerComponent) { ReloadManagerComponent->StopReload(false); }
 		}
 		Sprinting = true;
 		GetCharacterMovement()->MaxWalkSpeed = 1200.f;

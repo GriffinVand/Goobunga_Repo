@@ -34,7 +34,6 @@ void UFacialAnimationComponent::TickComponent(float DeltaTime, ELevelTick TickTy
 
 void UFacialAnimationComponent::UpdateCurrentAnimation(float DeltaTime)
 {
-	UE_LOG(LogTemp, Display, TEXT("Animation: %s"), *CurrentAnimation.ToString());
 	Animations[CurrentAnimation].FrameBuffer += DeltaTime;
 	if (Animations[CurrentAnimation].FrameBuffer > 1.f / Animations[CurrentAnimation].FrameRate)
 	{

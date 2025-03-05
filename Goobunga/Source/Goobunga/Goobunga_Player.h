@@ -12,7 +12,8 @@ class UInputMappingContext;
 class UInputAction;
 class UCameraComponent;
 class USpringArmComponent;
-;
+class UReloadManagerComponent;
+
 UCLASS()
 class GOOBUNGA_API AGoobunga_Player : public ACharacter, public IPlayerCallables, public ICombatCallables
 {
@@ -48,6 +49,8 @@ public:
 	USceneComponent* TrueLookDirection;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	UFacialAnimationComponent* FacialAnimationComponent;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = true))
+	UReloadManagerComponent* ReloadManagerComponent;
 
 protected:
 
@@ -59,6 +62,8 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	float MeshLag = 15.f;
 
+	//Reloading?
+	bool Reloading = false;
 	//Aim related
 	bool bAiming = false;
 	//0 to 1, 1 being full ads, 0 being full hip
@@ -107,6 +112,8 @@ protected:
 	UInputAction* AltFireAction;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
 	UInputAction* SprintAction;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UInputAction* ReloadAction;
 
 	//Current equipped item, can be a weapon or an item
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Equipment", meta = (AllowPrivateAccess = "true"))
@@ -136,6 +143,8 @@ protected:
 	void UpdateMovement();
 	virtual void StartAimDownSights() override;
 	virtual void StopAimDownSights() override;
+	void StartReload();
+	virtual void EndReload(bool Success) override;
 	void UpdateAimDownSights();
 	void UpdateAimOffset();
 	void StopCombatActions();
