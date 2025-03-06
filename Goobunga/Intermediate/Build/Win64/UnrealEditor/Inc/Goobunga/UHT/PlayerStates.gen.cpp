@@ -130,16 +130,16 @@ UEnum* Z_Construct_UEnum_Goobunga_EPlayerCombatState()
 // End Enum EPlayerCombatState
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_PlayerStates_h_Statics
+struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_PlayerStates_h_Statics
 {
 	static constexpr FEnumRegisterCompiledInInfo EnumInfo[] = {
 		{ EPlayerMovementState_StaticEnum, TEXT("EPlayerMovementState"), &Z_Registration_Info_UEnum_EPlayerMovementState, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3616529744U) },
 		{ EPlayerCombatState_StaticEnum, TEXT("EPlayerCombatState"), &Z_Registration_Info_UEnum_EPlayerCombatState, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3502827863U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_PlayerStates_h_562362734(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_PlayerStates_h_562362734(TEXT("/Script/Goobunga"),
 	nullptr, 0,
 	nullptr, 0,
-	Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_PlayerStates_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_PlayerStates_h_Statics::EnumInfo));
+	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_PlayerStates_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_PlayerStates_h_Statics::EnumInfo));
 // End Registration
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

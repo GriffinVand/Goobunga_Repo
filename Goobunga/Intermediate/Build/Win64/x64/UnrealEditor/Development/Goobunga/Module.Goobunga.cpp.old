@@ -35,6 +35,7 @@
 #include "C:/Users/griff/Desktop/GoobungaBaby/Goobunga_Repo/Goobunga/Source/Goobunga/Goobunga.cpp"
 #include "C:/Users/griff/Desktop/GoobungaBaby/Goobunga_Repo/Goobunga/Source/Goobunga/PlayerCallables.cpp"
 #include "C:/Users/griff/Desktop/GoobungaBaby/Goobunga_Repo/Goobunga/Source/Goobunga/PlayerStates.cpp"
+#include "C:/Users/griff/Desktop/GoobungaBaby/Goobunga_Repo/Goobunga/Source/Goobunga/ReloadManagerComponent.cpp"
 #include "C:/Users/griff/Desktop/GoobungaBaby/Goobunga_Repo/Goobunga/Source/Goobunga/Weapons/CatGun.cpp"
 #include "C:/Users/griff/Desktop/GoobungaBaby/Goobunga_Repo/Goobunga/Source/Goobunga/Weapons/HitScanWeapon.cpp"
 #include "C:/Users/griff/Desktop/GoobungaBaby/Goobunga_Repo/Goobunga/Source/Goobunga/Weapons/MeleeWeapon.cpp"
