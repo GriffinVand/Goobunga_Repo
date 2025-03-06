@@ -38,13 +38,13 @@
 			"Goobunga.cpp.obj",
 			"PlayerCallables.cpp.obj",
 			"PlayerStates.cpp.obj",
+			"ReloadManagerComponent.cpp.obj",
 			"CatGun.cpp.obj",
 			"HitScanWeapon.cpp.obj",
 			"MeleeWeapon.cpp.obj",
 			"ProjectileWeapon.cpp.obj",
 			"Weapon.cpp.obj",
-			"Goobunga_Player.cpp.obj",
-			"ReloadManagerComponent.cpp.obj"
+			"Goobunga_Player.cpp.obj"
 		]
 	}
 }
