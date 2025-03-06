@@ -7,6 +7,7 @@
 #include "NiagaraFunctionLibrary.h"
 #include "AssetTypeActions/AssetDefinition_SoundBase.h"
 #include "Goobunga/PlayerCallables.h"
+#include "Goobunga/Combat/CombatCallables.h"
 #include "Kismet/GameplayStatics.h"
 
 AHitScanWeapon::AHitScanWeapon()
@@ -50,6 +51,17 @@ void AHitScanWeapon::FireWeapon()
 			if (WeaponTrace)
 			{
 				HitLocation = HitResult.Location;
+				AActor* HitActor = HitResult.GetActor();
+				if (HitActor)
+				{
+					if (ICombatCallables* CombatCallablesInterface = Cast<ICombatCallables>(HitActor))
+					{
+						CombatCallablesInterface->CombatDamage(GetOwner(), BaseDamage, EDamageType::None);
+						UE_LOG(LogTemp, Display, TEXT("Apply Damage to Actor"));
+					}
+					else { UE_LOG(LogTemp, Display, TEXT("No damage to Actor")); }
+				}
+				else { UE_LOG(LogTemp, Display, TEXT("No hit Actor")); }
 				DrawDebugLine(GetWorld(), WeaponStart, HitLocation, FColor::Green);
 			}
 			else { DrawDebugLine(GetWorld(), WeaponStart, HitLocation, FColor::Red); }
@@ -79,7 +91,6 @@ void AHitScanWeapon::SpawnTrailProjectile(FVector Direction)
 		SpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 	
 		GetWorld()->SpawnActor<AActor>(TrailProjectileClass, SpawnTransform.GetLocation(), Direction.Rotation(), SpawnParameters);
-		UE_LOG(LogTemp, Display, TEXT("Spawned trail projectile"));
 	}
 	else {UE_LOG(LogTemp, Warning, TEXT("Could not spawn trail projectile"))}
 }
@@ -89,7 +100,6 @@ void AHitScanWeapon::SpawnTrailSystem(FVector TrailEnd)
 {
 	if (TrailSystem)
 	{
-		UE_LOG(LogTemp, Display, TEXT("Spawned trail system"));
 		FTransform TrailStart = WeaponMesh->GetSocketTransform("Fire_Location");
 		UNiagaraComponent* Trail = UNiagaraFunctionLibrary::SpawnSystemAttached(TrailSystem, WeaponMesh, "Fire_Location", TrailStart.GetLocation(), FRotator(0, 0, 0), EAttachLocation::KeepWorldPosition, true, true);
 		Trail->SetVectorParameter("BeamEnd", TrailEnd);

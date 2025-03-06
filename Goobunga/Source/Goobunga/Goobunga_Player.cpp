@@ -113,7 +113,6 @@ void AGoobunga_Player::Move(const FInputActionValue& Value)
 	{
 		MovementDirection += MoveVector;
 	}
-	UE_LOG(LogTemp, Display, TEXT("Move: %f, %f"), MoveVector.X, MoveVector.Y);
 }
 
 //Called when movement stops being triggered
@@ -216,7 +215,6 @@ void AGoobunga_Player::FireStarted()
 		if (FireableInterface)
 		{
 			FireableInterface->FireEvent();
-			UE_LOG(LogTemp, Display, TEXT("Called fire event"));
 		}
 		else {UE_LOG(LogTemp, Warning, TEXT("Could not call fire event"));}
 	}
@@ -229,7 +227,6 @@ void AGoobunga_Player::FireEnded()
 	if (FireableInterface)
 	{
 		FireableInterface->EndFireEvent();
-		UE_LOG(LogTemp, Display, TEXT("Called endfire event"));
 	}
 	else {UE_LOG(LogTemp, Warning, TEXT("Could not call endfire event"));}
 	UE_LOG(LogTemp, Display, TEXT("Fire ended"));
@@ -255,7 +252,6 @@ void AGoobunga_Player::AltFireStarted()
 			FireableInterface->AltFireEvent();
 		}
 	}
-	UE_LOG(LogTemp, Display, TEXT("Alt fire started"))
 }
 
 //On alt-fire(right mouse) ended
@@ -270,7 +266,6 @@ void AGoobunga_Player::AltFireEnded()
 			FireableInterface->EndAltFireEvent();
 		}
 	}
-	UE_LOG(LogTemp, Display, TEXT("Alt fire ended"))
 }
 
 //Start aiming, cancels sprinting
@@ -320,7 +315,6 @@ void AGoobunga_Player::UpdateAimDownSights()
 //This function can be called through an interface
 void AGoobunga_Player::ApplyAimOffset(FVector AimOffsetInput)
 {
-	UE_LOG(LogTemp, Display, TEXT("Apply Aim offset: %s"), *(AimOffsetInput).ToString());
 	AimOffset += (AimOffsetInput);
 }
 
@@ -329,7 +323,6 @@ void AGoobunga_Player::UpdateAimOffset()
 {
 	GetController()->SetControlRotation(GetControlRotation().Add(AimOffset.Y, AimOffset.Z, AimOffset.X));
 	AimOffset = FMath::VInterpTo(AimOffset, FVector::ZeroVector, GetWorld()->GetDeltaSeconds(), 20.f);
-	if (AimOffset != FVector::ZeroVector) { UE_LOG(LogTemp, Display, TEXT("Update Aim offset: %s"), *AimOffset.ToString()); }
 }
 
 //Return location and rotation of true look direction

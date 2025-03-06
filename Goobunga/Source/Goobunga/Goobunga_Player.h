@@ -150,7 +150,7 @@ protected:
 	void StopCombatActions();
 	void UpdateLookVelocity(float DeltaTime);
 
-	virtual void CombatDamage(float Damage, TArray<EDamageType> DamageTypes) override {}
+	virtual void CombatDamage(AActor* DamageDealer, float Damage, EDamageType DamageType) override {}
 
 	virtual void ApplyAimOffset(FVector AimOffsetInput) override;
 	virtual TArray<FVector> GetAimDirection() override;

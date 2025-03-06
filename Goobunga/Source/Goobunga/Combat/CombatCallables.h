@@ -24,5 +24,5 @@ class GOOBUNGA_API ICombatCallables
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 
-	virtual void CombatDamage(float Damage, TArray<EDamageType> DamageTypes) = 0;
+	virtual void CombatDamage(AActor* DamageDealer, float Damage, EDamageType DamageType) = 0;
 };

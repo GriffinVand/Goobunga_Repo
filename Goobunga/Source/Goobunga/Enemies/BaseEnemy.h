@@ -30,8 +30,23 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	int Health;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stats, meta = (AllowPrivateAccess = "true"))
-	int MaxHealth = 10;
+	int MaxHealth = 500;
+	bool FadingOut = false;
+	float FadeOutTime = 8.f;
+	float FadeOutTimeRemaining = FadeOutTime;
+	float FadeOutInterval = 2.f;
+	float FadeOutTimeElapsed = 0.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	TMap<EDamageType, float> DamageTypeMap;
 
-	virtual void CombatDamage(float Damage, TArray<EDamageType> DamageTypes) override {};
+	virtual void CombatDamage(AActor* DamageDealer, float Damage, EDamageType DamageType) override;
+	virtual void Death();
+	virtual void Dismember();
+	virtual void UpdateFadeOut(float DeltaTime);
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	TArray<UStaticMesh*> DismemberPartClasses;
+
+	TArray<UStaticMeshComponent*> DismemberPartComponents;
 
 };

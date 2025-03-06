@@ -38,7 +38,6 @@ void AWeapon::UpdateWeapon()
 	FireCooldown+=GetWorld()->GetDeltaSeconds();
 	if (bFiring && FireCooldown>FireRate)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("firing? %hs"), bFiring ? "true" : "false");
 		FireCooldown=0;
 		FireWeapon();
 	}
@@ -47,19 +46,16 @@ void AWeapon::UpdateWeapon()
 //
 void AWeapon::FireWeapon()
 {
-	UE_LOG(LogTemp, Display, TEXT("Fire weapon generic"));
 }
 //
 void AWeapon::FireEvent() 
 {
 	bFiring = true;
-	UE_LOG(LogTemp, Display, TEXT("Weapon Fired"));
 }
 //
 void AWeapon::EndFireEvent()
 {
 	bFiring = false;
-	UE_LOG(LogTemp, Display, TEXT("Weapon Fire Ended"));
 }
 //
 void AWeapon::AltFireEvent() 
@@ -71,7 +67,6 @@ void AWeapon::AltFireEvent()
 			PlayerCallablesInterface->StartAimDownSights();
 		}
 	}
-	UE_LOG(LogTemp, Display, TEXT("Weapon Alt Fired"));
 }
 //
 void AWeapon::EndAltFireEvent()
@@ -83,7 +78,6 @@ void AWeapon::EndAltFireEvent()
 			PlayerCallablesInterface->StopAimDownSights();
 		}
 	}
-	UE_LOG(LogTemp, Display, TEXT("Weapon Alt Fire Ended"));
 }
 //
 void AWeapon::ReloadEvent() 
@@ -111,7 +105,6 @@ void AWeapon::PlayAnimationSimultaneous(FName AnimationName)
 			if (UAnimInstance* PlayerABP = Player->FPMesh->GetAnimInstance())
 			{
 				PlayerABP->Montage_Play(*OwnerMontage);
-				UE_LOG(LogTemp, Display, TEXT("Playing animation: %s on player"), *AnimationName.ToString());
 			}
 			else { UE_LOG(LogTemp, Warning, TEXT("Anim instance of owner not found")); }
 		}
@@ -123,7 +116,6 @@ void AWeapon::PlayAnimationSimultaneous(FName AnimationName)
 		if (UAnimInstance* WeaponABP = WeaponMesh->GetAnimInstance())
 		{
 			WeaponABP->Montage_Play(*WeaponMontage);
-			UE_LOG(LogTemp, Display, TEXT("Playing animation: %s on weapon"), *AnimationName.ToString());
 		}
 		else { UE_LOG(LogTemp, Warning, TEXT("Anim instance of weapon not found")); }
 	}
