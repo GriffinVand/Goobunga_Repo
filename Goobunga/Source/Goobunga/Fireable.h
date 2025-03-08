@@ -21,11 +21,11 @@ public:
 	
 	virtual void FireEvent() = 0;
 
-	virtual void EndFireEvent() = 0;
+	virtual void EndFireEvent(bool Cancelled) = 0;
 	
 	virtual void AltFireEvent()  = 0;
 
-	virtual void EndAltFireEvent() = 0;
+	virtual void EndAltFireEvent(bool Cancelled) = 0;
 	
 	virtual void ReloadEvent()  = 0;
 	

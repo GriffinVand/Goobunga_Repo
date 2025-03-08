@@ -53,7 +53,7 @@ void AWeapon::FireEvent()
 	bFiring = true;
 }
 //
-void AWeapon::EndFireEvent()
+void AWeapon::EndFireEvent(bool Cancelled)
 {
 	bFiring = false;
 }
@@ -69,7 +69,7 @@ void AWeapon::AltFireEvent()
 	}
 }
 //
-void AWeapon::EndAltFireEvent()
+void AWeapon::EndAltFireEvent(bool Cancelled)
 {
 	if (ADS)
 	{

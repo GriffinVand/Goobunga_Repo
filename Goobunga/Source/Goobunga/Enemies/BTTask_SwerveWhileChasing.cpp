@@ -14,22 +14,21 @@ UBTTask_SwerveWhileChasing::UBTTask_SwerveWhileChasing()
 
 EBTNodeResult::Type UBTTask_SwerveWhileChasing::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
-	UE_LOG(LogTemp, Display, TEXT("swerve while chasing called"));
 	AActor* SelfActor = Cast<AActor>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(SelfActorKey.SelectedKeyName));
 	AActor* PlayerActor = Cast<AActor>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(Player.SelectedKeyName));
 	if (SelfActor && PlayerActor)
 	{
-		UE_LOG(LogTemp, Display, TEXT("found player and enemy"));
 		FVector EnemyLocation = SelfActor->GetActorLocation();
 		FVector PlayerLocation = PlayerActor->GetActorLocation();
 		FVector DirectionToPlayer = PlayerLocation - EnemyLocation;
 		DirectionToPlayer.Normalize();
-		FVector SwerveDir = FVector::CrossProduct(DirectionToPlayer, FVector::UpVector);
+		FVector RightDir = FVector::CrossProduct(DirectionToPlayer, FVector::UpVector);
+		RightDir = FMath::RandBool() ? RightDir : -RightDir;
+		FVector SwerveDir = (((RightDir + DirectionToPlayer) / 2) + DirectionToPlayer) / 2;
 		SwerveDir.Normalize();
-		SwerveDir = FMath::RandBool() ? SwerveDir * 1 : SwerveDir * -1;
-		float SwerveDistance = FMath::RandRange(600.f, 1200.f);
+		float SwerveDistance = FMath::RandRange(400.f, 700.f);
 		FVector NewLocation = EnemyLocation + SwerveDir * SwerveDistance;
-		UKismetSystemLibrary::DrawDebugLine(SelfActor, EnemyLocation, NewLocation, FColor::Red, 3);
+		//UKismetSystemLibrary::DrawDebugLine(SelfActor, EnemyLocation, NewLocation, FColor::Red, 3);
 		UNavigationSystemV1* NavSys = FNavigationSystem::GetCurrent<UNavigationSystemV1>(SelfActor->GetWorld());
 		if (NavSys)
 		{
@@ -37,7 +36,6 @@ EBTNodeResult::Type UBTTask_SwerveWhileChasing::ExecuteTask(UBehaviorTreeCompone
 			bool bSuccess = NavSys->K2_GetRandomReachablePointInRadius(SelfActor, NewLocation, Result, 300.f);
 			if (bSuccess)
 			{
-				UE_LOG(LogTemp, Warning, TEXT("SWERVEWHILECHASING FOUND LOCATION"));
 				OwnerComp.GetBlackboardComponent()->SetValueAsVector(TargetLocation.SelectedKeyName, Result);
 				return EBTNodeResult::Succeeded;
 			}

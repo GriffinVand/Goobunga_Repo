@@ -128,12 +128,17 @@ protected:
 	//Called on fire event started
 	void FireStarted();
 	//Called on fire event completed or cancelled
-	void FireEnded();
+	void FireEnded(bool Cancelled);
+	//For enhanced input functionality
+	void FireInputEnded() { FireEnded(false);}
 
 	//Called on alt fire started
 	void AltFireStarted();
 	//Called on alt fire completed or cancelled
-	void AltFireEnded();
+	void AltFireEnded(bool Cancelled);
+	//For enhanced input functionality
+	void AltFireInputEnded() { AltFireEnded(false);}
+	
 	//Called on sprint started
 	void SprintStarted();
 	//Called on sprint ended

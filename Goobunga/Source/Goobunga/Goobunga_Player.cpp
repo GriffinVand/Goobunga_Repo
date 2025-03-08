@@ -85,11 +85,11 @@ void AGoobunga_Player::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &AGoobunga_Player::Jump);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &AGoobunga_Player::StopJumping);
 		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Started, this, &AGoobunga_Player::FireStarted);
-		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Completed, this, &AGoobunga_Player::FireEnded);
-		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Canceled, this, &AGoobunga_Player::FireEnded);
+		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Completed, this, &AGoobunga_Player::FireInputEnded);
+		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Canceled, this, &AGoobunga_Player::FireInputEnded);
 		EnhancedInputComponent->BindAction(AltFireAction, ETriggerEvent::Started, this, &AGoobunga_Player::AltFireStarted);
-		EnhancedInputComponent->BindAction(AltFireAction, ETriggerEvent::Completed, this, &AGoobunga_Player::AltFireEnded);
-		EnhancedInputComponent->BindAction(AltFireAction, ETriggerEvent::Canceled, this, &AGoobunga_Player::AltFireEnded);
+		EnhancedInputComponent->BindAction(AltFireAction, ETriggerEvent::Completed, this, &AGoobunga_Player::AltFireInputEnded);
+		EnhancedInputComponent->BindAction(AltFireAction, ETriggerEvent::Canceled, this, &AGoobunga_Player::AltFireInputEnded);
 		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Started, this, &AGoobunga_Player::SprintStarted);
 		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Canceled, this, &AGoobunga_Player::SprintEnded);
 		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &AGoobunga_Player::SprintEnded);
@@ -129,8 +129,8 @@ void AGoobunga_Player::StartReload()
 	}
 	if (!Reloading)
 	{
-		FireEnded();
-		AltFireEnded();
+		FireEnded(true);
+		AltFireEnded(true);
 		StopAimDownSights();
 		UE_LOG(LogTemp, Display, TEXT("PlayerStartReload"));
 		Reloading = true;
@@ -160,8 +160,8 @@ void AGoobunga_Player::SprintStarted()
 	{
 		if (Sprinting == false)
 		{
-			FireEnded();
-			AltFireEnded();
+			FireEnded(true);
+			AltFireEnded(true);
 			StopAimDownSights();
 			if (ReloadManagerComponent) { ReloadManagerComponent->StopReload(false); }
 		}
@@ -221,12 +221,12 @@ void AGoobunga_Player::FireStarted()
 	else {UE_LOG(LogTemp, Warning, TEXT("Could not call fire event"));}
 }
 //On fire event ended alert equipped item, allowing it to handle necessary logic
-void AGoobunga_Player::FireEnded()
+void AGoobunga_Player::FireEnded(bool Cancelled)
 {
 	IFireable* FireableInterface = Cast<IFireable>(EquippedItem);
 	if (FireableInterface)
 	{
-		FireableInterface->EndFireEvent();
+		FireableInterface->EndFireEvent(Cancelled);
 	}
 	else {UE_LOG(LogTemp, Warning, TEXT("Could not call endfire event"));}
 	UE_LOG(LogTemp, Display, TEXT("Fire ended"));
@@ -256,14 +256,14 @@ void AGoobunga_Player::AltFireStarted()
 
 //On alt-fire(right mouse) ended
 //Generic call to stop ads. Has no effect if weapon does not allow ads
-void AGoobunga_Player::AltFireEnded()
+void AGoobunga_Player::AltFireEnded(bool Cancelled)
 {
 	if (EquippedItem && EquippedItem->Implements<UFireable>() && !Sprinting)
 	{
 		IFireable* FireableInterface = Cast<IFireable>(EquippedItem);
 		if (FireableInterface)
 		{
-			FireableInterface->EndAltFireEvent();
+			FireableInterface->EndAltFireEvent(Cancelled);
 		}
 	}
 }

@@ -5,7 +5,6 @@
 
 #include "NiagaraComponent.h"
 #include "NiagaraFunctionLibrary.h"
-#include "AssetTypeActions/AssetDefinition_SoundBase.h"
 #include "Goobunga/PlayerCallables.h"
 #include "Goobunga/Combat/CombatCallables.h"
 #include "Kismet/GameplayStatics.h"
@@ -62,13 +61,13 @@ void AHitScanWeapon::FireWeapon()
 					else { UE_LOG(LogTemp, Display, TEXT("No damage to Actor")); }
 				}
 				else { UE_LOG(LogTemp, Display, TEXT("No hit Actor")); }
-				DrawDebugLine(GetWorld(), WeaponStart, HitLocation, FColor::Green);
+				//DrawDebugLine(GetWorld(), WeaponStart, HitLocation, FColor::Green);
 			}
 			else { DrawDebugLine(GetWorld(), WeaponStart, HitLocation, FColor::Red); }
-			DrawDebugSphere(GetWorld(), HitLocation, 10, 10, FColor::Blue, false, 3.f);
+			//DrawDebugSphere(GetWorld(), HitLocation, 10, 10, FColor::Blue, false, 3.f);
 
 			//Spawn trail from barrel to hit location
-			SpawnTrailSystem(HitLocation);
+			//SpawnTrailSystem(HitLocation);
 			//Play fire sound if possible
 			if (FireSound)
 				UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
@@ -103,7 +102,7 @@ void AHitScanWeapon::SpawnTrailSystem(FVector TrailEnd)
 		FTransform TrailStart = WeaponMesh->GetSocketTransform("Fire_Location");
 		UNiagaraComponent* Trail = UNiagaraFunctionLibrary::SpawnSystemAttached(TrailSystem, WeaponMesh, "Fire_Location", TrailStart.GetLocation(), FRotator(0, 0, 0), EAttachLocation::KeepWorldPosition, true, true);
 		Trail->SetVectorParameter("BeamEnd", TrailEnd);
-		DrawDebugSphere(GetWorld(), TrailEnd, 10, 10, FColor::Blue, false, 3);
+		//DrawDebugSphere(GetWorld(), TrailEnd, 10, 10, FColor::Blue, false, 3);
 		Trail->Activate(true);
 	}
 }

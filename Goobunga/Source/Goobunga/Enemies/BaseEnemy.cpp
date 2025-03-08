@@ -6,6 +6,7 @@
 #include "BaseEnemyAIController.h"
 #include "BrainComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
 ABaseEnemy::ABaseEnemy()
@@ -64,23 +65,27 @@ void ABaseEnemy::CombatDamage(AActor* DamageDealer, float Damage, EDamageType Da
 	{
 		Health -= Damage;
 	}
-	if (Health <= 0) { Death(); }
+	if (Health <= 0)
+	{
+		FVector LastMovementSpeed = GetCharacterMovement()->GetLastUpdateVelocity();
+		Death(LastMovementSpeed);
+	}
 }
 
-void ABaseEnemy::Death()
+void ABaseEnemy::Death(FVector LastMovementSpeed)
 {
 	ABaseEnemyAIController* AIController = Cast<ABaseEnemyAIController>(Controller);
 	if (AIController)
 	{
 		AIController->GetBrainComponent()->StopLogic("Dead");
-		Dismember();
+		Dismember(LastMovementSpeed);
 		return;
 	}
 	UE_LOG(LogTemp, Warning, TEXT("Couldn't access AI Controller"));
 	Destroy();
 }
 
-void ABaseEnemy::Dismember()
+void ABaseEnemy::Dismember(FVector LastMovementSpeed)
 {
 	GetMesh()->SetVisibility(false);
 	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
@@ -92,6 +97,8 @@ void ABaseEnemy::Dismember()
 			DismemberPart->SetVisibility(true);
 			DismemberPart->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
 			DismemberPart->SetSimulatePhysics(true);
+			DismemberPart->AddRadialImpulse(GetActorLocation(), 1000.f, 700.f, RIF_Constant, true);
+			DismemberPart->AddImpulse(LastMovementSpeed, NAME_None,true);
 		}
 		FadingOut = true;
 		return;
@@ -106,13 +113,24 @@ void ABaseEnemy::UpdateFadeOut(float DeltaTime)
 	if (FadeOutTimeRemaining <= 0) { Destroy(); }
 	
 	FadeOutTimeElapsed += DeltaTime;
-	if (FadeOutTimeElapsed > FadeOutInterval *  (FadeOutTimeRemaining / FadeOutTime) && FadeOutTimeElapsed > 0.1f)
+	float FadeOutThreshold = FadeOutInterval * (FadeOutTimeRemaining / FadeOutTime);
+	if (FadeVisible && FadeOutTimeElapsed > FadeOutThreshold && FadeOutTimeElapsed > FadeInvisibleTime)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Change visibility"));
+		FadeVisible = false;
 		FadeOutTimeElapsed = 0.f;
 		for (UStaticMeshComponent* DismemberPart : DismemberPartComponents)
 		{
-			DismemberPart->SetVisibility(!DismemberPart->IsVisible());
+			DismemberPart->SetVisibility(false);
+		}
+		return;
+	}
+	if (!FadeVisible && FadeOutTimeElapsed > FadeInvisibleTime)
+	{
+		FadeVisible = true;
+		FadeOutTimeElapsed = 0.f;
+		for (UStaticMeshComponent* DismemberPart : DismemberPartComponents)
+		{
+			DismemberPart->SetVisibility(true);
 		}
 	}
 }

@@ -62,15 +62,31 @@ public:
 	FVector2D CurrentSpread = FVector2D(.3, .3);
 
 	//Directions of recoil. Final recoil is direction*intensity
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Recoil", meta = (AllowPrivateAccess = "true"))
 	FVector RecoilDirectionMin = FVector(1, 1, 1);
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Recoil", meta = (AllowPrivateAccess = "true"))
 	FVector RecoilDirectionMax = FVector(1, 1, 1);
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Recoil", meta = (AllowPrivateAccess = "true"))
 	FVector RecoilIntensityMin = FVector(1, 1, 1);
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Recoil", meta = (AllowPrivateAccess = "true"))
 	FVector RecoilIntensityMax = FVector(1, 1, 1);
 
+	//Ammo
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Ammo", meta = (AllowPrivateAccess = "true"))
+	int MaxAmmo = 120;
+	int CurrentAmmo = MaxAmmo;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Ammo", meta = (AllowPrivateAccess = "true"))
+	int MaxMag = 30;
+	int CurrentMag = MaxMag;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Ammo", meta = (AllowPrivateAccess = "true"))
+	int MaxAltAmmo = 10;
+	int CurrentAltAmmo = MaxAltAmmo;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Ammo", meta = (AllowPrivateAccess = "true"))
+	int MaxAltMag = 1;
+	int CurrentAltMag = MaxAltMag;
+	
+	
+	
 	//Weapon may apply physical force when fired
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	float HitForce = 0.f;
@@ -103,9 +119,9 @@ public:
 
 	//Fireable interface functions
 	virtual void FireEvent() override;
-	virtual void EndFireEvent() override;
+	virtual void EndFireEvent(bool Cancelled) override;
 	virtual void AltFireEvent() override;
-	virtual void EndAltFireEvent() override;
+	virtual void EndAltFireEvent(bool Cancelled) override;
 	virtual void ReloadEvent() override;
 	//Does this weapon allow ads
 	virtual bool CanADS() override {return ADS;}

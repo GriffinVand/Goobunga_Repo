@@ -135,6 +135,15 @@
     <ClCompile Include="..\..\Source\Goobunga\Enemies\BTTask_SwerveWhileChasing.h">
       <Filter>Source\Goobunga\Enemies</Filter>
     </ClCompile>
+    <Filter Include="Source\Goobunga\UserInterface">
+      <UniqueIdentifier>{9534E5FC-D95C-316B-A574-23D6029143AB}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\UserInterface\PlayerReticleWidget.cpp">
+      <Filter>Source\Goobunga\UserInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\UserInterface\PlayerReticleWidget.h">
+      <Filter>Source\Goobunga\UserInterface</Filter>
+    </ClCompile>
     <Filter Include="Source\Goobunga\Weapons">
       <UniqueIdentifier>{CC097E68-C714-3FBB-8CA8-77CF4B425530}</UniqueIdentifier>
     </Filter>

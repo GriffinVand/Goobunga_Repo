@@ -23,7 +23,7 @@ void UBTS_CanPlayerSeeThis::TickNode(UBehaviorTreeComponent& Comp, uint8* NodeMe
 
 		FHitResult HitResult;
 		bool bHit = PlayerActor->GetWorld()->LineTraceSingleByChannel(HitResult, PlayerLocation, PlayerLocation + PlayerForwardVector*2000, ECC_Visibility);
-		DrawDebugLine(PlayerActor->GetWorld(), PlayerLocation, PlayerLocation + PlayerForwardVector*2000, FColor::Red);
+		//DrawDebugLine(PlayerActor->GetWorld(), PlayerLocation, PlayerLocation + PlayerForwardVector*2000, FColor::Red);
 		if (bHit)
 		{
 			if (HitResult.GetActor() == SelfActor) { Comp.GetBlackboardComponent()->SetValueAsBool(LookedAt.SelectedKeyName, true); return;}
