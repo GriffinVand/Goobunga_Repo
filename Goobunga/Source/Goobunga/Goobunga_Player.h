@@ -53,7 +53,15 @@ public:
 	UReloadManagerComponent* ReloadManagerComponent;
 
 protected:
+	//Stats
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Stats, meta =(AllowPrivateAccess=true))
+	int MaxHealth = 100;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Stats, meta=(AllowPrivateAccess=true))
+	int CurrHealth = MaxHealth;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Stats, meta=(AllowPrivateAccess=true))
+	float SprintSpeed = 800.f;
 
+	
 	//2D Animation
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	UMaterialInterface* PlayerFaceMaterial;
@@ -66,6 +74,7 @@ protected:
 	bool Reloading = false;
 	//Aim related
 	bool bAiming = false;
+
 	//0 to 1, 1 being full ads, 0 being full hip
 	UPROPERTY(EditAnywhere, meta=(AllowPrivateAccess=true))
 	float CurrentAimAlpha = 0.f;
@@ -155,8 +164,9 @@ protected:
 	void StopCombatActions();
 	void UpdateLookVelocity(float DeltaTime);
 
-	virtual void CombatDamage(AActor* DamageDealer, float Damage, EDamageType DamageType) override {}
-
+	virtual void CombatDamage(AActor* DamageDealer, float Damage, EDamageType DamageType) override;
+	void DeathSequence();
+	
 	virtual void ApplyAimOffset(FVector AimOffsetInput) override;
 	virtual TArray<FVector> GetAimDirection() override;
 };

@@ -9,6 +9,7 @@
 #include "Fireable.h"
 #include "ReloadManagerComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/KismetSystemLibrary.h"
 // Sets default values
 AGoobunga_Player::AGoobunga_Player()
 {
@@ -350,6 +351,18 @@ void AGoobunga_Player::UpdateLookVelocity(float DeltaTime)
 	AddControllerYawInput(MouseLookDirection.X * Sensitivity);
 	MouseLookDirection = FVector2D::ZeroVector;
 }
+
+void AGoobunga_Player::CombatDamage(AActor* DamageCauser, float Damage, EDamageType DamageType)
+{
+	CurrHealth -= Damage;
+	if (CurrHealth <= 0) { DeathSequence(); }
+}
+
+void AGoobunga_Player::DeathSequence()
+{
+	UKismetSystemLibrary::QuitGame(this, nullptr, EQuitPreference::Quit, true);
+}
+
 
 
 
