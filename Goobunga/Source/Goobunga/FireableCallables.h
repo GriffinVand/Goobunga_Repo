@@ -5,15 +5,15 @@
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
 #include "Camera/CameraComponent.h"
-#include "Fireable.generated.h"
+#include "FireableCallables.generated.h"
 
 UINTERFACE(MinimalAPI, BlueprintType)
-class UFireable : public UInterface
+class UFireableCallables : public UInterface
 {
 	GENERATED_BODY()
 };
 
-class GOOBUNGA_API IFireable
+class GOOBUNGA_API IFireableCallables
 {
 	GENERATED_BODY()
 

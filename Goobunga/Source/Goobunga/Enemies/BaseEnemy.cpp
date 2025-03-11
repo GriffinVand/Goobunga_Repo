@@ -51,6 +51,7 @@ void ABaseEnemy::Tick(float DeltaTime)
 	{
 		UpdateFadeOut(DeltaTime);
 	}
+	AttackCooldown += DeltaTime;
 }
 
 // Take damage
@@ -110,10 +111,15 @@ void ABaseEnemy::Dismember(FVector LastMovementSpeed)
 void ABaseEnemy::UpdateFadeOut(float DeltaTime)
 {
 	FadeOutTimeRemaining -= DeltaTime;
+	//If no fadeout time left destroy
 	if (FadeOutTimeRemaining <= 0) { Destroy(); }
 	
 	FadeOutTimeElapsed += DeltaTime;
+	//Start with a base value ie: 2 which will be the immediate starting time before the part becomes invisible.
+	//As (FadeOutTimeRemaining / FadeOutTime) gets closer to 0 this time decreases.
 	float FadeOutThreshold = FadeOutInterval * (FadeOutTimeRemaining / FadeOutTime);
+
+	//If its visible use FadeOutThreshold to determine if switch should occur
 	if (FadeVisible && FadeOutTimeElapsed > FadeOutThreshold && FadeOutTimeElapsed > FadeInvisibleTime)
 	{
 		FadeVisible = false;
@@ -124,6 +130,7 @@ void ABaseEnemy::UpdateFadeOut(float DeltaTime)
 		}
 		return;
 	}
+	//If invisible use default InvisibleTme to determine when switch should occur
 	if (!FadeVisible && FadeOutTimeElapsed > FadeInvisibleTime)
 	{
 		FadeVisible = true;
@@ -134,4 +141,35 @@ void ABaseEnemy::UpdateFadeOut(float DeltaTime)
 		}
 	}
 }
+
+//Interface functino acts as a buffer for actual attack logic
+void ABaseEnemy::AttackPrimary()
+{
+	AttackGeneric(1);
+}
+
+void ABaseEnemy::AttackGeneric(int AttackNum)
+{
+	if (AttackCooldown >= AttackRate)
+	{
+		if (AttackMontages.Num() > AttackNum - 1)
+		{
+			if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
+			{
+				AnimInstance->Montage_Play(AttackMontages[AttackNum - 1]);
+				FOnMontageEnded MontageEnded;
+				MontageEnded.BindLambda([this](UAnimMontage* Montage, bool bInteruppted)
+				{
+					AttackCooldown = 0;
+				});
+				AnimInstance->Montage_SetEndDelegate(MontageEnded, AttackMontages[AttackNum - 1]);
+			}
+			UE_LOG(LogTemp, Warning, TEXT("Anim instance not found"));
+		}	
+	}
+}
+
+
+
+
 

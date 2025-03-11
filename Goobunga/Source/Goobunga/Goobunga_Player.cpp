@@ -6,7 +6,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Math/UnrealMathUtility.h"
-#include "Fireable.h"
+#include "FireableCallables.h"
 #include "ReloadManagerComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/KismetSystemLibrary.h"
@@ -210,9 +210,9 @@ void AGoobunga_Player::FireStarted()
 	{
 		SprintEnded();
 	}
-	if (EquippedItem && EquippedItem->Implements<UFireable>() && !Sprinting)
+	if (EquippedItem && EquippedItem->Implements<UFireableCallables>() && !Sprinting)
 	{
-		IFireable* FireableInterface = Cast<IFireable>(EquippedItem);
+		IFireableCallables* FireableInterface = Cast<IFireableCallables>(EquippedItem);
 		if (FireableInterface)
 		{
 			FireableInterface->FireEvent();
@@ -224,7 +224,7 @@ void AGoobunga_Player::FireStarted()
 //On fire event ended alert equipped item, allowing it to handle necessary logic
 void AGoobunga_Player::FireEnded(bool Cancelled)
 {
-	IFireable* FireableInterface = Cast<IFireable>(EquippedItem);
+	IFireableCallables* FireableInterface = Cast<IFireableCallables>(EquippedItem);
 	if (FireableInterface)
 	{
 		FireableInterface->EndFireEvent(Cancelled);
@@ -245,9 +245,9 @@ void AGoobunga_Player::AltFireStarted()
 	{
 		SprintEnded();
 	}
-	if (EquippedItem && EquippedItem->Implements<UFireable>() && !Sprinting)
+	if (EquippedItem && EquippedItem->Implements<UFireableCallables>() && !Sprinting)
 	{
-		IFireable* FireableInterface = Cast<IFireable>(EquippedItem);
+		IFireableCallables* FireableInterface = Cast<IFireableCallables>(EquippedItem);
 		if (FireableInterface)
 		{
 			FireableInterface->AltFireEvent();
@@ -259,9 +259,9 @@ void AGoobunga_Player::AltFireStarted()
 //Generic call to stop ads. Has no effect if weapon does not allow ads
 void AGoobunga_Player::AltFireEnded(bool Cancelled)
 {
-	if (EquippedItem && EquippedItem->Implements<UFireable>() && !Sprinting)
+	if (EquippedItem && EquippedItem->Implements<UFireableCallables>() && !Sprinting)
 	{
-		IFireable* FireableInterface = Cast<IFireable>(EquippedItem);
+		IFireableCallables* FireableInterface = Cast<IFireableCallables>(EquippedItem);
 		if (FireableInterface)
 		{
 			FireableInterface->EndAltFireEvent(Cancelled);
@@ -292,9 +292,9 @@ void AGoobunga_Player::UpdateAimDownSights()
 	
 	float TargetAimAlpha = bAiming ? 1.f : 0.f;
 	float TargetAimSpeed = 1.f;
-	if (EquippedItem && EquippedItem->Implements<UFireable>())
+	if (EquippedItem && EquippedItem->Implements<UFireableCallables>())
 	{
-		if (IFireable* FireableInterface = Cast<IFireable>(EquippedItem))
+		if (IFireableCallables* FireableInterface = Cast<IFireableCallables>(EquippedItem))
 		{
 			TargetAimSpeed = FireableInterface->GetADSSpeed();
 			FireableInterface->UpdateAccuracy(CurrentAimAlpha);

@@ -5,14 +5,14 @@
 #include "CoreMinimal.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Actor.h"
-#include "Goobunga/Fireable.h"
+#include "Goobunga/FireableCallables.h"
 #include "Weapon.generated.h"
 
 class UNiagaraSystem;
 class UCameraComponent;
 
 UCLASS()
-class GOOBUNGA_API AWeapon : public AActor, public IFireable
+class GOOBUNGA_API AWeapon : public AActor, public IFireableCallables
 {
 	GENERATED_BODY()
 	

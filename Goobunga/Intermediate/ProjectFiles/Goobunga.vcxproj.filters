@@ -36,10 +36,10 @@
     <ClCompile Include="..\..\Source\Goobunga\FacialAnimationComponent.h">
       <Filter>Source\Goobunga</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Fireable.cpp">
+    <ClCompile Include="..\..\Source\Goobunga\FireableCallables.cpp">
       <Filter>Source\Goobunga</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Fireable.h">
+    <ClCompile Include="..\..\Source\Goobunga\FireableCallables.h">
       <Filter>Source\Goobunga</Filter>
     </ClCompile>
     <None Include="..\..\Source\Goobunga\Goobunga.Build.cs">
@@ -133,6 +133,12 @@
       <Filter>Source\Goobunga\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Enemies\BTTask_SwerveWhileChasing.h">
+      <Filter>Source\Goobunga\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\EnemyCallables.cpp">
+      <Filter>Source\Goobunga\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\EnemyCallables.h">
       <Filter>Source\Goobunga\Enemies</Filter>
     </ClCompile>
     <Filter Include="Source\Goobunga\UserInterface">
