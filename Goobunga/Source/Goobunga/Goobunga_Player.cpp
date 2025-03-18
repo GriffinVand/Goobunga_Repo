@@ -103,17 +103,7 @@ void AGoobunga_Player::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 void AGoobunga_Player::Move(const FInputActionValue& Value)
 {
 	const FVector2d MoveVector = Value.Get<FVector2d>();
-	if (Sprinting)
-	{
-		if (MoveVector == FVector2D(0, 1))
-		{
-			MovementDirection += MoveVector;
-		}
-	}
-	else
-	{
-		MovementDirection += MoveVector;
-	}
+	MovementDirection += MoveVector;
 }
 
 //Called when movement stops being triggered
@@ -169,7 +159,6 @@ void AGoobunga_Player::SprintStarted()
 		Sprinting = true;
 		GetCharacterMovement()->MaxWalkSpeed = 1200.f;
 	}
-	else { SprintEnded(); }
 }
 
 //Decrease movement speed, release movement direction
@@ -191,11 +180,24 @@ void AGoobunga_Player::ApplyMovementAffect(FVector2D MoveVector)
 
 void AGoobunga_Player::UpdateMovement()
 {
-	AddMovementInput(GetActorForwardVector() * MovementDirection.Y);
-	AddMovementInput(GetActorRightVector() * MovementDirection.X);
+	MovingForward = MovementDirection.Y == 1;
+	if (Sprinting)
+	{
+		if (MovingForward)
+		{
+			AddMovementInput(GetActorForwardVector() * MovementDirection.Y);
+		}
+		else
+		{
+			SprintEnded();
+		}
+	}
+	else
+	{
+		AddMovementInput(GetActorForwardVector() * MovementDirection.Y);
+		AddMovementInput(GetActorRightVector() * MovementDirection.X);
+	}
 	ApplyMovementAffect(MovementDirection);
-	MovingForward = MovementDirection == FVector2D(0, 1);
-	if (Sprinting && !MovingForward) { SprintEnded(); }
 	MovementDirection = FVector2d(0,0);
 }
 

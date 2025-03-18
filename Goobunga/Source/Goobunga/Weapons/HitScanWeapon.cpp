@@ -68,6 +68,7 @@ void AHitScanWeapon::FireWeapon()
 
 			//Spawn trail from barrel to hit location
 			//SpawnTrailSystem(HitLocation);
+			//SpawnTrailProjectile(FVector(HitLocation - WeaponStart));
 			//Play fire sound if possible
 			if (FireSound)
 				UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
@@ -83,13 +84,14 @@ void AHitScanWeapon::FireWeapon()
 //Self-explanatory
 void AHitScanWeapon::SpawnTrailProjectile(FVector Direction)
 {
+	FRotator Rotation = Direction.GetSafeNormal().Rotation();
 	if (TrailProjectileClass)
 	{
 		FTransform SpawnTransform = WeaponMesh->GetSocketTransform("Fire_Location");
 		FActorSpawnParameters SpawnParameters;
 		SpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 	
-		GetWorld()->SpawnActor<AActor>(TrailProjectileClass, SpawnTransform.GetLocation(), Direction.Rotation(), SpawnParameters);
+		GetWorld()->SpawnActor<AActor>(TrailProjectileClass, SpawnTransform.GetLocation(), Rotation, SpawnParameters);
 	}
 	else {UE_LOG(LogTemp, Warning, TEXT("Could not spawn trail projectile"))}
 }
