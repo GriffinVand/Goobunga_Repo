@@ -3,10 +3,16 @@
 #include "EnemyCallables.h"
 #include "BehaviorTree/BlackboardComponent.h"
 
+UBTTask_AttackGeneric::UBTTask_AttackGeneric()
+{
+	NodeName = "Attack Generic";
+}
+
+
 EBTNodeResult::Type UBTTask_AttackGeneric::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
-
-	if (AActor* SelfActor = OwnerComp.GetOwner())
+	AActor* SelfActor = Cast<AActor>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(SelfActorKey.SelectedKeyName));
+	if (SelfActor)
 	{
 		if (IEnemyCallables* EnemyCallableInterface = Cast<IEnemyCallables>(SelfActor))
 		{

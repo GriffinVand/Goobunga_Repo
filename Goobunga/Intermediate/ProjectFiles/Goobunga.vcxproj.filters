@@ -129,6 +129,12 @@
     <ClCompile Include="..\..\Source\Goobunga\Enemies\BTS_UpdateDistanceToPlayer.h">
       <Filter>Source\Goobunga\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTTask_AttackGeneric.cpp">
+      <Filter>Source\Goobunga\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTTask_AttackGeneric.h">
+      <Filter>Source\Goobunga\Enemies</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Enemies\BTTask_SwerveWhileChasing.cpp">
       <Filter>Source\Goobunga\Enemies</Filter>
     </ClCompile>

@@ -61,20 +61,16 @@ void AHitScanWeapon::FireWeapon()
 					else { UE_LOG(LogTemp, Display, TEXT("No damage to Actor")); }
 				}
 				else { UE_LOG(LogTemp, Display, TEXT("No hit Actor")); }
-				//DrawDebugLine(GetWorld(), WeaponStart, HitLocation, FColor::Green);
 			}
 			else { DrawDebugLine(GetWorld(), WeaponStart, HitLocation, FColor::Red); }
-			//DrawDebugSphere(GetWorld(), HitLocation, 10, 10, FColor::Blue, false, 3.f);
-
-			//Spawn trail from barrel to hit location
-			//SpawnTrailSystem(HitLocation);
-			//SpawnTrailProjectile(FVector(HitLocation - WeaponStart));
+			
 			//Play fire sound if possible
 			if (FireSound)
 				UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
 
 			//Try play fire animation
 			PlayAnimationSimultaneous("Fire");
+
 			//Apply recoil to owner after firing has stopped
 			ApplyRecoil();
 		}

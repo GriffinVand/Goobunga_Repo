@@ -169,4 +169,5 @@ protected:
 	
 	virtual void ApplyAimOffset(FVector AimOffsetInput) override;
 	virtual TArray<FVector> GetAimDirection() override;
+	virtual void UpdateWeaponUI() override;
 };

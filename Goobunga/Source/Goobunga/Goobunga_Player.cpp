@@ -326,6 +326,7 @@ void AGoobunga_Player::UpdateAimOffset()
 {
 	GetController()->SetControlRotation(GetControlRotation().Add(AimOffset.Y, AimOffset.Z, AimOffset.X));
 	AimOffset = FMath::VInterpTo(AimOffset, FVector::ZeroVector, GetWorld()->GetDeltaSeconds(), 20.f);
+	UE_LOG(LogTemp, Warning, TEXT("aimoffset: roll %f, pitch %f, yaw %f"), AimOffset.X, AimOffset.Y, AimOffset.Z);
 }
 
 //Return location and rotation of true look direction
@@ -345,10 +346,6 @@ void AGoobunga_Player::StopCombatActions()
 //Used in hand overshoot(gun rotates in hand to match look velocity)
 void AGoobunga_Player::UpdateLookVelocity(float DeltaTime)
 {
-	float TargetLookRotationOffsetX = FMath::GetMappedRangeValueClamped(FVector2D(-1.f, 1.f), FVector2D(-15.f, 15.f), MouseLookDirection.X);
-	float TargetLookRotationOffsetY = FMath::GetMappedRangeValueClamped(FVector2D(-1.f, 1.f), FVector2D(15.f, -15.f), MouseLookDirection.Y);
-	//LookRotationOffset.X = FMath::FInterpConstantTo(LookRotationOffset.X, TargetLookRotationOffsetX, GetWorld()->GetDeltaSeconds(), 10.f);
-	//LookRotationOffset.Y = FMath::FInterpConstantTo(LookRotationOffset.Y, TargetLookRotationOffsetY, GetWorld()->GetDeltaSeconds(), 10.f);
 	AddControllerPitchInput(MouseLookDirection.Y * -1 * Sensitivity);
 	AddControllerYawInput(MouseLookDirection.X * Sensitivity);
 	MouseLookDirection = FVector2D::ZeroVector;
@@ -364,6 +361,12 @@ void AGoobunga_Player::DeathSequence()
 {
 	UKismetSystemLibrary::QuitGame(this, nullptr, EQuitPreference::Quit, true);
 }
+
+void AGoobunga_Player::UpdateWeaponUI()
+{
+	UE_LOG(LogTemp, Display, TEXT("Update Weapon UI"));
+}
+
 
 
 

@@ -27,5 +27,6 @@ public:
 	virtual void StopAimDownSights() = 0;
 	virtual void EndReload(bool Success) = 0;
 	virtual void ApplyAimOffset(FVector AimOffsetInput) = 0;
+	virtual void UpdateWeaponUI() = 0;
 	virtual TArray<FVector> GetAimDirection() = 0;
 };

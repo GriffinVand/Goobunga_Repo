@@ -16,7 +16,7 @@ protected:
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 
 	UPROPERTY(EditAnywhere, Category = Blackboard)
-	FBlackboardKeySelector SelfActor;
+	FBlackboardKeySelector SelfActorKey;
 	UPROPERTY(EditAnywhere, Category = Blackboard)
-	FBlackboardKeySelector AttackNum;
+	FBlackboardKeySelector AttackNumKey;
 };
