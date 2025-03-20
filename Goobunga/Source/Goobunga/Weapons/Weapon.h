@@ -6,6 +6,7 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Actor.h"
 #include "Goobunga/FireableCallables.h"
+#include "Goobunga/Combat/WeaponUITypes.h"
 #include "Weapon.generated.h"
 
 class UNiagaraSystem;
@@ -27,6 +28,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Context, meta = (AllowPrivateAccess = "true"))
 	AActor* WeaponOwner;
 
+	//Attaching socket name
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Context, meta = (AllowPrivateAccess = "true"))
+	FName AttachSocketName = "";
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = UserInterface, meta = (AllowPrivateAccess = "true"))
+	EWeaponUItype WeaponUIType = EWeaponUItype::Thin;
+	
 	//ADS information
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	bool ADS = false;
@@ -77,15 +85,18 @@ public:
 	int CurrentAmmo = MaxAmmo;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Ammo", meta = (AllowPrivateAccess = "true"))
 	int MaxMag = 30;
-	int CurrentMag = MaxMag;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Ammo", meta = (AllowPrivateAccess = "true"))
+	int CurrentMag = 30;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Ammo", meta = (AllowPrivateAccess = "true"))
 	int MaxAltAmmo = 10;
 	int CurrentAltAmmo = MaxAltAmmo;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Ammo", meta = (AllowPrivateAccess = "true"))
 	int MaxAltMag = 1;
-	int CurrentAltMag = MaxAltMag;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Ammo", meta = (AllowPrivateAccess = "true"))
+	int CurrentAltMag = 1;
 	
-	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Icons", meta = (AllowPrivateAccess = "true"))
+	TMap<FString, UTexture2D*> Icons;
 	
 	//Weapon may apply physical force when fired
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
@@ -123,6 +134,15 @@ public:
 	virtual void AltFireEvent() override;
 	virtual void EndAltFireEvent(bool Cancelled) override;
 	virtual void ReloadEvent() override;
+	
+	virtual int GetMaxMag() override { return MaxMag;}
+	virtual int GetCurrentMag() override { return CurrentMag;}
+	virtual int GetMaxAmmo() override { return MaxAmmo;}
+	virtual int GetCurrentAmmo() override { return CurrentAmmo;}
+	virtual EWeaponUItype GetWeaponUItype() override{ return WeaponUIType; }
+	
+	virtual UTexture2D* GetIcon(FString IconName) override;
+	virtual FName GetAttachSocketName() override { return AttachSocketName; }
 	//Does this weapon allow ads
 	virtual bool CanADS() override {return ADS;}
 	virtual float GetADSSpeed() override { return ADSTime * ADSSpeed;}
@@ -133,6 +153,8 @@ public:
 	virtual void FireWeapon();
 	//Sends recoil information to owner
 	virtual void ApplyRecoil();
+	//Tells owner to update UI elements related to this weapon
+	virtual void UpdateOwnerUI();
 	virtual void UpdateWeapon();
 	virtual void PlayFireEffect();
 	

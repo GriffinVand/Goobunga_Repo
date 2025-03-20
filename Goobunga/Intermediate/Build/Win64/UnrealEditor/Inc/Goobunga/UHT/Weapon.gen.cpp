@@ -17,9 +17,11 @@ ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_UAnimMontage_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_USkeletalMeshComponent_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_USoundBase_NoRegister();
+ENGINE_API UClass* Z_Construct_UClass_UTexture2D_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_AWeapon();
 GOOBUNGA_API UClass* Z_Construct_UClass_AWeapon_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_UFireableCallables_NoRegister();
+GOOBUNGA_API UEnum* Z_Construct_UEnum_Goobunga_EWeaponUItype();
 NIAGARA_API UClass* Z_Construct_UClass_UNiagaraSystem_NoRegister();
 UPackage* Z_Construct_UPackage__Script_Goobunga();
 // End Cross Module References
@@ -56,6 +58,22 @@ struct Z_Construct_UClass_AWeapon_Statics
 #if !UE_BUILD_SHIPPING
 		{ "ToolTip", "Owning actor" },
 #endif
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_AttachSocketName_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Context" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "//Attaching socket name\n" },
+#endif
+		{ "ModuleRelativePath", "Weapons/Weapon.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "Attaching socket name" },
+#endif
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_WeaponUIType_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "UserInterface" },
+		{ "ModuleRelativePath", "Weapons/Weapon.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ADS_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
@@ -183,6 +201,11 @@ struct Z_Construct_UClass_AWeapon_Statics
 		{ "Category", "Stats|Ammo" },
 		{ "ModuleRelativePath", "Weapons/Weapon.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CurrentMag_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Stats|Ammo" },
+		{ "ModuleRelativePath", "Weapons/Weapon.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_MaxAltAmmo_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "Stats|Ammo" },
@@ -191,6 +214,16 @@ struct Z_Construct_UClass_AWeapon_Statics
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_MaxAltMag_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "Stats|Ammo" },
+		{ "ModuleRelativePath", "Weapons/Weapon.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CurrentAltMag_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Stats|Ammo" },
+		{ "ModuleRelativePath", "Weapons/Weapon.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Icons_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Icons" },
 		{ "ModuleRelativePath", "Weapons/Weapon.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_HitForce_MetaData[] = {
@@ -245,6 +278,9 @@ struct Z_Construct_UClass_AWeapon_Statics
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_WeaponMesh;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_WeaponOwner;
+	static const UECodeGen_Private::FNamePropertyParams NewProp_AttachSocketName;
+	static const UECodeGen_Private::FBytePropertyParams NewProp_WeaponUIType_Underlying;
+	static const UECodeGen_Private::FEnumPropertyParams NewProp_WeaponUIType;
 	static void NewProp_ADS_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ADS;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_ADSTime;
@@ -264,8 +300,13 @@ struct Z_Construct_UClass_AWeapon_Statics
 	static const UECodeGen_Private::FStructPropertyParams NewProp_RecoilIntensityMax;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_MaxAmmo;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_MaxMag;
+	static const UECodeGen_Private::FIntPropertyParams NewProp_CurrentMag;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_MaxAltAmmo;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_MaxAltMag;
+	static const UECodeGen_Private::FIntPropertyParams NewProp_CurrentAltMag;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_Icons_ValueProp;
+	static const UECodeGen_Private::FStrPropertyParams NewProp_Icons_Key_KeyProp;
+	static const UECodeGen_Private::FMapPropertyParams NewProp_Icons;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_HitForce;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_FireEffect;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_FireSound;
@@ -285,6 +326,9 @@ struct Z_Construct_UClass_AWeapon_Statics
 };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_WeaponMesh = { "WeaponMesh", nullptr, (EPropertyFlags)0x001000000008001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, WeaponMesh), Z_Construct_UClass_USkeletalMeshComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WeaponMesh_MetaData), NewProp_WeaponMesh_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_WeaponOwner = { "WeaponOwner", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, WeaponOwner), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WeaponOwner_MetaData), NewProp_WeaponOwner_MetaData) };
+const UECodeGen_Private::FNamePropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_AttachSocketName = { "AttachSocketName", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, AttachSocketName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AttachSocketName_MetaData), NewProp_AttachSocketName_MetaData) };
+const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_WeaponUIType_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_WeaponUIType = { "WeaponUIType", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, WeaponUIType), Z_Construct_UEnum_Goobunga_EWeaponUItype, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WeaponUIType_MetaData), NewProp_WeaponUIType_MetaData) }; // 105456784
 void Z_Construct_UClass_AWeapon_Statics::NewProp_ADS_SetBit(void* Obj)
 {
 	((AWeapon*)Obj)->ADS = 1;
@@ -307,8 +351,13 @@ const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AWeapon_Static
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_RecoilIntensityMax = { "RecoilIntensityMax", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, RecoilIntensityMax), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_RecoilIntensityMax_MetaData), NewProp_RecoilIntensityMax_MetaData) };
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_MaxAmmo = { "MaxAmmo", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, MaxAmmo), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MaxAmmo_MetaData), NewProp_MaxAmmo_MetaData) };
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_MaxMag = { "MaxMag", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, MaxMag), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MaxMag_MetaData), NewProp_MaxMag_MetaData) };
+const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_CurrentMag = { "CurrentMag", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, CurrentMag), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CurrentMag_MetaData), NewProp_CurrentMag_MetaData) };
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_MaxAltAmmo = { "MaxAltAmmo", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, MaxAltAmmo), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MaxAltAmmo_MetaData), NewProp_MaxAltAmmo_MetaData) };
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_MaxAltMag = { "MaxAltMag", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, MaxAltMag), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MaxAltMag_MetaData), NewProp_MaxAltMag_MetaData) };
+const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_CurrentAltMag = { "CurrentAltMag", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, CurrentAltMag), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CurrentAltMag_MetaData), NewProp_CurrentAltMag_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_Icons_ValueProp = { "Icons", nullptr, (EPropertyFlags)0x0000000000000001, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 1, Z_Construct_UClass_UTexture2D_NoRegister, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_Icons_Key_KeyProp = { "Icons_Key", nullptr, (EPropertyFlags)0x0000000000000001, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FMapPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_Icons = { "Icons", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, Icons), EMapPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Icons_MetaData), NewProp_Icons_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_HitForce = { "HitForce", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, HitForce), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_HitForce_MetaData), NewProp_HitForce_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_FireEffect = { "FireEffect", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, FireEffect), Z_Construct_UClass_UNiagaraSystem_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FireEffect_MetaData), NewProp_FireEffect_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_FireSound = { "FireSound", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, FireSound), Z_Construct_UClass_USoundBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FireSound_MetaData), NewProp_FireSound_MetaData) };
@@ -321,6 +370,9 @@ const UECodeGen_Private::FMapPropertyParams Z_Construct_UClass_AWeapon_Statics::
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AWeapon_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_WeaponMesh,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_WeaponOwner,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_AttachSocketName,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_WeaponUIType_Underlying,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_WeaponUIType,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_ADS,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_ADSTime,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_ADSSpeed,
@@ -339,8 +391,13 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AWeapon_S
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_RecoilIntensityMax,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_MaxAmmo,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_MaxMag,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_CurrentMag,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_MaxAltAmmo,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_MaxAltMag,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_CurrentAltMag,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_Icons_ValueProp,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_Icons_Key_KeyProp,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_Icons,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_HitForce,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_FireEffect,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_FireSound,
@@ -392,14 +449,14 @@ AWeapon::~AWeapon() {}
 // End Class AWeapon
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Weapon_h_Statics
+struct Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Weapon_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AWeapon, AWeapon::StaticClass, TEXT("AWeapon"), &Z_Registration_Info_UClass_AWeapon, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AWeapon), 1247718454U) },
+		{ Z_Construct_UClass_AWeapon, AWeapon::StaticClass, TEXT("AWeapon"), &Z_Registration_Info_UClass_AWeapon, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AWeapon), 380477983U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Weapon_h_2787530250(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Weapon_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Weapon_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Weapon_h_971114001(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Weapon_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Weapon_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

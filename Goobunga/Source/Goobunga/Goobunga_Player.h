@@ -5,6 +5,7 @@
 #include "PlayerCallables.h"
 #include "Combat/CombatCallables.h"
 #include "GameFramework/Character.h"
+#include "UserInterface/PlayerWeaponAmmoWidget.h"
 #include "Goobunga_Player.generated.h"
 
 struct FInputActionValue;
@@ -13,6 +14,7 @@ class UInputAction;
 class UCameraComponent;
 class USpringArmComponent;
 class UReloadManagerComponent;
+class AWeapon;
 
 UCLASS()
 class GOOBUNGA_API AGoobunga_Player : public ACharacter, public IPlayerCallables, public ICombatCallables
@@ -52,6 +54,15 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = true))
 	UReloadManagerComponent* ReloadManagerComponent;
 
+	//UI
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TSubclassOf<UUserWidget> WeaponAmmoWidgetClass;
+
+	TSubclassOf<UUserWidget> RandomClass;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = true))
+	UPlayerWeaponAmmoWidget* WeaponAmmoWidget;
+	
 protected:
 	//Stats
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Stats, meta =(AllowPrivateAccess=true))
@@ -127,6 +138,8 @@ protected:
 	//Current equipped item, can be a weapon or an item
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Equipment", meta = (AllowPrivateAccess = "true"))
 	AActor* EquippedItem;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Equipment", meta = (AllowPrivateAccess = "true"))
+	AWeapon* EquippedWeapon;
 
 	//Basic move look
 	void Move(const FInputActionValue& Value);
@@ -152,7 +165,8 @@ protected:
 	void SprintStarted();
 	//Called on sprint ended
 	void SprintEnded();
-	
+
+	void EquipWeapon(AActor* Weapon);
 	void ApplyMovementAffect(FVector2D Movement);
 	void UpdateMovement();
 	virtual void StartAimDownSights() override;

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
 #include "Camera/CameraComponent.h"
+#include "Combat/WeaponUITypes.h"
 #include "FireableCallables.generated.h"
 
 UINTERFACE(MinimalAPI, BlueprintType)
@@ -36,5 +37,19 @@ public:
 	virtual float GetADSSpeed()  = 0;
 
 	virtual void UpdateAccuracy(float NewAccuracy) = 0;
+
+	virtual int GetMaxMag() = 0;
+
+	virtual int GetCurrentMag() = 0;
+
+	virtual int GetMaxAmmo() = 0;
+
+	virtual int GetCurrentAmmo() = 0;
+
+	virtual EWeaponUItype GetWeaponUItype() = 0;
+
+	virtual UTexture2D* GetIcon(FString IconName) = 0;
+
+	virtual FName GetAttachSocketName() = 0;
 	
 };

@@ -1,21 +1,22 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "e:\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\catgun.gen.cpp",
+        "Source": "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\catgun.gen.cpp",
         "ProvidedModule": "",
-        "PCH": "e:\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\goobungaeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "PCH": "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\goobungaeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
         "Includes": [
-            "e:\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\goobunga\\definitions.goobunga.h",
-            "e:\\goobunga_repo\\goobunga\\source\\goobunga\\weapons\\catgun.h",
-            "e:\\goobunga_repo\\goobunga\\source\\goobunga\\weapons\\hitscanweapon.h",
-            "e:\\goobunga_repo\\goobunga\\source\\goobunga\\weapons\\weapon.h",
-            "e:\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\camera\\cameracomponent.h",
-            "e:\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\cameracomponent.generated.h",
-            "e:\\goobunga_repo\\goobunga\\source\\goobunga\\fireablecallables.h",
-            "e:\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\fireablecallables.generated.h",
-            "e:\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\weapon.generated.h",
-            "e:\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\hitscanweapon.generated.h",
-            "e:\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\catgun.generated.h"
+            "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\goobunga\\definitions.goobunga.h",
+            "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\source\\goobunga\\weapons\\catgun.h",
+            "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\source\\goobunga\\weapons\\hitscanweapon.h",
+            "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\source\\goobunga\\weapons\\weapon.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\camera\\cameracomponent.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\cameracomponent.generated.h",
+            "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\source\\goobunga\\fireablecallables.h",
+            "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\source\\goobunga\\combat\\weaponuitypes.h",
+            "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\fireablecallables.generated.h",
+            "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\weapon.generated.h",
+            "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\hitscanweapon.generated.h",
+            "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\catgun.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

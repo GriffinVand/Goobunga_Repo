@@ -150,21 +150,28 @@ void ABaseEnemy::AttackPrimary()
 
 void ABaseEnemy::AttackGeneric(int AttackNum)
 {
-	if (AttackCooldown >= AttackRate)
+	if (AttackCooldown >= AttackRate && !Attacking)
 	{
 		if (AttackMontages.Num() > AttackNum - 1)
 		{
 			if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
 			{
+				Attacking = true;
 				AnimInstance->Montage_Play(AttackMontages[AttackNum - 1]);
+				UE_LOG(LogTemp, Warning, TEXT("PLAY MONTAGE"));
 				FOnMontageEnded MontageEnded;
 				MontageEnded.BindLambda([this](UAnimMontage* Montage, bool bInteruppted)
 				{
 					AttackCooldown = 0;
+					Attacking = false;
+					UE_LOG(LogTemp, Warning, TEXT("MONTAGE ENDED"));
 				});
 				AnimInstance->Montage_SetEndDelegate(MontageEnded, AttackMontages[AttackNum - 1]);
 			}
-			UE_LOG(LogTemp, Warning, TEXT("Anim instance not found"));
+			else
+			{
+				UE_LOG(LogTemp, Warning, TEXT("Anim instance not found: AttackGeneric()"));
+			}
 		}	
 	}
 }

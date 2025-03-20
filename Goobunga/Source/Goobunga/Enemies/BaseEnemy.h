@@ -37,6 +37,8 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	float AttackCooldown = 0.f;
 
+	bool Attacking = false;
+	
 	bool FadingOut = false;
 	bool FadeVisible = true;
 	float FadeOutTime = 10.f;

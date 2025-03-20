@@ -10,12 +10,18 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodePlayerWeaponAmmoWidget() {}
 
 // Begin Cross Module References
+COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
+COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FLinearColor();
+ENGINE_API UClass* Z_Construct_UClass_UMaterialInstance_NoRegister();
+ENGINE_API UClass* Z_Construct_UClass_UMaterialInstanceDynamic_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_UPlayerWeaponAmmoWidget();
 GOOBUNGA_API UClass* Z_Construct_UClass_UPlayerWeaponAmmoWidget_NoRegister();
+GOOBUNGA_API UEnum* Z_Construct_UEnum_Goobunga_EWeaponUItype();
+UMG_API UClass* Z_Construct_UClass_UHorizontalBox_NoRegister();
 UMG_API UClass* Z_Construct_UClass_UImage_NoRegister();
+UMG_API UClass* Z_Construct_UClass_UTextBlock_NoRegister();
 UMG_API UClass* Z_Construct_UClass_UUserWidget();
 UMG_API UClass* Z_Construct_UClass_UUserWidget_NoRegister();
-UMG_API UClass* Z_Construct_UClass_UVerticalBox_NoRegister();
 UPackage* Z_Construct_UPackage__Script_Goobunga();
 // End Cross Module References
 
@@ -40,12 +46,11 @@ struct Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "UserInterface/PlayerWeaponAmmoWidget.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_BulletWidget_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_BulletWidgetClass_MetaData[] = {
 		{ "Category", "PlayerWeaponAmmoWidget" },
-		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "UserInterface/PlayerWeaponAmmoWidget.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_BulletVerticalContainer_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CurrentAmmoText_MetaData[] = {
 		{ "Category", "PlayerWeaponAmmoWidget" },
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "UserInterface/PlayerWeaponAmmoWidget.h" },
@@ -55,12 +60,79 @@ struct Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "UserInterface/PlayerWeaponAmmoWidget.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_WeaponIconMaterial_MetaData[] = {
+		{ "Category", "PlayerWeaponAmmoWidget" },
+		{ "ModuleRelativePath", "UserInterface/PlayerWeaponAmmoWidget.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_WeaponIconMaterialParent_MetaData[] = {
+		{ "Category", "PlayerWeaponAmmoWidget" },
+		{ "ModuleRelativePath", "UserInterface/PlayerWeaponAmmoWidget.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ActiveColor_MetaData[] = {
+		{ "Category", "PlayerWeaponAmmoWidget" },
+		{ "ModuleRelativePath", "UserInterface/PlayerWeaponAmmoWidget.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_InactiveColor_MetaData[] = {
+		{ "Category", "PlayerWeaponAmmoWidget" },
+		{ "ModuleRelativePath", "UserInterface/PlayerWeaponAmmoWidget.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_BulletWidthValues_MetaData[] = {
+		{ "Category", "PlayerWeaponAmmoWidget" },
+		{ "ModuleRelativePath", "UserInterface/PlayerWeaponAmmoWidget.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_BulletHeightValues_MetaData[] = {
+		{ "Category", "PlayerWeaponAmmoWidget" },
+		{ "ModuleRelativePath", "UserInterface/PlayerWeaponAmmoWidget.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_BulletMaxRowValues_MetaData[] = {
+		{ "Category", "PlayerWeaponAmmoWidget" },
+		{ "ModuleRelativePath", "UserInterface/PlayerWeaponAmmoWidget.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_BulletPaddingsLeft_MetaData[] = {
+		{ "Category", "PlayerWeaponAmmoWidget" },
+		{ "ModuleRelativePath", "UserInterface/PlayerWeaponAmmoWidget.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_BulletPaddingsUp_MetaData[] = {
+		{ "Category", "PlayerWeaponAmmoWidget" },
+		{ "ModuleRelativePath", "UserInterface/PlayerWeaponAmmoWidget.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_BulletContainers_MetaData[] = {
+		{ "Category", "PlayerWeaponAmmoWidget" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "UserInterface/PlayerWeaponAmmoWidget.h" },
+	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_WeaponIcon;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_BulletWidget;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_BulletVerticalContainer;
+	static const UECodeGen_Private::FClassPropertyParams NewProp_BulletWidgetClass;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_CurrentAmmoText;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_BulletWidgets_Inner;
 	static const UECodeGen_Private::FArrayPropertyParams NewProp_BulletWidgets;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_WeaponIconMaterial;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_WeaponIconMaterialParent;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_ActiveColor;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_InactiveColor;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_BulletWidthValues_ValueProp;
+	static const UECodeGen_Private::FBytePropertyParams NewProp_BulletWidthValues_Key_KeyProp_Underlying;
+	static const UECodeGen_Private::FEnumPropertyParams NewProp_BulletWidthValues_Key_KeyProp;
+	static const UECodeGen_Private::FMapPropertyParams NewProp_BulletWidthValues;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_BulletHeightValues_ValueProp;
+	static const UECodeGen_Private::FBytePropertyParams NewProp_BulletHeightValues_Key_KeyProp_Underlying;
+	static const UECodeGen_Private::FEnumPropertyParams NewProp_BulletHeightValues_Key_KeyProp;
+	static const UECodeGen_Private::FMapPropertyParams NewProp_BulletHeightValues;
+	static const UECodeGen_Private::FIntPropertyParams NewProp_BulletMaxRowValues_ValueProp;
+	static const UECodeGen_Private::FBytePropertyParams NewProp_BulletMaxRowValues_Key_KeyProp_Underlying;
+	static const UECodeGen_Private::FEnumPropertyParams NewProp_BulletMaxRowValues_Key_KeyProp;
+	static const UECodeGen_Private::FMapPropertyParams NewProp_BulletMaxRowValues;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_BulletPaddingsLeft_ValueProp;
+	static const UECodeGen_Private::FBytePropertyParams NewProp_BulletPaddingsLeft_Key_KeyProp_Underlying;
+	static const UECodeGen_Private::FEnumPropertyParams NewProp_BulletPaddingsLeft_Key_KeyProp;
+	static const UECodeGen_Private::FMapPropertyParams NewProp_BulletPaddingsLeft;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_BulletPaddingsUp_ValueProp;
+	static const UECodeGen_Private::FBytePropertyParams NewProp_BulletPaddingsUp_Key_KeyProp_Underlying;
+	static const UECodeGen_Private::FEnumPropertyParams NewProp_BulletPaddingsUp_Key_KeyProp;
+	static const UECodeGen_Private::FMapPropertyParams NewProp_BulletPaddingsUp;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_BulletContainers_Inner;
+	static const UECodeGen_Private::FArrayPropertyParams NewProp_BulletContainers;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -68,17 +140,69 @@ struct Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_WeaponIcon = { "WeaponIcon", nullptr, (EPropertyFlags)0x0010000000080009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerWeaponAmmoWidget, WeaponIcon), Z_Construct_UClass_UImage_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WeaponIcon_MetaData), NewProp_WeaponIcon_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletWidget = { "BulletWidget", nullptr, (EPropertyFlags)0x0010000000080009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerWeaponAmmoWidget, BulletWidget), Z_Construct_UClass_UUserWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_BulletWidget_MetaData), NewProp_BulletWidget_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletVerticalContainer = { "BulletVerticalContainer", nullptr, (EPropertyFlags)0x0010000000080009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerWeaponAmmoWidget, BulletVerticalContainer), Z_Construct_UClass_UVerticalBox_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_BulletVerticalContainer_MetaData), NewProp_BulletVerticalContainer_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_WeaponIcon = { "WeaponIcon", nullptr, (EPropertyFlags)0x001000000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerWeaponAmmoWidget, WeaponIcon), Z_Construct_UClass_UImage_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WeaponIcon_MetaData), NewProp_WeaponIcon_MetaData) };
+const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletWidgetClass = { "BulletWidgetClass", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerWeaponAmmoWidget, BulletWidgetClass), Z_Construct_UClass_UClass, Z_Construct_UClass_UUserWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_BulletWidgetClass_MetaData), NewProp_BulletWidgetClass_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_CurrentAmmoText = { "CurrentAmmoText", nullptr, (EPropertyFlags)0x001000000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerWeaponAmmoWidget, CurrentAmmoText), Z_Construct_UClass_UTextBlock_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CurrentAmmoText_MetaData), NewProp_CurrentAmmoText_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletWidgets_Inner = { "BulletWidgets", nullptr, (EPropertyFlags)0x0000000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_UUserWidget_NoRegister, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletWidgets = { "BulletWidgets", nullptr, (EPropertyFlags)0x001000800000001d, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerWeaponAmmoWidget, BulletWidgets), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_BulletWidgets_MetaData), NewProp_BulletWidgets_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_WeaponIconMaterial = { "WeaponIconMaterial", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerWeaponAmmoWidget, WeaponIconMaterial), Z_Construct_UClass_UMaterialInstanceDynamic_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WeaponIconMaterial_MetaData), NewProp_WeaponIconMaterial_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_WeaponIconMaterialParent = { "WeaponIconMaterialParent", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerWeaponAmmoWidget, WeaponIconMaterialParent), Z_Construct_UClass_UMaterialInstance_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WeaponIconMaterialParent_MetaData), NewProp_WeaponIconMaterialParent_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_ActiveColor = { "ActiveColor", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerWeaponAmmoWidget, ActiveColor), Z_Construct_UScriptStruct_FLinearColor, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ActiveColor_MetaData), NewProp_ActiveColor_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_InactiveColor = { "InactiveColor", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerWeaponAmmoWidget, InactiveColor), Z_Construct_UScriptStruct_FLinearColor, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_InactiveColor_MetaData), NewProp_InactiveColor_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletWidthValues_ValueProp = { "BulletWidthValues", nullptr, (EPropertyFlags)0x0000000000000001, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 1, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletWidthValues_Key_KeyProp_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletWidthValues_Key_KeyProp = { "BulletWidthValues_Key", nullptr, (EPropertyFlags)0x0000000000000001, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UEnum_Goobunga_EWeaponUItype, METADATA_PARAMS(0, nullptr) }; // 105456784
+const UECodeGen_Private::FMapPropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletWidthValues = { "BulletWidthValues", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerWeaponAmmoWidget, BulletWidthValues), EMapPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_BulletWidthValues_MetaData), NewProp_BulletWidthValues_MetaData) }; // 105456784
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletHeightValues_ValueProp = { "BulletHeightValues", nullptr, (EPropertyFlags)0x0000000000000001, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 1, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletHeightValues_Key_KeyProp_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletHeightValues_Key_KeyProp = { "BulletHeightValues_Key", nullptr, (EPropertyFlags)0x0000000000000001, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UEnum_Goobunga_EWeaponUItype, METADATA_PARAMS(0, nullptr) }; // 105456784
+const UECodeGen_Private::FMapPropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletHeightValues = { "BulletHeightValues", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerWeaponAmmoWidget, BulletHeightValues), EMapPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_BulletHeightValues_MetaData), NewProp_BulletHeightValues_MetaData) }; // 105456784
+const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletMaxRowValues_ValueProp = { "BulletMaxRowValues", nullptr, (EPropertyFlags)0x0000000000000001, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 1, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletMaxRowValues_Key_KeyProp_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletMaxRowValues_Key_KeyProp = { "BulletMaxRowValues_Key", nullptr, (EPropertyFlags)0x0000000000000001, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UEnum_Goobunga_EWeaponUItype, METADATA_PARAMS(0, nullptr) }; // 105456784
+const UECodeGen_Private::FMapPropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletMaxRowValues = { "BulletMaxRowValues", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerWeaponAmmoWidget, BulletMaxRowValues), EMapPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_BulletMaxRowValues_MetaData), NewProp_BulletMaxRowValues_MetaData) }; // 105456784
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletPaddingsLeft_ValueProp = { "BulletPaddingsLeft", nullptr, (EPropertyFlags)0x0000000000000001, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 1, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletPaddingsLeft_Key_KeyProp_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletPaddingsLeft_Key_KeyProp = { "BulletPaddingsLeft_Key", nullptr, (EPropertyFlags)0x0000000000000001, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UEnum_Goobunga_EWeaponUItype, METADATA_PARAMS(0, nullptr) }; // 105456784
+const UECodeGen_Private::FMapPropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletPaddingsLeft = { "BulletPaddingsLeft", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerWeaponAmmoWidget, BulletPaddingsLeft), EMapPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_BulletPaddingsLeft_MetaData), NewProp_BulletPaddingsLeft_MetaData) }; // 105456784
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletPaddingsUp_ValueProp = { "BulletPaddingsUp", nullptr, (EPropertyFlags)0x0000000000000001, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 1, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletPaddingsUp_Key_KeyProp_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletPaddingsUp_Key_KeyProp = { "BulletPaddingsUp_Key", nullptr, (EPropertyFlags)0x0000000000000001, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UEnum_Goobunga_EWeaponUItype, METADATA_PARAMS(0, nullptr) }; // 105456784
+const UECodeGen_Private::FMapPropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletPaddingsUp = { "BulletPaddingsUp", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerWeaponAmmoWidget, BulletPaddingsUp), EMapPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_BulletPaddingsUp_MetaData), NewProp_BulletPaddingsUp_MetaData) }; // 105456784
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletContainers_Inner = { "BulletContainers", nullptr, (EPropertyFlags)0x0000000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_UHorizontalBox_NoRegister, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletContainers = { "BulletContainers", nullptr, (EPropertyFlags)0x001000800000000d, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerWeaponAmmoWidget, BulletContainers), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_BulletContainers_MetaData), NewProp_BulletContainers_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_WeaponIcon,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletWidget,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletVerticalContainer,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletWidgetClass,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_CurrentAmmoText,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletWidgets_Inner,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletWidgets,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_WeaponIconMaterial,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_WeaponIconMaterialParent,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_ActiveColor,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_InactiveColor,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletWidthValues_ValueProp,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletWidthValues_Key_KeyProp_Underlying,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletWidthValues_Key_KeyProp,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletWidthValues,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletHeightValues_ValueProp,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletHeightValues_Key_KeyProp_Underlying,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletHeightValues_Key_KeyProp,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletHeightValues,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletMaxRowValues_ValueProp,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletMaxRowValues_Key_KeyProp_Underlying,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletMaxRowValues_Key_KeyProp,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletMaxRowValues,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletPaddingsLeft_ValueProp,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletPaddingsLeft_Key_KeyProp_Underlying,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletPaddingsLeft_Key_KeyProp,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletPaddingsLeft,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletPaddingsUp_ValueProp,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletPaddingsUp_Key_KeyProp_Underlying,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletPaddingsUp_Key_KeyProp,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletPaddingsUp,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletContainers_Inner,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::NewProp_BulletContainers,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_UPlayerWeaponAmmoWidget_Statics::DependentSingletons[])() = {
@@ -119,14 +243,14 @@ UPlayerWeaponAmmoWidget::~UPlayerWeaponAmmoWidget() {}
 // End Class UPlayerWeaponAmmoWidget
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerWeaponAmmoWidget_h_Statics
+struct Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerWeaponAmmoWidget_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UPlayerWeaponAmmoWidget, UPlayerWeaponAmmoWidget::StaticClass, TEXT("UPlayerWeaponAmmoWidget"), &Z_Registration_Info_UClass_UPlayerWeaponAmmoWidget, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UPlayerWeaponAmmoWidget), 2853318097U) },
+		{ Z_Construct_UClass_UPlayerWeaponAmmoWidget, UPlayerWeaponAmmoWidget::StaticClass, TEXT("UPlayerWeaponAmmoWidget"), &Z_Registration_Info_UClass_UPlayerWeaponAmmoWidget, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UPlayerWeaponAmmoWidget), 4032993384U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerWeaponAmmoWidget_h_3237252244(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerWeaponAmmoWidget_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerWeaponAmmoWidget_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerWeaponAmmoWidget_h_1574766597(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerWeaponAmmoWidget_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerWeaponAmmoWidget_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

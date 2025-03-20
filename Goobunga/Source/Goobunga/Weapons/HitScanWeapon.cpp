@@ -17,6 +17,7 @@ AHitScanWeapon::AHitScanWeapon()
 
 void AHitScanWeapon::FireWeapon()
 {
+	CurrentMag--;
 	if (WeaponOwner)
 	{
 		if (IPlayerCallables* PlayerCallablesInterface = Cast<IPlayerCallables>(WeaponOwner))
@@ -73,6 +74,9 @@ void AHitScanWeapon::FireWeapon()
 
 			//Apply recoil to owner after firing has stopped
 			ApplyRecoil();
+
+			//Update UI
+			UpdateOwnerUI();
 		}
 	}
 }

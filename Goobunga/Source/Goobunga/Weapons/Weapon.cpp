@@ -36,7 +36,7 @@ void AWeapon::Tick(float DeltaTime)
 void AWeapon::UpdateWeapon()
 {
 	FireCooldown+=GetWorld()->GetDeltaSeconds();
-	if (bFiring && FireCooldown>FireRate)
+	if (bFiring && FireCooldown>FireRate && CurrentMag > 0)
 	{
 		FireCooldown=0;
 		FireWeapon();
@@ -156,6 +156,25 @@ void AWeapon::PlayFireEffect()
 {
 	UNiagaraComponent* NewFireEffect = UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, FireEffect, FVector(0, 0, 0));
 }
+
+void AWeapon::UpdateOwnerUI()
+{
+	if (IPlayerCallables* PlayerCallablesInterface = Cast<IPlayerCallables>(WeaponOwner))
+	{
+		PlayerCallablesInterface->UpdateWeaponUI();
+	}
+}
+
+UTexture2D* AWeapon::GetIcon(FString IconName)
+{
+	if (Icons.Contains(IconName))
+	{
+		return Icons[IconName];
+	}
+	return nullptr;
+}
+
+
 
 
 

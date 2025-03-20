@@ -156,6 +156,12 @@
     <ClCompile Include="..\..\Source\Goobunga\UserInterface\PlayerReticleWidget.h">
       <Filter>Source\Goobunga\UserInterface</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\UserInterface\PlayerWeaponAmmoWidget.cpp">
+      <Filter>Source\Goobunga\UserInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\UserInterface\PlayerWeaponAmmoWidget.h">
+      <Filter>Source\Goobunga\UserInterface</Filter>
+    </ClCompile>
     <Filter Include="Source\Goobunga\Weapons">
       <UniqueIdentifier>{CC097E68-C714-3FBB-8CA8-77CF4B425530}</UniqueIdentifier>
     </Filter>

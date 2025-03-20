@@ -9,7 +9,10 @@
 #include "FireableCallables.h"
 #include "ReloadManagerComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "Weapons/CatGun.h"
+#include "Weapons/Weapon.h"
 // Sets default values
 AGoobunga_Player::AGoobunga_Player()
 {
@@ -49,6 +52,11 @@ void AGoobunga_Player::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+	if (AActor* CatGun = UGameplayStatics::GetActorOfClass(GetWorld(), ACatGun::StaticClass()))
+	{
+		EquipWeapon(CatGun);
+	}
+	
 }
 
 // Called every frame
@@ -120,19 +128,43 @@ void AGoobunga_Player::StartReload()
 	}
 	if (!Reloading)
 	{
-		FireEnded(true);
-		AltFireEnded(true);
-		StopAimDownSights();
-		UE_LOG(LogTemp, Display, TEXT("PlayerStartReload"));
-		Reloading = true;
-		TArray<EReloadPattern> TempReloadPattern = TArray{EReloadPattern::Left, EReloadPattern::Right, EReloadPattern::Up, EReloadPattern::Down, EReloadPattern::Circle};
-		ReloadManagerComponent->StartReload(TempReloadPattern);
+		if (EquippedWeapon && EquippedWeapon->CurrentMag < EquippedWeapon->MaxMag && EquippedWeapon->CurrentAmmo > 0)
+		{
+			FireEnded(true);
+			AltFireEnded(true);
+			StopAimDownSights();
+			UE_LOG(LogTemp, Display, TEXT("PlayerStartReload"));
+			Reloading = true;
+			TArray<EReloadPattern> TempReloadPattern = TArray{EReloadPattern::Left, EReloadPattern::Right, EReloadPattern::Up, EReloadPattern::Down, EReloadPattern::Circle};
+			ReloadManagerComponent->StartReload(TempReloadPattern);
+		}
 	}
 }
 
 void AGoobunga_Player::EndReload(bool Success)
 {
 	UE_LOG(LogTemp, Display, TEXT("PlayerEndReload"));
+	if (Success)
+	{
+		if (EquippedWeapon)
+		{
+			int CurrMag = EquippedWeapon->CurrentMag;
+			int MaxMag = EquippedWeapon->MaxMag;
+			int CurrAmmo = EquippedWeapon->CurrentAmmo;
+			int Target = MaxMag - CurrMag;
+			if (CurrAmmo >= Target)
+			{
+				EquippedWeapon->CurrentAmmo -= Target;
+				EquippedWeapon->CurrentMag += Target;
+			}
+			else
+			{
+				EquippedWeapon->CurrentMag += CurrAmmo;
+				EquippedWeapon->CurrentAmmo = 0;
+			}
+			UpdateWeaponUI();
+		}
+	}
 	Reloading = false;
 }
 
@@ -326,7 +358,7 @@ void AGoobunga_Player::UpdateAimOffset()
 {
 	GetController()->SetControlRotation(GetControlRotation().Add(AimOffset.Y, AimOffset.Z, AimOffset.X));
 	AimOffset = FMath::VInterpTo(AimOffset, FVector::ZeroVector, GetWorld()->GetDeltaSeconds(), 20.f);
-	UE_LOG(LogTemp, Warning, TEXT("aimoffset: roll %f, pitch %f, yaw %f"), AimOffset.X, AimOffset.Y, AimOffset.Z);
+	//UE_LOG(LogTemp, Warning, TEXT("aimoffset: roll %f, pitch %f, yaw %f"), AimOffset.X, AimOffset.Y, AimOffset.Z);
 }
 
 //Return location and rotation of true look direction
@@ -365,7 +397,75 @@ void AGoobunga_Player::DeathSequence()
 void AGoobunga_Player::UpdateWeaponUI()
 {
 	UE_LOG(LogTemp, Display, TEXT("Update Weapon UI"));
+	if (EquippedItem && WeaponAmmoWidget)
+	{
+		if (IFireableCallables* FireableCallablesInterface = Cast<IFireableCallables>(EquippedItem))
+		{
+			int MaxMag = FireableCallablesInterface->GetMaxMag();
+			int CurrMag = FireableCallablesInterface->GetCurrentMag();
+			int MaxAmmo = FireableCallablesInterface->GetMaxAmmo();
+			int CurrAmmo = FireableCallablesInterface->GetCurrentAmmo();
+			WeaponAmmoWidget->UpdateAmmoCounter(MaxMag, CurrMag, MaxAmmo, CurrAmmo);
+			if (CurrMag == 0)
+			{
+				if (UTexture2D* EmptyTexture = FireableCallablesInterface->GetIcon("Empty"))
+				{
+					WeaponAmmoWidget->SetWeaponIcon(EmptyTexture);
+					return;
+				}
+				UE_LOG(LogTemp, Warning, TEXT("Could not get icon for empty"));
+				return;
+			}
+			else
+			{
+				if (UTexture2D* FilledTexture = FireableCallablesInterface->GetIcon("Filled"))
+				{
+					WeaponAmmoWidget->SetWeaponIcon(FilledTexture);
+					return;
+				}
+				UE_LOG(LogTemp, Warning, TEXT("Could not get icon for filled"));
+				return;
+			}
+		}
+		UE_LOG(LogTemp, Warning, TEXT("Could not get fireables interface for equipped"));
+		return;
+	}
+	UE_LOG(LogTemp, Warning, TEXT("Ammo widget DNE or equipped item DNE"));
 }
+
+void AGoobunga_Player::EquipWeapon(AActor* Weapon)
+{
+	if (IFireableCallables* FireableCallablesInterface = Cast<IFireableCallables>(Weapon))
+	{
+		if  (!WeaponAmmoWidget)
+		{
+			UUserWidget* TempWidget = CreateWidget<UUserWidget>(GetWorld(), WeaponAmmoWidgetClass);
+			WeaponAmmoWidget = Cast<UPlayerWeaponAmmoWidget>(TempWidget);
+			if (!WeaponAmmoWidget)
+			{
+				UE_LOG(LogTemp, Error, TEXT("Weapon Ammo Widget could not be created"))
+				UKismetSystemLibrary::QuitGame(this, nullptr, EQuitPreference::Quit, true);
+			}
+			else
+			{
+				WeaponAmmoWidget->AddToViewport(0);
+			}
+		}
+		FName AttachSocketName = FireableCallablesInterface->GetAttachSocketName();
+		Weapon->AttachToComponent(FPMesh, FAttachmentTransformRules::SnapToTargetIncludingScale, AttachSocketName);
+		EquippedItem = Weapon;
+		EquippedWeapon = Cast<AWeapon>(EquippedItem);
+		FireableCallablesInterface->EquipEvent(this);
+		int MaxMag = FireableCallablesInterface->GetMaxMag();
+		int CurrMag = FireableCallablesInterface->GetCurrentMag();
+		int MaxAmmo = FireableCallablesInterface->GetMaxAmmo();
+		int CurrAmmo = FireableCallablesInterface->GetCurrentAmmo();
+		EWeaponUItype WeaponUItype = FireableCallablesInterface->GetWeaponUItype();
+		WeaponAmmoWidget->InitializeAmmoCounter(MaxMag, CurrMag, MaxAmmo, CurrAmmo, WeaponUItype);
+		UpdateWeaponUI();
+	}
+}
+
 
 
 
