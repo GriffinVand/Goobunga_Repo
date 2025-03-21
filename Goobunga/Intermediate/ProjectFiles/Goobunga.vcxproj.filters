@@ -12,6 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <None Include="..\..\.vsconfig" />
+    <None Include="..\..\Goobunga.uproject.DotSettings.user" />
     <Filter Include="Config">
       <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
     </Filter>
@@ -102,6 +103,12 @@
     <ClCompile Include="..\..\Source\Goobunga\Combat\StatusTypes.h">
       <Filter>Source\Goobunga\Combat</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Combat\WeaponUITypes.cpp">
+      <Filter>Source\Goobunga\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Combat\WeaponUITypes.h">
+      <Filter>Source\Goobunga\Combat</Filter>
+    </ClCompile>
     <Filter Include="Source\Goobunga\Enemies">
       <UniqueIdentifier>{950A9B7A-B4A6-372F-AC67-98A81EBDADB6}</UniqueIdentifier>
     </Filter>
@@ -150,6 +157,18 @@
     <Filter Include="Source\Goobunga\UserInterface">
       <UniqueIdentifier>{9534E5FC-D95C-316B-A574-23D6029143AB}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\UserInterface\PlayerBulletWidget.cpp">
+      <Filter>Source\Goobunga\UserInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\UserInterface\PlayerBulletWidget.h">
+      <Filter>Source\Goobunga\UserInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\UserInterface\PlayerMainWidget.cpp">
+      <Filter>Source\Goobunga\UserInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\UserInterface\PlayerMainWidget.h">
+      <Filter>Source\Goobunga\UserInterface</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\UserInterface\PlayerReticleWidget.cpp">
       <Filter>Source\Goobunga\UserInterface</Filter>
     </ClCompile>

@@ -14,6 +14,8 @@
 			"EnemyCallables.gen.cpp.obj",
 			"FacialAnimationComponent.gen.cpp.obj",
 			"FireableCallables.gen.cpp.obj",
+			"Goobunga.init.gen.cpp.obj",
+			"Goobunga_Player.gen.cpp.obj",
 			"HitScanWeapon.gen.cpp.obj",
 			"MeleeWeapon.gen.cpp.obj",
 			"PlayerBulletWidget.gen.cpp.obj",
@@ -47,18 +49,16 @@
 			"PlayerCallables.cpp.obj",
 			"PlayerStates.cpp.obj",
 			"ReloadManagerComponent.cpp.obj",
+			"PlayerBulletWidget.cpp.obj",
+			"PlayerMainWidget.cpp.obj",
 			"PlayerReticleWidget.cpp.obj",
+			"PlayerWeaponAmmoWidget.cpp.obj",
 			"CatGun.cpp.obj",
 			"HitScanWeapon.cpp.obj",
 			"MeleeWeapon.cpp.obj",
 			"ProjectileWeapon.cpp.obj",
 			"Weapon.cpp.obj",
-			"Goobunga.init.gen.cpp.obj",
-			"Goobunga_Player.gen.cpp.obj",
-			"Goobunga_Player.cpp.obj",
-			"PlayerBulletWidget.cpp.obj",
-			"PlayerMainWidget.cpp.obj",
-			"PlayerWeaponAmmoWidget.cpp.obj"
+			"Goobunga_Player.cpp.obj"
 		]
 	}
 }

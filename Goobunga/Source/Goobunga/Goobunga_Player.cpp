@@ -358,7 +358,7 @@ void AGoobunga_Player::UpdateAimDownSights()
 //This function can be called through an interface
 void AGoobunga_Player::ApplyAimOffset(FVector AimOffsetInput)
 {
-	AimOffset = (AimOffsetInput);
+	AimOffset += (AimOffsetInput);
 }
 
 //Rotates over time to supplied aim offset. avoids snappy recoil
