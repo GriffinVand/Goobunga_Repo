@@ -17,7 +17,8 @@ void UPlayerWeaponAmmoWidget::NativeConstruct()
 
 void UPlayerWeaponAmmoWidget::InitializeAmmoCounter(int MaxMag, int CurrMag, int MaxAmmo, int CurrAmmo, EWeaponUItype WeaponUItype)
 {
-	for (UUserWidget* BulletWidgetInstance : BulletWidgets) { BulletWidgetInstance->RemoveFromParent(); }
+	for (auto BulletWidget : BulletWidgets) { BulletWidget->RemoveFromParent(); }
+	BulletWidgets.Empty();
 	CreateBulletWidget(MaxMag, WeaponUItype);
 	UpdateAmmoCounter(MaxMag, CurrMag, MaxAmmo, CurrAmmo);
 }
@@ -42,6 +43,7 @@ void UPlayerWeaponAmmoWidget::CreateBulletWidget(int MaxMag, EWeaponUItype Weapo
 {
 	if (BulletWidgetClass)
 	{
+		UE_LOG(LogTemp, Display, TEXT("Container num %d"), BulletContainers.Num());
 		int CurrRow = 0;
 		int MaxRow = (MaxMag + BulletMaxRowValues[WeaponUItype] - 1) / BulletMaxRowValues[WeaponUItype];
 		UE_LOG(LogTemp, Display, TEXT("BulletMaxRowValue = %d"), MaxRow);
@@ -51,21 +53,37 @@ void UPlayerWeaponAmmoWidget::CreateBulletWidget(int MaxMag, EWeaponUItype Weapo
 		UE_LOG(LogTemp, Display, TEXT("BulletWidth = %f"), BulletWidth);
 		float LeftPadding = BulletPaddingsLeft[WeaponUItype];
 		float UpPadding = BulletPaddingsUp[WeaponUItype];
+		TArray<UUserWidget*> CurrentContainer = {};
 		for (int i = 0; i < MaxMag; i++)
 		{
 			UUserWidget* NewBullet = CreateWidget<UUserWidget>(GetWorld(), BulletWidgetClass);
 			if (NewBullet)
 			{
+				UE_LOG(LogTemp, Display, TEXT("1"));
 				if (UPlayerBulletWidget* BulletRef = Cast<UPlayerBulletWidget>(NewBullet))
 				{
+					UE_LOG(LogTemp, Display, TEXT("2"));
 					BulletRef->SetBulletBoxSizes(FVector2D(BulletWidth, BulletHeight), FVector2D(LeftPadding, UpPadding));
-					BulletWidgets.Add((BulletRef));
-					BulletContainers[CurrRow]->AddChild(BulletRef);
-					UE_LOG(LogTemp, Display, TEXT("New bullet element"));
+					if ((CurrRow + 1) % 2 == 0 )
+					{
+						CurrentContainer.Insert(BulletRef, 0);
+						BulletContainers[CurrRow]->InsertChildAt(0, BulletRef);
+					}
+					else
+					{
+						CurrentContainer.Add(BulletRef);
+						BulletContainers[CurrRow]->AddChild(BulletRef);
+					}
 				}
 			}
-			if (i > 0 && ((i+1) % MaxRow) == 0) CurrRow++;
+			if (i > 0 && ((i+1) % MaxRow) == 0)
+			{
+				for (auto Item : CurrentContainer) { BulletWidgets.Add(Item); }
+				CurrRow++;
+				CurrentContainer.Empty();
+			}
 		}
+		UE_LOG(LogTemp, Display, TEXT("6"));
 	}
 }
 
@@ -84,6 +102,41 @@ void UPlayerWeaponAmmoWidget::UpdateCurrentAmmoText(int CurrAmmo)
 		CurrentAmmoText->SetText(FText::FromString(FString::FromInt(CurrAmmo)));
 	}
 }
+
+FLinearColor UPlayerWeaponAmmoWidget::GetColorFromInt(int32 ColorIndex)
+{
+	switch (ColorIndex)
+	{
+	case 0:
+		return FLinearColor::Red;
+	case 1:
+		return FLinearColor::Green;
+	case 2:
+		return FLinearColor::Blue;
+	case 3:
+		return FLinearColor::Yellow;
+	case 4:
+		return FLinearColor::White;
+	default:
+		return FLinearColor::Black; // Fallback color
+	}
+}
+
+void UPlayerWeaponAmmoWidget::SetColors()
+{
+	for (auto Container : BulletContainers)
+	{
+		for (int i = 0; i < Container->GetChildrenCount(); i++)
+		{
+			if (UPlayerBulletWidget* CurrBull = Cast<UPlayerBulletWidget>(Container->GetChildAt(i)))
+			{
+				FLinearColor NewColor = GetColorFromInt(i);
+				CurrBull->BulletImage->SetColorAndOpacity(NewColor);
+			}
+		}
+	}
+}
+
 
 
 

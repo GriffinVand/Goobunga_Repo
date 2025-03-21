@@ -52,11 +52,19 @@ void AGoobunga_Player::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+
+	UUserWidget* TempWidget = CreateWidget(GetWorld(), PlayerMainWidgetSubclass);
+	PlayerMainWidget = Cast<UPlayerMainWidget>(TempWidget);
+	if (PlayerMainWidget)
+	{
+		PlayerMainWidget->AddToViewport();
+	}
+	else { UKismetSystemLibrary::QuitGame(this, nullptr, EQuitPreference::Quit, true); }
+
 	if (AActor* CatGun = UGameplayStatics::GetActorOfClass(GetWorld(), ACatGun::StaticClass()))
 	{
 		EquipWeapon(CatGun);
 	}
-	
 }
 
 // Called every frame
@@ -350,7 +358,7 @@ void AGoobunga_Player::UpdateAimDownSights()
 //This function can be called through an interface
 void AGoobunga_Player::ApplyAimOffset(FVector AimOffsetInput)
 {
-	AimOffset += (AimOffsetInput);
+	AimOffset = (AimOffsetInput);
 }
 
 //Rotates over time to supplied aim offset. avoids snappy recoil
@@ -397,6 +405,7 @@ void AGoobunga_Player::DeathSequence()
 void AGoobunga_Player::UpdateWeaponUI()
 {
 	UE_LOG(LogTemp, Display, TEXT("Update Weapon UI"));
+	UPlayerWeaponAmmoWidget* WeaponAmmoWidget = PlayerMainWidget->WeaponAmmoWidget;
 	if (EquippedItem && WeaponAmmoWidget)
 	{
 		if (IFireableCallables* FireableCallablesInterface = Cast<IFireableCallables>(EquippedItem))
@@ -435,37 +444,37 @@ void AGoobunga_Player::UpdateWeaponUI()
 
 void AGoobunga_Player::EquipWeapon(AActor* Weapon)
 {
-	if (IFireableCallables* FireableCallablesInterface = Cast<IFireableCallables>(Weapon))
+	UnequipCurrent();
+	if (PlayerMainWidget)
 	{
-		if  (!WeaponAmmoWidget)
-		{
-			UUserWidget* TempWidget = CreateWidget<UUserWidget>(GetWorld(), WeaponAmmoWidgetClass);
-			WeaponAmmoWidget = Cast<UPlayerWeaponAmmoWidget>(TempWidget);
-			if (!WeaponAmmoWidget)
-			{
-				UE_LOG(LogTemp, Error, TEXT("Weapon Ammo Widget could not be created"))
-				UKismetSystemLibrary::QuitGame(this, nullptr, EQuitPreference::Quit, true);
-			}
-			else
-			{
-				WeaponAmmoWidget->AddToViewport(0);
-			}
-		}
-		FName AttachSocketName = FireableCallablesInterface->GetAttachSocketName();
-		Weapon->AttachToComponent(FPMesh, FAttachmentTransformRules::SnapToTargetIncludingScale, AttachSocketName);
-		EquippedItem = Weapon;
-		EquippedWeapon = Cast<AWeapon>(EquippedItem);
-		FireableCallablesInterface->EquipEvent(this);
-		int MaxMag = FireableCallablesInterface->GetMaxMag();
-		int CurrMag = FireableCallablesInterface->GetCurrentMag();
-		int MaxAmmo = FireableCallablesInterface->GetMaxAmmo();
-		int CurrAmmo = FireableCallablesInterface->GetCurrentAmmo();
-		EWeaponUItype WeaponUItype = FireableCallablesInterface->GetWeaponUItype();
-		WeaponAmmoWidget->InitializeAmmoCounter(MaxMag, CurrMag, MaxAmmo, CurrAmmo, WeaponUItype);
-		UpdateWeaponUI();
+		if (IFireableCallables* FireableCallablesInterface = Cast<IFireableCallables>(Weapon))
+        	{
+        		FName AttachSocketName = FireableCallablesInterface->GetAttachSocketName();
+        		Weapon->AttachToComponent(FPMesh, FAttachmentTransformRules::SnapToTargetIncludingScale, AttachSocketName);
+        		EquippedItem = Weapon;
+        		EquippedWeapon = Cast<AWeapon>(EquippedItem);
+        		FireableCallablesInterface->EquipEvent(this);
+        		int MaxMag = FireableCallablesInterface->GetMaxMag();
+        		int CurrMag = FireableCallablesInterface->GetCurrentMag();
+        		int MaxAmmo = FireableCallablesInterface->GetMaxAmmo();
+        		int CurrAmmo = FireableCallablesInterface->GetCurrentAmmo();
+        		EWeaponUItype WeaponUItype = FireableCallablesInterface->GetWeaponUItype();
+        		UPlayerWeaponAmmoWidget* WeaponAmmoWidget = PlayerMainWidget->WeaponAmmoWidget;
+        		WeaponAmmoWidget->InitializeAmmoCounter(MaxMag, CurrMag, MaxAmmo, CurrAmmo, WeaponUItype);
+        		UpdateWeaponUI();
+        	}
 	}
+	else
+	{
+		UKismetSystemLibrary::QuitGame(this, nullptr, EQuitPreference::Quit, true);
+	}
+	
 }
 
+void AGoobunga_Player::UnequipCurrent()
+{
+	if (EquippedWeapon) { EquippedWeapon->Destroy(); }
+}
 
 
 

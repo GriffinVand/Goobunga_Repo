@@ -68,7 +68,7 @@ public:
 		{EWeaponUItype::Thick, 0 },
 		{EWeaponUItype::Barrage, 5 },
 	};
-
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<UHorizontalBox*> BulletContainers;
 	
@@ -78,4 +78,6 @@ public:
 	virtual void SetWeaponIcon(UTexture2D* NewIcon);
 	virtual void CreateBulletWidget(int MaxMag, EWeaponUItype WeaponUItype);
 	virtual void UpdateCurrentAmmoText(int CurrAmmo);
+	FLinearColor GetColorFromInt(int32 ColorIndex);
+	void SetColors();
 };

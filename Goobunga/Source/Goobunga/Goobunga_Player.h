@@ -5,7 +5,8 @@
 #include "PlayerCallables.h"
 #include "Combat/CombatCallables.h"
 #include "GameFramework/Character.h"
-#include "UserInterface/PlayerWeaponAmmoWidget.h"
+#include "UserInterface/PlayerMainWidget.h"
+#include "Weapons/Weapon.h"
 #include "Goobunga_Player.generated.h"
 
 struct FInputActionValue;
@@ -55,13 +56,11 @@ public:
 	UReloadManagerComponent* ReloadManagerComponent;
 
 	//UI
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	TSubclassOf<UUserWidget> WeaponAmmoWidgetClass;
-
-	TSubclassOf<UUserWidget> RandomClass;
-	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = true))
-	UPlayerWeaponAmmoWidget* WeaponAmmoWidget;
+	TSubclassOf<UUserWidget> PlayerMainWidgetSubclass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = true))
+	UPlayerMainWidget* PlayerMainWidget;
 	
 protected:
 	//Stats
@@ -166,7 +165,11 @@ protected:
 	//Called on sprint ended
 	void SprintEnded();
 
+	UFUNCTION(BlueprintCallable)
 	void EquipWeapon(AActor* Weapon);
+	UFUNCTION(BlueprintCallable)
+	void UnequipCurrent();
+	
 	void ApplyMovementAffect(FVector2D Movement);
 	void UpdateMovement();
 	virtual void StartAimDownSights() override;
@@ -185,3 +188,4 @@ protected:
 	virtual TArray<FVector> GetAimDirection() override;
 	virtual void UpdateWeaponUI() override;
 };
+

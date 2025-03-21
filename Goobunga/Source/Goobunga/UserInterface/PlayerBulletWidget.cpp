@@ -16,7 +16,6 @@ void UPlayerBulletWidget::SetBulletBoxSizes(FVector2D NewSize, FVector2D LeftUpP
 		{
 			SizeBoxSlot->SetPadding(FMargin(LeftUpPadding.X, LeftUpPadding.Y, 0, 0));
 		}
-		UE_LOG(LogTemp, Display, TEXT("Set size box height"));
 	}
 	else { UE_LOG(LogTemp, Display, TEXT("Couldnt size box height")); }
 	

@@ -28,15 +28,92 @@ GOOBUNGA_API UClass* Z_Construct_UClass_AWeapon_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_UCombatCallables_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_UFacialAnimationComponent_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_UPlayerCallables_NoRegister();
-GOOBUNGA_API UClass* Z_Construct_UClass_UPlayerWeaponAmmoWidget_NoRegister();
+GOOBUNGA_API UClass* Z_Construct_UClass_UPlayerMainWidget_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_UReloadManagerComponent_NoRegister();
 UMG_API UClass* Z_Construct_UClass_UUserWidget_NoRegister();
 UPackage* Z_Construct_UPackage__Script_Goobunga();
 // End Cross Module References
 
+// Begin Class AGoobunga_Player Function EquipWeapon
+struct Z_Construct_UFunction_AGoobunga_Player_EquipWeapon_Statics
+{
+	struct Goobunga_Player_eventEquipWeapon_Parms
+	{
+		AActor* Weapon;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Goobunga_Player.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_Weapon;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_AGoobunga_Player_EquipWeapon_Statics::NewProp_Weapon = { "Weapon", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Goobunga_Player_eventEquipWeapon_Parms, Weapon), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AGoobunga_Player_EquipWeapon_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AGoobunga_Player_EquipWeapon_Statics::NewProp_Weapon,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_AGoobunga_Player_EquipWeapon_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AGoobunga_Player_EquipWeapon_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AGoobunga_Player, nullptr, "EquipWeapon", nullptr, nullptr, Z_Construct_UFunction_AGoobunga_Player_EquipWeapon_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_AGoobunga_Player_EquipWeapon_Statics::PropPointers), sizeof(Z_Construct_UFunction_AGoobunga_Player_EquipWeapon_Statics::Goobunga_Player_eventEquipWeapon_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04080401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AGoobunga_Player_EquipWeapon_Statics::Function_MetaDataParams), Z_Construct_UFunction_AGoobunga_Player_EquipWeapon_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Z_Construct_UFunction_AGoobunga_Player_EquipWeapon_Statics::Goobunga_Player_eventEquipWeapon_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_AGoobunga_Player_EquipWeapon()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AGoobunga_Player_EquipWeapon_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AGoobunga_Player::execEquipWeapon)
+{
+	P_GET_OBJECT(AActor,Z_Param_Weapon);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->EquipWeapon(Z_Param_Weapon);
+	P_NATIVE_END;
+}
+// End Class AGoobunga_Player Function EquipWeapon
+
+// Begin Class AGoobunga_Player Function UnequipCurrent
+struct Z_Construct_UFunction_AGoobunga_Player_UnequipCurrent_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Goobunga_Player.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AGoobunga_Player_UnequipCurrent_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AGoobunga_Player, nullptr, "UnequipCurrent", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04080401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AGoobunga_Player_UnequipCurrent_Statics::Function_MetaDataParams), Z_Construct_UFunction_AGoobunga_Player_UnequipCurrent_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_AGoobunga_Player_UnequipCurrent()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AGoobunga_Player_UnequipCurrent_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AGoobunga_Player::execUnequipCurrent)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->UnequipCurrent();
+	P_NATIVE_END;
+}
+// End Class AGoobunga_Player Function UnequipCurrent
+
 // Begin Class AGoobunga_Player
 void AGoobunga_Player::StaticRegisterNativesAGoobunga_Player()
 {
+	UClass* Class = AGoobunga_Player::StaticClass();
+	static const FNameNativePtrPair Funcs[] = {
+		{ "EquipWeapon", &AGoobunga_Player::execEquipWeapon },
+		{ "UnequipCurrent", &AGoobunga_Player::execUnequipCurrent },
+	};
+	FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
 }
 IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(AGoobunga_Player);
 UClass* Z_Construct_UClass_AGoobunga_Player_NoRegister()
@@ -111,7 +188,8 @@ struct Z_Construct_UClass_AGoobunga_Player_Statics
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "Goobunga_Player.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_WeaponAmmoWidgetClass_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_PlayerMainWidgetSubclass_MetaData[] = {
+		{ "AllowPrivateAccess", "TRUE" },
 		{ "Category", "Goobunga_Player" },
 #if !UE_BUILD_SHIPPING
 		{ "Comment", "//UI\n" },
@@ -121,7 +199,7 @@ struct Z_Construct_UClass_AGoobunga_Player_Statics
 		{ "ToolTip", "UI" },
 #endif
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_WeaponAmmoWidget_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_PlayerMainWidget_MetaData[] = {
 		{ "AllowPrivateAccess", "TRUE" },
 		{ "Category", "Goobunga_Player" },
 		{ "EditInline", "true" },
@@ -309,8 +387,8 @@ struct Z_Construct_UClass_AGoobunga_Player_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_TrueLookDirection;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_FacialAnimationComponent;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_ReloadManagerComponent;
-	static const UECodeGen_Private::FClassPropertyParams NewProp_WeaponAmmoWidgetClass;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_WeaponAmmoWidget;
+	static const UECodeGen_Private::FClassPropertyParams NewProp_PlayerMainWidgetSubclass;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_PlayerMainWidget;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_MaxHealth;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_CurrHealth;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_SprintSpeed;
@@ -338,6 +416,11 @@ struct Z_Construct_UClass_AGoobunga_Player_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_EquippedWeapon;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
+	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
+		{ &Z_Construct_UFunction_AGoobunga_Player_EquipWeapon, "EquipWeapon" }, // 3786572674
+		{ &Z_Construct_UFunction_AGoobunga_Player_UnequipCurrent, "UnequipCurrent" }, // 723328822
+	};
+	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static const UECodeGen_Private::FImplementedInterfaceParams InterfaceParams[];
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<AGoobunga_Player>::IsAbstract,
@@ -351,8 +434,8 @@ const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGoobunga_Play
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_TrueLookDirection = { "TrueLookDirection", nullptr, (EPropertyFlags)0x001000000008001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, TrueLookDirection), Z_Construct_UClass_USceneComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_TrueLookDirection_MetaData), NewProp_TrueLookDirection_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_FacialAnimationComponent = { "FacialAnimationComponent", nullptr, (EPropertyFlags)0x001000000008001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, FacialAnimationComponent), Z_Construct_UClass_UFacialAnimationComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FacialAnimationComponent_MetaData), NewProp_FacialAnimationComponent_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_ReloadManagerComponent = { "ReloadManagerComponent", nullptr, (EPropertyFlags)0x001000000008001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, ReloadManagerComponent), Z_Construct_UClass_UReloadManagerComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ReloadManagerComponent_MetaData), NewProp_ReloadManagerComponent_MetaData) };
-const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_WeaponAmmoWidgetClass = { "WeaponAmmoWidgetClass", nullptr, (EPropertyFlags)0x0014000000000015, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, WeaponAmmoWidgetClass), Z_Construct_UClass_UClass, Z_Construct_UClass_UUserWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WeaponAmmoWidgetClass_MetaData), NewProp_WeaponAmmoWidgetClass_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_WeaponAmmoWidget = { "WeaponAmmoWidget", nullptr, (EPropertyFlags)0x001000000008001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, WeaponAmmoWidget), Z_Construct_UClass_UPlayerWeaponAmmoWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WeaponAmmoWidget_MetaData), NewProp_WeaponAmmoWidget_MetaData) };
+const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_PlayerMainWidgetSubclass = { "PlayerMainWidgetSubclass", nullptr, (EPropertyFlags)0x0014000000000015, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, PlayerMainWidgetSubclass), Z_Construct_UClass_UClass, Z_Construct_UClass_UUserWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_PlayerMainWidgetSubclass_MetaData), NewProp_PlayerMainWidgetSubclass_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_PlayerMainWidget = { "PlayerMainWidget", nullptr, (EPropertyFlags)0x001000000008001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, PlayerMainWidget), Z_Construct_UClass_UPlayerMainWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_PlayerMainWidget_MetaData), NewProp_PlayerMainWidget_MetaData) };
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_MaxHealth = { "MaxHealth", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, MaxHealth), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MaxHealth_MetaData), NewProp_MaxHealth_MetaData) };
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_CurrHealth = { "CurrHealth", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, CurrHealth), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CurrHealth_MetaData), NewProp_CurrHealth_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_SprintSpeed = { "SprintSpeed", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, SprintSpeed), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SprintSpeed_MetaData), NewProp_SprintSpeed_MetaData) };
@@ -389,8 +472,8 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AGoobunga
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_TrueLookDirection,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_FacialAnimationComponent,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_ReloadManagerComponent,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_WeaponAmmoWidgetClass,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_WeaponAmmoWidget,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_PlayerMainWidgetSubclass,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_PlayerMainWidget,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_MaxHealth,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_CurrHealth,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_SprintSpeed,
@@ -431,11 +514,11 @@ const UECodeGen_Private::FClassParams Z_Construct_UClass_AGoobunga_Player_Static
 	"Game",
 	&StaticCppClassTypeInfo,
 	DependentSingletons,
-	nullptr,
+	FuncInfo,
 	Z_Construct_UClass_AGoobunga_Player_Statics::PropPointers,
 	InterfaceParams,
 	UE_ARRAY_COUNT(DependentSingletons),
-	0,
+	UE_ARRAY_COUNT(FuncInfo),
 	UE_ARRAY_COUNT(Z_Construct_UClass_AGoobunga_Player_Statics::PropPointers),
 	UE_ARRAY_COUNT(InterfaceParams),
 	0x009000A4u,
@@ -461,10 +544,10 @@ AGoobunga_Player::~AGoobunga_Player() {}
 struct Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AGoobunga_Player, AGoobunga_Player::StaticClass, TEXT("AGoobunga_Player"), &Z_Registration_Info_UClass_AGoobunga_Player, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AGoobunga_Player), 82889219U) },
+		{ Z_Construct_UClass_AGoobunga_Player, AGoobunga_Player::StaticClass, TEXT("AGoobunga_Player"), &Z_Registration_Info_UClass_AGoobunga_Player, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AGoobunga_Player), 1808292921U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_3253494685(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_1984583524(TEXT("/Script/Goobunga"),
 	Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
