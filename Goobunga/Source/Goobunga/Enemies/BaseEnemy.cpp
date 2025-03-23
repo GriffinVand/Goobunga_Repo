@@ -6,7 +6,9 @@
 #include "BaseEnemyAIController.h"
 #include "BrainComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/SplineComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ABaseEnemy::ABaseEnemy()
@@ -15,6 +17,9 @@ ABaseEnemy::ABaseEnemy()
 	PrimaryActorTick.bCanEverTick = true;
 	Health = MaxHealth;
 
+	LaunchSpline = CreateDefaultSubobject<USplineComponent>(TEXT("LaunchSpline"));
+	LaunchSpline->bDrawDebug = true;
+	
 }
 
 // Called when the game starts or when spawned
@@ -46,12 +51,18 @@ void ABaseEnemy::BeginPlay()
 void ABaseEnemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	if (FadingOut)
+	switch (CurrentState)
 	{
+	default:
+		break;
+	case EEnemyState::Launching:
+		UpdateLaunchProgress(DeltaTime);
+		break;
+	case EEnemyState::Death:
 		UpdateFadeOut(DeltaTime);
 	}
 	AttackCooldown += DeltaTime;
+	LaunchCooldown += DeltaTime;
 }
 
 // Take damage
@@ -75,6 +86,7 @@ void ABaseEnemy::CombatDamage(AActor* DamageDealer, float Damage, EDamageType Da
 
 void ABaseEnemy::Death(FVector LastMovementSpeed)
 {
+	CurrentState = EEnemyState::Death;
 	ABaseEnemyAIController* AIController = Cast<ABaseEnemyAIController>(Controller);
 	if (AIController)
 	{
@@ -150,20 +162,21 @@ void ABaseEnemy::AttackPrimary()
 
 void ABaseEnemy::AttackGeneric(int AttackNum)
 {
-	if (AttackCooldown >= AttackRate && !Attacking)
+	if (CurrentState == EEnemyState::Launching) { EndLaunch(); }
+	if (AttackCooldown >= AttackRate && CurrentState != EEnemyState::Attacking)
 	{
 		if (AttackMontages.Num() > AttackNum - 1)
 		{
 			if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
 			{
-				Attacking = true;
+				CurrentState = EEnemyState::Attacking;
 				AnimInstance->Montage_Play(AttackMontages[AttackNum - 1]);
 				UE_LOG(LogTemp, Warning, TEXT("PLAY MONTAGE"));
 				FOnMontageEnded MontageEnded;
 				MontageEnded.BindLambda([this](UAnimMontage* Montage, bool bInteruppted)
 				{
 					AttackCooldown = 0;
-					Attacking = false;
+					CurrentState = EEnemyState::Walking;
 					UE_LOG(LogTemp, Warning, TEXT("MONTAGE ENDED"));
 				});
 				AnimInstance->Montage_SetEndDelegate(MontageEnded, AttackMontages[AttackNum - 1]);
@@ -175,6 +188,88 @@ void ABaseEnemy::AttackGeneric(int AttackNum)
 		}	
 	}
 }
+
+void ABaseEnemy::LaunchTowardsLocation(FVector TargetLocation)
+{
+	if (LaunchCooldown >= LaunchRate && CurrentState != EEnemyState::Launching)
+	{
+		if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
+		{
+			if (MontageMap.Contains("WindUp"))
+			{
+				CurrentState = EEnemyState::Busy;
+				AnimInstance->Montage_Play(MontageMap["WindUp"]);
+				FOnMontageEnded MontageEnded;
+				MontageEnded.BindLambda([this](UAnimMontage* Montage, bool bInteruppted)
+				{
+					StartLaunch();
+				});
+				AnimInstance->Montage_SetEndDelegate(MontageEnded, MontageMap["WindUp"]);
+			}
+		}
+	}	
+}
+
+void ABaseEnemy::StartLaunch()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Starting Launch"));
+	if (LaunchSpline)
+	{
+
+		ACharacter* PlayerCharacter = GetWorld()->GetFirstPlayerController()->GetCharacter();
+		LaunchGoalLocation = PlayerCharacter->GetActorLocation();
+		FVector PlayerVelocity = PlayerCharacter->GetVelocity();
+		FVector DirTowardsLocation = LaunchGoalLocation - GetActorLocation();
+		DirTowardsLocation.Normalize();
+		LaunchGoalLocation = LaunchGoalLocation + (DirTowardsLocation * 250.f) + (PlayerVelocity);
+		DrawDebugSphere(GetWorld(), LaunchGoalLocation, 100, 20, FColor::Green, true);
+		LaunchSplineAlpha = 0;
+		LaunchCooldown = 0.f;
+		AAIController* AIController = Cast<AAIController>(GetController());
+		if (AIController) { AIController->ClearFocus(EAIFocusPriority::Gameplay);}
+		LaunchSpline->ClearSplinePoints(true);
+		LaunchSpline->AddSplinePoint(GetActorLocation(), ESplineCoordinateSpace::World, true);
+		FVector Midpoint = (LaunchGoalLocation + GetActorLocation()) / 2.f;
+		Midpoint.Z += 250.f;
+		LaunchSpline->AddSplinePoint(Midpoint, ESplineCoordinateSpace::World, true);
+		LaunchSpline->AddSplinePoint(LaunchGoalLocation, ESplineCoordinateSpace::World, true);
+		FVector CurrentEndTangent = LaunchSpline->GetTangentAtSplinePoint(2, ESplineCoordinateSpace::World);
+		FVector NewTangent = CurrentEndTangent;
+		NewTangent.Z = FMath::Lerp(CurrentEndTangent.Z, 0, 0.5f);
+		LaunchSpline->SetTangentAtSplinePoint(2, NewTangent, ESplineCoordinateSpace::World);
+		LaunchSplineAlpha = 0.f;
+		CurrentState = EEnemyState::Launching;
+		Jump();
+	}
+}
+
+void ABaseEnemy::UpdateLaunchProgress(float DeltaTime)
+{
+	LaunchSplineAlpha += DeltaTime / LaunchSplineTime;
+	UE_LOG(LogTemp, Display, TEXT("Prog: %f"), LaunchSplineAlpha);
+	if (LaunchSplineAlpha >= 1) { EndLaunch(); return; }
+	
+	LaunchSplineAlpha = FMath::Clamp(LaunchSplineAlpha, 0, 1);
+	float TotalDist = LaunchSpline->GetSplineLength();
+	FVector NextPoint = LaunchSpline->GetLocationAtDistanceAlongSpline(LaunchSplineAlpha * TotalDist, ESplineCoordinateSpace::World);
+	DrawDebugSphere(GetWorld(), NextPoint, 10.f, 12, FColor::Red);
+	
+	FVector Direction = NextPoint - GetActorLocation();
+	float Speed = FVector::Dist(GetActorLocation(), NextPoint) * 50.f;
+	FVector Velocity = Direction * 5.f;
+	GetCharacterMovement()->Velocity = Velocity;
+	AddMovementInput(Velocity, true);
+}
+
+void ABaseEnemy::EndLaunch()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Ending Launch"));
+	AAIController* AIController = Cast<AAIController>(GetController());
+	if (AIController) AIController->SetFocus(UGameplayStatics::GetPlayerCharacter(this, 0), EAIFocusPriority::Gameplay);
+	LaunchCooldown = 0;
+	CurrentState = EEnemyState::Walking;
+}
+
 
 
 

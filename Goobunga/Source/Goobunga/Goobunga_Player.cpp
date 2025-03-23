@@ -35,7 +35,6 @@ AGoobunga_Player::AGoobunga_Player()
 	FacialAnimationComponent = CreateDefaultSubobject<UFacialAnimationComponent>(TEXT("FacialAnimationComponent"));
 	ReloadManagerComponent = CreateDefaultSubobject<UReloadManagerComponent>(TEXT("ReloadManagerComponent"));
 	
-	
 }
 
 // Called when the game starts or when spawned

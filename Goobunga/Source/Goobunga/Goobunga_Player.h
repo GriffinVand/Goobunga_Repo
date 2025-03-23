@@ -50,6 +50,8 @@ public:
 	//Used to calculate where player is truly aiming(not always center screen)
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	USceneComponent* TrueLookDirection;
+
+	//Custom components
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	UFacialAnimationComponent* FacialAnimationComponent;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = true))

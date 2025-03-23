@@ -6,7 +6,10 @@
 #include "EnemyCallables.h"
 #include "GameFramework/Character.h"
 #include "Goobunga/Combat/CombatCallables.h"
+#include "EnemyStates.h"
 #include "BaseEnemy.generated.h"
+
+class USplineComponent;
 
 UCLASS()
 class GOOBUNGA_API ABaseEnemy : public ACharacter, public ICombatCallables, public IEnemyCallables
@@ -54,6 +57,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Dismember, meta = (AllowPrivateAccess = "true"))
 	TMap<EDamageType, float> DamageTypeMap;
 
+	EEnemyState CurrentState = Walking;
 	
 	virtual void Death(FVector LastMovementSpeed);
 	virtual void Dismember(FVector LastMovementSpeed);
@@ -62,7 +66,28 @@ public:
 	UPROPERTY(EditDefaultsOnly, meta = (AllowPrivateAccess = "true"))
 	TArray<UAnimMontage*> AttackMontages;
 
+	UPROPERTY(EditDefaultsOnly, meta = (AllowPrivateAccess = "true"))
+	TMap<FName, UAnimMontage*> MontageMap;
+	
 	virtual void AttackGeneric(int AttackNum);
+	virtual void LaunchTowardsLocation(FVector TargetLocation) override;
+
+	bool Launching = false;
+	FVector LaunchGoalLocation;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	USplineComponent* LaunchSpline;
+	float LaunchForce = 500.f;
+	float LaunchSplineAlpha = 0.f;
+	float LaunchSplineTime = 0.7f;
+	float LaunchRate = 3.f;
+	float LaunchCooldown = 6.f;
+	virtual void StartLaunch();
+	virtual void UpdateLaunchProgress(float DeltaTime);
+	virtual void EndLaunch();
+
+	virtual bool GetCanAttack() override { return AttackCooldown > AttackRate; }
+	virtual bool GetCanLaunch() override { return LaunchCooldown > LaunchRate; }
+	virtual EEnemyState GetCurrentState() override { return CurrentState; }
 	
 	virtual void CombatDamage(AActor* DamageDealer, float Damage, EDamageType DamageType) override;
 	virtual void AttackPrimary() override;

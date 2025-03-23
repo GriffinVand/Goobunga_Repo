@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "EnemyStates.h"
 #include "UObject/Interface.h"
 #include "EnemyCallables.generated.h"
 
@@ -19,4 +20,8 @@ class IEnemyCallables
 public:
 
 	virtual void AttackPrimary() = 0;
+	virtual void LaunchTowardsLocation(FVector TargetLocation) = 0;
+	virtual bool GetCanAttack() = 0;
+	virtual bool GetCanLaunch() = 0;
+	virtual EEnemyState GetCurrentState() = 0;
 };
