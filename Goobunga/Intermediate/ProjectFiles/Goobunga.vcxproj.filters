@@ -136,10 +136,28 @@
     <ClCompile Include="..\..\Source\Goobunga\Enemies\BTS_UpdateDistanceToPlayer.h">
       <Filter>Source\Goobunga\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTS_UpdateEnemyCooldowns.cpp">
+      <Filter>Source\Goobunga\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTS_UpdateEnemyCooldowns.h">
+      <Filter>Source\Goobunga\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTS_UpdateEnemyState.cpp">
+      <Filter>Source\Goobunga\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTS_UpdateEnemyState.h">
+      <Filter>Source\Goobunga\Enemies</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Enemies\BTTask_AttackGeneric.cpp">
       <Filter>Source\Goobunga\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Enemies\BTTask_AttackGeneric.h">
+      <Filter>Source\Goobunga\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTTask_LaunchInDirection.cpp">
+      <Filter>Source\Goobunga\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTTask_LaunchInDirection.h">
       <Filter>Source\Goobunga\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Enemies\BTTask_SwerveWhileChasing.cpp">
@@ -152,6 +170,12 @@
       <Filter>Source\Goobunga\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Enemies\EnemyCallables.h">
+      <Filter>Source\Goobunga\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\EnemyStates.cpp">
+      <Filter>Source\Goobunga\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\EnemyStates.h">
       <Filter>Source\Goobunga\Enemies</Filter>
     </ClCompile>
     <Filter Include="Source\Goobunga\UserInterface">
