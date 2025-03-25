@@ -14,7 +14,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define GOOBUNGA_EnemyCallables_generated_h
 
-#define FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyCallables_h_12_ENHANCED_CONSTRUCTORS \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyCallables_h_12_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	GOOBUNGA_API UEnemyCallables(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 private: \
@@ -28,7 +28,7 @@ public: \
 	GOOBUNGA_API virtual ~UEnemyCallables();
 
 
-#define FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyCallables_h_12_GENERATED_UINTERFACE_BODY() \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyCallables_h_12_GENERATED_UINTERFACE_BODY() \
 private: \
 	static void StaticRegisterNativesUEnemyCallables(); \
 	friend struct Z_Construct_UClass_UEnemyCallables_Statics; \
@@ -37,15 +37,15 @@ public: \
 	DECLARE_SERIALIZER(UEnemyCallables)
 
 
-#define FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyCallables_h_12_GENERATED_BODY \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyCallables_h_12_GENERATED_BODY \
 	PRAGMA_DISABLE_DEPRECATION_WARNINGS \
-	FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyCallables_h_12_GENERATED_UINTERFACE_BODY() \
-	FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyCallables_h_12_ENHANCED_CONSTRUCTORS \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyCallables_h_12_GENERATED_UINTERFACE_BODY() \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyCallables_h_12_ENHANCED_CONSTRUCTORS \
 private: \
 	PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyCallables_h_12_INCLASS_IINTERFACE_NO_PURE_DECLS \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyCallables_h_12_INCLASS_IINTERFACE_NO_PURE_DECLS \
 protected: \
 	virtual ~IEnemyCallables() {} \
 public: \
@@ -54,11 +54,11 @@ public: \
 	virtual UObject* _getUObject() const { return nullptr; }
 
 
-#define FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyCallables_h_8_PROLOG
-#define FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyCallables_h_18_GENERATED_BODY \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyCallables_h_8_PROLOG
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyCallables_h_18_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyCallables_h_12_INCLASS_IINTERFACE_NO_PURE_DECLS \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyCallables_h_12_INCLASS_IINTERFACE_NO_PURE_DECLS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -66,7 +66,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> GOOBUNGA_API UClass* StaticClass<class UEnemyCallables>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyCallables_h
+#define CURRENT_FILE_ID FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyCallables_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
