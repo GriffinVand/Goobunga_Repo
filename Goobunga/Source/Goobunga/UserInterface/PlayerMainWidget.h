@@ -24,4 +24,7 @@ public:
 
 	UPROPERTY(meta = (BindWidget))
 	UPlayerWeaponAmmoWidget* WeaponAmmoWidget;
+
+	
+	
 };

@@ -2,13 +2,16 @@
 	"RemapUnityFiles": 
 	{
 		"Module.Goobunga.cpp.obj": [
-			"CommonButton.gen.cpp.obj",
+			"PlayerMainLayerWidget.gen.cpp.obj",
 			"PerModuleInline.gen.cpp.obj",
 			"CombatCallables.cpp.obj",
 			"DamageTypes.cpp.obj",
 			"ReloadPatterns.cpp.obj",
 			"StatusTypes.cpp.obj",
 			"WeaponUITypes.cpp.obj",
+			"CommonButton.cpp.obj",
+			"DialogueReplyWidget.cpp.obj",
+			"DialogueStructs.cpp.obj",
 			"BaseEnemy.cpp.obj",
 			"BaseEnemyAIController.cpp.obj",
 			"BTS_CanPlayerSeeThis.cpp.obj",
@@ -23,12 +26,9 @@
 			"FacialAnimationComponent.cpp.obj",
 			"FireableCallables.cpp.obj",
 			"Goobunga.cpp.obj",
-			"Goobunga_Player.cpp.obj",
-			"PlayerCallables.cpp.obj",
 			"PlayerStates.cpp.obj",
 			"ReloadManagerComponent.cpp.obj",
 			"PlayerBulletWidget.cpp.obj",
-			"PlayerMainWidget.cpp.obj",
 			"PlayerReticleWidget.cpp.obj",
 			"PlayerWeaponAmmoWidget.cpp.obj",
 			"CatGun.cpp.obj",
@@ -47,6 +47,7 @@
 			"BTTask_SwerveWhileChasing.gen.cpp.obj",
 			"CatGun.gen.cpp.obj",
 			"CombatCallables.gen.cpp.obj",
+			"CommonButton.gen.cpp.obj",
 			"DamageTypes.gen.cpp.obj",
 			"DialogueManagerComponent.gen.cpp.obj",
 			"DialogueReplyWidget.gen.cpp.obj",
@@ -67,6 +68,8 @@
 			"PlayerStates.gen.cpp.obj",
 			"PlayerWeaponAmmoWidget.gen.cpp.obj",
 			"ProjectileWeapon.gen.cpp.obj",
+			"QuestItemWidget.gen.cpp.obj",
+			"QuestListWidget.gen.cpp.obj",
 			"QuestManagerComponent.gen.cpp.obj",
 			"QuestStruct.gen.cpp.obj",
 			"ReloadManagerComponent.gen.cpp.obj",
@@ -74,13 +77,16 @@
 			"StatusTypes.gen.cpp.obj",
 			"Weapon.gen.cpp.obj",
 			"WeaponUITypes.gen.cpp.obj",
-			"CommonButton.cpp.obj",
 			"DialogueManagerComponent.cpp.obj",
-			"DialogueReplyWidget.cpp.obj",
-			"DialogueStructs.cpp.obj",
 			"DialogueWidget.cpp.obj",
+			"Goobunga_Player.cpp.obj",
+			"PlayerCallables.cpp.obj",
+			"QuestItemWidget.cpp.obj",
+			"QuestListWidget.cpp.obj",
 			"QuestManagerComponent.cpp.obj",
-			"QuestStruct.cpp.obj"
+			"QuestStruct.cpp.obj",
+			"PlayerMainLayerWidget.cpp.obj",
+			"PlayerMainWidget.cpp.obj"
 		]
 	}
 }

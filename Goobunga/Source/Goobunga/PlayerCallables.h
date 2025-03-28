@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayTagContainer.h"
 #include "UObject/Interface.h"
 #include "PlayerCallables.generated.h"
 
@@ -29,4 +30,6 @@ public:
 	virtual void ApplyAimOffset(FVector AimOffsetInput) = 0;
 	virtual void UpdateWeaponUI() = 0;
 	virtual TArray<FVector> GetAimDirection() = 0;
+	virtual void PerformAction(const FString& Action) = 0;
+	virtual void PushWidget(FGameplayTag GameplayTag, UUserWidget* Widget) = 0;
 };

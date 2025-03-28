@@ -11,6 +11,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "Quests/QuestManagerComponent.h"
 #include "Weapons/CatGun.h"
 #include "Weapons/Weapon.h"
 // Sets default values
@@ -34,7 +35,7 @@ AGoobunga_Player::AGoobunga_Player()
 	FPMesh->SetupAttachment(CameraMeshOffset);
 	FacialAnimationComponent = CreateDefaultSubobject<UFacialAnimationComponent>(TEXT("FacialAnimationComponent"));
 	ReloadManagerComponent = CreateDefaultSubobject<UReloadManagerComponent>(TEXT("ReloadManagerComponent"));
-	
+	QuestManagerComponent = CreateDefaultSubobject<UQuestManagerComponent>(TEXT("QuestManagerComponent"));
 }
 
 // Called when the game starts or when spawned
@@ -474,6 +475,12 @@ void AGoobunga_Player::UnequipCurrent()
 {
 	if (EquippedWeapon) { EquippedWeapon->Destroy(); }
 }
+
+void AGoobunga_Player::PerformAction(const FString& Action)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Performing Action: %s"), *Action);
+}
+
 
 
 

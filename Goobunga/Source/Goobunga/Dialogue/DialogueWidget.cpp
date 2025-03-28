@@ -41,12 +41,15 @@ void UDialogueWidget::DisplayDialogue(const FText& Text)
 	else
 	{
 		UE_LOG(LogTemp, Display, TEXT("Ein PROBLEM"));
-		UKismetSystemLibrary::QuitEditor();
 	}
 }
 
-void UDialogueWidget::DisplayReplies(TArray<FText> Texts)
+void UDialogueWidget::DisplayReplies(TArray<FText> Texts, TArray<bool> Selectable)
 {
+	if (Selectable.Num() != Texts.Num())
+	{
+		UE_LOG(LogTemp, Display, TEXT("dialogue texts and selectable number are not equal"));
+	}
 	for (auto Widget : ReplyWidgets)
 	{
 		Widget->SetVisibility(ESlateVisibility::Collapsed);
@@ -61,11 +64,12 @@ void UDialogueWidget::DisplayReplies(TArray<FText> Texts)
 		{
 			ReplyWidgets[i]->SetVisibility(ESlateVisibility::Visible);
 			ReplyWidgets[i]->ReplyText->SetText(Texts[i]);
+			TSubclassOf<UCommonButtonStyle> NewStyle = Selectable[i] ? SelectableStyle : UnselectableStyle;
+			ReplyWidgets[i]->ReplyButton->SetStyle(NewStyle);
 		}
 		else
 		{
 			UE_LOG(LogTemp, Error, TEXT("Reply widget is NULL"));
-			UKismetSystemLibrary::QuitEditor();
 		}
 	}
 }

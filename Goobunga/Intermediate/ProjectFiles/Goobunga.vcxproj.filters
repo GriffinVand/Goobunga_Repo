@@ -109,6 +109,42 @@
     <ClCompile Include="..\..\Source\Goobunga\Combat\WeaponUITypes.h">
       <Filter>Source\Goobunga\Combat</Filter>
     </ClCompile>
+    <Filter Include="Source\Goobunga\CommonUI">
+      <UniqueIdentifier>{2C5D792E-5D79-34D0-B18D-F6B61D32F88F}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\CommonUI\CommonButton.cpp">
+      <Filter>Source\Goobunga\CommonUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\CommonUI\CommonButton.h">
+      <Filter>Source\Goobunga\CommonUI</Filter>
+    </ClCompile>
+    <Filter Include="Source\Goobunga\Dialogue">
+      <UniqueIdentifier>{144B1FC5-B96C-3DB1-9C94-77D935400D77}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\Dialogue\DialogueManagerComponent.cpp">
+      <Filter>Source\Goobunga\Dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Dialogue\DialogueManagerComponent.h">
+      <Filter>Source\Goobunga\Dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Dialogue\DialogueReplyWidget.cpp">
+      <Filter>Source\Goobunga\Dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Dialogue\DialogueReplyWidget.h">
+      <Filter>Source\Goobunga\Dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Dialogue\DialogueStructs.cpp">
+      <Filter>Source\Goobunga\Dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Dialogue\DialogueStructs.h">
+      <Filter>Source\Goobunga\Dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Dialogue\DialogueWidget.cpp">
+      <Filter>Source\Goobunga\Dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Dialogue\DialogueWidget.h">
+      <Filter>Source\Goobunga\Dialogue</Filter>
+    </ClCompile>
     <Filter Include="Source\Goobunga\Enemies">
       <UniqueIdentifier>{950A9B7A-B4A6-372F-AC67-98A81EBDADB6}</UniqueIdentifier>
     </Filter>
@@ -177,6 +213,21 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Enemies\EnemyStates.h">
       <Filter>Source\Goobunga\Enemies</Filter>
+    </ClCompile>
+    <Filter Include="Source\Goobunga\Quests">
+      <UniqueIdentifier>{1A0997D3-5663-34FA-B96A-ED0DFCFAD3D1}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\Quests\QuestManagerComponent.cpp">
+      <Filter>Source\Goobunga\Quests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Quests\QuestManagerComponent.h">
+      <Filter>Source\Goobunga\Quests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Quests\QuestStruct.cpp">
+      <Filter>Source\Goobunga\Quests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Quests\QuestStruct.h">
+      <Filter>Source\Goobunga\Quests</Filter>
     </ClCompile>
     <Filter Include="Source\Goobunga\UserInterface">
       <UniqueIdentifier>{9534E5FC-D95C-316B-A574-23D6029143AB}</UniqueIdentifier>

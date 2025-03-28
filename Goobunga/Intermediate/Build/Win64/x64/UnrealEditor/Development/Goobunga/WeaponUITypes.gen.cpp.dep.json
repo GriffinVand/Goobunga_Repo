@@ -1,12 +1,12 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "e:\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\weaponuitypes.gen.cpp",
+        "Source": "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\weaponuitypes.gen.cpp",
         "ProvidedModule": "",
-        "PCH": "e:\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\goobungaeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "PCH": "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\goobungaeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
         "Includes": [
-            "e:\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\goobunga\\definitions.goobunga.h",
-            "e:\\goobunga_repo\\goobunga\\source\\goobunga\\combat\\weaponuitypes.h"
+            "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\goobunga\\definitions.goobunga.h",
+            "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\source\\goobunga\\combat\\weaponuitypes.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

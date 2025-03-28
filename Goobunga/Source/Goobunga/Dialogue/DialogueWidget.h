@@ -7,6 +7,7 @@
 #include "Blueprint/UserWidget.h"
 #include "DialogueWidget.generated.h"
 
+class UCommonButtonStyle;
 /**
  * 
  */
@@ -21,6 +22,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	UTextBlock* DialogueText;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<UCommonButtonStyle> SelectableStyle;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<UCommonButtonStyle> UnselectableStyle;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	UDialogueReplyWidget* ReplyWidget1;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
@@ -40,5 +46,5 @@ public:
 	void SetDialogueManager(UDialogueManagerComponent* NewManager) { DialogueManager = NewManager; };
 	void BindReplyWidgets();
 	void DisplayDialogue(const FText& Text);
-	void DisplayReplies(TArray<FText> Texts);
+	void DisplayReplies(TArray<FText> Texts, TArray<bool> Selectable);
 };
