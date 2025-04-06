@@ -3,6 +3,9 @@
 
 #include "QuestManagerComponent.h"
 
+#include "Goobunga/PlayerCallables.h"
+#include "Kismet/KismetSystemLibrary.h"
+
 
 // Sets default values for this component's properties
 UQuestManagerComponent::UQuestManagerComponent()
@@ -19,8 +22,8 @@ UQuestManagerComponent::UQuestManagerComponent()
 void UQuestManagerComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
-	// ...
+	Owner = GetOwner();
+	if (!Owner) { UE_LOG(LogTemp, Error, TEXT("Owner is null")); UKismetSystemLibrary::QuitEditor(); }
 	
 }
 
@@ -33,4 +36,61 @@ void UQuestManagerComponent::TickComponent(float DeltaTime, ELevelTick TickType,
 
 	// ...
 }
+
+bool UQuestManagerComponent::IsQuestComplete(FName Quest)
+{
+	if (QuestsMap.Contains(Quest))
+	{
+		return QuestsMap[Quest].QuestProgress == QuestsMap[Quest].MaxQuestProgress;
+	}
+	UE_LOG(LogTemp, Error, TEXT("Quest not in map"));
+	return true;
+}
+
+void UQuestManagerComponent::AcquireQuest(FQuestStruct NewQuest)
+{
+	if (QuestsMap.Contains(NewQuest.QuestID))
+	{
+		UE_LOG(LogTemp, Error, TEXT("Quest already in map"));
+		return;
+	}
+	QuestsMap.Add(NewQuest.QuestID, NewQuest);
+	Quests.Add(NewQuest);
+	UE_LOG(LogTemp, Display, TEXT("Quest added"));
+}
+
+void UQuestManagerComponent::CompleteQuest(FName QuestID)
+{
+	if (QuestsMap.Contains(QuestID))
+	{
+		FQuestStruct QuestStruct = QuestsMap[QuestID];
+		if (IPlayerCallables* PlayerCallablesInterface = Cast<IPlayerCallables>(Owner))
+		{
+			FString RewardCommand = FString(TEXT("RECIEVE_REWARD")) +
+			TEXT(" ") +
+			QuestStruct.QuestRewardID.ToString() +
+			TEXT(" ") +
+			FString::FromInt(QuestStruct.QuestRewardAmount);
+			PlayerCallablesInterface->PerformAction(RewardCommand);
+			RemoveQuest(QuestID);
+			return;
+		}
+		UE_LOG(LogTemp, Error, TEXT("Player callables not found"));
+	}
+	UE_LOG(LogTemp, Error, TEXT("Quest not in map"));
+}
+
+
+void UQuestManagerComponent::RemoveQuest(FName QuestID)
+{
+	if (QuestsMap.Contains(QuestID))
+	{
+		FQuestStruct Quest = QuestsMap[QuestID];
+		QuestsMap.Remove(QuestID);
+		Quests.Remove(Quest);
+	}
+	UE_LOG(LogTemp, Error, TEXT("Quest not in map"));
+}
+
+
 

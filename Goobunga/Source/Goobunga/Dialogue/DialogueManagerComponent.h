@@ -6,6 +6,7 @@
 #include "DialogueStructs.h"
 #include "Components/ActorComponent.h"
 #include "GameFramework/Character.h"
+#include "Goobunga/Quests/QuestManagerComponent.h"
 #include "DialogueManagerComponent.generated.h"
 
 class UDialogueWidget;
@@ -44,21 +45,27 @@ public:
 
 	FDialogueLine CurrentDialogueLine;
 	TArray<FDialogueReply> CurrentDialogueReplies;
-
+	TArray<bool> CurrentDialogueRepliesAvailable;
+	
 	TMap<FName, FName> CharacterCurrentDialogues;
-
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	AActor* Owner;
+	
 	UFUNCTION(BlueprintCallable)
 	void StartDialogue(FName Character);
-	
+	UFUNCTION(BlueprintCallable)
+	void AddCharacterDialogue(FName Character, FName DialogueID);
+	UFUNCTION(BlueprintCallable)
+	void OnReplySelected(int ReplyIndex);
+
+private:
 	void UpdateDialogue(FName DialogueID);
 	FDialogueLine LoadDialogue(FName DialogueID);
 	void CreateDialogueWidget();
 	void DisplayDialogue();
 	FDialogueReply LoadDialogueReply(FName ReplyID);
-	void DisplayDialogueReply(TArray<FText> ReplyTexts);
-	UFUNCTION(BlueprintCallable)
-	void OnReplySelected(int ReplyIndex);
+	void DisplayDialogueReply(const TArray<FText>& ReplyTexts);
 	void EndDialogue();
-	UFUNCTION(BlueprintCallable)
-	void AddCharacterDialogue(FName Character, FName DialogueID);
+	void HandleReplyActions(const TArray<FString>& Actions);
 };

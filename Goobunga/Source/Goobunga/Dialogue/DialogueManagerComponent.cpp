@@ -5,6 +5,7 @@
 #include "DialogueWidget.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/TextBlock.h"
+#include "Goobunga/PlayerCallables.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
 
@@ -24,7 +25,8 @@ UDialogueManagerComponent::UDialogueManagerComponent()
 void UDialogueManagerComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
+	Owner = GetOwner();
+	if (!Owner) { UE_LOG(LogTemp, Error, TEXT("UDialogueManagerComponent::BeginPlay No owner nigger Error")); }
 	// ...
 	
 }
@@ -75,6 +77,7 @@ void UDialogueManagerComponent::CreateDialogueWidget()
 void UDialogueManagerComponent::UpdateDialogue(FName DialogueID)
 {
 	CurrentDialogueReplies.Empty();
+	CurrentDialogueRepliesAvailable.Empty();
 	
 	if (DialogueWidget)
 	{
@@ -84,19 +87,21 @@ void UDialogueManagerComponent::UpdateDialogue(FName DialogueID)
 			CurrentDialogueReplies.Add(LoadDialogueReply(ReplyID));
 		}
 		UE_LOG(LogTemp, Display, TEXT("Dialogue display"));
-		DisplayDialogue();
+		//DisplayDialogue();
 		TArray<FText> ReplyTexts = {};
 		for (FDialogueReply Reply: CurrentDialogueReplies)
 		{
 			UE_LOG(LogTemp, Display, TEXT("Dialogue reply display"));
-			ReplyTexts.Add(Reply.Text);		
+			ReplyTexts.Add(Reply.Text);
+			CurrentDialogueRepliesAvailable.Add(true);
 		}
+		UE_LOG(LogTemp, Display, TEXT("Dialogue texts num: %d, dialogue available num: %d"),
+			ReplyTexts.Num(), CurrentDialogueRepliesAvailable.Num());
 		DisplayDialogueReply(ReplyTexts);
 	}
 	else
 	{
 		UE_LOG(LogTemp, Error, TEXT("Dialogue Widget DNE"));
-		UKismetSystemLibrary::QuitEditor();
 	}
 }
 
@@ -152,7 +157,7 @@ void UDialogueManagerComponent::DisplayDialogueReply(const TArray<FText>& ReplyT
 	if (DialogueWidget)
 	{
 		UE_LOG(LogTemp, Display, TEXT("Display replies"));
-		DialogueWidget->DisplayReplies(ReplyTexts);
+		DialogueWidget->DisplayReplies(ReplyTexts, CurrentDialogueRepliesAvailable);
 	}
 	else
 	{
@@ -174,6 +179,10 @@ void UDialogueManagerComponent::OnReplySelected(int ReplyIndex)
 			{
 				UE_LOG(LogTemp, Display, TEXT("Quit requested"));
 				EndDialogue();
+			}
+			else
+			{
+				HandleReplyActions(SelectedReply.Actions);
 			}
 		}
 		else
@@ -204,6 +213,20 @@ void UDialogueManagerComponent::AddCharacterDialogue(FName Character, FName Dial
 	CharacterCurrentDialogues.Add(Character);
 	CharacterCurrentDialogues[Character] = DialogueID;
 }
+
+void UDialogueManagerComponent::HandleReplyActions(const TArray<FString>& Actions)
+{
+	if (IPlayerCallables* PlayerCallablesInterface = Cast<IPlayerCallables>(Owner))
+	{
+		for (auto Action : Actions)
+		{
+			PlayerCallablesInterface->PerformAction(Action);
+		}
+		return;
+	}
+	UE_LOG(LogTemp, Display, TEXT("Player callables interface not found"));
+}
+
 
 
 

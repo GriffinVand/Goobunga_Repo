@@ -10,6 +10,8 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeDialogueWidget() {}
 
 // Begin Cross Module References
+COMMONUI_API UClass* Z_Construct_UClass_UCommonButtonStyle_NoRegister();
+COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 GOOBUNGA_API UClass* Z_Construct_UClass_UDialogueManagerComponent_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_UDialogueReplyWidget_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_UDialogueWidget();
@@ -39,6 +41,14 @@ struct Z_Construct_UClass_UDialogueWidget_Statics
 		{ "BindWidget", "" },
 		{ "Category", "DialogueWidget" },
 		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "Dialogue/DialogueWidget.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_SelectableStyle_MetaData[] = {
+		{ "Category", "DialogueWidget" },
+		{ "ModuleRelativePath", "Dialogue/DialogueWidget.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_UnselectableStyle_MetaData[] = {
+		{ "Category", "DialogueWidget" },
 		{ "ModuleRelativePath", "Dialogue/DialogueWidget.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ReplyWidget1_MetaData[] = {
@@ -78,6 +88,8 @@ struct Z_Construct_UClass_UDialogueWidget_Statics
 	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_DialogueText;
+	static const UECodeGen_Private::FClassPropertyParams NewProp_SelectableStyle;
+	static const UECodeGen_Private::FClassPropertyParams NewProp_UnselectableStyle;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_ReplyWidget1;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_ReplyWidget2;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_ReplyWidget3;
@@ -93,6 +105,8 @@ struct Z_Construct_UClass_UDialogueWidget_Statics
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UDialogueWidget_Statics::NewProp_DialogueText = { "DialogueText", nullptr, (EPropertyFlags)0x001000000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UDialogueWidget, DialogueText), Z_Construct_UClass_UTextBlock_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DialogueText_MetaData), NewProp_DialogueText_MetaData) };
+const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_UDialogueWidget_Statics::NewProp_SelectableStyle = { "SelectableStyle", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UDialogueWidget, SelectableStyle), Z_Construct_UClass_UClass, Z_Construct_UClass_UCommonButtonStyle_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SelectableStyle_MetaData), NewProp_SelectableStyle_MetaData) };
+const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_UDialogueWidget_Statics::NewProp_UnselectableStyle = { "UnselectableStyle", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UDialogueWidget, UnselectableStyle), Z_Construct_UClass_UClass, Z_Construct_UClass_UCommonButtonStyle_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_UnselectableStyle_MetaData), NewProp_UnselectableStyle_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UDialogueWidget_Statics::NewProp_ReplyWidget1 = { "ReplyWidget1", nullptr, (EPropertyFlags)0x001000000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UDialogueWidget, ReplyWidget1), Z_Construct_UClass_UDialogueReplyWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ReplyWidget1_MetaData), NewProp_ReplyWidget1_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UDialogueWidget_Statics::NewProp_ReplyWidget2 = { "ReplyWidget2", nullptr, (EPropertyFlags)0x001000000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UDialogueWidget, ReplyWidget2), Z_Construct_UClass_UDialogueReplyWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ReplyWidget2_MetaData), NewProp_ReplyWidget2_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UDialogueWidget_Statics::NewProp_ReplyWidget3 = { "ReplyWidget3", nullptr, (EPropertyFlags)0x001000000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UDialogueWidget, ReplyWidget3), Z_Construct_UClass_UDialogueReplyWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ReplyWidget3_MetaData), NewProp_ReplyWidget3_MetaData) };
@@ -102,6 +116,8 @@ const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UDialogueWidget
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UDialogueWidget_Statics::NewProp_DialogueManager = { "DialogueManager", nullptr, (EPropertyFlags)0x001000000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UDialogueWidget, DialogueManager), Z_Construct_UClass_UDialogueManagerComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DialogueManager_MetaData), NewProp_DialogueManager_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UDialogueWidget_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDialogueWidget_Statics::NewProp_DialogueText,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDialogueWidget_Statics::NewProp_SelectableStyle,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDialogueWidget_Statics::NewProp_UnselectableStyle,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDialogueWidget_Statics::NewProp_ReplyWidget1,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDialogueWidget_Statics::NewProp_ReplyWidget2,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDialogueWidget_Statics::NewProp_ReplyWidget3,
@@ -149,14 +165,14 @@ UDialogueWidget::~UDialogueWidget() {}
 // End Class UDialogueWidget
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueWidget_h_Statics
+struct Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueWidget_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UDialogueWidget, UDialogueWidget::StaticClass, TEXT("UDialogueWidget"), &Z_Registration_Info_UClass_UDialogueWidget, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UDialogueWidget), 575142223U) },
+		{ Z_Construct_UClass_UDialogueWidget, UDialogueWidget::StaticClass, TEXT("UDialogueWidget"), &Z_Registration_Info_UClass_UDialogueWidget, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UDialogueWidget), 3118177108U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueWidget_h_3495847667(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueWidget_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueWidget_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueWidget_h_435708309(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueWidget_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueWidget_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

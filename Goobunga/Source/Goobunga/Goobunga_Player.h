@@ -9,6 +9,7 @@
 #include "Weapons/Weapon.h"
 #include "Goobunga_Player.generated.h"
 
+class UQuestManagerComponent;
 struct FInputActionValue;
 class UInputMappingContext;
 class UInputAction;
@@ -56,7 +57,8 @@ public:
 	UFacialAnimationComponent* FacialAnimationComponent;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = true))
 	UReloadManagerComponent* ReloadManagerComponent;
-
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = true))
+	UQuestManagerComponent* QuestManagerComponent;
 	//UI
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = true))
 	TSubclassOf<UUserWidget> PlayerMainWidgetSubclass;
@@ -189,5 +191,7 @@ protected:
 	virtual void ApplyAimOffset(FVector AimOffsetInput) override;
 	virtual TArray<FVector> GetAimDirection() override;
 	virtual void UpdateWeaponUI() override;
+	virtual void PerformAction(const FString& Action) override;
+	virtual void PushWidget(FGameplayTag GameplayTag, UUserWidget* Widget) override {}
 };
 
