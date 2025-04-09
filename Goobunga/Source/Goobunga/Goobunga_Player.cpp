@@ -1,6 +1,7 @@
 #include "Goobunga_Player.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "FacialAnimationComponent.h"
 #include "InputAction.h"
 #include "InputActionValue.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -8,8 +9,11 @@
 #include "Math/UnrealMathUtility.h"
 #include "FireableCallables.h"
 #include "ReloadManagerComponent.h"
+#include "Dialogue/DialogueManagerComponent.h"
+#include "DSP/AudioDebuggingUtilities.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetStringLibrary.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Quests/QuestManagerComponent.h"
 #include "Weapons/CatGun.h"
@@ -36,6 +40,7 @@ AGoobunga_Player::AGoobunga_Player()
 	FacialAnimationComponent = CreateDefaultSubobject<UFacialAnimationComponent>(TEXT("FacialAnimationComponent"));
 	ReloadManagerComponent = CreateDefaultSubobject<UReloadManagerComponent>(TEXT("ReloadManagerComponent"));
 	QuestManagerComponent = CreateDefaultSubobject<UQuestManagerComponent>(TEXT("QuestManagerComponent"));
+	DialogueManagerComponent = CreateDefaultSubobject<UDialogueManagerComponent>(TEXT("DialogueManagerComponent"));
 }
 
 // Called when the game starts or when spawned
@@ -394,6 +399,7 @@ void AGoobunga_Player::UpdateLookVelocity(float DeltaTime)
 void AGoobunga_Player::CombatDamage(AActor* DamageCauser, float Damage, EDamageType DamageType)
 {
 	CurrHealth -= Damage;
+	UE_LOG(LogTemp, Error, TEXT("PLAYER WAS HURT"))
 	if (CurrHealth <= 0) { DeathSequence(); }
 }
 
@@ -478,6 +484,36 @@ void AGoobunga_Player::UnequipCurrent()
 
 void AGoobunga_Player::PerformAction(const FString& Action)
 {
+	TArray<FString> ActionArguments = UKismetStringLibrary::ParseIntoArray(Action, "x", true);
+	for (auto string : ActionArguments)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Action: %s"), *string);
+	}
+	if (ActionArguments.Num() == 2)
+	{
+		if (ActionArguments[0] == "ADD_QUEST")
+		{
+			UE_LOG(LogTemp, Display, TEXT("Recieved add quest command"));
+			FName QuestID = FName(ActionArguments[1]);
+			QuestManagerComponent->AddQuestToQuestList(QuestID);
+		}
+		else if (ActionArguments[0] == "SET_DIALOGUE")
+		{
+			UE_LOG(LogTemp, Display, TEXT("Set current dialogue command"));
+			TArray<FString> Arguments = UKismetStringLibrary::ParseIntoArray(ActionArguments[1], "-", true);
+			for (auto string : Arguments)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("Action: %s"), *string);
+			}
+			if (Arguments.Num() == 2)
+			{
+				FName CharacterName = FName(ActionArguments[0]);
+				FName DialogueID = FName(ActionArguments[1]);
+				UE_LOG(LogTemp, Display, TEXT("Tell dialogue manager set character dialogue"));
+				DialogueManagerComponent->SetCharacterDialogue(CharacterName, DialogueID);
+			}
+		}
+	}
 	UE_LOG(LogTemp, Warning, TEXT("Performing Action: %s"), *Action);
 }
 

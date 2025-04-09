@@ -7,7 +7,7 @@ UENUM(BlueprintType)
 enum class EDamageType : uint8
 {
 	None UMETA(DisplayName = "None"),
-	Sharp UMETA(DisplayName = "Sharp"),
-	Blunt  UMETA(DisplayName = "Blunt"),
-	Holy    UMETA(DisplayName = "Holy"),
+	Spider UMETA(DisplayName = "Spider"),
+	Player UMETA(DisplayName = "Player"),
+	Slug UMETA(DisplayName = "Slug"),
 };

@@ -5,6 +5,8 @@
 #include "DialogueWidget.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/TextBlock.h"
+#include "Goobunga/FacialAnimationComponent.h"
+#include "Goobunga/Goobunga_Player.h"
 #include "Goobunga/PlayerCallables.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
@@ -25,8 +27,6 @@ UDialogueManagerComponent::UDialogueManagerComponent()
 void UDialogueManagerComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	Owner = GetOwner();
-	if (!Owner) { UE_LOG(LogTemp, Error, TEXT("UDialogueManagerComponent::BeginPlay No owner nigger Error")); }
 	// ...
 	
 }
@@ -49,6 +49,11 @@ void UDialogueManagerComponent::StartDialogue(FName Character)
 		PlayerController->SetInputMode(Input);
 		PlayerController->bShowMouseCursor = true;
 	}
+	if (AGoobunga_Player* Goobunga_Player = Cast<AGoobunga_Player>(GetOwner()))
+	{
+		UE_LOG(LogTemp, Error, TEXT("STARTING DIALOGUE ANIMATION"));
+		Goobunga_Player->FacialAnimationComponent->PlayAnimation("Talking", true);
+	}
 	if (CharacterCurrentDialogues.Contains(Character))
 	{
 		CreateDialogueWidget();
@@ -61,6 +66,7 @@ void UDialogueManagerComponent::StartDialogue(FName Character)
 	else
 	{
 		UE_LOG(LogTemp, Error, TEXT("Character-Dialogue pair not found"));
+		EndDialogue();
 	}
 }
 
@@ -87,13 +93,22 @@ void UDialogueManagerComponent::UpdateDialogue(FName DialogueID)
 			CurrentDialogueReplies.Add(LoadDialogueReply(ReplyID));
 		}
 		UE_LOG(LogTemp, Display, TEXT("Dialogue display"));
-		//DisplayDialogue();
+		DisplayDialogue();
 		TArray<FText> ReplyTexts = {};
 		for (FDialogueReply Reply: CurrentDialogueReplies)
 		{
 			UE_LOG(LogTemp, Display, TEXT("Dialogue reply display"));
 			ReplyTexts.Add(Reply.Text);
-			CurrentDialogueRepliesAvailable.Add(true);
+			if (!Reply.QuestRequirement.IsNone())
+			{
+				if (AGoobunga_Player* OwnerPlayer = Cast<AGoobunga_Player>(GetOwner()))
+				{
+					bool Available = OwnerPlayer->QuestManagerComponent->IsQuestComplete(Reply.QuestRequirement);
+					CurrentDialogueRepliesAvailable.Add(Available);
+				}
+				else { CurrentDialogueRepliesAvailable.Add(true); }
+			}
+			else { CurrentDialogueRepliesAvailable.Add(true); }
 		}
 		UE_LOG(LogTemp, Display, TEXT("Dialogue texts num: %d, dialogue available num: %d"),
 			ReplyTexts.Num(), CurrentDialogueRepliesAvailable.Num());
@@ -179,17 +194,12 @@ void UDialogueManagerComponent::OnReplySelected(int ReplyIndex)
 			{
 				UE_LOG(LogTemp, Display, TEXT("Quit requested"));
 				EndDialogue();
+				return;
 			}
-			else
-			{
-				HandleReplyActions(SelectedReply.Actions);
-			}
+			HandleReplyActions(SelectedReply.Actions);
 		}
-		else
-		{
-			UE_LOG(LogTemp, Display, TEXT("Continue dialogue"));
-			UpdateDialogue(SelectedReply.NextID);
-		}
+		UE_LOG(LogTemp, Display, TEXT("Continue dialogue"));
+		UpdateDialogue(SelectedReply.NextID);
 	}
 	else
 	{
@@ -205,7 +215,11 @@ void UDialogueManagerComponent::EndDialogue()
 		PlayerController->SetInputMode(Game);
 		PlayerController->bShowMouseCursor = false;
 	}
-	DialogueWidget->RemoveFromParent();
+	if (AGoobunga_Player* Goobunga_Player = Cast<AGoobunga_Player>(GetOwner()))
+	{
+		Goobunga_Player->FacialAnimationComponent->PlayAnimation("Idle", true);
+	}
+	if (DialogueWidget) { DialogueWidget->RemoveFromParent(); }
 }
 
 void UDialogueManagerComponent::AddCharacterDialogue(FName Character, FName DialogueID)
@@ -216,7 +230,7 @@ void UDialogueManagerComponent::AddCharacterDialogue(FName Character, FName Dial
 
 void UDialogueManagerComponent::HandleReplyActions(const TArray<FString>& Actions)
 {
-	if (IPlayerCallables* PlayerCallablesInterface = Cast<IPlayerCallables>(Owner))
+	if (IPlayerCallables* PlayerCallablesInterface = Cast<IPlayerCallables>(GetOwner()))
 	{
 		for (auto Action : Actions)
 		{
@@ -226,6 +240,16 @@ void UDialogueManagerComponent::HandleReplyActions(const TArray<FString>& Action
 	}
 	UE_LOG(LogTemp, Display, TEXT("Player callables interface not found"));
 }
+
+void UDialogueManagerComponent::SetCharacterDialogue(FName Character, FName DialogueID)
+{
+	if (CharacterCurrentDialogues.Contains(Character))
+	{
+		UE_LOG(LogTemp, Display, TEXT("Dialogue manager successfully set current dialogue ID"));
+		CharacterCurrentDialogues[Character] = DialogueID;
+	}
+}
+
 
 
 

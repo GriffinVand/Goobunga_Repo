@@ -22,9 +22,6 @@ UQuestManagerComponent::UQuestManagerComponent()
 void UQuestManagerComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	Owner = GetOwner();
-	if (!Owner) { UE_LOG(LogTemp, Error, TEXT("Owner is null")); UKismetSystemLibrary::QuitEditor(); }
-	
 }
 
 
@@ -39,32 +36,23 @@ void UQuestManagerComponent::TickComponent(float DeltaTime, ELevelTick TickType,
 
 bool UQuestManagerComponent::IsQuestComplete(FName Quest)
 {
-	if (QuestsMap.Contains(Quest))
+	if (QuestIDs.Contains(Quest))
 	{
-		return QuestsMap[Quest].QuestProgress == QuestsMap[Quest].MaxQuestProgress;
+		int Index = QuestIDs.Find(Quest);
+		FQuestStruct QuestStruct = QuestData[Index];
+		return QuestStruct.QuestProgress >= QuestStruct.MaxQuestProgress;
 	}
 	UE_LOG(LogTemp, Error, TEXT("Quest not in map"));
-	return true;
-}
-
-void UQuestManagerComponent::AcquireQuest(FQuestStruct NewQuest)
-{
-	if (QuestsMap.Contains(NewQuest.QuestID))
-	{
-		UE_LOG(LogTemp, Error, TEXT("Quest already in map"));
-		return;
-	}
-	QuestsMap.Add(NewQuest.QuestID, NewQuest);
-	Quests.Add(NewQuest);
-	UE_LOG(LogTemp, Display, TEXT("Quest added"));
+	return false;
 }
 
 void UQuestManagerComponent::CompleteQuest(FName QuestID)
 {
-	if (QuestsMap.Contains(QuestID))
+	if (QuestIDs.Contains(QuestID))
 	{
-		FQuestStruct QuestStruct = QuestsMap[QuestID];
-		if (IPlayerCallables* PlayerCallablesInterface = Cast<IPlayerCallables>(Owner))
+		int Index = QuestIDs.Find(QuestID);
+		FQuestStruct QuestStruct = QuestData[Index];
+		if (IPlayerCallables* PlayerCallablesInterface = Cast<IPlayerCallables>(GetOwner()))
 		{
 			FString RewardCommand = FString(TEXT("RECIEVE_REWARD")) +
 			TEXT(" ") +
@@ -83,14 +71,60 @@ void UQuestManagerComponent::CompleteQuest(FName QuestID)
 
 void UQuestManagerComponent::RemoveQuest(FName QuestID)
 {
-	if (QuestsMap.Contains(QuestID))
+	if (QuestIDs.Contains(QuestID))
 	{
-		FQuestStruct Quest = QuestsMap[QuestID];
-		QuestsMap.Remove(QuestID);
-		Quests.Remove(Quest);
+		int Index = QuestIDs.Find(QuestID);
+		QuestIDs.RemoveAt(Index);
+		QuestData.RemoveAt(Index);
 	}
 	UE_LOG(LogTemp, Error, TEXT("Quest not in map"));
 }
+
+void UQuestManagerComponent::CreateQuestListWidget()
+{
+	
+}
+
+void UQuestManagerComponent::CreateQuestIndicatorWidget()
+{
+	
+}
+
+void UQuestManagerComponent::AddQuestToQuestList(FName QuestID)
+{
+	if (QuestIDs.Contains(QuestID))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Trying to add quest we already have: %s"), *QuestID.ToString());
+		return;
+	}
+	if (QuestTable)
+	{
+		FQuestStruct* NewQuest = QuestTable->FindRow<FQuestStruct>(QuestID, "");
+		if (NewQuest)
+		{
+			FQuestStruct NewQuestData = *NewQuest;
+			QuestIDs.Add(QuestID);
+			QuestData.Add(NewQuestData);
+			UE_LOG(LogTemp, Warning, TEXT("Quest added to questlist"));
+			return;
+		}
+	}
+	UE_LOG(LogTemp, Warning, TEXT("No quest table"));
+}
+
+void UQuestManagerComponent::UpdateQuestProgress(FName QuestObjID, int ProgressIncrement)
+{
+	for (FQuestStruct QuestStruct : QuestData)
+	{
+		if (QuestStruct.QuestObjID == QuestObjID)
+		{
+			QuestStruct.QuestProgress += ProgressIncrement;
+		}
+	}
+}
+
+
+
 
 
 

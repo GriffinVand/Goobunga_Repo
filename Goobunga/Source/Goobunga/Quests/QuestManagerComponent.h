@@ -27,18 +27,18 @@ protected:
 	virtual void BeginPlay() override;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TMap<FName, FQuestStruct> QuestsMap;
+	TArray<FName> QuestIDs;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<FQuestStruct> Quests;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	AActor* Owner;
+	TArray<FQuestStruct> QuestData;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<UCommonActivatableWidget> QuestListWidgetClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UQuestListWidget* QuestListWidget;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UDataTable* QuestTable;
 	
 public:
 	// Called every frame
@@ -46,11 +46,11 @@ public:
 	                           FActorComponentTickFunction* ThisTickFunction) override;
 
 	bool IsQuestComplete(FName QuestID);
-
-	void AcquireQuest(FQuestStruct NewQuest);
+	
 	void RemoveQuest(FName QuestID);
 	void CompleteQuest(FName QuestID);
 	void CreateQuestIndicatorWidget();
 	void CreateQuestListWidget();
 	void AddQuestToQuestList(FName QuestID);
+	void UpdateQuestProgress(FName QuestObjID, int ProgressIncrement);
 };

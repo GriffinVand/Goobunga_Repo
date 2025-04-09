@@ -39,9 +39,17 @@ public:
 	float AttackRate = 3.f;
 	UPROPERTY(BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	float AttackCooldown = 0.f;
-
-	bool Attacking = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	float AttackDamage = 1.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	float AttackRadius = 100.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	EDamageType AttackDamageType = EDamageType::Spider;
 	
+	bool Attacking = false;
+	//
+	//Fading out
+	//
 	bool FadingOut = false;
 	bool FadeVisible = true;
 	float FadeOutTime = 10.f;
@@ -54,8 +62,6 @@ public:
 	TArray<UStaticMesh*> DismemberPartClasses;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Dismember, meta = (AllowPrivateAccess = "true"))
 	TArray<UStaticMeshComponent*> DismemberPartComponents;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Dismember, meta = (AllowPrivateAccess = "true"))
-	TMap<EDamageType, float> DamageTypeMap;
 
 	EEnemyState CurrentState = Walking;
 	
@@ -79,8 +85,8 @@ public:
 	float LaunchForce = 500.f;
 	float LaunchSplineAlpha = 0.f;
 	float LaunchSplineTime = 0.7f;
-	float LaunchRate = 3.f;
-	float LaunchCooldown = 6.f;
+	float LaunchRate = 8.f;
+	float LaunchCooldown = 8.f;
 	virtual void StartLaunch();
 	virtual void UpdateLaunchProgress(float DeltaTime);
 	virtual void EndLaunch();
@@ -91,5 +97,9 @@ public:
 	
 	virtual void CombatDamage(AActor* DamageDealer, float Damage, EDamageType DamageType) override;
 	virtual void AttackPrimary() override;
+
+	virtual FTransform GetAttackTraceTransform();
+	UFUNCTION(BlueprintCallable)
+	virtual void AttackDamageTrace();
 
 };

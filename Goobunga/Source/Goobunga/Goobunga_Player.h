@@ -1,7 +1,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "FacialAnimationComponent.h"
 #include "PlayerCallables.h"
 #include "Combat/CombatCallables.h"
 #include "GameFramework/Character.h"
@@ -16,6 +15,8 @@ class UInputAction;
 class UCameraComponent;
 class USpringArmComponent;
 class UReloadManagerComponent;
+class UDialogueManagerComponent;
+class UFacialAnimationComponent;
 class AWeapon;
 
 UCLASS()
@@ -59,6 +60,8 @@ public:
 	UReloadManagerComponent* ReloadManagerComponent;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = true))
 	UQuestManagerComponent* QuestManagerComponent;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = true))
+	UDialogueManagerComponent* DialogueManagerComponent;
 	//UI
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = true))
 	TSubclassOf<UUserWidget> PlayerMainWidgetSubclass;

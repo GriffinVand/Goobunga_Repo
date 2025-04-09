@@ -49,8 +49,13 @@ void UFacialAnimationComponent::UpdateCurrentAnimation(float DeltaTime)
 
 void UFacialAnimationComponent::PlayAnimation(FName AnimationName, bool CanLoop)
 {
+	for (const TPair<FName, FFacialAnimationStruct>& Pair : Animations)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Animation %s"), *Pair.Key.ToString());
+	}
 	if (Animations.Contains(AnimationName))
 	{
+		UE_LOG(LogTemp, Error, TEXT("Play Animation %s"), *AnimationName.ToString());
 		CurrentAnimation = AnimationName;
 		Animations[CurrentAnimation].CurrentFrame = 0;
 		Animations[CurrentAnimation].FrameBuffer = 0;
@@ -60,6 +65,8 @@ void UFacialAnimationComponent::PlayAnimation(FName AnimationName, bool CanLoop)
 			DefaultAnimation = CurrentAnimation;
 		}
 		else { Looping = false; }
+		return;
 	}
+	UE_LOG(LogTemp, Error, TEXT("Can't find animation %s"), *AnimationName.ToString());
 }
 

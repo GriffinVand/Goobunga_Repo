@@ -2,17 +2,14 @@
 	"RemapUnityFiles": 
 	{
 		"Module.Goobunga.cpp.obj": [
-			"PlayerMainLayerWidget.gen.cpp.obj",
 			"PerModuleInline.gen.cpp.obj",
 			"CombatCallables.cpp.obj",
-			"DamageTypes.cpp.obj",
 			"ReloadPatterns.cpp.obj",
 			"StatusTypes.cpp.obj",
 			"WeaponUITypes.cpp.obj",
 			"CommonButton.cpp.obj",
 			"DialogueReplyWidget.cpp.obj",
 			"DialogueStructs.cpp.obj",
-			"BaseEnemy.cpp.obj",
 			"BaseEnemyAIController.cpp.obj",
 			"BTS_CanPlayerSeeThis.cpp.obj",
 			"BTS_UpdateDistanceToPlayer.cpp.obj",
@@ -26,11 +23,15 @@
 			"FacialAnimationComponent.cpp.obj",
 			"FireableCallables.cpp.obj",
 			"Goobunga.cpp.obj",
+			"PlayerCallables.cpp.obj",
 			"PlayerStates.cpp.obj",
+			"QuestItemWidget.cpp.obj",
+			"QuestListWidget.cpp.obj",
 			"ReloadManagerComponent.cpp.obj",
 			"PlayerBulletWidget.cpp.obj",
+			"PlayerMainLayerWidget.cpp.obj",
+			"PlayerMainWidget.cpp.obj",
 			"PlayerReticleWidget.cpp.obj",
-			"PlayerWeaponAmmoWidget.cpp.obj",
 			"CatGun.cpp.obj",
 			"HitScanWeapon.cpp.obj",
 			"MeleeWeapon.cpp.obj",
@@ -63,6 +64,7 @@
 			"MeleeWeapon.gen.cpp.obj",
 			"PlayerBulletWidget.gen.cpp.obj",
 			"PlayerCallables.gen.cpp.obj",
+			"PlayerMainLayerWidget.gen.cpp.obj",
 			"PlayerMainWidget.gen.cpp.obj",
 			"PlayerReticleWidget.gen.cpp.obj",
 			"PlayerStates.gen.cpp.obj",
@@ -77,16 +79,14 @@
 			"StatusTypes.gen.cpp.obj",
 			"Weapon.gen.cpp.obj",
 			"WeaponUITypes.gen.cpp.obj",
+			"DamageTypes.cpp.obj",
 			"DialogueManagerComponent.cpp.obj",
 			"DialogueWidget.cpp.obj",
+			"BaseEnemy.cpp.obj",
 			"Goobunga_Player.cpp.obj",
-			"PlayerCallables.cpp.obj",
-			"QuestItemWidget.cpp.obj",
-			"QuestListWidget.cpp.obj",
 			"QuestManagerComponent.cpp.obj",
 			"QuestStruct.cpp.obj",
-			"PlayerMainLayerWidget.cpp.obj",
-			"PlayerMainWidget.cpp.obj"
+			"PlayerWeaponAmmoWidget.cpp.obj"
 		]
 	}
 }

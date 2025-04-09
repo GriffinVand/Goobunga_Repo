@@ -49,15 +49,13 @@ public:
 	
 	TMap<FName, FName> CharacterCurrentDialogues;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	AActor* Owner;
-	
 	UFUNCTION(BlueprintCallable)
 	void StartDialogue(FName Character);
 	UFUNCTION(BlueprintCallable)
 	void AddCharacterDialogue(FName Character, FName DialogueID);
 	UFUNCTION(BlueprintCallable)
 	void OnReplySelected(int ReplyIndex);
+	void SetCharacterDialogue(FName Character, FName DialogueID);
 
 private:
 	void UpdateDialogue(FName DialogueID);

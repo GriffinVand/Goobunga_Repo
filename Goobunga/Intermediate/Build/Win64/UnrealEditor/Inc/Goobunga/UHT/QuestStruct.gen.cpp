@@ -11,11 +11,13 @@ void EmptyLinkFunctionForGeneratedCodeQuestStruct() {}
 
 // Begin Cross Module References
 ENGINE_API UClass* Z_Construct_UClass_UTexture2D_NoRegister();
+ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FTableRowBase();
 GOOBUNGA_API UScriptStruct* Z_Construct_UScriptStruct_FQuestStruct();
 UPackage* Z_Construct_UPackage__Script_Goobunga();
 // End Cross Module References
 
 // Begin ScriptStruct FQuestStruct
+static_assert(std::is_polymorphic<FQuestStruct>() == std::is_polymorphic<FTableRowBase>(), "USTRUCT FQuestStruct cannot be polymorphic unless super FTableRowBase is polymorphic");
 static FStructRegistrationInfo Z_Registration_Info_UScriptStruct_QuestStruct;
 class UScriptStruct* FQuestStruct::StaticStruct()
 {
@@ -112,7 +114,7 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FQ
 static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FQuestStruct_Statics::PropPointers) < 2048);
 const UECodeGen_Private::FStructParams Z_Construct_UScriptStruct_FQuestStruct_Statics::StructParams = {
 	(UObject* (*)())Z_Construct_UPackage__Script_Goobunga,
-	nullptr,
+	Z_Construct_UScriptStruct_FTableRowBase,
 	&NewStructOps,
 	"QuestStruct",
 	Z_Construct_UScriptStruct_FQuestStruct_Statics::PropPointers,
@@ -134,15 +136,15 @@ UScriptStruct* Z_Construct_UScriptStruct_FQuestStruct()
 // End ScriptStruct FQuestStruct
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestStruct_h_Statics
+struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestStruct_h_Statics
 {
 	static constexpr FStructRegisterCompiledInInfo ScriptStructInfo[] = {
-		{ FQuestStruct::StaticStruct, Z_Construct_UScriptStruct_FQuestStruct_Statics::NewStructOps, TEXT("QuestStruct"), &Z_Registration_Info_UScriptStruct_QuestStruct, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FQuestStruct), 3777128688U) },
+		{ FQuestStruct::StaticStruct, Z_Construct_UScriptStruct_FQuestStruct_Statics::NewStructOps, TEXT("QuestStruct"), &Z_Registration_Info_UScriptStruct_QuestStruct, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FQuestStruct), 652624888U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestStruct_h_3784964208(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestStruct_h_1835035376(TEXT("/Script/Goobunga"),
 	nullptr, 0,
-	Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestStruct_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestStruct_h_Statics::ScriptStructInfo),
+	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestStruct_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestStruct_h_Statics::ScriptStructInfo),
 	nullptr, 0);
 // End Registration
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

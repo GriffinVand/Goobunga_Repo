@@ -13,8 +13,8 @@ void EmptyLinkFunctionForGeneratedCodeQuestManagerComponent() {}
 // Begin Cross Module References
 COMMONUI_API UClass* Z_Construct_UClass_UCommonActivatableWidget_NoRegister();
 COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
-ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_UActorComponent();
+ENGINE_API UClass* Z_Construct_UClass_UDataTable_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_UQuestListWidget_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_UQuestManagerComponent();
 GOOBUNGA_API UClass* Z_Construct_UClass_UQuestManagerComponent_NoRegister();
@@ -181,15 +181,11 @@ struct Z_Construct_UClass_UQuestManagerComponent_Statics
 		{ "IncludePath", "Quests/QuestManagerComponent.h" },
 		{ "ModuleRelativePath", "Quests/QuestManagerComponent.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_QuestsMap_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_QuestIDs_MetaData[] = {
 		{ "Category", "QuestManagerComponent" },
 		{ "ModuleRelativePath", "Quests/QuestManagerComponent.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Quests_MetaData[] = {
-		{ "Category", "QuestManagerComponent" },
-		{ "ModuleRelativePath", "Quests/QuestManagerComponent.h" },
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Owner_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_QuestData_MetaData[] = {
 		{ "Category", "QuestManagerComponent" },
 		{ "ModuleRelativePath", "Quests/QuestManagerComponent.h" },
 	};
@@ -202,15 +198,18 @@ struct Z_Construct_UClass_UQuestManagerComponent_Statics
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "Quests/QuestManagerComponent.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_QuestTable_MetaData[] = {
+		{ "Category", "QuestManagerComponent" },
+		{ "ModuleRelativePath", "Quests/QuestManagerComponent.h" },
+	};
 #endif // WITH_METADATA
-	static const UECodeGen_Private::FStructPropertyParams NewProp_QuestsMap_ValueProp;
-	static const UECodeGen_Private::FNamePropertyParams NewProp_QuestsMap_Key_KeyProp;
-	static const UECodeGen_Private::FMapPropertyParams NewProp_QuestsMap;
-	static const UECodeGen_Private::FStructPropertyParams NewProp_Quests_Inner;
-	static const UECodeGen_Private::FArrayPropertyParams NewProp_Quests;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_Owner;
+	static const UECodeGen_Private::FNamePropertyParams NewProp_QuestIDs_Inner;
+	static const UECodeGen_Private::FArrayPropertyParams NewProp_QuestIDs;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_QuestData_Inner;
+	static const UECodeGen_Private::FArrayPropertyParams NewProp_QuestData;
 	static const UECodeGen_Private::FClassPropertyParams NewProp_QuestListWidgetClass;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_QuestListWidget;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_QuestTable;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
@@ -224,23 +223,21 @@ struct Z_Construct_UClass_UQuestManagerComponent_Statics
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UQuestManagerComponent_Statics::NewProp_QuestsMap_ValueProp = { "QuestsMap", nullptr, (EPropertyFlags)0x0000000000000001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 1, Z_Construct_UScriptStruct_FQuestStruct, METADATA_PARAMS(0, nullptr) }; // 3777128688
-const UECodeGen_Private::FNamePropertyParams Z_Construct_UClass_UQuestManagerComponent_Statics::NewProp_QuestsMap_Key_KeyProp = { "QuestsMap_Key", nullptr, (EPropertyFlags)0x0000000000000001, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FMapPropertyParams Z_Construct_UClass_UQuestManagerComponent_Statics::NewProp_QuestsMap = { "QuestsMap", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UQuestManagerComponent, QuestsMap), EMapPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_QuestsMap_MetaData), NewProp_QuestsMap_MetaData) }; // 3777128688
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UQuestManagerComponent_Statics::NewProp_Quests_Inner = { "Quests", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FQuestStruct, METADATA_PARAMS(0, nullptr) }; // 3777128688
-const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UQuestManagerComponent_Statics::NewProp_Quests = { "Quests", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UQuestManagerComponent, Quests), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Quests_MetaData), NewProp_Quests_MetaData) }; // 3777128688
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UQuestManagerComponent_Statics::NewProp_Owner = { "Owner", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UQuestManagerComponent, Owner), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Owner_MetaData), NewProp_Owner_MetaData) };
+const UECodeGen_Private::FNamePropertyParams Z_Construct_UClass_UQuestManagerComponent_Statics::NewProp_QuestIDs_Inner = { "QuestIDs", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UQuestManagerComponent_Statics::NewProp_QuestIDs = { "QuestIDs", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UQuestManagerComponent, QuestIDs), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_QuestIDs_MetaData), NewProp_QuestIDs_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UQuestManagerComponent_Statics::NewProp_QuestData_Inner = { "QuestData", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FQuestStruct, METADATA_PARAMS(0, nullptr) }; // 652624888
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UQuestManagerComponent_Statics::NewProp_QuestData = { "QuestData", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UQuestManagerComponent, QuestData), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_QuestData_MetaData), NewProp_QuestData_MetaData) }; // 652624888
 const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_UQuestManagerComponent_Statics::NewProp_QuestListWidgetClass = { "QuestListWidgetClass", nullptr, (EPropertyFlags)0x0024080000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UQuestManagerComponent, QuestListWidgetClass), Z_Construct_UClass_UClass, Z_Construct_UClass_UCommonActivatableWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_QuestListWidgetClass_MetaData), NewProp_QuestListWidgetClass_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UQuestManagerComponent_Statics::NewProp_QuestListWidget = { "QuestListWidget", nullptr, (EPropertyFlags)0x002008000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UQuestManagerComponent, QuestListWidget), Z_Construct_UClass_UQuestListWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_QuestListWidget_MetaData), NewProp_QuestListWidget_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UQuestManagerComponent_Statics::NewProp_QuestTable = { "QuestTable", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UQuestManagerComponent, QuestTable), Z_Construct_UClass_UDataTable_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_QuestTable_MetaData), NewProp_QuestTable_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UQuestManagerComponent_Statics::PropPointers[] = {
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UQuestManagerComponent_Statics::NewProp_QuestsMap_ValueProp,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UQuestManagerComponent_Statics::NewProp_QuestsMap_Key_KeyProp,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UQuestManagerComponent_Statics::NewProp_QuestsMap,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UQuestManagerComponent_Statics::NewProp_Quests_Inner,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UQuestManagerComponent_Statics::NewProp_Quests,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UQuestManagerComponent_Statics::NewProp_Owner,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UQuestManagerComponent_Statics::NewProp_QuestIDs_Inner,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UQuestManagerComponent_Statics::NewProp_QuestIDs,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UQuestManagerComponent_Statics::NewProp_QuestData_Inner,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UQuestManagerComponent_Statics::NewProp_QuestData,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UQuestManagerComponent_Statics::NewProp_QuestListWidgetClass,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UQuestManagerComponent_Statics::NewProp_QuestListWidget,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UQuestManagerComponent_Statics::NewProp_QuestTable,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UQuestManagerComponent_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_UQuestManagerComponent_Statics::DependentSingletons[])() = {
@@ -280,14 +277,14 @@ UQuestManagerComponent::~UQuestManagerComponent() {}
 // End Class UQuestManagerComponent
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestManagerComponent_h_Statics
+struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestManagerComponent_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UQuestManagerComponent, UQuestManagerComponent::StaticClass, TEXT("UQuestManagerComponent"), &Z_Registration_Info_UClass_UQuestManagerComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UQuestManagerComponent), 152941253U) },
+		{ Z_Construct_UClass_UQuestManagerComponent, UQuestManagerComponent::StaticClass, TEXT("UQuestManagerComponent"), &Z_Registration_Info_UClass_UQuestManagerComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UQuestManagerComponent), 811797102U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestManagerComponent_h_3720869620(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestManagerComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestManagerComponent_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestManagerComponent_h_3604228649(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestManagerComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestManagerComponent_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

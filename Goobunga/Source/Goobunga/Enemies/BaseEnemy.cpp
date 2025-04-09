@@ -7,7 +7,9 @@
 #include "BrainComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/SplineComponent.h"
+#include "Engine/OverlapResult.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Goobunga/Goobunga_Player.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values
@@ -68,15 +70,7 @@ void ABaseEnemy::Tick(float DeltaTime)
 // Take damage
 void ABaseEnemy::CombatDamage(AActor* DamageDealer, float Damage, EDamageType DamageType)
 {
-	if (DamageTypeMap.Contains(DamageType))
-	{
-		float DamageMultiplier = DamageTypeMap[DamageType];
-		Health -= DamageMultiplier * Damage;
-	}
-	else
-	{
-		Health -= Damage;
-	}
+	Health -= Damage;
 	if (Health <= 0)
 	{
 		FVector LastMovementSpeed = GetCharacterMovement()->GetLastUpdateVelocity();
@@ -154,10 +148,39 @@ void ABaseEnemy::UpdateFadeOut(float DeltaTime)
 	}
 }
 
-//Interface functino acts as a buffer for actual attack logic
+//Interface function acts as a buffer for actual attack logic
 void ABaseEnemy::AttackPrimary()
 {
 	AttackGeneric(1);
+}
+
+FTransform ABaseEnemy::GetAttackTraceTransform()
+{
+	FTransform TraceTransform = GetMesh()->GetBoneTransform("FrontFoot_R");
+	return TraceTransform;
+}
+
+void ABaseEnemy::AttackDamageTrace()
+{
+	UE_LOG(LogTemp, Error, TEXT("AttackDamageTraceStart"));
+	FTransform TraceTransform = GetAttackTraceTransform();
+	TArray<TEnumAsByte<EObjectTypeQuery>> ObjectTypes;
+	TArray<AActor*> IgnoreActors;
+	TArray<AActor*> OutActors;
+	bool bHit = UKismetSystemLibrary::SphereOverlapActors(GetWorld(), TraceTransform.GetLocation(), AttackRadius, ObjectTypes, AGoobunga_Player::StaticClass(), IgnoreActors, OutActors);
+	if (bHit)
+	{
+		for (AActor* OutActor : OutActors)
+		{
+			UE_LOG(LogTemp, Error, TEXT("Observing trace"));
+			
+			if (ICombatCallables* CombatCallablesInterface = Cast<ICombatCallables>(OutActor))
+			{
+				UE_LOG(LogTemp, Error, TEXT("Applying damage to: %s"), *OutActor->GetName());
+				CombatCallablesInterface->CombatDamage(this, AttackDamage, AttackDamageType);
+			}
+		}
+	}
 }
 
 void ABaseEnemy::AttackGeneric(int AttackNum)
@@ -246,7 +269,6 @@ void ABaseEnemy::StartLaunch()
 void ABaseEnemy::UpdateLaunchProgress(float DeltaTime)
 {
 	LaunchSplineAlpha += DeltaTime / LaunchSplineTime;
-	UE_LOG(LogTemp, Display, TEXT("Prog: %f"), LaunchSplineAlpha);
 	if (LaunchSplineAlpha >= 1) { EndLaunch(); return; }
 	
 	LaunchSplineAlpha = FMath::Clamp(LaunchSplineAlpha, 0, 1);

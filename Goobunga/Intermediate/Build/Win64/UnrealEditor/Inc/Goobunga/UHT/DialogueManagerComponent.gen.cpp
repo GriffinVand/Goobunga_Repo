@@ -11,7 +11,6 @@ void EmptyLinkFunctionForGeneratedCodeDialogueManagerComponent() {}
 
 // Begin Cross Module References
 COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
-ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_UActorComponent();
 ENGINE_API UClass* Z_Construct_UClass_UDataTable_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_UDialogueManagerComponent();
@@ -211,16 +210,11 @@ struct Z_Construct_UClass_UDialogueManagerComponent_Statics
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "Dialogue/DialogueManagerComponent.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Owner_MetaData[] = {
-		{ "Category", "DialogueManagerComponent" },
-		{ "ModuleRelativePath", "Dialogue/DialogueManagerComponent.h" },
-	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_DialogueData;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_ReplyData;
 	static const UECodeGen_Private::FClassPropertyParams NewProp_DialogueWidgetClass;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_DialogueWidget;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_Owner;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
@@ -238,13 +232,11 @@ const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UDialogueManag
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UDialogueManagerComponent_Statics::NewProp_ReplyData = { "ReplyData", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UDialogueManagerComponent, ReplyData), Z_Construct_UClass_UDataTable_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ReplyData_MetaData), NewProp_ReplyData_MetaData) };
 const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_UDialogueManagerComponent_Statics::NewProp_DialogueWidgetClass = { "DialogueWidgetClass", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UDialogueManagerComponent, DialogueWidgetClass), Z_Construct_UClass_UClass, Z_Construct_UClass_UDialogueWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DialogueWidgetClass_MetaData), NewProp_DialogueWidgetClass_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UDialogueManagerComponent_Statics::NewProp_DialogueWidget = { "DialogueWidget", nullptr, (EPropertyFlags)0x001000000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UDialogueManagerComponent, DialogueWidget), Z_Construct_UClass_UDialogueWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DialogueWidget_MetaData), NewProp_DialogueWidget_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UDialogueManagerComponent_Statics::NewProp_Owner = { "Owner", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UDialogueManagerComponent, Owner), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Owner_MetaData), NewProp_Owner_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UDialogueManagerComponent_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDialogueManagerComponent_Statics::NewProp_DialogueData,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDialogueManagerComponent_Statics::NewProp_ReplyData,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDialogueManagerComponent_Statics::NewProp_DialogueWidgetClass,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDialogueManagerComponent_Statics::NewProp_DialogueWidget,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDialogueManagerComponent_Statics::NewProp_Owner,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UDialogueManagerComponent_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_UDialogueManagerComponent_Statics::DependentSingletons[])() = {
@@ -284,14 +276,14 @@ UDialogueManagerComponent::~UDialogueManagerComponent() {}
 // End Class UDialogueManagerComponent
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueManagerComponent_h_Statics
+struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueManagerComponent_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UDialogueManagerComponent, UDialogueManagerComponent::StaticClass, TEXT("UDialogueManagerComponent"), &Z_Registration_Info_UClass_UDialogueManagerComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UDialogueManagerComponent), 1188507372U) },
+		{ Z_Construct_UClass_UDialogueManagerComponent, UDialogueManagerComponent::StaticClass, TEXT("UDialogueManagerComponent"), &Z_Registration_Info_UClass_UDialogueManagerComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UDialogueManagerComponent), 3456968514U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueManagerComponent_h_617223686(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueManagerComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueManagerComponent_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueManagerComponent_h_2620195014(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueManagerComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueManagerComponent_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

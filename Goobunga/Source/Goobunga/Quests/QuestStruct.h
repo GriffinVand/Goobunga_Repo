@@ -4,7 +4,7 @@
 #include "QuestStruct.generated.h"
 
 USTRUCT(BlueprintType)
-struct FQuestStruct
+struct FQuestStruct : public FTableRowBase
 {
 	GENERATED_BODY()
 

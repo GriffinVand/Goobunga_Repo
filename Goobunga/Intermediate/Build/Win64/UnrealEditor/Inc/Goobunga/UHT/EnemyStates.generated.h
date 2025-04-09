@@ -16,7 +16,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #define GOOBUNGA_EnemyStates_generated_h
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyStates_h
+#define CURRENT_FILE_ID FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyStates_h
 
 
 #define FOREACH_ENUM_EENEMYSTATE(op) \

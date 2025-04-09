@@ -59,10 +59,8 @@ void UPlayerWeaponAmmoWidget::CreateBulletWidget(int MaxMag, EWeaponUItype Weapo
 			UUserWidget* NewBullet = CreateWidget<UUserWidget>(GetWorld(), BulletWidgetClass);
 			if (NewBullet)
 			{
-				UE_LOG(LogTemp, Display, TEXT("1"));
 				if (UPlayerBulletWidget* BulletRef = Cast<UPlayerBulletWidget>(NewBullet))
 				{
-					UE_LOG(LogTemp, Display, TEXT("2"));
 					BulletRef->SetBulletBoxSizes(FVector2D(BulletWidth, BulletHeight), FVector2D(LeftPadding, UpPadding));
 					if ((CurrRow + 1) % 2 == 0 )
 					{

@@ -24,9 +24,43 @@ GOOBUNGA_API UEnum* Z_Construct_UEnum_Goobunga_EDamageType();
 UPackage* Z_Construct_UPackage__Script_Goobunga();
 // End Cross Module References
 
+// Begin Class ABaseEnemy Function AttackDamageTrace
+struct Z_Construct_UFunction_ABaseEnemy_AttackDamageTrace_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Enemies/BaseEnemy.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ABaseEnemy_AttackDamageTrace_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ABaseEnemy, nullptr, "AttackDamageTrace", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020400, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ABaseEnemy_AttackDamageTrace_Statics::Function_MetaDataParams), Z_Construct_UFunction_ABaseEnemy_AttackDamageTrace_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_ABaseEnemy_AttackDamageTrace()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ABaseEnemy_AttackDamageTrace_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ABaseEnemy::execAttackDamageTrace)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->AttackDamageTrace();
+	P_NATIVE_END;
+}
+// End Class ABaseEnemy Function AttackDamageTrace
+
 // Begin Class ABaseEnemy
 void ABaseEnemy::StaticRegisterNativesABaseEnemy()
 {
+	UClass* Class = ABaseEnemy::StaticClass();
+	static const FNameNativePtrPair Funcs[] = {
+		{ "AttackDamageTrace", &ABaseEnemy::execAttackDamageTrace },
+	};
+	FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
 }
 IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(ABaseEnemy);
 UClass* Z_Construct_UClass_ABaseEnemy_NoRegister()
@@ -65,6 +99,21 @@ struct Z_Construct_UClass_ABaseEnemy_Statics
 		{ "Category", "Stats" },
 		{ "ModuleRelativePath", "Enemies/BaseEnemy.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_AttackDamage_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Stats" },
+		{ "ModuleRelativePath", "Enemies/BaseEnemy.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_AttackRadius_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Stats" },
+		{ "ModuleRelativePath", "Enemies/BaseEnemy.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_AttackDamageType_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Stats" },
+		{ "ModuleRelativePath", "Enemies/BaseEnemy.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DismemberPartClasses_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "Dismember" },
@@ -74,11 +123,6 @@ struct Z_Construct_UClass_ABaseEnemy_Statics
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "Dismember" },
 		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "Enemies/BaseEnemy.h" },
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DamageTypeMap_MetaData[] = {
-		{ "AllowPrivateAccess", "true" },
-		{ "Category", "Dismember" },
 		{ "ModuleRelativePath", "Enemies/BaseEnemy.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_AttackMontages_MetaData[] = {
@@ -103,14 +147,14 @@ struct Z_Construct_UClass_ABaseEnemy_Statics
 	static const UECodeGen_Private::FIntPropertyParams NewProp_MaxHealth;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_AttackRate;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_AttackCooldown;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_AttackDamage;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_AttackRadius;
+	static const UECodeGen_Private::FBytePropertyParams NewProp_AttackDamageType_Underlying;
+	static const UECodeGen_Private::FEnumPropertyParams NewProp_AttackDamageType;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_DismemberPartClasses_Inner;
 	static const UECodeGen_Private::FArrayPropertyParams NewProp_DismemberPartClasses;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_DismemberPartComponents_Inner;
 	static const UECodeGen_Private::FArrayPropertyParams NewProp_DismemberPartComponents;
-	static const UECodeGen_Private::FFloatPropertyParams NewProp_DamageTypeMap_ValueProp;
-	static const UECodeGen_Private::FBytePropertyParams NewProp_DamageTypeMap_Key_KeyProp_Underlying;
-	static const UECodeGen_Private::FEnumPropertyParams NewProp_DamageTypeMap_Key_KeyProp;
-	static const UECodeGen_Private::FMapPropertyParams NewProp_DamageTypeMap;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_AttackMontages_Inner;
 	static const UECodeGen_Private::FArrayPropertyParams NewProp_AttackMontages;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_MontageMap_ValueProp;
@@ -119,6 +163,10 @@ struct Z_Construct_UClass_ABaseEnemy_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_LaunchSpline;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
+	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
+		{ &Z_Construct_UFunction_ABaseEnemy_AttackDamageTrace, "AttackDamageTrace" }, // 67080894
+	};
+	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static const UECodeGen_Private::FImplementedInterfaceParams InterfaceParams[];
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<ABaseEnemy>::IsAbstract,
@@ -130,14 +178,14 @@ const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_ABaseEnemy_Static
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_ABaseEnemy_Statics::NewProp_MaxHealth = { "MaxHealth", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ABaseEnemy, MaxHealth), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MaxHealth_MetaData), NewProp_MaxHealth_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ABaseEnemy_Statics::NewProp_AttackRate = { "AttackRate", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ABaseEnemy, AttackRate), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AttackRate_MetaData), NewProp_AttackRate_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ABaseEnemy_Statics::NewProp_AttackCooldown = { "AttackCooldown", nullptr, (EPropertyFlags)0x0010000000000014, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ABaseEnemy, AttackCooldown), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AttackCooldown_MetaData), NewProp_AttackCooldown_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ABaseEnemy_Statics::NewProp_AttackDamage = { "AttackDamage", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ABaseEnemy, AttackDamage), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AttackDamage_MetaData), NewProp_AttackDamage_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ABaseEnemy_Statics::NewProp_AttackRadius = { "AttackRadius", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ABaseEnemy, AttackRadius), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AttackRadius_MetaData), NewProp_AttackRadius_MetaData) };
+const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_ABaseEnemy_Statics::NewProp_AttackDamageType_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_ABaseEnemy_Statics::NewProp_AttackDamageType = { "AttackDamageType", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ABaseEnemy, AttackDamageType), Z_Construct_UEnum_Goobunga_EDamageType, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AttackDamageType_MetaData), NewProp_AttackDamageType_MetaData) }; // 3962680001
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ABaseEnemy_Statics::NewProp_DismemberPartClasses_Inner = { "DismemberPartClasses", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_UStaticMesh_NoRegister, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_ABaseEnemy_Statics::NewProp_DismemberPartClasses = { "DismemberPartClasses", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ABaseEnemy, DismemberPartClasses), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DismemberPartClasses_MetaData), NewProp_DismemberPartClasses_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ABaseEnemy_Statics::NewProp_DismemberPartComponents_Inner = { "DismemberPartComponents", nullptr, (EPropertyFlags)0x0000000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_UStaticMeshComponent_NoRegister, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_ABaseEnemy_Statics::NewProp_DismemberPartComponents = { "DismemberPartComponents", nullptr, (EPropertyFlags)0x001000800000000d, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ABaseEnemy, DismemberPartComponents), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DismemberPartComponents_MetaData), NewProp_DismemberPartComponents_MetaData) };
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ABaseEnemy_Statics::NewProp_DamageTypeMap_ValueProp = { "DamageTypeMap", nullptr, (EPropertyFlags)0x0000000000000001, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 1, METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_ABaseEnemy_Statics::NewProp_DamageTypeMap_Key_KeyProp_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_ABaseEnemy_Statics::NewProp_DamageTypeMap_Key_KeyProp = { "DamageTypeMap_Key", nullptr, (EPropertyFlags)0x0000000000000001, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UEnum_Goobunga_EDamageType, METADATA_PARAMS(0, nullptr) }; // 3422830928
-const UECodeGen_Private::FMapPropertyParams Z_Construct_UClass_ABaseEnemy_Statics::NewProp_DamageTypeMap = { "DamageTypeMap", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ABaseEnemy, DamageTypeMap), EMapPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DamageTypeMap_MetaData), NewProp_DamageTypeMap_MetaData) }; // 3422830928
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ABaseEnemy_Statics::NewProp_AttackMontages_Inner = { "AttackMontages", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_UAnimMontage_NoRegister, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_ABaseEnemy_Statics::NewProp_AttackMontages = { "AttackMontages", nullptr, (EPropertyFlags)0x0010000000010001, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ABaseEnemy, AttackMontages), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AttackMontages_MetaData), NewProp_AttackMontages_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ABaseEnemy_Statics::NewProp_MontageMap_ValueProp = { "MontageMap", nullptr, (EPropertyFlags)0x0000000000000001, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 1, Z_Construct_UClass_UAnimMontage_NoRegister, METADATA_PARAMS(0, nullptr) };
@@ -150,14 +198,14 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ABaseEnem
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABaseEnemy_Statics::NewProp_MaxHealth,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABaseEnemy_Statics::NewProp_AttackRate,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABaseEnemy_Statics::NewProp_AttackCooldown,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABaseEnemy_Statics::NewProp_AttackDamage,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABaseEnemy_Statics::NewProp_AttackRadius,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABaseEnemy_Statics::NewProp_AttackDamageType_Underlying,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABaseEnemy_Statics::NewProp_AttackDamageType,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABaseEnemy_Statics::NewProp_DismemberPartClasses_Inner,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABaseEnemy_Statics::NewProp_DismemberPartClasses,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABaseEnemy_Statics::NewProp_DismemberPartComponents_Inner,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABaseEnemy_Statics::NewProp_DismemberPartComponents,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABaseEnemy_Statics::NewProp_DamageTypeMap_ValueProp,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABaseEnemy_Statics::NewProp_DamageTypeMap_Key_KeyProp_Underlying,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABaseEnemy_Statics::NewProp_DamageTypeMap_Key_KeyProp,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABaseEnemy_Statics::NewProp_DamageTypeMap,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABaseEnemy_Statics::NewProp_AttackMontages_Inner,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABaseEnemy_Statics::NewProp_AttackMontages,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABaseEnemy_Statics::NewProp_MontageMap_ValueProp,
@@ -180,11 +228,11 @@ const UECodeGen_Private::FClassParams Z_Construct_UClass_ABaseEnemy_Statics::Cla
 	"Game",
 	&StaticCppClassTypeInfo,
 	DependentSingletons,
-	nullptr,
+	FuncInfo,
 	Z_Construct_UClass_ABaseEnemy_Statics::PropPointers,
 	InterfaceParams,
 	UE_ARRAY_COUNT(DependentSingletons),
-	0,
+	UE_ARRAY_COUNT(FuncInfo),
 	UE_ARRAY_COUNT(Z_Construct_UClass_ABaseEnemy_Statics::PropPointers),
 	UE_ARRAY_COUNT(InterfaceParams),
 	0x009000A4u,
@@ -207,14 +255,14 @@ ABaseEnemy::~ABaseEnemy() {}
 // End Class ABaseEnemy
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_Statics
+struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ABaseEnemy, ABaseEnemy::StaticClass, TEXT("ABaseEnemy"), &Z_Registration_Info_UClass_ABaseEnemy, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABaseEnemy), 421772562U) },
+		{ Z_Construct_UClass_ABaseEnemy, ABaseEnemy::StaticClass, TEXT("ABaseEnemy"), &Z_Registration_Info_UClass_ABaseEnemy, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABaseEnemy), 2245283327U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_4000218626(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Desktop_GoobungaBaby_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_3948464535(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

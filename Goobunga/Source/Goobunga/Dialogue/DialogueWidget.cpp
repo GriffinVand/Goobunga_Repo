@@ -64,8 +64,7 @@ void UDialogueWidget::DisplayReplies(TArray<FText> Texts, TArray<bool> Selectabl
 		{
 			ReplyWidgets[i]->SetVisibility(ESlateVisibility::Visible);
 			ReplyWidgets[i]->ReplyText->SetText(Texts[i]);
-			TSubclassOf<UCommonButtonStyle> NewStyle = Selectable[i] ? SelectableStyle : UnselectableStyle;
-			ReplyWidgets[i]->ReplyButton->SetStyle(NewStyle);
+			ReplyWidgets[i]->ReplyButton->SetIsEnabled(Selectable[i]);
 		}
 		else
 		{
