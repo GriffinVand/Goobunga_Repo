@@ -17,7 +17,6 @@
 #include "E:/Goobunga_Repo/Goobunga/Source/Goobunga/Enemies/BTTask_SwerveWhileChasing.cpp"
 #include "E:/Goobunga_Repo/Goobunga/Source/Goobunga/Enemies/EnemyCallables.cpp"
 #include "E:/Goobunga_Repo/Goobunga/Source/Goobunga/Enemies/EnemyStates.cpp"
-#include "E:/Goobunga_Repo/Goobunga/Source/Goobunga/FacialAnimationComponent.cpp"
 #include "E:/Goobunga_Repo/Goobunga/Source/Goobunga/FireableCallables.cpp"
 #include "E:/Goobunga_Repo/Goobunga/Source/Goobunga/Goobunga.cpp"
 #include "E:/Goobunga_Repo/Goobunga/Source/Goobunga/PlayerCallables.cpp"
