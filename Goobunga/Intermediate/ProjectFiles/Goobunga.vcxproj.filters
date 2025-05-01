@@ -217,6 +217,18 @@
     <Filter Include="Source\Goobunga\Quests">
       <UniqueIdentifier>{1A0997D3-5663-34FA-B96A-ED0DFCFAD3D1}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\Quests\QuestItemWidget.cpp">
+      <Filter>Source\Goobunga\Quests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Quests\QuestItemWidget.h">
+      <Filter>Source\Goobunga\Quests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Quests\QuestListWidget.cpp">
+      <Filter>Source\Goobunga\Quests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Quests\QuestListWidget.h">
+      <Filter>Source\Goobunga\Quests</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Quests\QuestManagerComponent.cpp">
       <Filter>Source\Goobunga\Quests</Filter>
     </ClCompile>
@@ -236,6 +248,12 @@
       <Filter>Source\Goobunga\UserInterface</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\UserInterface\PlayerBulletWidget.h">
+      <Filter>Source\Goobunga\UserInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\UserInterface\PlayerMainLayerWidget.cpp">
+      <Filter>Source\Goobunga\UserInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\UserInterface\PlayerMainLayerWidget.h">
       <Filter>Source\Goobunga\UserInterface</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\UserInterface\PlayerMainWidget.cpp">
