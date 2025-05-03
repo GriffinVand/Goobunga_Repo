@@ -81,7 +81,6 @@ void UPlayerWeaponAmmoWidget::CreateBulletWidget(int MaxMag, EWeaponUItype Weapo
 				CurrentContainer.Empty();
 			}
 		}
-		UE_LOG(LogTemp, Display, TEXT("6"));
 	}
 }
 

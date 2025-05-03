@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "UserInterface/PlayerMainWidget.h"
 #include "Weapons/Weapon.h"
+#include "Weapons/WeaponSwayData.h"
 #include "Goobunga_Player.generated.h"
 
 class UQuestManagerComponent;
@@ -33,10 +34,11 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
+	
+	UFUNCTION(BlueprintCallable)
+	FWeaponSwayData GetWeaponSwayData();
 
 	//Default Components
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
@@ -86,18 +88,32 @@ protected:
 	//Lag amount of spring arm
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	float MeshLag = 15.f;
+	FRotator LastLookRotation = FRotator::ZeroRotator;
 
+	//
+	//WEAPON INFORMATION
+	//
 	//Reloading?
 	bool Reloading = false;
 	//Aim related
 	bool bAiming = false;
+	//
+	//Current equipped item, can be a weapon or an item
+	//
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Equipment", meta = (AllowPrivateAccess = "true"))
+	AActor* EquippedItem;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Equipment", meta = (AllowPrivateAccess = "true"))
+	AWeapon* EquippedWeapon;
+	//Stores current frame weapon sway data to be accessed easily. Represents look velocity and directional movement
+	FWeaponSwayData LastWeaponSwayData = FWeaponSwayData();
+	//Buffer for weapon sway data
+	FWeaponSwayData CurrentWeaponSwayData = FWeaponSwayData();
 
 	//0 to 1, 1 being full ads, 0 being full hip
 	UPROPERTY(EditAnywhere, meta=(AllowPrivateAccess=true))
 	float CurrentAimAlpha = 0.f;
 	float DefaultSensitivity = 0.5;
 	float Sensitivity = DefaultSensitivity;
-	FVector2D MouseLookDirection = FVector2D::ZeroVector;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	FVector2D LookRotationOffset = FVector2D::ZeroVector;
 	//Used for actual controller look offset
@@ -115,6 +131,7 @@ protected:
 	bool MovingForward = false;
 	bool Busy = false;
 	FVector2d MovementDirection = FVector2d(0,0);
+
 	//
 	//Input
 	//
@@ -140,12 +157,6 @@ protected:
 	UInputAction* SprintAction;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
 	UInputAction* ReloadAction;
-
-	//Current equipped item, can be a weapon or an item
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Equipment", meta = (AllowPrivateAccess = "true"))
-	AActor* EquippedItem;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Equipment", meta = (AllowPrivateAccess = "true"))
-	AWeapon* EquippedWeapon;
 
 	//Basic move look
 	void Move(const FInputActionValue& Value);
@@ -185,8 +196,7 @@ protected:
 	virtual void EndReload(bool Success) override;
 	void UpdateAimDownSights();
 	void UpdateAimOffset();
-	void StopCombatActions();
-	void UpdateLookVelocity(float DeltaTime);
+	void UpdateWeaponSwayData(float DeltaTime);
 
 	virtual void CombatDamage(AActor* DamageDealer, float Damage, EDamageType DamageType) override;
 	void DeathSequence();

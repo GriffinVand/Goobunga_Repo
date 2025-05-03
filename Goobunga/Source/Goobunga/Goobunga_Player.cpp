@@ -10,7 +10,6 @@
 #include "FireableCallables.h"
 #include "ReloadManagerComponent.h"
 #include "Dialogue/DialogueManagerComponent.h"
-#include "DSP/AudioDebuggingUtilities.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetStringLibrary.h"
@@ -37,6 +36,7 @@ AGoobunga_Player::AGoobunga_Player()
 	TrueLookDirection->SetupAttachment(CameraMeshOffset);
 	FPMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FPMesh"));
 	FPMesh->SetupAttachment(CameraMeshOffset);
+	//Base components
 	FacialAnimationComponent = CreateDefaultSubobject<UFacialAnimationComponent>(TEXT("FacialAnimationComponent"));
 	ReloadManagerComponent = CreateDefaultSubobject<UReloadManagerComponent>(TEXT("ReloadManagerComponent"));
 	QuestManagerComponent = CreateDefaultSubobject<UQuestManagerComponent>(TEXT("QuestManagerComponent"));
@@ -80,8 +80,7 @@ void AGoobunga_Player::Tick(float DeltaTime)
 	UpdateAimDownSights();
 	UpdateAimOffset();
 	UpdateMovement();
-	UpdateLookVelocity(DeltaTime);
-	
+	UpdateWeaponSwayData(DeltaTime);
 }
 
 // Called to bind functionality to input
@@ -186,7 +185,10 @@ void AGoobunga_Player::Look(const FInputActionValue& Value)
 {
 	if (Reloading) { ReloadManagerComponent->UpdateReload(); return; }
 	const FVector2d LookVector = Value.Get<FVector2d>();
-	MouseLookDirection += LookVector;
+	AddControllerYawInput(LookVector.X * Sensitivity);
+	AddControllerPitchInput(LookVector.Y * Sensitivity * -1);
+	LastWeaponSwayData.LookX = LookVector.X;
+	LastWeaponSwayData.LookY = LookVector.Y;
 }
 
 //Stop weapon activity including aiming, increase move speed, as long as grounded and only moving forward
@@ -243,6 +245,7 @@ void AGoobunga_Player::UpdateMovement()
 		AddMovementInput(GetActorRightVector() * MovementDirection.X);
 	}
 	ApplyMovementAffect(MovementDirection);
+	LastWeaponSwayData.SideMovement = MovementDirection.X;
 	MovementDirection = FVector2d(0,0);
 }
 
@@ -354,8 +357,6 @@ void AGoobunga_Player::UpdateAimDownSights()
 	float NewFOV = FMath::Lerp(90, 70, CurrentAimAlpha);
 	Sensitivity = DefaultSensitivity * NewFOV / 90;
 	FPCamera->SetFieldOfView(NewFOV);
-	float NewVignette = FMath::Lerp(0.f, 1.f, CurrentAimAlpha);
-	FPCamera->PostProcessSettings.VignetteIntensity = NewVignette;
 	CameraMeshOffset->CameraRotationLagSpeed = FMath::Lerp(MeshLag, 100.f, CurrentAimAlpha);
 }
 
@@ -371,29 +372,12 @@ void AGoobunga_Player::UpdateAimOffset()
 {
 	GetController()->SetControlRotation(GetControlRotation().Add(AimOffset.Y, AimOffset.Z, AimOffset.X));
 	AimOffset = FMath::VInterpTo(AimOffset, FVector::ZeroVector, GetWorld()->GetDeltaSeconds(), 20.f);
-	//UE_LOG(LogTemp, Warning, TEXT("aimoffset: roll %f, pitch %f, yaw %f"), AimOffset.X, AimOffset.Y, AimOffset.Z);
 }
 
 //Return location and rotation of true look direction
 TArray<FVector> AGoobunga_Player::GetAimDirection()
 {
 	return {TrueLookDirection->GetComponentLocation(), TrueLookDirection->GetForwardVector()};
-}
-
-//Stop any active combat actions ie:fire,aim.
-//Typically used for sprinting
-void AGoobunga_Player::StopCombatActions()
-{
-	
-}
-
-//Get change in rotation of camera between frames
-//Used in hand overshoot(gun rotates in hand to match look velocity)
-void AGoobunga_Player::UpdateLookVelocity(float DeltaTime)
-{
-	AddControllerPitchInput(MouseLookDirection.Y * -1 * Sensitivity);
-	AddControllerYawInput(MouseLookDirection.X * Sensitivity);
-	MouseLookDirection = FVector2D::ZeroVector;
 }
 
 void AGoobunga_Player::CombatDamage(AActor* DamageCauser, float Damage, EDamageType DamageType)
@@ -472,7 +456,7 @@ void AGoobunga_Player::EquipWeapon(AActor* Weapon)
 	}
 	else
 	{
-		UKismetSystemLibrary::QuitGame(this, nullptr, EQuitPreference::Quit, true);
+		UE_LOG(LogTemp, Error, TEXT("Player main widget doesn't exist"));
 	}
 	
 }
@@ -516,6 +500,21 @@ void AGoobunga_Player::PerformAction(const FString& Action)
 	}
 	UE_LOG(LogTemp, Warning, TEXT("Performing Action: %s"), *Action);
 }
+
+void AGoobunga_Player::UpdateWeaponSwayData(float DeltaTime)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Right velocity: %f"), LastWeaponSwayData.SideMovement);
+	UE_LOG(LogTemp, Warning, TEXT("LookX: %f"), LastWeaponSwayData.LookX);
+	UE_LOG(LogTemp, Warning, TEXT("LookY: %f"), LastWeaponSwayData.LookY);
+	CurrentWeaponSwayData = LastWeaponSwayData;
+	LastWeaponSwayData = FWeaponSwayData();
+}
+
+FWeaponSwayData AGoobunga_Player::GetWeaponSwayData()
+{
+	return CurrentWeaponSwayData;
+}
+
 
 
 
