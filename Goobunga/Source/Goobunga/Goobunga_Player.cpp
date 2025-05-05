@@ -30,7 +30,7 @@ AGoobunga_Player::AGoobunga_Player()
 	FPCamera->SetupAttachment(CameraBoom);
 	CameraMeshOffset = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraMeshOffset"));
 	CameraMeshOffset->SetupAttachment(FPCamera);
-	CameraMeshOffset->bEnableCameraRotationLag = true;
+	CameraMeshOffset->bEnableCameraRotationLag = false;
 	CameraMeshOffset->CameraRotationLagSpeed = MeshLag;
 	TrueLookDirection = CreateDefaultSubobject<USceneComponent>(TEXT("TrueLookDirection"));
 	TrueLookDirection->SetupAttachment(CameraMeshOffset);
@@ -79,7 +79,6 @@ void AGoobunga_Player::Tick(float DeltaTime)
 
 	UpdateAimDownSights();
 	UpdateAimOffset();
-	UpdateMovement();
 	UpdateWeaponSwayData(DeltaTime);
 }
 
@@ -90,19 +89,10 @@ void AGoobunga_Player::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent))
 	{
-		EnhancedInputComponent->BindAction(MoveRightAction, ETriggerEvent::Triggered, this, &AGoobunga_Player::Move);
-		//EnhancedInputComponent->BindAction(MoveRightAction, ETriggerEvent::Canceled, this, &AGoobunga_Player::EndMove);
-		EnhancedInputComponent->BindAction(MoveRightAction, ETriggerEvent::Completed, this, &AGoobunga_Player::EndMove);
-		EnhancedInputComponent->BindAction(MoveLeftAction, ETriggerEvent::Triggered, this, &AGoobunga_Player::Move);
-		//EnhancedInputComponent->BindAction(MoveLeftAction, ETriggerEvent::Canceled, this, &AGoobunga_Player::EndMove);
-		EnhancedInputComponent->BindAction(MoveLeftAction, ETriggerEvent::Completed, this, &AGoobunga_Player::EndMove);
-		EnhancedInputComponent->BindAction(MoveFwdAction, ETriggerEvent::Triggered, this, &AGoobunga_Player::Move);
-		//EnhancedInputComponent->BindAction(MoveFwdAction, ETriggerEvent::Canceled, this, &AGoobunga_Player::EndMove);
-		EnhancedInputComponent->BindAction(MoveFwdAction, ETriggerEvent::Completed, this, &AGoobunga_Player::EndMove);
-		EnhancedInputComponent->BindAction(MoveBackAction, ETriggerEvent::Triggered, this, &AGoobunga_Player::Move);
-		//EnhancedInputComponent->BindAction(MoveBackAction, ETriggerEvent::Canceled, this, &AGoobunga_Player::EndMove);
-		EnhancedInputComponent->BindAction(MoveBackAction, ETriggerEvent::Completed, this, &AGoobunga_Player::EndMove);
+		EnhancedInputComponent->BindAction(MoveAction,ETriggerEvent::Triggered, this, &AGoobunga_Player::Move);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Completed, this, &AGoobunga_Player::EndMove);
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AGoobunga_Player::Look);
+		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Completed, this, &AGoobunga_Player::EndLook);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &AGoobunga_Player::Jump);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &AGoobunga_Player::StopJumping);
 		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Started, this, &AGoobunga_Player::FireStarted);
@@ -123,13 +113,15 @@ void AGoobunga_Player::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 void AGoobunga_Player::Move(const FInputActionValue& Value)
 {
 	const FVector2d MoveVector = Value.Get<FVector2d>();
-	MovementDirection += MoveVector;
+	AddMovementInput(GetActorForwardVector() * MoveVector.Y);
+	AddMovementInput(GetActorRightVector() * MoveVector.X);
+	TargetWeaponSwayData.Movement = FVector2D(MoveVector.X, MoveVector.Y);
 }
 
 //Called when movement stops being triggered
 void AGoobunga_Player::EndMove(const FInputActionValue& Value)
 {
-	
+	TargetWeaponSwayData.Movement = FVector2D::ZeroVector;
 }
 
 void AGoobunga_Player::StartReload()
@@ -187,25 +179,26 @@ void AGoobunga_Player::Look(const FInputActionValue& Value)
 	const FVector2d LookVector = Value.Get<FVector2d>();
 	AddControllerYawInput(LookVector.X * Sensitivity);
 	AddControllerPitchInput(LookVector.Y * Sensitivity * -1);
-	LastWeaponSwayData.LookX = LookVector.X;
-	LastWeaponSwayData.LookY = LookVector.Y;
+	TargetWeaponSwayData.Look = LookVector;
+}
+
+void AGoobunga_Player::EndLook(const FInputActionValue& Value)
+{
+	TargetWeaponSwayData.Look = FVector2D::ZeroVector;
 }
 
 //Stop weapon activity including aiming, increase move speed, as long as grounded and only moving forward
 void AGoobunga_Player::SprintStarted()
 {
-	if (!GetCharacterMovement()->IsFalling() && MovingForward)
+	if (Sprinting == false)
 	{
-		if (Sprinting == false)
-		{
-			FireEnded(true);
-			AltFireEnded(true);
-			StopAimDownSights();
-			if (ReloadManagerComponent) { ReloadManagerComponent->StopReload(false); }
-		}
-		Sprinting = true;
-		GetCharacterMovement()->MaxWalkSpeed = 1200.f;
+		FireEnded(true);
+		AltFireEnded(true);
+		StopAimDownSights();
+		if (ReloadManagerComponent) { ReloadManagerComponent->StopReload(false); }
 	}
+	Sprinting = true;
+	GetCharacterMovement()->MaxWalkSpeed = 1200.f;
 }
 
 //Decrease movement speed, release movement direction
@@ -213,40 +206,6 @@ void AGoobunga_Player::SprintEnded()
 {
 	Sprinting = false;
 	GetCharacterMovement()->MaxWalkSpeed = 800.f;	
-}
-
-//Rolls FPCamera when moving right or left //Alters FPCamera FOV when moving forward or backwards
-void AGoobunga_Player::ApplyMovementAffect(FVector2D MoveVector)
-{
-	float NextHandTiltX = FMath::FInterpTo(HandTiltX, MoveVector.X * 5, GetWorld()->GetDeltaSeconds(), 5.f);
-	HandTiltX = NextHandTiltX;
-	float NextHandTiltY = FMath::FInterpTo(HandTiltY, MoveVector.Y * 5, GetWorld()->GetDeltaSeconds(), 5.f);
-	HandTiltY = NextHandTiltY;
-	
-}
-
-void AGoobunga_Player::UpdateMovement()
-{
-	MovingForward = MovementDirection.Y == 1;
-	if (Sprinting)
-	{
-		if (MovingForward)
-		{
-			AddMovementInput(GetActorForwardVector() * MovementDirection.Y);
-		}
-		else
-		{
-			SprintEnded();
-		}
-	}
-	else
-	{
-		AddMovementInput(GetActorForwardVector() * MovementDirection.Y);
-		AddMovementInput(GetActorRightVector() * MovementDirection.X);
-	}
-	ApplyMovementAffect(MovementDirection);
-	LastWeaponSwayData.SideMovement = MovementDirection.X;
-	MovementDirection = FVector2d(0,0);
 }
 
 //On fire event started alert equipped item, allowing it to handle necessary logic
@@ -503,12 +462,47 @@ void AGoobunga_Player::PerformAction(const FString& Action)
 
 void AGoobunga_Player::UpdateWeaponSwayData(float DeltaTime)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Right velocity: %f"), LastWeaponSwayData.SideMovement);
-	UE_LOG(LogTemp, Warning, TEXT("LookX: %f"), LastWeaponSwayData.LookX);
-	UE_LOG(LogTemp, Warning, TEXT("LookY: %f"), LastWeaponSwayData.LookY);
-	CurrentWeaponSwayData = LastWeaponSwayData;
-	LastWeaponSwayData = FWeaponSwayData();
+	float NewMoveX = FMath::GetMappedRangeValueClamped(
+	   FVector2D(-1.f, 1.f),
+	   WeaponSwayAmounts,
+	   TargetWeaponSwayData.Movement.X);
+	CurrentWeaponSwayData.Movement.X = FMath::FInterpTo(
+		CurrentWeaponSwayData.Movement.X,
+		NewMoveX,
+		DeltaTime,
+		5.f);
+	//
+	float NewMoveY = FMath::GetMappedRangeValueClamped(
+		FVector2D(-1.f, 1.f),
+		WeaponSwayAmounts,
+		TargetWeaponSwayData.Movement.Y);
+	CurrentWeaponSwayData.Movement.Y = FMath::FInterpTo(
+		CurrentWeaponSwayData.Movement.Y,
+		NewMoveY,
+		DeltaTime,
+		5.f);
+	//
+	float NewLookX = FMath::GetMappedRangeValueClamped(
+		FVector2D(-1.f, 1.f),
+		WeaponSwayAmounts,
+		TargetWeaponSwayData.Look.X);
+	CurrentWeaponSwayData.Look.X = FMath::FInterpTo(
+		CurrentWeaponSwayData.Look.X,
+		NewLookX,
+		DeltaTime,
+		5.f);
+	//
+	float NewLookY = FMath::GetMappedRangeValueClamped(
+		FVector2D(-1.f, 1.f),
+		WeaponSwayAmounts,
+		TargetWeaponSwayData.Look.Y);
+	CurrentWeaponSwayData.Look.Y = FMath::FInterpTo(
+		CurrentWeaponSwayData.Look.Y,
+		NewLookY,
+		DeltaTime,
+		5.f);
 }
+
 
 FWeaponSwayData AGoobunga_Player::GetWeaponSwayData()
 {

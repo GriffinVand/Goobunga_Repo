@@ -6,10 +6,9 @@
 /NAME:"UnrealEditor-Goobunga.dll"
 /IGNORE:4221
 /NODEFAULTLIB
-"E:\Goobunga_Repo\Goobunga\Intermediate\Build\Win64\x64\GoobungaEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h.obj"
-"E:\Goobunga_Repo\Goobunga\Intermediate\Build\Win64\x64\UnrealEditor\Development\Goobunga\Module.Goobunga.cpp.obj"
-"E:\Goobunga_Repo\Goobunga\Intermediate\Build\Win64\x64\UnrealEditor\Development\Goobunga\Goobunga_Player.cpp.obj"
-"E:\Goobunga_Repo\Goobunga\Intermediate\Build\Win64\x64\UnrealEditor\Development\Goobunga\PlayerWeaponAmmoWidget.cpp.obj"
-"E:\Goobunga_Repo\Goobunga\Intermediate\Build\Win64\x64\UnrealEditor\Development\Goobunga\WeaponSwayData.cpp.obj"
-"E:\Goobunga_Repo\Goobunga\Intermediate\Build\Win64\x64\UnrealEditor\Development\Goobunga\Default.rc2.res"
-/OUT:"E:\Goobunga_Repo\Goobunga\Intermediate\Build\Win64\x64\UnrealEditor\Development\Goobunga\UnrealEditor-Goobunga.lib"
+"C:\Users\griff\Documents\GitHub\Goobunga_Repo\Goobunga\Intermediate\Build\Win64\x64\GoobungaEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h.obj"
+"C:\Users\griff\Documents\GitHub\Goobunga_Repo\Goobunga\Intermediate\Build\Win64\x64\UnrealEditor\Development\Goobunga\Module.Goobunga.cpp.obj"
+"C:\Users\griff\Documents\GitHub\Goobunga_Repo\Goobunga\Intermediate\Build\Win64\x64\UnrealEditor\Development\Goobunga\Goobunga_Player.cpp.obj"
+"C:\Users\griff\Documents\GitHub\Goobunga_Repo\Goobunga\Intermediate\Build\Win64\x64\UnrealEditor\Development\Goobunga\WeaponSwayData.cpp.obj"
+"C:\Users\griff\Documents\GitHub\Goobunga_Repo\Goobunga\Intermediate\Build\Win64\x64\UnrealEditor\Development\Goobunga\Default.rc2.res"
+/OUT:"C:\Users\griff\Documents\GitHub\Goobunga_Repo\Goobunga\Intermediate\Build\Win64\x64\UnrealEditor\Development\Goobunga\UnrealEditor-Goobunga.lib"

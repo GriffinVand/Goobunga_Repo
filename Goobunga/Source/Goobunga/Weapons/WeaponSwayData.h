@@ -9,9 +9,7 @@ struct FWeaponSwayData
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float SideMovement = 0.f;
+	FVector2D Movement = FVector2D::ZeroVector;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float LookX = 0.f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float LookY = 0.f;
+	FVector2D Look = FVector2D::ZeroVector;
 };

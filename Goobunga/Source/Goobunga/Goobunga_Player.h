@@ -104,10 +104,14 @@ protected:
 	AActor* EquippedItem;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Equipment", meta = (AllowPrivateAccess = "true"))
 	AWeapon* EquippedWeapon;
-	//Stores current frame weapon sway data to be accessed easily. Represents look velocity and directional movement
-	FWeaponSwayData LastWeaponSwayData = FWeaponSwayData();
+	
+	
 	//Buffer for weapon sway data
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FWeaponSwayData TargetWeaponSwayData = FWeaponSwayData();
 	FWeaponSwayData CurrentWeaponSwayData = FWeaponSwayData();
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "WeaponSway")
+	FVector2D WeaponSwayAmounts = FVector2D(-5.f, 5.f);
 
 	//0 to 1, 1 being full ads, 0 being full hip
 	UPROPERTY(EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -119,18 +123,11 @@ protected:
 	//Used for actual controller look offset
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	FVector AimOffset = FVector::ZeroVector;
-	//Hand rotation matching movement direction
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
-	float HandTiltX = 0.f;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
-	float HandTiltY = 0.f;
 
 	//Movement
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	bool Sprinting = false;
-	bool MovingForward = false;
 	bool Busy = false;
-	FVector2d MovementDirection = FVector2d(0,0);
 
 	//
 	//Input
@@ -138,13 +135,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
 	UInputMappingContext* DefaultMappingContext;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
-	UInputAction* MoveRightAction;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
-	UInputAction* MoveLeftAction;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
-	UInputAction* MoveFwdAction;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
-	UInputAction* MoveBackAction;
+	UInputAction* MoveAction;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
 	UInputAction* LookAction;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
@@ -162,7 +153,9 @@ protected:
 	void Move(const FInputActionValue& Value);
 	//When moving stops
 	void EndMove(const FInputActionValue& Value);
+	
 	void Look(const FInputActionValue& Value);
+	void EndLook(const FInputActionValue& Value);
 
 	//Called on fire event started
 	void FireStarted();
@@ -183,13 +176,14 @@ protected:
 	//Called on sprint ended
 	void SprintEnded();
 
+	//
+
+	//
+	//Weapon functions. Should probably be moved to a component
 	UFUNCTION(BlueprintCallable)
 	void EquipWeapon(AActor* Weapon);
 	UFUNCTION(BlueprintCallable)
 	void UnequipCurrent();
-	
-	void ApplyMovementAffect(FVector2D Movement);
-	void UpdateMovement();
 	virtual void StartAimDownSights() override;
 	virtual void StopAimDownSights() override;
 	void StartReload();
@@ -197,13 +191,18 @@ protected:
 	void UpdateAimDownSights();
 	void UpdateAimOffset();
 	void UpdateWeaponSwayData(float DeltaTime);
-
-	virtual void CombatDamage(AActor* DamageDealer, float Damage, EDamageType DamageType) override;
-	void DeathSequence();
-	
+	virtual void UpdateWeaponUI() override;
 	virtual void ApplyAimOffset(FVector AimOffsetInput) override;
 	virtual TArray<FVector> GetAimDirection() override;
-	virtual void UpdateWeaponUI() override;
+
+	//
+	//combat function. Should probably be moved to a component
+	//
+	virtual void CombatDamage(AActor* DamageDealer, float Damage, EDamageType DamageType) override;
+	void DeathSequence();
+
+	//
+	//????
 	virtual void PerformAction(const FString& Action) override;
 	virtual void PushWidget(FGameplayTag GameplayTag, UUserWidget* Widget) override {}
 };

@@ -81,13 +81,13 @@
 			"PlayerMainLayerWidget.cpp.obj",
 			"PlayerMainWidget.cpp.obj",
 			"PlayerReticleWidget.cpp.obj",
+			"PlayerWeaponAmmoWidget.cpp.obj",
 			"CatGun.cpp.obj",
 			"HitScanWeapon.cpp.obj",
 			"MeleeWeapon.cpp.obj",
 			"ProjectileWeapon.cpp.obj",
 			"Weapon.cpp.obj",
 			"Goobunga_Player.cpp.obj",
-			"PlayerWeaponAmmoWidget.cpp.obj",
 			"WeaponSwayData.cpp.obj"
 		]
 	}
