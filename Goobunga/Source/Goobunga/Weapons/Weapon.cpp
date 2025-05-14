@@ -60,24 +60,12 @@ void AWeapon::EndFireEvent(bool Cancelled)
 //
 void AWeapon::AltFireEvent() 
 {
-	if (ADS)
-	{
-		if (IPlayerCallables* PlayerCallablesInterface = Cast<IPlayerCallables>(WeaponOwner))
-		{
-			PlayerCallablesInterface->StartAimDownSights();
-		}
-	}
+	
 }
 //
 void AWeapon::EndAltFireEvent(bool Cancelled)
 {
-	if (ADS)
-	{
-		if (IPlayerCallables* PlayerCallablesInterface = Cast<IPlayerCallables>(WeaponOwner))
-		{
-			PlayerCallablesInterface->StopAimDownSights();
-		}
-	}
+	
 }
 //
 void AWeapon::ReloadEvent() 

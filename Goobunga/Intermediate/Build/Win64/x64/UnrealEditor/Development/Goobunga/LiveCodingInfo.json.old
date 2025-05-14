@@ -2,6 +2,7 @@
 	"RemapUnityFiles": 
 	{
 		"Module.Goobunga.cpp.obj": [
+			"WeaponTypes.gen.cpp.obj",
 			"PerModuleInline.gen.cpp.obj",
 			"CombatCallables.cpp.obj",
 			"DamageTypes.cpp.obj",
@@ -27,7 +28,6 @@
 			"FacialAnimationComponent.cpp.obj",
 			"FireableCallables.cpp.obj",
 			"Goobunga.cpp.obj",
-			"PlayerCallables.cpp.obj",
 			"PlayerStates.cpp.obj",
 			"QuestItemWidget.cpp.obj",
 			"QuestListWidget.cpp.obj",
@@ -43,7 +43,7 @@
 			"HitScanWeapon.cpp.obj",
 			"MeleeWeapon.cpp.obj",
 			"ProjectileWeapon.cpp.obj",
-			"Weapon.cpp.obj",
+			"WeaponSwayData.cpp.obj",
 			"BaseEnemy.gen.cpp.obj",
 			"BaseEnemyAIController.gen.cpp.obj",
 			"BTS_CanPlayerSeeThis.gen.cpp.obj",
@@ -85,10 +85,14 @@
 			"ReloadPatterns.gen.cpp.obj",
 			"StatusTypes.gen.cpp.obj",
 			"Weapon.gen.cpp.obj",
+			"WeaponComponent.gen.cpp.obj",
 			"WeaponSwayData.gen.cpp.obj",
 			"WeaponUITypes.gen.cpp.obj",
 			"Goobunga_Player.cpp.obj",
-			"WeaponSwayData.cpp.obj"
+			"PlayerCallables.cpp.obj",
+			"Weapon.cpp.obj",
+			"WeaponComponent.cpp.obj",
+			"WeaponTypes.cpp.obj"
 		]
 	}
 }

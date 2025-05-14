@@ -1,0 +1,30 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\source\\goobunga\\weapons\\weaponcomponent.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\goobungaeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "Includes": [
+            "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\goobunga\\definitions.goobunga.h",
+            "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\source\\goobunga\\weapons\\weaponcomponent.h",
+            "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\weaponcomponent.generated.h",
+            "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\source\\goobunga\\weapons\\weapon.h",
+            "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\source\\goobunga\\weapons\\weapontypes.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\camera\\cameracomponent.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\cameracomponent.generated.h",
+            "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\source\\goobunga\\fireablecallables.h",
+            "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\source\\goobunga\\combat\\weaponuitypes.h",
+            "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\fireablecallables.generated.h",
+            "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\weapon.generated.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\components\\timelinecomponent.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\timelinecomponent.generated.h",
+            "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\source\\goobunga\\playercallables.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\gameplaytags\\classes\\gameplaytagcontainer.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\core\\public\\misc\\comparisonutility.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\gameplaytags\\uht\\gameplaytagcontainer.generated.h",
+            "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\playercallables.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

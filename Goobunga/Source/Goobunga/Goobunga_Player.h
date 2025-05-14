@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "UserInterface/PlayerMainWidget.h"
 #include "Weapons/Weapon.h"
+#include "Weapons/WeaponComponent.h"
 #include "Weapons/WeaponSwayData.h"
 #include "Goobunga_Player.generated.h"
 
@@ -36,6 +37,9 @@ protected:
 public:	
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
+
+	UFUNCTION(BlueprintCallable)
+	void CalculateAimOffset();
 	
 	UFUNCTION(BlueprintCallable)
 	FWeaponSwayData GetWeaponSwayData();
@@ -70,6 +74,14 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = true))
 	UPlayerMainWidget* PlayerMainWidget;
+
+	//Hand rotation location
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FRotator AimRotationOffset = FRotator();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FVector AimLocationOffset = FVector();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float AimAlpha = 0.f;
 	
 protected:
 	//Stats
@@ -93,6 +105,8 @@ protected:
 	//
 	//WEAPON INFORMATION
 	//
+	UPROPERTY(EditAnywhere)
+	UWeaponComponent* WeaponComponent = nullptr;
 	//Reloading?
 	bool Reloading = false;
 	//Aim related
@@ -184,11 +198,9 @@ protected:
 	void EquipWeapon(AActor* Weapon);
 	UFUNCTION(BlueprintCallable)
 	void UnequipCurrent();
-	virtual void StartAimDownSights() override;
-	virtual void StopAimDownSights() override;
 	void StartReload();
 	virtual void EndReload(bool Success) override;
-	void UpdateAimDownSights();
+	virtual void UpdateAds(float Alpha) override;
 	void UpdateAimOffset();
 	void UpdateWeaponSwayData(float DeltaTime);
 	virtual void UpdateWeaponUI() override;

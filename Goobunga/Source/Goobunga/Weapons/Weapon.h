@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "WeaponTypes.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Actor.h"
 #include "Goobunga/FireableCallables.h"
@@ -28,13 +29,18 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Context, meta = (AllowPrivateAccess = "true"))
 	AActor* WeaponOwner;
 
+	//Pose to use for ADS
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UAnimationAsset* PoseAnim;
+	
 	//Attaching socket name
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Context, meta = (AllowPrivateAccess = "true"))
 	FName AttachSocketName = "";
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = UserInterface, meta = (AllowPrivateAccess = "true"))
 	EWeaponUItype WeaponUIType = EWeaponUItype::Thin;
-	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	EWeaponType WeaponType = EWeaponType::None;
 	//ADS information
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	bool ADS = false;

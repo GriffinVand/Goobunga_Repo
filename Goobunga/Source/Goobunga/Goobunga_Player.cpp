@@ -9,6 +9,7 @@
 #include "Math/UnrealMathUtility.h"
 #include "FireableCallables.h"
 #include "ReloadManagerComponent.h"
+#include "SNegativeActionButton.h"
 #include "Dialogue/DialogueManagerComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -41,6 +42,7 @@ AGoobunga_Player::AGoobunga_Player()
 	ReloadManagerComponent = CreateDefaultSubobject<UReloadManagerComponent>(TEXT("ReloadManagerComponent"));
 	QuestManagerComponent = CreateDefaultSubobject<UQuestManagerComponent>(TEXT("QuestManagerComponent"));
 	DialogueManagerComponent = CreateDefaultSubobject<UDialogueManagerComponent>(TEXT("DialogueManagerComponent"));
+	WeaponComponent = CreateDefaultSubobject<UWeaponComponent>(TEXT("WeaponComponent"));
 }
 
 // Called when the game starts or when spawned
@@ -76,8 +78,7 @@ void AGoobunga_Player::BeginPlay()
 void AGoobunga_Player::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	UpdateAimDownSights();
+	
 	UpdateAimOffset();
 	UpdateWeaponSwayData(DeltaTime);
 }
@@ -135,8 +136,6 @@ void AGoobunga_Player::StartReload()
 		if (EquippedWeapon && EquippedWeapon->CurrentMag < EquippedWeapon->MaxMag && EquippedWeapon->CurrentAmmo > 0)
 		{
 			FireEnded(true);
-			AltFireEnded(true);
-			StopAimDownSights();
 			UE_LOG(LogTemp, Display, TEXT("PlayerStartReload"));
 			Reloading = true;
 			TArray<EReloadPattern> TempReloadPattern = TArray{EReloadPattern::Left, EReloadPattern::Right, EReloadPattern::Up, EReloadPattern::Down, EReloadPattern::Circle};
@@ -194,7 +193,6 @@ void AGoobunga_Player::SprintStarted()
 	{
 		FireEnded(true);
 		AltFireEnded(true);
-		StopAimDownSights();
 		if (ReloadManagerComponent) { ReloadManagerComponent->StopReload(false); }
 	}
 	Sprinting = true;
@@ -254,13 +252,9 @@ void AGoobunga_Player::AltFireStarted()
 	{
 		SprintEnded();
 	}
-	if (EquippedItem && EquippedItem->Implements<UFireableCallables>() && !Sprinting)
+	if (WeaponComponent)
 	{
-		IFireableCallables* FireableInterface = Cast<IFireableCallables>(EquippedItem);
-		if (FireableInterface)
-		{
-			FireableInterface->AltFireEvent();
-		}
+		WeaponComponent->AltFireStart();
 	}
 }
 
@@ -268,55 +262,21 @@ void AGoobunga_Player::AltFireStarted()
 //Generic call to stop ads. Has no effect if weapon does not allow ads
 void AGoobunga_Player::AltFireEnded(bool Cancelled)
 {
-	if (EquippedItem && EquippedItem->Implements<UFireableCallables>() && !Sprinting)
+	if (WeaponComponent)
 	{
-		IFireableCallables* FireableInterface = Cast<IFireableCallables>(EquippedItem);
-		if (FireableInterface)
-		{
-			FireableInterface->EndAltFireEvent(Cancelled);
-		}
+		WeaponComponent->AltFireStop();
 	}
-}
-
-//Start aiming, cancels sprinting
-void AGoobunga_Player::StartAimDownSights()
-{
-	if (Sprinting)
-	{
-		SprintEnded();
-	}
-	bAiming = true;
-}
-
-//Stop aiming
-void AGoobunga_Player::StopAimDownSights()
-{
-	bAiming = false;
 }
 
 //Lerps towards either full ads or full hip based on bAiming variable
 //Decreases fov, increase vignette, and minimizes mesh offset
-void AGoobunga_Player::UpdateAimDownSights()
+void AGoobunga_Player::UpdateAds(float Alpha)
 {
-	
-	float TargetAimAlpha = bAiming ? 1.f : 0.f;
-	float TargetAimSpeed = 1.f;
-	if (EquippedItem && EquippedItem->Implements<UFireableCallables>())
-	{
-		if (IFireableCallables* FireableInterface = Cast<IFireableCallables>(EquippedItem))
-		{
-			TargetAimSpeed = FireableInterface->GetADSSpeed();
-			FireableInterface->UpdateAccuracy(CurrentAimAlpha);
-		}
-		else { UE_LOG(LogTemp, Warning, TEXT("Cast to fireable interface failed")); }
-	}
-	else { UE_LOG(LogTemp, Warning, TEXT("Equipped item not found")); }
-
-	CurrentAimAlpha = FMath::FInterpConstantTo(CurrentAimAlpha, TargetAimAlpha, GetWorld()->GetDeltaSeconds(), TargetAimSpeed);
 	float NewFOV = FMath::Lerp(90, 70, CurrentAimAlpha);
 	Sensitivity = DefaultSensitivity * NewFOV / 90;
 	FPCamera->SetFieldOfView(NewFOV);
 	CameraMeshOffset->CameraRotationLagSpeed = FMath::Lerp(MeshLag, 100.f, CurrentAimAlpha);
+	AimAlpha = Alpha;
 }
 
 //Aim offset used to move control rotation accounting for recoil and others
@@ -397,21 +357,22 @@ void AGoobunga_Player::EquipWeapon(AActor* Weapon)
 	if (PlayerMainWidget)
 	{
 		if (IFireableCallables* FireableCallablesInterface = Cast<IFireableCallables>(Weapon))
-        	{
-        		FName AttachSocketName = FireableCallablesInterface->GetAttachSocketName();
-        		Weapon->AttachToComponent(FPMesh, FAttachmentTransformRules::SnapToTargetIncludingScale, AttachSocketName);
-        		EquippedItem = Weapon;
-        		EquippedWeapon = Cast<AWeapon>(EquippedItem);
-        		FireableCallablesInterface->EquipEvent(this);
-        		int MaxMag = FireableCallablesInterface->GetMaxMag();
-        		int CurrMag = FireableCallablesInterface->GetCurrentMag();
-        		int MaxAmmo = FireableCallablesInterface->GetMaxAmmo();
-        		int CurrAmmo = FireableCallablesInterface->GetCurrentAmmo();
-        		EWeaponUItype WeaponUItype = FireableCallablesInterface->GetWeaponUItype();
-        		UPlayerWeaponAmmoWidget* WeaponAmmoWidget = PlayerMainWidget->WeaponAmmoWidget;
-        		WeaponAmmoWidget->InitializeAmmoCounter(MaxMag, CurrMag, MaxAmmo, CurrAmmo, WeaponUItype);
-        		UpdateWeaponUI();
-        	}
+        {
+        	FName AttachSocketName = FireableCallablesInterface->GetAttachSocketName();
+        	Weapon->AttachToComponent(FPMesh, FAttachmentTransformRules::SnapToTargetIncludingScale, AttachSocketName);
+        	EquippedItem = Weapon;
+        	EquippedWeapon = Cast<AWeapon>(EquippedItem);
+        	FireableCallablesInterface->EquipEvent(this);
+        	int MaxMag = FireableCallablesInterface->GetMaxMag();
+        	int CurrMag = FireableCallablesInterface->GetCurrentMag();
+        	int MaxAmmo = FireableCallablesInterface->GetMaxAmmo();
+        	int CurrAmmo = FireableCallablesInterface->GetCurrentAmmo();
+        	EWeaponUItype WeaponUItype = FireableCallablesInterface->GetWeaponUItype();
+        	UPlayerWeaponAmmoWidget* WeaponAmmoWidget = PlayerMainWidget->WeaponAmmoWidget;
+        	WeaponAmmoWidget->InitializeAmmoCounter(MaxMag, CurrMag, MaxAmmo, CurrAmmo, WeaponUItype);
+        	UpdateWeaponUI();
+			CalculateAimOffset();
+        }
 	}
 	else
 	{
@@ -420,10 +381,44 @@ void AGoobunga_Player::EquipWeapon(AActor* Weapon)
 	
 }
 
+
 void AGoobunga_Player::UnequipCurrent()
 {
 	if (EquippedWeapon) { EquippedWeapon->Destroy(); }
 }
+
+void AGoobunga_Player::CalculateAimOffset()
+{
+	if (WeaponComponent)
+	{
+		WeaponComponent->EquippedWeapon = EquippedWeapon;
+		FTransform WeaponSightTransform = WeaponComponent->GetWeaponSightTransform();
+		FTransform CameraTransform = FPCamera->GetComponentTransform();
+		FTransform RightHandBoneTransform = FPMesh->GetBoneTransform("hand_R");
+
+		FQuat SightRot = WeaponSightTransform.GetRotation();
+		FQuat CameraRot = CameraTransform.GetRotation();
+		FQuat SightToCamRot = CameraRot * SightRot.Inverse();
+
+		FVector HandToSightOffset = WeaponSightTransform.GetLocation() - RightHandBoneTransform.GetLocation();
+		FVector RotatedHandToSightOffset = SightToCamRot.RotateVector(HandToSightOffset);
+			
+		FVector RotatedSightLocation = RightHandBoneTransform.GetLocation() + RotatedHandToSightOffset;
+
+		FVector SightWorldOffset = CameraTransform.GetLocation() - RotatedSightLocation;
+		FVector HandLocRelativeComp = FPMesh->GetComponentTransform().InverseTransformPosition(RightHandBoneTransform.GetLocation());
+		FVector HandLocOffset = FPMesh->GetComponentTransform().InverseTransformVector(SightWorldOffset);
+		FVector HandGoalLoc = HandLocRelativeComp + HandLocOffset;
+		UE_LOG(LogTemp, Warning, TEXT("Hand relative location: %s"), *HandLocRelativeComp.ToString());
+		UE_LOG(LogTemp, Warning, TEXT("Hand relative offset: %s"), *HandLocOffset.ToString());
+		UE_LOG(LogTemp, Warning, TEXT("Hand targ location: %s"), *HandGoalLoc.ToString());
+		AimLocationOffset = HandGoalLoc;
+		UE_LOG(LogTemp, Warning, TEXT("SightWorldOffset: %s"), *SightWorldOffset.ToString());
+		UE_LOG(LogTemp, Warning, TEXT("AimLocationOffset: %s"), *AimLocationOffset.ToString());
+		AimRotationOffset = SightToCamRot.Rotator();
+	}
+}
+
 
 void AGoobunga_Player::PerformAction(const FString& Action)
 {
