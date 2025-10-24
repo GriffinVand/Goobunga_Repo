@@ -2,7 +2,6 @@
 	"RemapUnityFiles": 
 	{
 		"Module.Goobunga.cpp.obj": [
-			"WeaponTypes.gen.cpp.obj",
 			"PerModuleInline.gen.cpp.obj",
 			"CombatCallables.cpp.obj",
 			"DamageTypes.cpp.obj",
@@ -87,6 +86,7 @@
 			"Weapon.gen.cpp.obj",
 			"WeaponComponent.gen.cpp.obj",
 			"WeaponSwayData.gen.cpp.obj",
+			"WeaponTypes.gen.cpp.obj",
 			"WeaponUITypes.gen.cpp.obj",
 			"Goobunga_Player.cpp.obj",
 			"PlayerCallables.cpp.obj",

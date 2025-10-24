@@ -9,7 +9,6 @@
 #include "Math/UnrealMathUtility.h"
 #include "FireableCallables.h"
 #include "ReloadManagerComponent.h"
-#include "SNegativeActionButton.h"
 #include "Dialogue/DialogueManagerComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"

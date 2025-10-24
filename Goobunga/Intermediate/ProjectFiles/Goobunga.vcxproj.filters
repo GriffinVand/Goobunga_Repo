@@ -319,5 +319,11 @@
     <ClCompile Include="..\..\Source\Goobunga\Weapons\WeaponSwayData.h">
       <Filter>Source\Goobunga\Weapons</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Weapons\WeaponTypes.cpp">
+      <Filter>Source\Goobunga\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Weapons\WeaponTypes.h">
+      <Filter>Source\Goobunga\Weapons</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
