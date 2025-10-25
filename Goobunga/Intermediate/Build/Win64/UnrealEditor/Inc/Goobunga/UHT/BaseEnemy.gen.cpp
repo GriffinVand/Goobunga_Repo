@@ -11,6 +11,7 @@ void EmptyLinkFunctionForGeneratedCodeBaseEnemy() {}
 
 // Begin Cross Module References
 AIMODULE_API UClass* Z_Construct_UClass_UBehaviorTree_NoRegister();
+COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector();
 ENGINE_API UClass* Z_Construct_UClass_ACharacter();
 ENGINE_API UClass* Z_Construct_UClass_UAnimMontage_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_USplineComponent_NoRegister();
@@ -53,12 +54,114 @@ DEFINE_FUNCTION(ABaseEnemy::execAttackDamageTrace)
 }
 // End Class ABaseEnemy Function AttackDamageTrace
 
+// Begin Class ABaseEnemy Function Dismember
+struct BaseEnemy_eventDismember_Parms
+{
+	FVector LastMovementSpeed;
+};
+static const FName NAME_ABaseEnemy_Dismember = FName(TEXT("Dismember"));
+void ABaseEnemy::Dismember(FVector LastMovementSpeed)
+{
+	BaseEnemy_eventDismember_Parms Parms;
+	Parms.LastMovementSpeed=LastMovementSpeed;
+	UFunction* Func = FindFunctionChecked(NAME_ABaseEnemy_Dismember);
+	ProcessEvent(Func,&Parms);
+}
+struct Z_Construct_UFunction_ABaseEnemy_Dismember_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Enemies/BaseEnemy.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FStructPropertyParams NewProp_LastMovementSpeed;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_ABaseEnemy_Dismember_Statics::NewProp_LastMovementSpeed = { "LastMovementSpeed", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(BaseEnemy_eventDismember_Parms, LastMovementSpeed), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ABaseEnemy_Dismember_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABaseEnemy_Dismember_Statics::NewProp_LastMovementSpeed,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ABaseEnemy_Dismember_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ABaseEnemy_Dismember_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ABaseEnemy, nullptr, "Dismember", nullptr, nullptr, Z_Construct_UFunction_ABaseEnemy_Dismember_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ABaseEnemy_Dismember_Statics::PropPointers), sizeof(BaseEnemy_eventDismember_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00824CC0, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ABaseEnemy_Dismember_Statics::Function_MetaDataParams), Z_Construct_UFunction_ABaseEnemy_Dismember_Statics::Function_MetaDataParams) };
+static_assert(sizeof(BaseEnemy_eventDismember_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_ABaseEnemy_Dismember()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ABaseEnemy_Dismember_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ABaseEnemy::execDismember)
+{
+	P_GET_STRUCT(FVector,Z_Param_LastMovementSpeed);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->Dismember_Implementation(Z_Param_LastMovementSpeed);
+	P_NATIVE_END;
+}
+// End Class ABaseEnemy Function Dismember
+
+// Begin Class ABaseEnemy Function ServerDeath
+struct BaseEnemy_eventServerDeath_Parms
+{
+	FVector LastMovementSpeed;
+};
+static const FName NAME_ABaseEnemy_ServerDeath = FName(TEXT("ServerDeath"));
+void ABaseEnemy::ServerDeath(FVector LastMovementSpeed)
+{
+	BaseEnemy_eventServerDeath_Parms Parms;
+	Parms.LastMovementSpeed=LastMovementSpeed;
+	UFunction* Func = FindFunctionChecked(NAME_ABaseEnemy_ServerDeath);
+	ProcessEvent(Func,&Parms);
+}
+struct Z_Construct_UFunction_ABaseEnemy_ServerDeath_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Enemies/BaseEnemy.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FStructPropertyParams NewProp_LastMovementSpeed;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_ABaseEnemy_ServerDeath_Statics::NewProp_LastMovementSpeed = { "LastMovementSpeed", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(BaseEnemy_eventServerDeath_Parms, LastMovementSpeed), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ABaseEnemy_ServerDeath_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABaseEnemy_ServerDeath_Statics::NewProp_LastMovementSpeed,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ABaseEnemy_ServerDeath_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ABaseEnemy_ServerDeath_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ABaseEnemy, nullptr, "ServerDeath", nullptr, nullptr, Z_Construct_UFunction_ABaseEnemy_ServerDeath_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ABaseEnemy_ServerDeath_Statics::PropPointers), sizeof(BaseEnemy_eventServerDeath_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00A20CC0, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ABaseEnemy_ServerDeath_Statics::Function_MetaDataParams), Z_Construct_UFunction_ABaseEnemy_ServerDeath_Statics::Function_MetaDataParams) };
+static_assert(sizeof(BaseEnemy_eventServerDeath_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_ABaseEnemy_ServerDeath()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ABaseEnemy_ServerDeath_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ABaseEnemy::execServerDeath)
+{
+	P_GET_STRUCT(FVector,Z_Param_LastMovementSpeed);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->ServerDeath_Implementation(Z_Param_LastMovementSpeed);
+	P_NATIVE_END;
+}
+// End Class ABaseEnemy Function ServerDeath
+
 // Begin Class ABaseEnemy
 void ABaseEnemy::StaticRegisterNativesABaseEnemy()
 {
 	UClass* Class = ABaseEnemy::StaticClass();
 	static const FNameNativePtrPair Funcs[] = {
 		{ "AttackDamageTrace", &ABaseEnemy::execAttackDamageTrace },
+		{ "Dismember", &ABaseEnemy::execDismember },
+		{ "ServerDeath", &ABaseEnemy::execServerDeath },
 	};
 	FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
 }
@@ -165,6 +268,8 @@ struct Z_Construct_UClass_ABaseEnemy_Statics
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
 		{ &Z_Construct_UFunction_ABaseEnemy_AttackDamageTrace, "AttackDamageTrace" }, // 67080894
+		{ &Z_Construct_UFunction_ABaseEnemy_Dismember, "Dismember" }, // 95518410
+		{ &Z_Construct_UFunction_ABaseEnemy_ServerDeath, "ServerDeath" }, // 2556549725
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static const UECodeGen_Private::FImplementedInterfaceParams InterfaceParams[];
@@ -255,14 +360,14 @@ ABaseEnemy::~ABaseEnemy() {}
 // End Class ABaseEnemy
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_Statics
+struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ABaseEnemy, ABaseEnemy::StaticClass, TEXT("ABaseEnemy"), &Z_Registration_Info_UClass_ABaseEnemy, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABaseEnemy), 2245283327U) },
+		{ Z_Construct_UClass_ABaseEnemy, ABaseEnemy::StaticClass, TEXT("ABaseEnemy"), &Z_Registration_Info_UClass_ABaseEnemy, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABaseEnemy), 2132137857U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_3948464535(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_414192039(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BaseEnemy_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

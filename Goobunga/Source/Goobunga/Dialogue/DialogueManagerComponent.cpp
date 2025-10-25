@@ -43,7 +43,7 @@ void UDialogueManagerComponent::TickComponent(float DeltaTime, ELevelTick TickTy
 
 void UDialogueManagerComponent::StartDialogue(FName Character)
 {
-	if (APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0))
+	if (APlayerController* PlayerController = Cast<APlayerController>(Cast<AGoobunga_Player>(GetOwner())->GetController()))
 	{
 		FInputModeUIOnly Input;
 		PlayerController->SetInputMode(Input);
@@ -209,7 +209,7 @@ void UDialogueManagerComponent::OnReplySelected(int ReplyIndex)
 
 void UDialogueManagerComponent::EndDialogue()
 {
-	if (APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0))
+	if (APlayerController* PlayerController = Cast<APlayerController>(Cast<APawn>(GetOwner())->GetController()))
 	{
 		FInputModeGameOnly Game;
 		PlayerController->SetInputMode(Game);

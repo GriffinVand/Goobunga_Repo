@@ -65,8 +65,11 @@ public:
 
 	EEnemyState CurrentState = Walking;
 	
-	virtual void Death(FVector LastMovementSpeed);
+	UFUNCTION(Server, Reliable)
+	virtual void ServerDeath(FVector LastMovementSpeed);
+	UFUNCTION(NetMulticast, Reliable)
 	virtual void Dismember(FVector LastMovementSpeed);
+	
 	virtual void UpdateFadeOut(float DeltaTime);
 
 	UPROPERTY(EditDefaultsOnly, meta = (AllowPrivateAccess = "true"))
@@ -78,6 +81,7 @@ public:
 	virtual void AttackGeneric(int AttackNum);
 	virtual void LaunchTowardsLocation(FVector TargetLocation) override;
 
+	bool Dead = false;
 	bool Launching = false;
 	FVector LaunchGoalLocation;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))

@@ -18,6 +18,8 @@ class GOOBUNGA_API UPlayerBulletWidget : public UUserWidget
 	GENERATED_BODY()
 
 public:
+	FVector2D Size;
+	FVector2D Padding;
 	UPROPERTY(meta = (BindWidget))
 	USizeBox* BulletBox;
 	UPROPERTY(meta = (BindWidget))
@@ -25,5 +27,6 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	UImage* BulletImage;
 
+	virtual void NativeConstruct() override;
 	void SetBulletBoxSizes(FVector2D NewSize, FVector2D LeftUpPadding);
 };

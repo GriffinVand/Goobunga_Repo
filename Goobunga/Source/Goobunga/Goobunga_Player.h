@@ -4,7 +4,6 @@
 #include "PlayerCallables.h"
 #include "Combat/CombatCallables.h"
 #include "GameFramework/Character.h"
-#include "UserInterface/PlayerMainWidget.h"
 #include "Weapons/Weapon.h"
 #include "Weapons/WeaponComponent.h"
 #include "Weapons/WeaponSwayData.h"
@@ -14,8 +13,6 @@ class UQuestManagerComponent;
 struct FInputActionValue;
 class UInputMappingContext;
 class UInputAction;
-class UCameraComponent;
-class USpringArmComponent;
 class UReloadManagerComponent;
 class UDialogueManagerComponent;
 class UFacialAnimationComponent;
@@ -34,30 +31,27 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
+
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
-
-	UFUNCTION(BlueprintCallable)
-	void CalculateAimOffset();
 	
 	UFUNCTION(BlueprintCallable)
 	FWeaponSwayData GetWeaponSwayData();
 
 	//Default Components
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
 	USkeletalMeshComponent* FPMesh;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
-	USpringArmComponent* CameraBoom;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
 	UCameraComponent* FPCamera;
-	//Offsets FPMesh from FPCamera
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
-	USpringArmComponent* CameraMeshOffset;
-	//Maintains camera location but inherits mesh offset
-	//Used to calculate where player is truly aiming(not always center screen)
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
-	USceneComponent* TrueLookDirection;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
+	USkeletalMeshComponent* FPMesh_Static;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
+	USkeletalMeshComponent* FPEquipped_Static;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
+	USceneComponent* FPMesh_Align;
 
 	//Custom components
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
@@ -68,18 +62,10 @@ public:
 	UQuestManagerComponent* QuestManagerComponent;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = true))
 	UDialogueManagerComponent* DialogueManagerComponent;
-	//UI
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = true))
-	TSubclassOf<UUserWidget> PlayerMainWidgetSubclass;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = true))
-	UPlayerMainWidget* PlayerMainWidget;
 
 	//Hand rotation location
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FRotator AimRotationOffset = FRotator();
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FVector AimLocationOffset = FVector();
+	FTransform AimRelativeTransform = FTransform::Identity;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float AimAlpha = 0.f;
 	
@@ -114,10 +100,6 @@ protected:
 	//
 	//Current equipped item, can be a weapon or an item
 	//
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Equipment", meta = (AllowPrivateAccess = "true"))
-	AActor* EquippedItem;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Equipment", meta = (AllowPrivateAccess = "true"))
-	AWeapon* EquippedWeapon;
 	
 	
 	//Buffer for weapon sway data
@@ -190,20 +172,43 @@ protected:
 	//Called on sprint ended
 	void SprintEnded();
 
-	//
-
-	//
-	//Weapon functions. Should probably be moved to a component
+	////
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Equipment", meta = (AllowPrivateAccess = "true"), ReplicatedUsing = OnRep_EquippedWeapon)
+	AWeapon* EquippedWeapon;
+	UFUNCTION()
+	void EquipWeapon(AWeapon* Weapon);
+	UFUNCTION()
+	void OnRep_EquippedWeapon();
+	UFUNCTION()
+	void CalculateAimDownSightTransform();
+	UFUNCTION()
+	void UpdateAimDownSightTransform();
 	UFUNCTION(BlueprintCallable)
-	void EquipWeapon(AActor* Weapon);
+	void SpawnServerWeaponAction() { SpawnServerWeapon(); }
+	UFUNCTION(Server, Reliable)
+	void SpawnServerWeapon();
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AActor> ServerWeaponClass;
+	////
+
+	////
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AActor> ServerActorClass;
+	UFUNCTION(BlueprintCallable)
+	void SpawnServerActorAction() { SpawnServerActor(GetActorLocation() + FVector(0, 0, 300)); }
+	UFUNCTION(Server, Reliable)
+	void SpawnServerActor(FVector SpawnLocation);
+	////
+	
+
 	UFUNCTION(BlueprintCallable)
 	void UnequipCurrent();
 	void StartReload();
 	virtual void EndReload(bool Success) override;
 	virtual void UpdateAds(float Alpha) override;
+	virtual void UpdateWeaponUI() override { return;}
 	void UpdateAimOffset();
 	void UpdateWeaponSwayData(float DeltaTime);
-	virtual void UpdateWeaponUI() override;
 	virtual void ApplyAimOffset(FVector AimOffsetInput) override;
 	virtual TArray<FVector> GetAimDirection() override;
 

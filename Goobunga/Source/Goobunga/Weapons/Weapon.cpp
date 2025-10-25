@@ -9,6 +9,8 @@
 // Sets default values
 AWeapon::AWeapon()
 {
+	bReplicates = true;
+	SetReplicateMovement(true);
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -88,7 +90,7 @@ void AWeapon::PlayAnimationSimultaneous(FName AnimationName)
 {
 	if (UAnimMontage** OwnerMontage = OwnerAnimations.Find(AnimationName))
 	{
-		if (AGoobunga_Player* Player = Cast<AGoobunga_Player>(WeaponOwner))
+		if (AGoobunga_Player* Player = Cast<AGoobunga_Player>(GetOwner()))
 		{
 			if (UAnimInstance* PlayerABP = Player->FPMesh->GetAnimInstance())
 			{
@@ -113,9 +115,9 @@ void AWeapon::PlayAnimationSimultaneous(FName AnimationName)
 //Inform owner when to apply recoil effects
 void AWeapon::ApplyRecoil()
 {
-	if (WeaponOwner)
+	if (GetOwner())
 	{
-		if (IPlayerCallables* PlayerCallablesInterface = Cast<IPlayerCallables>(WeaponOwner))
+		if (IPlayerCallables* PlayerCallablesInterface = Cast<IPlayerCallables>(GetOwner()))
 		{
 			FVector NewDirection = FVector (
 				FMath::FRandRange(RecoilDirectionMin.X, RecoilDirectionMax.X),
@@ -127,9 +129,9 @@ void AWeapon::ApplyRecoil()
 			FMath::FRandRange(RecoilIntensityMin.Z, RecoilIntensityMax.Z));
 			PlayerCallablesInterface->ApplyAimOffset(NewDirection*NewIntensity*CurrentControl);
 		}
-		else { UE_LOG(LogTemp, Warning, TEXT("Player callable interface cast failed")); }
+		else { UE_LOG(LogTemp, Warning, TEXT("AWeapon::ApplyRecoil Player callable interface cast failed")); }
 	}
-	else { UE_LOG(LogTemp, Warning, TEXT("Weapon owner not found")); }
+	else { UE_LOG(LogTemp, Warning, TEXT("AWeapon::ApplyRecoil Weapon owner not found")); }
 }
 
 //Changed during ads. Called by owner since ads logic is handled by owner
@@ -147,10 +149,11 @@ void AWeapon::PlayFireEffect()
 
 void AWeapon::UpdateOwnerUI()
 {
-	if (IPlayerCallables* PlayerCallablesInterface = Cast<IPlayerCallables>(WeaponOwner))
+	if (IPlayerCallables* PlayerCallablesInterface = Cast<IPlayerCallables>(GetOwner()))
 	{
 		PlayerCallablesInterface->UpdateWeaponUI();
 	}
+	else { UE_LOG(LogTemp, Warning, TEXT("AWeapon::UpdateOwnerUI Player callable interface cast failed")); }
 }
 
 UTexture2D* AWeapon::GetIcon(FString IconName)
@@ -161,6 +164,33 @@ UTexture2D* AWeapon::GetIcon(FString IconName)
 	}
 	return nullptr;
 }
+
+void AWeapon::DealDamage_Implementation(AActor* DamagedActor, float Damage)
+{
+	if (!DamagedActor) { return; }
+	if (ICombatCallables* CombatCallablesInterface = Cast<ICombatCallables>(DamagedActor))
+	{
+		CombatCallablesInterface->CombatDamage(GetOwner(), Damage, EDamageType::None);
+	}
+}
+
+void AWeapon::Reload()
+{
+	int Target = MaxMag - CurrentMag;
+	if (CurrentAmmo >= Target)
+	{
+		CurrentAmmo -= Target;
+		CurrentMag += Target;
+	}
+	else
+	{
+		CurrentMag += CurrentAmmo;
+		CurrentAmmo = 0;
+	}
+	OnAmmoChanged.Broadcast();
+}
+
+
 
 
 

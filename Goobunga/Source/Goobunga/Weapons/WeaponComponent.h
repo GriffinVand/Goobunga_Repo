@@ -5,6 +5,9 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "WeaponComponent.generated.h"
+
+DEFINE_LOG_CATEGORY_STATIC(LogWeaponComponent, Log, All);
+
 class AWeapon;
 class UTimelineComponent;
 
@@ -23,14 +26,15 @@ public:
 	UPROPERTY(EditAnywhere)
 	AWeapon* SecondaryWeapon = nullptr;
 
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
-							   FActorComponentTickFunction* ThisTickFunction) override;
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
+	
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	void AltFireStart() { StartAds(); }
 	void AltFireStop() { StopAds(); }
 	
 	FTransform GetWeaponSightTransform();
-	
 
 
 protected:

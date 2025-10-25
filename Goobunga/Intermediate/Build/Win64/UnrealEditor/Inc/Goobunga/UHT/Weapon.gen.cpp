@@ -10,6 +10,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeWeapon() {}
 
 // Begin Cross Module References
+COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FRotator();
 COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector();
 COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector2D();
 ENGINE_API UClass* Z_Construct_UClass_AActor();
@@ -24,13 +25,101 @@ GOOBUNGA_API UClass* Z_Construct_UClass_AWeapon_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_UFireableCallables_NoRegister();
 GOOBUNGA_API UEnum* Z_Construct_UEnum_Goobunga_EWeaponType();
 GOOBUNGA_API UEnum* Z_Construct_UEnum_Goobunga_EWeaponUItype();
+GOOBUNGA_API UFunction* Z_Construct_UDelegateFunction_AWeapon_OnAmmoChanged__DelegateSignature();
 NIAGARA_API UClass* Z_Construct_UClass_UNiagaraSystem_NoRegister();
 UPackage* Z_Construct_UPackage__Script_Goobunga();
 // End Cross Module References
 
+// Begin Delegate FOnAmmoChanged
+struct Z_Construct_UDelegateFunction_AWeapon_OnAmmoChanged__DelegateSignature_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Weapons/Weapon.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UDelegateFunction_AWeapon_OnAmmoChanged__DelegateSignature_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AWeapon, nullptr, "OnAmmoChanged__DelegateSignature", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00130000, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UDelegateFunction_AWeapon_OnAmmoChanged__DelegateSignature_Statics::Function_MetaDataParams), Z_Construct_UDelegateFunction_AWeapon_OnAmmoChanged__DelegateSignature_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UDelegateFunction_AWeapon_OnAmmoChanged__DelegateSignature()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UDelegateFunction_AWeapon_OnAmmoChanged__DelegateSignature_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+void AWeapon::FOnAmmoChanged_DelegateWrapper(const FMulticastScriptDelegate& OnAmmoChanged)
+{
+	OnAmmoChanged.ProcessMulticastDelegate<UObject>(NULL);
+}
+// End Delegate FOnAmmoChanged
+
+// Begin Class AWeapon Function DealDamage
+struct Weapon_eventDealDamage_Parms
+{
+	AActor* DamagedActor;
+	float Damage;
+};
+static const FName NAME_AWeapon_DealDamage = FName(TEXT("DealDamage"));
+void AWeapon::DealDamage(AActor* DamagedActor, float Damage)
+{
+	Weapon_eventDealDamage_Parms Parms;
+	Parms.DamagedActor=DamagedActor;
+	Parms.Damage=Damage;
+	UFunction* Func = FindFunctionChecked(NAME_AWeapon_DealDamage);
+	ProcessEvent(Func,&Parms);
+}
+struct Z_Construct_UFunction_AWeapon_DealDamage_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Weapons/Weapon.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_DamagedActor;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_Damage;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_AWeapon_DealDamage_Statics::NewProp_DamagedActor = { "DamagedActor", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Weapon_eventDealDamage_Parms, DamagedActor), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_AWeapon_DealDamage_Statics::NewProp_Damage = { "Damage", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Weapon_eventDealDamage_Parms, Damage), METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AWeapon_DealDamage_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AWeapon_DealDamage_Statics::NewProp_DamagedActor,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AWeapon_DealDamage_Statics::NewProp_Damage,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_AWeapon_DealDamage_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AWeapon_DealDamage_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AWeapon, nullptr, "DealDamage", nullptr, nullptr, Z_Construct_UFunction_AWeapon_DealDamage_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_AWeapon_DealDamage_Statics::PropPointers), sizeof(Weapon_eventDealDamage_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00220CC0, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AWeapon_DealDamage_Statics::Function_MetaDataParams), Z_Construct_UFunction_AWeapon_DealDamage_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Weapon_eventDealDamage_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_AWeapon_DealDamage()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AWeapon_DealDamage_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AWeapon::execDealDamage)
+{
+	P_GET_OBJECT(AActor,Z_Param_DamagedActor);
+	P_GET_PROPERTY(FFloatProperty,Z_Param_Damage);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->DealDamage_Implementation(Z_Param_DamagedActor,Z_Param_Damage);
+	P_NATIVE_END;
+}
+// End Class AWeapon Function DealDamage
+
 // Begin Class AWeapon
 void AWeapon::StaticRegisterNativesAWeapon()
 {
+	UClass* Class = AWeapon::StaticClass();
+	static const FNameNativePtrPair Funcs[] = {
+		{ "DealDamage", &AWeapon::execDealDamage },
+	};
+	FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
 }
 IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(AWeapon);
 UClass* Z_Construct_UClass_AWeapon_NoRegister()
@@ -42,6 +131,9 @@ struct Z_Construct_UClass_AWeapon_Statics
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
 		{ "IncludePath", "Weapons/Weapon.h" },
+		{ "ModuleRelativePath", "Weapons/Weapon.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_OnAmmoChanged_MetaData[] = {
 		{ "ModuleRelativePath", "Weapons/Weapon.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_WeaponMesh_MetaData[] = {
@@ -108,6 +200,16 @@ struct Z_Construct_UClass_AWeapon_Statics
 		{ "ModuleRelativePath", "Weapons/Weapon.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ADSSpeed_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Stats" },
+		{ "ModuleRelativePath", "Weapons/Weapon.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ADSOffsetLoc_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Stats" },
+		{ "ModuleRelativePath", "Weapons/Weapon.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ADSOffsetRot_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "Stats" },
 		{ "ModuleRelativePath", "Weapons/Weapon.h" },
@@ -292,6 +394,7 @@ struct Z_Construct_UClass_AWeapon_Statics
 		{ "ModuleRelativePath", "Weapons/Weapon.h" },
 	};
 #endif // WITH_METADATA
+	static const UECodeGen_Private::FMulticastDelegatePropertyParams NewProp_OnAmmoChanged;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_WeaponMesh;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_WeaponOwner;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_PoseAnim;
@@ -304,6 +407,8 @@ struct Z_Construct_UClass_AWeapon_Statics
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ADS;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_ADSTime;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_ADSSpeed;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_ADSOffsetLoc;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_ADSOffsetRot;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_FireRate;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_FireCooldown;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_BaseDamage;
@@ -337,12 +442,18 @@ struct Z_Construct_UClass_AWeapon_Statics
 	static const UECodeGen_Private::FMapPropertyParams NewProp_OwnerAnimations;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
+	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
+		{ &Z_Construct_UFunction_AWeapon_DealDamage, "DealDamage" }, // 3219788179
+		{ &Z_Construct_UDelegateFunction_AWeapon_OnAmmoChanged__DelegateSignature, "OnAmmoChanged__DelegateSignature" }, // 2966140232
+	};
+	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static const UECodeGen_Private::FImplementedInterfaceParams InterfaceParams[];
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<AWeapon>::IsAbstract,
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
+const UECodeGen_Private::FMulticastDelegatePropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_OnAmmoChanged = { "OnAmmoChanged", nullptr, (EPropertyFlags)0x0010000010080000, UECodeGen_Private::EPropertyGenFlags::InlineMulticastDelegate, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, OnAmmoChanged), Z_Construct_UDelegateFunction_AWeapon_OnAmmoChanged__DelegateSignature, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OnAmmoChanged_MetaData), NewProp_OnAmmoChanged_MetaData) }; // 2966140232
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_WeaponMesh = { "WeaponMesh", nullptr, (EPropertyFlags)0x001000000008001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, WeaponMesh), Z_Construct_UClass_USkeletalMeshComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WeaponMesh_MetaData), NewProp_WeaponMesh_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_WeaponOwner = { "WeaponOwner", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, WeaponOwner), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WeaponOwner_MetaData), NewProp_WeaponOwner_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_PoseAnim = { "PoseAnim", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, PoseAnim), Z_Construct_UClass_UAnimationAsset_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_PoseAnim_MetaData), NewProp_PoseAnim_MetaData) };
@@ -358,6 +469,8 @@ void Z_Construct_UClass_AWeapon_Statics::NewProp_ADS_SetBit(void* Obj)
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_ADS = { "ADS", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AWeapon), &Z_Construct_UClass_AWeapon_Statics::NewProp_ADS_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ADS_MetaData), NewProp_ADS_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_ADSTime = { "ADSTime", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, ADSTime), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ADSTime_MetaData), NewProp_ADSTime_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_ADSSpeed = { "ADSSpeed", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, ADSSpeed), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ADSSpeed_MetaData), NewProp_ADSSpeed_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_ADSOffsetLoc = { "ADSOffsetLoc", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, ADSOffsetLoc), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ADSOffsetLoc_MetaData), NewProp_ADSOffsetLoc_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_ADSOffsetRot = { "ADSOffsetRot", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, ADSOffsetRot), Z_Construct_UScriptStruct_FRotator, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ADSOffsetRot_MetaData), NewProp_ADSOffsetRot_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_FireRate = { "FireRate", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, FireRate), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FireRate_MetaData), NewProp_FireRate_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_FireCooldown = { "FireCooldown", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, FireCooldown), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FireCooldown_MetaData), NewProp_FireCooldown_MetaData) };
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_BaseDamage = { "BaseDamage", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, BaseDamage), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_BaseDamage_MetaData), NewProp_BaseDamage_MetaData) };
@@ -390,6 +503,7 @@ const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AWeapon_Static
 const UECodeGen_Private::FNamePropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_OwnerAnimations_Key_KeyProp = { "OwnerAnimations_Key", nullptr, (EPropertyFlags)0x0000000000000001, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FMapPropertyParams Z_Construct_UClass_AWeapon_Statics::NewProp_OwnerAnimations = { "OwnerAnimations", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeapon, OwnerAnimations), EMapPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OwnerAnimations_MetaData), NewProp_OwnerAnimations_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AWeapon_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_OnAmmoChanged,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_WeaponMesh,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_WeaponOwner,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_PoseAnim,
@@ -401,6 +515,8 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AWeapon_S
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_ADS,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_ADSTime,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_ADSSpeed,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_ADSOffsetLoc,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_ADSOffsetRot,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_FireRate,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_FireCooldown,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeapon_Statics::NewProp_BaseDamage,
@@ -447,11 +563,11 @@ const UECodeGen_Private::FClassParams Z_Construct_UClass_AWeapon_Statics::ClassP
 	"Engine",
 	&StaticCppClassTypeInfo,
 	DependentSingletons,
-	nullptr,
+	FuncInfo,
 	Z_Construct_UClass_AWeapon_Statics::PropPointers,
 	InterfaceParams,
 	UE_ARRAY_COUNT(DependentSingletons),
-	0,
+	UE_ARRAY_COUNT(FuncInfo),
 	UE_ARRAY_COUNT(Z_Construct_UClass_AWeapon_Statics::PropPointers),
 	UE_ARRAY_COUNT(InterfaceParams),
 	0x009000A4u,
@@ -474,14 +590,14 @@ AWeapon::~AWeapon() {}
 // End Class AWeapon
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Weapon_h_Statics
+struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Weapon_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AWeapon, AWeapon::StaticClass, TEXT("AWeapon"), &Z_Registration_Info_UClass_AWeapon, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AWeapon), 1731946845U) },
+		{ Z_Construct_UClass_AWeapon, AWeapon::StaticClass, TEXT("AWeapon"), &Z_Registration_Info_UClass_AWeapon, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AWeapon), 787979266U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Weapon_h_1921845508(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Weapon_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Weapon_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Weapon_h_1966237394(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Weapon_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Weapon_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

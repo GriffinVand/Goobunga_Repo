@@ -10,6 +10,8 @@
 /**
  * 
  */
+class USizeBox;
+
 UCLASS()
 class GOOBUNGA_API UPlayerMainWidget : public UUserWidget
 {
@@ -23,7 +25,7 @@ public:
 	UUserWidget* PepperWidget;
 
 	UPROPERTY(meta = (BindWidget))
-	UPlayerWeaponAmmoWidget* WeaponAmmoWidget;
+	USizeBox* WeaponUIContainer;
 
 	
 	

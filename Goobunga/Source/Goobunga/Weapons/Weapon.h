@@ -18,7 +18,11 @@ class GOOBUNGA_API AWeapon : public AActor, public IFireableCallables
 {
 	GENERATED_BODY()
 	
-public:	
+public:
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnAmmoChanged);
+	UPROPERTY(BlueprintAssignable)
+	FOnAmmoChanged OnAmmoChanged;
+	
 	// Sets default values for this actor's properties
 	AWeapon();
     
@@ -48,6 +52,10 @@ public:
 	float ADSTime = 2.f;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	float ADSSpeed = 1.f;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	FVector ADSOffsetLoc = FVector::ZeroVector;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	FRotator ADSOffsetRot = FRotator::ZeroRotator;
 
 	//Default stats
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
@@ -157,11 +165,14 @@ public:
 
 	//Self-explanatory
 	virtual void FireWeapon();
+	UFUNCTION(Server, Reliable)
+	virtual void DealDamage(AActor* DamagedActor, float Damage);
 	//Sends recoil information to owner
 	virtual void ApplyRecoil();
 	//Tells owner to update UI elements related to this weapon
 	virtual void UpdateOwnerUI();
 	virtual void UpdateWeapon();
 	virtual void PlayFireEffect();
+	virtual void Reload();
 	
 };

@@ -12,7 +12,7 @@ void EmptyLinkFunctionForGeneratedCodePlayerMainWidget() {}
 // Begin Cross Module References
 GOOBUNGA_API UClass* Z_Construct_UClass_UPlayerMainWidget();
 GOOBUNGA_API UClass* Z_Construct_UClass_UPlayerMainWidget_NoRegister();
-GOOBUNGA_API UClass* Z_Construct_UClass_UPlayerWeaponAmmoWidget_NoRegister();
+UMG_API UClass* Z_Construct_UClass_USizeBox_NoRegister();
 UMG_API UClass* Z_Construct_UClass_UUserWidget();
 UMG_API UClass* Z_Construct_UClass_UUserWidget_NoRegister();
 UPackage* Z_Construct_UPackage__Script_Goobunga();
@@ -31,9 +31,6 @@ struct Z_Construct_UClass_UPlayerMainWidget_Statics
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "/**\n * \n */" },
-#endif
 		{ "IncludePath", "UserInterface/PlayerMainWidget.h" },
 		{ "ModuleRelativePath", "UserInterface/PlayerMainWidget.h" },
 	};
@@ -47,7 +44,7 @@ struct Z_Construct_UClass_UPlayerMainWidget_Statics
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "UserInterface/PlayerMainWidget.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_WeaponAmmoWidget_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_WeaponUIContainer_MetaData[] = {
 		{ "BindWidget", "" },
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "UserInterface/PlayerMainWidget.h" },
@@ -55,7 +52,7 @@ struct Z_Construct_UClass_UPlayerMainWidget_Statics
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_FaceCamWidget;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_PepperWidget;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_WeaponAmmoWidget;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_WeaponUIContainer;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -65,11 +62,11 @@ struct Z_Construct_UClass_UPlayerMainWidget_Statics
 };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_FaceCamWidget = { "FaceCamWidget", nullptr, (EPropertyFlags)0x0010000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerMainWidget, FaceCamWidget), Z_Construct_UClass_UUserWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FaceCamWidget_MetaData), NewProp_FaceCamWidget_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_PepperWidget = { "PepperWidget", nullptr, (EPropertyFlags)0x0010000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerMainWidget, PepperWidget), Z_Construct_UClass_UUserWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_PepperWidget_MetaData), NewProp_PepperWidget_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_WeaponAmmoWidget = { "WeaponAmmoWidget", nullptr, (EPropertyFlags)0x0010000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerMainWidget, WeaponAmmoWidget), Z_Construct_UClass_UPlayerWeaponAmmoWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WeaponAmmoWidget_MetaData), NewProp_WeaponAmmoWidget_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_WeaponUIContainer = { "WeaponUIContainer", nullptr, (EPropertyFlags)0x0010000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerMainWidget, WeaponUIContainer), Z_Construct_UClass_USizeBox_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WeaponUIContainer_MetaData), NewProp_WeaponUIContainer_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UPlayerMainWidget_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_FaceCamWidget,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_PepperWidget,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_WeaponAmmoWidget,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_WeaponUIContainer,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UPlayerMainWidget_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_UPlayerMainWidget_Statics::DependentSingletons[])() = {
@@ -110,14 +107,14 @@ UPlayerMainWidget::~UPlayerMainWidget() {}
 // End Class UPlayerMainWidget
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_Statics
+struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UPlayerMainWidget, UPlayerMainWidget::StaticClass, TEXT("UPlayerMainWidget"), &Z_Registration_Info_UClass_UPlayerMainWidget, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UPlayerMainWidget), 1940162664U) },
+		{ Z_Construct_UClass_UPlayerMainWidget, UPlayerMainWidget::StaticClass, TEXT("UPlayerMainWidget"), &Z_Registration_Info_UClass_UPlayerMainWidget, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UPlayerMainWidget), 2767588936U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_2766351454(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_1740356012(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

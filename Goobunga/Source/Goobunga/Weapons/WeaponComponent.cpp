@@ -6,7 +6,12 @@
 #include "Weapon.h"
 #include "Components/TimelineComponent.h"
 #include "Goobunga/PlayerCallables.h"
+#include "Net/UnrealNetwork.h"
 
+void UWeaponComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+}
 
 UWeaponComponent::UWeaponComponent()
 {
@@ -43,12 +48,12 @@ void UWeaponComponent::SetAdsTimeline()
 		AdsTimeline->SetPlayRate(NewPlayRate);
 		AdsTimeline->SetNewTime(0.f);
 	}
-	else { UE_LOG(LogTemp, Warning, TEXT("Curve or timeline not valid")); }
+	else { UE_LOG(LogWeaponComponent, Warning, TEXT("Curve or timeline not valid")); }
 }
 
 void UWeaponComponent::OnAdsTimelineUpdate(float Value)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Ads Value: %f"), Value);
+	UE_LOG(LogWeaponComponent, Warning, TEXT("Ads Value: %f"), Value);
 	if (IPlayerCallables* PlayerCallablesInterface = Cast<IPlayerCallables>(GetOwner()))
 	{
 		PlayerCallablesInterface->UpdateAds(Value);
@@ -81,4 +86,3 @@ FTransform UWeaponComponent::GetWeaponSightTransform()
 	}
 	return FTransform();
 }
-

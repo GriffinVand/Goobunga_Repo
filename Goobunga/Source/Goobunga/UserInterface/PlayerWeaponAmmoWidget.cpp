@@ -3,27 +3,66 @@
 #include "Components/Image.h"
 #include "Components/TextBlock.h"
 #include "Goobunga/Combat/WeaponUITypes.h"
+#include "Goobunga/Weapons/Weapon.h"
 #include "Kismet/KismetMaterialLibrary.h"
 
 void UPlayerWeaponAmmoWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
+	BulletContainers = {BulletContainer1, BulletContainer2, BulletContainer3, BulletContainer4, BulletContainer5};
 	WeaponIconMaterial = UKismetMaterialLibrary::CreateDynamicMaterialInstance(GetWorld(), WeaponIconMaterialParent);
-	if (WeaponIconMaterial)
+	if (WeaponIconMaterial && WeaponIconImage)
 	{
-		WeaponIcon->SetBrushFromMaterial(WeaponIconMaterial);
+		UE_LOG(LogTemp, Display, TEXT("set icon brush"));
+		WeaponIconImage->SetBrushFromMaterial(WeaponIconMaterial);
 	}
+	UE_LOG(LogTemp, Display, TEXT("Native Construct finished"));
+	InitializeAmmoCounter();
+	UpdateAmmoCounter();
+	UpdateWeaponInfo();
 }
 
-void UPlayerWeaponAmmoWidget::InitializeAmmoCounter(int MaxMag, int CurrMag, int MaxAmmo, int CurrAmmo, EWeaponUItype WeaponUItype)
+void UPlayerWeaponAmmoWidget::BindToWeapon(AWeapon* Weapon)
 {
-	for (auto BulletWidget : BulletWidgets) { BulletWidget->RemoveFromParent(); }
-	BulletWidgets.Empty();
-	CreateBulletWidget(MaxMag, WeaponUItype);
-	UpdateAmmoCounter(MaxMag, CurrMag, MaxAmmo, CurrAmmo);
+	UE_LOG(LogTemp, Display, TEXT("Native Construct finished"));
+	CurrentWeapon = Weapon;
+	SetWeaponInfo();
+	Weapon->OnAmmoChanged.AddDynamic(this, &UPlayerWeaponAmmoWidget::OnAmmoChanged);
 }
 
-void UPlayerWeaponAmmoWidget::UpdateAmmoCounter(int MaxMag, int CurrMag, int MaxAmmo, int CurrAmmo)
+void UPlayerWeaponAmmoWidget::OnAmmoChanged()
+{
+	SetWeaponInfo();
+	UpdateWeaponInfo();
+}
+
+void UPlayerWeaponAmmoWidget::SetWeaponInfo()
+{
+	this->MaxMag = CurrentWeapon->MaxMag;
+	this->CurrMag = CurrentWeapon->CurrentMag;
+	this->MaxAmmo = CurrentWeapon->MaxAmmo;
+	this->CurrAmmo = CurrentWeapon->CurrentAmmo;
+	this->WeaponUIType = CurrentWeapon->WeaponUIType;
+	this->WeaponIconTexture = CurrentWeapon->GetIcon("Filled");
+	UE_LOG(LogTemp, Display, TEXT("Set weapon info %d"), CurrAmmo);
+}
+
+
+void UPlayerWeaponAmmoWidget::UpdateWeaponInfo()
+{
+	UE_LOG(LogTemp, Display, TEXT("Update weapon info"));
+	UpdateAmmoCounter();
+	UpdateWeaponIcon();
+	UpdateCurrentAmmoText();
+}
+
+
+void UPlayerWeaponAmmoWidget::InitializeAmmoCounter()
+{
+	CreateBulletWidget();
+}
+
+void UPlayerWeaponAmmoWidget::UpdateAmmoCounter()
 {
 	if (BulletWidgets.Num() == MaxMag)
 	{
@@ -36,23 +75,24 @@ void UPlayerWeaponAmmoWidget::UpdateAmmoCounter(int MaxMag, int CurrMag, int Max
 			BulletWidgets[i]->SetColorAndOpacity(InactiveColor);
 		}
 	}
-	UpdateCurrentAmmoText(CurrAmmo);
 }
 
-void UPlayerWeaponAmmoWidget::CreateBulletWidget(int MaxMag, EWeaponUItype WeaponUItype)
+void UPlayerWeaponAmmoWidget::CreateBulletWidget()
 {
 	if (BulletWidgetClass)
 	{
+		BulletWidgets.Empty();
+		for (auto BulletWidget : BulletWidgets) { BulletWidget->RemoveFromParent(); }
 		UE_LOG(LogTemp, Display, TEXT("Container num %d"), BulletContainers.Num());
 		int CurrRow = 0;
-		int MaxRow = (MaxMag + BulletMaxRowValues[WeaponUItype] - 1) / BulletMaxRowValues[WeaponUItype];
+		int MaxRow = (MaxMag + BulletMaxRowValues[WeaponUIType] - 1) / BulletMaxRowValues[WeaponUIType];
 		UE_LOG(LogTemp, Display, TEXT("BulletMaxRowValue = %d"), MaxRow);
-		float BulletHeight = BulletHeightValues[WeaponUItype];
+		float BulletHeight = BulletHeightValues[WeaponUIType];
 		UE_LOG(LogTemp, Display, TEXT("BulletHeight = %f"), BulletHeight);
-		float BulletWidth = BulletWidthValues[WeaponUItype];
+		float BulletWidth = BulletWidthValues[WeaponUIType];
 		UE_LOG(LogTemp, Display, TEXT("BulletWidth = %f"), BulletWidth);
-		float LeftPadding = BulletPaddingsLeft[WeaponUItype];
-		float UpPadding = BulletPaddingsUp[WeaponUItype];
+		float LeftPadding = BulletPaddingsLeft[WeaponUIType];
+		float UpPadding = BulletPaddingsUp[WeaponUIType];
 		TArray<UUserWidget*> CurrentContainer = {};
 		for (int i = 0; i < MaxMag; i++)
 		{
@@ -61,6 +101,7 @@ void UPlayerWeaponAmmoWidget::CreateBulletWidget(int MaxMag, EWeaponUItype Weapo
 			{
 				if (UPlayerBulletWidget* BulletRef = Cast<UPlayerBulletWidget>(NewBullet))
 				{
+					UE_LOG(LogTemp, Display, TEXT("NewBullet Width %f Height %f"), BulletWidth, BulletHeight);
 					BulletRef->SetBulletBoxSizes(FVector2D(BulletWidth, BulletHeight), FVector2D(LeftPadding, UpPadding));
 					if ((CurrRow + 1) % 2 == 0 )
 					{
@@ -84,53 +125,19 @@ void UPlayerWeaponAmmoWidget::CreateBulletWidget(int MaxMag, EWeaponUItype Weapo
 	}
 }
 
-void UPlayerWeaponAmmoWidget::SetWeaponIcon(UTexture2D* NewIcon)
+void UPlayerWeaponAmmoWidget::UpdateWeaponIcon()
 {
 	if (WeaponIconMaterial)
 	{
-		WeaponIconMaterial->SetTextureParameterValue("Diffuse", NewIcon);
+		WeaponIconMaterial->SetTextureParameterValue("Diffuse", WeaponIconTexture);
 	}
 }
 
-void UPlayerWeaponAmmoWidget::UpdateCurrentAmmoText(int CurrAmmo)
+void UPlayerWeaponAmmoWidget::UpdateCurrentAmmoText()
 {
-	if (CurrentAmmoText)
+	if (WeaponAmmoTextBlock)
 	{
-		CurrentAmmoText->SetText(FText::FromString(FString::FromInt(CurrAmmo)));
-	}
-}
-
-FLinearColor UPlayerWeaponAmmoWidget::GetColorFromInt(int32 ColorIndex)
-{
-	switch (ColorIndex)
-	{
-	case 0:
-		return FLinearColor::Red;
-	case 1:
-		return FLinearColor::Green;
-	case 2:
-		return FLinearColor::Blue;
-	case 3:
-		return FLinearColor::Yellow;
-	case 4:
-		return FLinearColor::White;
-	default:
-		return FLinearColor::Black; // Fallback color
-	}
-}
-
-void UPlayerWeaponAmmoWidget::SetColors()
-{
-	for (auto Container : BulletContainers)
-	{
-		for (int i = 0; i < Container->GetChildrenCount(); i++)
-		{
-			if (UPlayerBulletWidget* CurrBull = Cast<UPlayerBulletWidget>(Container->GetChildAt(i)))
-			{
-				FLinearColor NewColor = GetColorFromInt(i);
-				CurrBull->BulletImage->SetColorAndOpacity(NewColor);
-			}
-		}
+		WeaponAmmoTextBlock->SetText(FText::FromString(FString::FromInt(CurrAmmo)));
 	}
 }
 

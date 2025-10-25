@@ -6,17 +6,25 @@
 #include "Components/Image.h"
 #include "Components/SizeBoxSlot.h"
 
+void UPlayerBulletWidget::NativeConstruct()
+{
+}
+
+
 void UPlayerBulletWidget::SetBulletBoxSizes(FVector2D NewSize, FVector2D LeftUpPadding)
 {
+	Size = NewSize;
+	Padding = LeftUpPadding;
 	if (BulletBox)
 	{
-		BulletBox->SetHeightOverride(NewSize.Y);
-		BulletBox->SetWidthOverride(NewSize.X);
-		if (USizeBoxSlot* SizeBoxSlot = Cast<USizeBoxSlot>(BulletImage->Slot))
+		BulletBox->SetHeightOverride(Size.Y);
+		BulletBox->SetWidthOverride(Size.X);
+		if (BufferBox)
 		{
-			SizeBoxSlot->SetPadding(FMargin(LeftUpPadding.X, LeftUpPadding.Y, 0, 0));
+			BufferBox->SetHeightOverride(Padding.Y);
+			BufferBox->SetWidthOverride(Padding.X);
 		}
+		else { UE_LOG(LogTemp, Display, TEXT("Couldnt access size box")); }
 	}
 	else { UE_LOG(LogTemp, Display, TEXT("Couldnt size box height")); }
-	
 }

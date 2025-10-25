@@ -52,7 +52,13 @@ void UReloadManagerComponent::StartReload(TArray<EReloadPattern> NewPatternSeque
 			CurrentPattern = ReloadPatternMap[CurrentPatternSequence[0]];
 			if (CurrentPattern.Num() > 1)
 			{
-				GetWorld()->GetFirstPlayerController()->GetMousePosition(LastMouseLocation.X, LastMouseLocation.Y);
+				if (APawn* Player = Cast<APawn>(GetOwner()))
+				{
+					if (APlayerController* Controller = Cast<APlayerController>(Player->GetController()))
+					{
+						Controller->GetMousePosition(LastMouseLocation.X, LastMouseLocation.Y);
+					}
+				}
 				TotalProgress = 0.f;
 				CurrentProgress = 0.f;
 				LastPoint = CurrentPattern[0];
@@ -75,62 +81,65 @@ void UReloadManagerComponent::UpdateReload()
 	//Mouse movement is based on vector from center of screen to last mouse position
 	//Compare this to vector from last point to next point and see if movement is correct
 	//Mouse is always set back to center of screen after UpdateReload()
-	FVector2D NewMouseLocation;
-	APlayerController* PC = GetWorld()->GetFirstPlayerController();
-	int32 ScreenWidth, ScreenHeight;
-	PC->GetViewportSize(ScreenWidth, ScreenHeight);
-	FVector2D CenterScreen = FVector2D(ScreenWidth, ScreenHeight) * 0.5f;
-	PC->GetMousePosition(NewMouseLocation.X, NewMouseLocation.Y);
-
-	FVector2D ExpectedDirection = (NextPoint - LastPoint).GetSafeNormal();
-	FVector2D ActualDirection = (NewMouseLocation - CenterScreen).GetSafeNormal();
-
-	float MovementSpeed = (NewMouseLocation - CenterScreen).Size();
-	MovementSpeed = FMath::GetMappedRangeValueClamped(FVector2D(0.f, 400.f), FVector2D(0.f, 1.f), MovementSpeed);
-	
-	//Reset mouse location
-	PC->SetMouseLocation(CenterScreen.X, CenterScreen.Y);
-	
-	//Only update progress if mouse movement is in correct direction
-	if (FVector2D::DotProduct(ExpectedDirection, ActualDirection) > 0.6)
+	if (APlayerController* PC = Cast<APlayerController>(Cast<APawn>(GetOwner())->GetController()))
 	{
-		//Updates current progress based on predefined progress rate and the actual speed of mouse or magnitude of traversal
-		float TotalSegs = ReloadPatternMap[CurrentPatternSequence[0]].Num();
-		float CurrentSegs = TotalSegs - CurrentPattern.Num();
-		CurrentProgress += GetWorld()->GetDeltaSeconds() * (ProgressRate * TotalSegs-1) * MovementSpeed;
-		TotalProgress = (CurrentSegs + CurrentProgress) / (TotalSegs - 1);
-		//UE_LOG(LogTemp, Display, TEXT("Current progress: %f"), CurrentProgress);
-		if (CurrentProgress >= 1.f)
+		FVector2D NewMouseLocation;
+		int32 ScreenWidth, ScreenHeight;
+		PC->GetViewportSize(ScreenWidth, ScreenHeight);
+		FVector2D CenterScreen = FVector2D(ScreenWidth, ScreenHeight) * 0.5f;
+		PC->GetMousePosition(NewMouseLocation.X, NewMouseLocation.Y);
+
+		FVector2D ExpectedDirection = (NextPoint - LastPoint).GetSafeNormal();
+		FVector2D ActualDirection = (NewMouseLocation - CenterScreen).GetSafeNormal();
+
+		float MovementSpeed = (NewMouseLocation - CenterScreen).Size();
+		MovementSpeed = FMath::GetMappedRangeValueClamped(FVector2D(0.f, 400.f), FVector2D(0.f, 1.f), MovementSpeed);
+		
+		//Reset mouse location
+		PC->SetMouseLocation(CenterScreen.X, CenterScreen.Y);
+		
+		//Only update progress if mouse movement is in correct direction
+		if (FVector2D::DotProduct(ExpectedDirection, ActualDirection) > 0.6)
 		{
-			LastPoint = NextPoint;
-			CurrentPattern.RemoveAt(0);
-			if (CurrentPattern.Num() > 1)
+			//Updates current progress based on predefined progress rate and the actual speed of mouse or magnitude of traversal
+			float TotalSegs = ReloadPatternMap[CurrentPatternSequence[0]].Num();
+			float CurrentSegs = TotalSegs - CurrentPattern.Num();
+			CurrentProgress += GetWorld()->GetDeltaSeconds() * (ProgressRate * TotalSegs-1) * MovementSpeed;
+			TotalProgress = (CurrentSegs + CurrentProgress) / (TotalSegs - 1);
+			//UE_LOG(LogTemp, Display, TEXT("Current progress: %f"), CurrentProgress);
+			if (CurrentProgress >= 1.f)
 			{
-				CurrentProgress = 0.f;
-				NextPoint = CurrentPattern[1];
-				UE_LOG(LogTemp, Display, TEXT("CurrentPoint: %f, %f"), LastPoint.X, LastPoint.Y);
-				UE_LOG(LogTemp, Display, TEXT("NextPoint: %f, %f"), NextPoint.X, NextPoint.Y);
-				return;
-			}
-			CurrentPatternSequence.RemoveAt(0);
-			if (CurrentPatternSequence.Num() > 0)
-			{
-				UE_LOG(LogTemp, Display, TEXT("Next Pattern"));	
-				CurrentPattern = ReloadPatternMap[CurrentPatternSequence[0]];
+				LastPoint = NextPoint;
+				CurrentPattern.RemoveAt(0);
 				if (CurrentPattern.Num() > 1)
 				{
-					TotalProgress = 0.f;
 					CurrentProgress = 0.f;
-					LastPoint = CurrentPattern[0];
 					NextPoint = CurrentPattern[1];
 					UE_LOG(LogTemp, Display, TEXT("CurrentPoint: %f, %f"), LastPoint.X, LastPoint.Y);
 					UE_LOG(LogTemp, Display, TEXT("NextPoint: %f, %f"), NextPoint.X, NextPoint.Y);
 					return;
 				}
+				CurrentPatternSequence.RemoveAt(0);
+				if (CurrentPatternSequence.Num() > 0)
+				{
+					UE_LOG(LogTemp, Display, TEXT("Next Pattern"));	
+					CurrentPattern = ReloadPatternMap[CurrentPatternSequence[0]];
+					if (CurrentPattern.Num() > 1)
+					{
+						TotalProgress = 0.f;
+						CurrentProgress = 0.f;
+						LastPoint = CurrentPattern[0];
+						NextPoint = CurrentPattern[1];
+						UE_LOG(LogTemp, Display, TEXT("CurrentPoint: %f, %f"), LastPoint.X, LastPoint.Y);
+						UE_LOG(LogTemp, Display, TEXT("NextPoint: %f, %f"), NextPoint.X, NextPoint.Y);
+						return;
+					}
+				}
+				StopReload(true);
 			}
-			StopReload(true);
 		}
 	}
+	
 }
 
 void UReloadManagerComponent::StopReload(bool Success)
@@ -149,7 +158,7 @@ void UReloadManagerComponent::CreateReloadWidget()
 {
 	if (!ReloadWidget && ReloadWidgetClass)
 	{
-		ReloadWidget = CreateWidget<UUserWidget>(GetWorld()->GetFirstPlayerController(), ReloadWidgetClass);
+		ReloadWidget = CreateWidget<UUserWidget>(GetWorld(), ReloadWidgetClass);
 		ReloadWidget->AddToViewport();
 	}
 }

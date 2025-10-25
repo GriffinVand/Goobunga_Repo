@@ -15,6 +15,9 @@ class GOOBUNGA_API AHitScanWeapon : public AWeapon
 	GENERATED_BODY()
 
 public:
+
+	DECLARE_MULTICAST_DELEGATE_TwoParams(ApplyCombatDamage, AActor*, float);
+	
 	AHitScanWeapon();
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile", meta = (AllowPrivateAccess = "true"))

@@ -37,6 +37,7 @@ void ABaseEnemy::BeginPlay()
 
 			if (NewMeshComp)
 			{
+				NewMeshComp->SetIsReplicated(true);
 				NewMeshComp->SetStaticMesh(ComponentType);
 				NewMeshComp->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 				NewMeshComp->RegisterComponent();
@@ -70,48 +71,52 @@ void ABaseEnemy::Tick(float DeltaTime)
 // Take damage
 void ABaseEnemy::CombatDamage(AActor* DamageDealer, float Damage, EDamageType DamageType)
 {
+	if (!HasAuthority()) { UE_LOG(LogTemp, Warning, TEXT("Called combat damage on actor but not through authority")); return;}
 	Health -= Damage;
-	if (Health <= 0)
+	if (Health <= 0 && !Dead)
 	{
+		Dead = true;
 		FVector LastMovementSpeed = GetCharacterMovement()->GetLastUpdateVelocity();
-		Death(LastMovementSpeed);
+		ServerDeath(LastMovementSpeed);
 	}
 }
 
-void ABaseEnemy::Death(FVector LastMovementSpeed)
+void ABaseEnemy::ServerDeath_Implementation(FVector LastMovementSpeed)
+{
+	Dismember_Implementation(LastMovementSpeed);	
+}
+
+void ABaseEnemy::Dismember_Implementation(FVector LastMovementSpeed)
 {
 	CurrentState = EEnemyState::Death;
 	ABaseEnemyAIController* AIController = Cast<ABaseEnemyAIController>(Controller);
 	if (AIController)
 	{
 		AIController->GetBrainComponent()->StopLogic("Dead");
-		Dismember(LastMovementSpeed);
-		return;
 	}
-	UE_LOG(LogTemp, Warning, TEXT("Couldn't access AI Controller"));
-	Destroy();
-}
-
-void ABaseEnemy::Dismember(FVector LastMovementSpeed)
-{
 	GetMesh()->SetVisibility(false);
 	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	if (DismemberPartComponents.Num() > 0)
 	{
-		for (UStaticMeshComponent* DismemberPart : DismemberPartComponents)
-		{
-			DismemberPart->SetVisibility(true);
-			DismemberPart->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
-			DismemberPart->SetSimulatePhysics(true);
-			DismemberPart->AddRadialImpulse(GetActorLocation(), 1000.f, 700.f, RIF_Constant, true);
-			DismemberPart->AddImpulse(LastMovementSpeed, NAME_None,true);
-		}
-		FadingOut = true;
-		return;
+		SetLifeSpan(8);
 	}
-	UE_LOG(LogTemp, Warning, TEXT("No dismember parts"));
-	Destroy();
+	else
+	{
+		if (HasAuthority())
+		{
+			Destroy();
+		}
+		else { UE_LOG(LogTemp, Warning, TEXT("ABaseEnemy::Dismember tried to destroy actor but no authority")); }
+	}
+	for (UStaticMeshComponent* DismemberPart : DismemberPartComponents)
+	{
+		DismemberPart->SetVisibility(true);
+		DismemberPart->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
+		DismemberPart->SetSimulatePhysics(true);
+		DismemberPart->AddRadialImpulse(GetActorLocation(), 1000.f, 700.f, RIF_Constant, true);
+		DismemberPart->AddImpulse(LastMovementSpeed, NAME_None,true);
+	}
 }
 
 void ABaseEnemy::UpdateFadeOut(float DeltaTime)
@@ -119,6 +124,8 @@ void ABaseEnemy::UpdateFadeOut(float DeltaTime)
 	FadeOutTimeRemaining -= DeltaTime;
 	//If no fadeout time left destroy
 	if (FadeOutTimeRemaining <= 0) { Destroy(); }
+
+	/*
 	
 	FadeOutTimeElapsed += DeltaTime;
 	//Start with a base value ie: 2 which will be the immediate starting time before the part becomes invisible.
@@ -146,6 +153,8 @@ void ABaseEnemy::UpdateFadeOut(float DeltaTime)
 			DismemberPart->SetVisibility(true);
 		}
 	}
+
+	*/
 }
 
 //Interface function acts as a buffer for actual attack logic

@@ -17,10 +17,12 @@ AHitScanWeapon::AHitScanWeapon()
 
 void AHitScanWeapon::FireWeapon()
 {
+	UE_LOG(LogTemp, Display, TEXT("Fire Weapon"));
 	CurrentMag--;
-	if (WeaponOwner)
+	OnAmmoChanged.Broadcast();
+	if (GetOwner())
 	{
-		if (IPlayerCallables* PlayerCallablesInterface = Cast<IPlayerCallables>(WeaponOwner))
+		if (IPlayerCallables* PlayerCallablesInterface = Cast<IPlayerCallables>(GetOwner()))
 		{
 
 			//Line trace from player cam forward. If hit, line trace from gun barrel to that location
@@ -30,7 +32,7 @@ void AHitScanWeapon::FireWeapon()
 			FHitResult HitResult;
 			FCollisionQueryParams QueryParams;
 			QueryParams.AddIgnoredActor(this);
-			QueryParams.AddIgnoredActor(WeaponOwner);
+			QueryParams.AddIgnoredActor(GetOwner());
 
 			bool OwnerTrace = GetWorld()->LineTraceSingleByChannel(HitResult, OwnerStart, OwnerStart + OwnerDirection*10000, ECollisionChannel::ECC_WorldDynamic, QueryParams);
 
@@ -56,7 +58,7 @@ void AHitScanWeapon::FireWeapon()
 				{
 					if (ICombatCallables* CombatCallablesInterface = Cast<ICombatCallables>(HitActor))
 					{
-						CombatCallablesInterface->CombatDamage(GetOwner(), BaseDamage, EDamageType::None);
+						DealDamage(HitActor, BaseDamage);
 						UE_LOG(LogTemp, Display, TEXT("Apply Damage to Actor"));
 					}
 					else { UE_LOG(LogTemp, Display, TEXT("No damage to Actor")); }
@@ -78,7 +80,9 @@ void AHitScanWeapon::FireWeapon()
 			//Update UI
 			UpdateOwnerUI();
 		}
+		else { UE_LOG(LogTemp, Warning, TEXT("Weapon owner in hitscan does not implement playercallables")); }
 	}
+	else { UE_LOG(LogTemp, Warning, TEXT("Fire called in hitscan weapon: No owner error")); }
 }
 
 //Self-explanatory
