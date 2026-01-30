@@ -10,10 +10,10 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodePlayerMainWidget() {}
 
 // Begin Cross Module References
+COMMONUI_API UClass* Z_Construct_UClass_UCommonActivatableWidget();
 GOOBUNGA_API UClass* Z_Construct_UClass_UPlayerMainWidget();
 GOOBUNGA_API UClass* Z_Construct_UClass_UPlayerMainWidget_NoRegister();
 UMG_API UClass* Z_Construct_UClass_USizeBox_NoRegister();
-UMG_API UClass* Z_Construct_UClass_UUserWidget();
 UMG_API UClass* Z_Construct_UClass_UUserWidget_NoRegister();
 UPackage* Z_Construct_UPackage__Script_Goobunga();
 // End Cross Module References
@@ -70,7 +70,7 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UPlayerMa
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UPlayerMainWidget_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_UPlayerMainWidget_Statics::DependentSingletons[])() = {
-	(UObject* (*)())Z_Construct_UClass_UUserWidget,
+	(UObject* (*)())Z_Construct_UClass_UCommonActivatableWidget,
 	(UObject* (*)())Z_Construct_UPackage__Script_Goobunga,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UPlayerMainWidget_Statics::DependentSingletons) < 16);
@@ -107,14 +107,14 @@ UPlayerMainWidget::~UPlayerMainWidget() {}
 // End Class UPlayerMainWidget
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_Statics
+struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UPlayerMainWidget, UPlayerMainWidget::StaticClass, TEXT("UPlayerMainWidget"), &Z_Registration_Info_UClass_UPlayerMainWidget, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UPlayerMainWidget), 2767588936U) },
+		{ Z_Construct_UClass_UPlayerMainWidget, UPlayerMainWidget::StaticClass, TEXT("UPlayerMainWidget"), &Z_Registration_Info_UClass_UPlayerMainWidget, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UPlayerMainWidget), 927420172U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_1740356012(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_2237661810(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

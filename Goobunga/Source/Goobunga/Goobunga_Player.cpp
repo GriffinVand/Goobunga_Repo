@@ -11,41 +11,12 @@
 #include "ReloadManagerComponent.h"
 #include "Dialogue/DialogueManagerComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "Kismet/KismetMathLibrary.h"
 #include "Kismet/KismetStringLibrary.h"
 #include "Kismet/KismetSystemLibrary.h"
-#include "Net/UnrealNetwork.h"
 #include "Quests/QuestManagerComponent.h"
 #include "Weapons/Weapon.h"
+#include "Abilities/AbilityComponent.h"
 
-void AGoobunga_Player::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
-{
-	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-
-	DOREPLIFETIME(AGoobunga_Player, EquippedWeapon);
-}
-
-
-void AGoobunga_Player::SpawnServerActor_Implementation(FVector SpawnLocation)
-{
-	if (HasAuthority())
-	{
-		FActorSpawnParameters SpawnParameters;
-		SpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-		GetWorld()->SpawnActor<AActor>(ServerActorClass, SpawnLocation, FRotator::ZeroRotator, SpawnParameters);
-	}
-	else
-	{
-		FActorSpawnParameters SpawnParameters;
-		SpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-		GetWorld()->SpawnActor<AActor>(ServerActorClass, SpawnLocation, FRotator::ZeroRotator, SpawnParameters);
-	}
-}
-
-
-
-
-// Sets default values
 AGoobunga_Player::AGoobunga_Player()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
@@ -69,9 +40,8 @@ AGoobunga_Player::AGoobunga_Player()
 	QuestManagerComponent = CreateDefaultSubobject<UQuestManagerComponent>(TEXT("QuestManagerComponent"));
 	DialogueManagerComponent = CreateDefaultSubobject<UDialogueManagerComponent>(TEXT("DialogueManagerComponent"));
 	WeaponComponent = CreateDefaultSubobject<UWeaponComponent>(TEXT("WeaponComponent"));
+	AbilityComponent = CreateDefaultSubobject<UAbilityComponent>(TEXT("AbilityComponent"));
 }
-
-// Called when the game starts or when spawned
 void AGoobunga_Player::BeginPlay()
 {
 	Super::BeginPlay();
@@ -86,8 +56,6 @@ void AGoobunga_Player::BeginPlay()
 		}
 	}
 }
-
-// Called every frame
 void AGoobunga_Player::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -95,7 +63,7 @@ void AGoobunga_Player::Tick(float DeltaTime)
 	UpdateWeaponSwayData(DeltaTime);
 }
 
-// Called to bind functionality to input
+#pragma region INPUT FUNCTIONS
 void AGoobunga_Player::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
@@ -120,9 +88,6 @@ void AGoobunga_Player::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		EnhancedInputComponent->BindAction(ReloadAction, ETriggerEvent::Started, this, &AGoobunga_Player::StartReload);
 	}
 }
-
-//Called on movement triggered
-//Movement input added to a temporary move direction vector which is processed after all movement input is read
 void AGoobunga_Player::Move(const FInputActionValue& Value)
 {
 	const FVector2d MoveVector = Value.Get<FVector2d>();
@@ -130,13 +95,10 @@ void AGoobunga_Player::Move(const FInputActionValue& Value)
 	AddMovementInput(GetActorRightVector() * MoveVector.X);
 	TargetWeaponSwayData.Movement = FVector2D(MoveVector.X, MoveVector.Y);
 }
-
-//Called when movement stops being triggered
 void AGoobunga_Player::EndMove(const FInputActionValue& Value)
 {
 	TargetWeaponSwayData.Movement = FVector2D::ZeroVector;
 }
-
 void AGoobunga_Player::StartReload()
 {
 	if (Sprinting)
@@ -145,7 +107,7 @@ void AGoobunga_Player::StartReload()
 	}
 	if (!Reloading)
 	{
-		if (EquippedWeapon && EquippedWeapon->CurrentMag < EquippedWeapon->MaxMag && EquippedWeapon->CurrentAmmo > 0)
+		if (WeaponComponent && WeaponComponent->CanReload())
 		{
 			FireEnded(true);
 			UE_LOG(LogTemp, Display, TEXT("PlayerStartReload"));
@@ -155,21 +117,18 @@ void AGoobunga_Player::StartReload()
 		}
 	}
 }
-
 void AGoobunga_Player::EndReload(bool Success)
 {
 	UE_LOG(LogTemp, Display, TEXT("PlayerEndReload"));
 	if (Success)
 	{
-		if (EquippedWeapon)
+		if (WeaponComponent)
 		{
-			EquippedWeapon->Reload();
+			WeaponComponent->ReloadWeapon();
 		}
 	}
 	Reloading = false;
 }
-
-//Called when look input detected. 
 void AGoobunga_Player::Look(const FInputActionValue& Value)
 {
 	if (Reloading) { ReloadManagerComponent->UpdateReload(); return; }
@@ -178,13 +137,10 @@ void AGoobunga_Player::Look(const FInputActionValue& Value)
 	AddControllerPitchInput(LookVector.Y * Sensitivity * -1);
 	TargetWeaponSwayData.Look = LookVector;
 }
-
 void AGoobunga_Player::EndLook(const FInputActionValue& Value)
 {
 	TargetWeaponSwayData.Look = FVector2D::ZeroVector;
 }
-
-//Stop weapon activity including aiming, increase move speed, as long as grounded and only moving forward
 void AGoobunga_Player::SprintStarted()
 {
 	if (Sprinting == false)
@@ -196,15 +152,11 @@ void AGoobunga_Player::SprintStarted()
 	Sprinting = true;
 	GetCharacterMovement()->MaxWalkSpeed = 1200.f;
 }
-
-//Decrease movement speed, release movement direction
 void AGoobunga_Player::SprintEnded()
 {
 	Sprinting = false;
 	GetCharacterMovement()->MaxWalkSpeed = 800.f;	
 }
-
-//On fire event started alert equipped item, allowing it to handle necessary logic
 void AGoobunga_Player::FireStarted()
 {
 	if (Reloading)
@@ -215,30 +167,20 @@ void AGoobunga_Player::FireStarted()
 	{
 		SprintEnded();
 	}
-	if (EquippedWeapon)
+	if (WeaponComponent)
 	{
-		if (IFireableCallables* FireableInterface = Cast<IFireableCallables>(EquippedWeapon))
-		{
-			FireableInterface->FireEvent();
-		}
-		else {UE_LOG(LogTemp, Warning, TEXT("Equipped weapon doesn't implement fireables"));}
+		WeaponComponent->PrimFireStart();
 	}
-	else {UE_LOG(LogTemp, Warning, TEXT("Equipped weapon null"));}
+	else {UE_LOG(LogTemp, Warning, TEXT("No Weapon Component Goobunga_Player::FireStarted"));}
 }
-//On fire event ended alert equipped item, allowing it to handle necessary logic
 void AGoobunga_Player::FireEnded(bool Cancelled)
 {
-	IFireableCallables* FireableInterface = Cast<IFireableCallables>(EquippedWeapon);
-	if (FireableInterface)
+	if (WeaponComponent)
 	{
-		FireableInterface->EndFireEvent(Cancelled);
+		WeaponComponent->PrimFireStop(Cancelled);
 	}
-	else {UE_LOG(LogTemp, Warning, TEXT("Could not call endfire event"));}
-	UE_LOG(LogTemp, Display, TEXT("Fire ended"));
+	else {UE_LOG(LogTemp, Warning, TEXT("No Weapon Component Goobunga_Player::FireEnded"));}
 }
-
-//On alt-fire(right mouse) started, check if the equipped item can ADS
-//If so just perform ADS. If not, allow the equipped item to handle alt-fire
 void AGoobunga_Player::AltFireStarted()
 {
 	if (Reloading)
@@ -254,38 +196,21 @@ void AGoobunga_Player::AltFireStarted()
 		WeaponComponent->AltFireStart();
 	}
 }
-
-//On alt-fire(right mouse) ended
-//Generic call to stop ads. Has no effect if weapon does not allow ads
 void AGoobunga_Player::AltFireEnded(bool Cancelled)
 {
 	if (WeaponComponent)
 	{
-		WeaponComponent->AltFireStop();
+		WeaponComponent->AltFireStop(Cancelled);
 	}
 }
-
-//Lerps towards either full ads or full hip based on bAiming variable
-//Decreases fov, increase vignette, and minimizes mesh offset
-void AGoobunga_Player::UpdateAds(float Alpha)
-{
-	float NewFOV = FMath::Lerp(90, 70, Alpha);
-	Sensitivity = DefaultSensitivity * NewFOV / 90;
-	FPCamera->SetFieldOfView(NewFOV);
-	FPCamera->PostProcessSettings.bOverride_VignetteIntensity = true;
-	FPCamera->PostProcessSettings.VignetteIntensity = FMath::Lerp(0.f, 1.f, Alpha);
-	AimAlpha = Alpha;
-	UpdateAimDownSightTransform();
-	UE_LOG(LogTemp, Warning, TEXT("AimAlpha: %f"), AimAlpha);
-}
-
+#pragma endregion
+#pragma region AIM OFFSET/ WEAPON SWAY
 //Aim offset used to move control rotation accounting for recoil and others
 //This function can be called through an interface
 void AGoobunga_Player::ApplyAimOffset(FVector AimOffsetInput)
 {
 	AimOffset += (AimOffsetInput);
 }
-
 //Rotates over time to supplied aim offset. avoids snappy recoil
 void AGoobunga_Player::UpdateAimOffset()
 {
@@ -295,128 +220,11 @@ void AGoobunga_Player::UpdateAimOffset()
 	}
 	AimOffset = FMath::VInterpTo(AimOffset, FVector::ZeroVector, GetWorld()->GetDeltaSeconds(), 20.f);
 }
-
 //Return location and rotation of true look direction
 TArray<FVector> AGoobunga_Player::GetAimDirection()
 {
 	return {FPCamera->GetComponentLocation(), FPCamera->GetForwardVector()};
 }
-
-void AGoobunga_Player::CombatDamage(AActor* DamageCauser, float Damage, EDamageType DamageType)
-{
-	CurrHealth -= Damage;
-	UE_LOG(LogTemp, Error, TEXT("PLAYER WAS HURT"))
-	if (CurrHealth <= 0) { DeathSequence(); }
-}
-
-void AGoobunga_Player::DeathSequence()
-{
-	UKismetSystemLibrary::QuitGame(this, nullptr, EQuitPreference::Quit, true);
-}
-
-void AGoobunga_Player::SpawnServerWeapon_Implementation()
-{
-	UE_LOG(LogTemp, Error, TEXT("SpawnServerWeapon implementation called"));
-	if (ServerWeaponClass)
-	{
-		FActorSpawnParameters SpawnParameters;
-		SpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-		SpawnParameters.Owner = this;
-		SpawnParameters.Instigator = GetInstigator();
-		UnequipCurrent();
-		AWeapon* NewWeapon = GetWorld()->SpawnActor<AWeapon>(ServerWeaponClass, FVector::ZeroVector, FRotator::ZeroRotator, SpawnParameters);
-		FName AttachSocketName = NewWeapon->GetAttachSocketName();
-		NewWeapon->AttachToComponent(FPMesh, FAttachmentTransformRules::SnapToTargetIncludingScale, AttachSocketName);
-		EquipWeapon(NewWeapon);
-	}
-}
-
-void AGoobunga_Player::EquipWeapon(AWeapon* Weapon)
-{
-	EquippedWeapon = Weapon;
-	
-	if (IsLocallyControlled() && HasAuthority())
-	{
-		OnRep_EquippedWeapon();
-	}
-}
-
-void AGoobunga_Player::OnRep_EquippedWeapon()
-{
-	if (!EquippedWeapon) { UE_LOG(LogTemp, Error, TEXT("No equipped weapon")); return;}
-	UE_LOG(LogTemp, Error, TEXT("Called OnRep_EquippedWeapon"));
-	if (AGoobunga_PlayerController* Goobunga_Controller = Cast<AGoobunga_PlayerController>(GetController()))
-	{
-		if (Goobunga_Controller->IsLocalController())
-		{
-			UE_LOG(LogTemp, Error, TEXT("Called CreateWeaponUI From player"));
-			UE_LOG(LogTemp, Error, TEXT("WeaponMesh: %s"), *GetNameSafe(EquippedWeapon->WeaponMesh->GetSkinnedAsset()));
-			FPEquipped_Static->SetSkeletalMeshAsset(EquippedWeapon->WeaponMesh->GetSkeletalMeshAsset());
-			FPEquipped_Static->AttachToComponent(FPMesh_Static, FAttachmentTransformRules::SnapToTargetIncludingScale, EquippedWeapon->AttachSocketName);
-			FPEquipped_Static->SetRelativeTransform(FTransform::Identity);
-			CalculateAimDownSightTransform();
-			Goobunga_Controller->CreateWeaponUI(EquippedWeapon);
-		}
-	}
-	else { UE_LOG(LogTemp, Error, TEXT("Not goobunga_controller"));}
-}
-
-void AGoobunga_Player::UnequipCurrent()
-{
-	if (EquippedWeapon) { EquippedWeapon->Destroy(); }
-}
-
-void AGoobunga_Player::PerformAction(const FString& Action)
-{
-	TArray<FString> ActionArguments = UKismetStringLibrary::ParseIntoArray(Action, "x", true);
-	for (auto string : ActionArguments)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Action: %s"), *string);
-	}
-	if (ActionArguments.Num() == 2)
-	{
-		if (ActionArguments[0] == "ADD_QUEST")
-		{
-			UE_LOG(LogTemp, Display, TEXT("Recieved add quest command"));
-			FName QuestID = FName(ActionArguments[1]);
-			QuestManagerComponent->AddQuestToQuestList(QuestID);
-		}
-		else if (ActionArguments[0] == "SET_DIALOGUE")
-		{
-			UE_LOG(LogTemp, Display, TEXT("Set current dialogue command"));
-			TArray<FString> Arguments = UKismetStringLibrary::ParseIntoArray(ActionArguments[1], "-", true);
-			for (auto string : Arguments)
-			{
-				UE_LOG(LogTemp, Warning, TEXT("Action: %s"), *string);
-			}
-			if (Arguments.Num() == 2)
-			{
-				FName CharacterName = FName(ActionArguments[0]);
-				FName DialogueID = FName(ActionArguments[1]);
-				UE_LOG(LogTemp, Display, TEXT("Tell dialogue manager set character dialogue"));
-				DialogueManagerComponent->SetCharacterDialogue(CharacterName, DialogueID);
-			}
-		}
-	}
-	UE_LOG(LogTemp, Warning, TEXT("Performing Action: %s"), *Action);
-}
-
-void AGoobunga_Player::CalculateAimDownSightTransform()
-{
-	UE_LOG(LogTemp, Display, TEXT("CALCULATEADSTRANSFORM"));
-	FTransform CamTransform = FPCamera->GetComponentTransform();
-	FTransform SightTransform = FPEquipped_Static->GetSocketTransform("Sight_Socket");
-	FTransform RelativeTransform = SightTransform.GetRelativeTransform(CamTransform);
-	AimRelativeTransform = RelativeTransform.Inverse();
-	AimRelativeTransform.SetLocation(FVector(-10, AimRelativeTransform.GetLocation().Y, AimRelativeTransform.GetLocation().Z));
-}
-
-void AGoobunga_Player::UpdateAimDownSightTransform()
-{
-	FTransform NewTransform = UKismetMathLibrary::TLerp(FTransform::Identity, AimRelativeTransform, AimAlpha);
-	FPMesh_Align->SetRelativeTransform(NewTransform);
-}
-
 void AGoobunga_Player::UpdateWeaponSwayData(float DeltaTime)
 {
 	float NewMoveX = FMath::GetMappedRangeValueClamped(
@@ -459,19 +267,91 @@ void AGoobunga_Player::UpdateWeaponSwayData(float DeltaTime)
 		DeltaTime,
 		5.f);
 }
-
-
 FWeaponSwayData AGoobunga_Player::GetWeaponSwayData()
 {
 	return CurrentWeaponSwayData;
 }
+#pragma endregion
+#pragma region SAVE/LOAD
+void AGoobunga_Player::LoadGameFromFile(const UGoobungaSaveFile& SaveGame)
+{
+	if (!WeaponComponent) { UE_LOG(LogTemp, Error, TEXT("No WeaponComponent AGoobunga_Player::SaveGameToFile")); return; }
+	if (!AbilityComponent) { UE_LOG(LogTemp, Error, TEXT("No AbilityComponent AGoobunga_Player::SaveGameToFile")); return; }
+	WeaponComponent->InitializeFromSave(SaveGame);
+	AbilityComponent->InitializeFromSave(SaveGame);
+}
+void AGoobunga_Player::SaveGameToFile(UGoobungaSaveFile& SaveGame)
+{
+	if (!WeaponComponent) { UE_LOG(LogTemp, Error, TEXT("No WeaponComponent AGoobunga_Player::SaveGameToFile")); return; }
+	if (!AbilityComponent) { UE_LOG(LogTemp, Error, TEXT("No AbilityComponent AGoobunga_Player::SaveGameToFile")); return; }
+	WeaponComponent->SaveToSaveGame(SaveGame);
+	AbilityComponent->SaveToSaveGame(SaveGame);
+}
+#pragma endregion SAVE/LOAD
 
-
-
-
-
-
-
-
-
-
+void AGoobunga_Player::PerformAction(const FString& Action)
+{
+	TArray<FString> ActionArguments = UKismetStringLibrary::ParseIntoArray(Action, "x", true);
+	for (auto string : ActionArguments)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Action: %s"), *string);
+	}
+	if (ActionArguments.Num() == 2)
+	{
+		if (ActionArguments[0] == "ADD_QUEST")
+		{
+			UE_LOG(LogTemp, Display, TEXT("Recieved add quest command"));
+			FName QuestID = FName(ActionArguments[1]);
+			QuestManagerComponent->AddQuestToQuestList(QuestID);
+		}
+		else if (ActionArguments[0] == "SET_DIALOGUE")
+		{
+			UE_LOG(LogTemp, Display, TEXT("Set current dialogue command"));
+			TArray<FString> Arguments = UKismetStringLibrary::ParseIntoArray(ActionArguments[1], "-", true);
+			for (auto string : Arguments)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("Action: %s"), *string);
+			}
+			if (Arguments.Num() == 2)
+			{
+				FName CharacterName = FName(ActionArguments[0]);
+				FName DialogueID = FName(ActionArguments[1]);
+				UE_LOG(LogTemp, Display, TEXT("Tell dialogue manager set character dialogue"));
+				DialogueManagerComponent->SetCharacterDialogue(CharacterName, DialogueID);
+			}
+		}
+	}
+	UE_LOG(LogTemp, Warning, TEXT("Performing Action: %s"), *Action);
+}
+void AGoobunga_Player::UpdateAds(float Alpha)
+{
+	AimAlpha = Alpha;
+	float NewFOV = FMath::Lerp(90, 70, Alpha);
+	Sensitivity = DefaultSensitivity * NewFOV / 90;
+	FPCamera->SetFieldOfView(NewFOV);
+	FPCamera->PostProcessSettings.bOverride_VignetteIntensity = true;
+	FPCamera->PostProcessSettings.VignetteIntensity = FMath::Lerp(0.f, 1.f, Alpha);
+	UE_LOG(LogTemp, Warning, TEXT("AimAlpha: %f"), Alpha);
+}
+void AGoobunga_Player::CombatDamage(AActor* DamageCauser, float Damage, EDamageType DamageType)
+{
+	CurrHealth -= Damage;
+	UE_LOG(LogTemp, Error, TEXT("PLAYER WAS HURT"))
+	if (CurrHealth <= 0) { DeathSequence(); }
+}
+void AGoobunga_Player::DeathSequence()
+{
+	UKismetSystemLibrary::QuitGame(this, nullptr, EQuitPreference::Quit, true);
+}
+void AGoobunga_Player::EquipWeapon(AWeapon* Weapon)
+{
+	if (!Weapon) { UE_LOG(LogTemp, Error, TEXT("Weapon is null Goobunga_Player::EquipWeapon")); return;}
+	FName AttachSocketName = Weapon->GetAttachSocketName();
+	if (!FPMesh) { UE_LOG(LogTemp, Error, TEXT("No FPMesh Goobunga_Player::EquipWeapon")); return;}
+	Weapon->AttachToComponent(FPMesh, FAttachmentTransformRules::SnapToTargetIncludingScale, AttachSocketName);
+	if (AGoobunga_PlayerController* Goobunga_Controller = Cast<AGoobunga_PlayerController>(GetController()))
+	{
+		Goobunga_Controller->CreateWeaponUI(Weapon);
+	}
+	else { UE_LOG(LogTemp, Error, TEXT("Not goobunga_controller"));}
+}

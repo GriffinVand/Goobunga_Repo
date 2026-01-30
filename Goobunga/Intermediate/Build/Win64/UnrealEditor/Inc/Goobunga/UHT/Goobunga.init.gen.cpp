@@ -8,6 +8,8 @@
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeGoobunga_init() {}
 	GOOBUNGA_API UFunction* Z_Construct_UDelegateFunction_AWeapon_OnAmmoChanged__DelegateSignature();
+	GOOBUNGA_API UFunction* Z_Construct_UDelegateFunction_Goobunga_OnMasterWidgetCreated__DelegateSignature();
+	GOOBUNGA_API UFunction* Z_Construct_UDelegateFunction_Goobunga_OnObjectiveEvent__DelegateSignature();
 	GOOBUNGA_API UFunction* Z_Construct_UDelegateFunction_UQuestManagerComponent_OnEnemyKilled__DelegateSignature();
 	GOOBUNGA_API UFunction* Z_Construct_UDelegateFunction_UQuestManagerComponent_OnItemCollected__DelegateSignature();
 	GOOBUNGA_API UFunction* Z_Construct_UDelegateFunction_UQuestManagerComponent_OnLevelCompleted__DelegateSignature();
@@ -18,6 +20,8 @@ void EmptyLinkFunctionForGeneratedCodeGoobunga_init() {}
 		{
 			static UObject* (*const SingletonFuncArray[])() = {
 				(UObject* (*)())Z_Construct_UDelegateFunction_AWeapon_OnAmmoChanged__DelegateSignature,
+				(UObject* (*)())Z_Construct_UDelegateFunction_Goobunga_OnMasterWidgetCreated__DelegateSignature,
+				(UObject* (*)())Z_Construct_UDelegateFunction_Goobunga_OnObjectiveEvent__DelegateSignature,
 				(UObject* (*)())Z_Construct_UDelegateFunction_UQuestManagerComponent_OnEnemyKilled__DelegateSignature,
 				(UObject* (*)())Z_Construct_UDelegateFunction_UQuestManagerComponent_OnItemCollected__DelegateSignature,
 				(UObject* (*)())Z_Construct_UDelegateFunction_UQuestManagerComponent_OnLevelCompleted__DelegateSignature,
@@ -27,13 +31,13 @@ void EmptyLinkFunctionForGeneratedCodeGoobunga_init() {}
 				SingletonFuncArray,
 				UE_ARRAY_COUNT(SingletonFuncArray),
 				PKG_CompiledIn | 0x00000000,
-				0x9D9BD2DA,
-				0x6CD374A3,
+				0x9CFBD0EC,
+				0x69CC9931,
 				METADATA_PARAMS(0, nullptr)
 			};
 			UECodeGen_Private::ConstructUPackage(Z_Registration_Info_UPackage__Script_Goobunga.OuterSingleton, PackageParams);
 		}
 		return Z_Registration_Info_UPackage__Script_Goobunga.OuterSingleton;
 	}
-	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_Goobunga(Z_Construct_UPackage__Script_Goobunga, TEXT("/Script/Goobunga"), Z_Registration_Info_UPackage__Script_Goobunga, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x9D9BD2DA, 0x6CD374A3));
+	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_Goobunga(Z_Construct_UPackage__Script_Goobunga, TEXT("/Script/Goobunga"), Z_Registration_Info_UPackage__Script_Goobunga, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x9CFBD0EC, 0x69CC9931));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

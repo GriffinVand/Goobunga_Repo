@@ -71,22 +71,21 @@ void ABaseEnemy::Tick(float DeltaTime)
 // Take damage
 void ABaseEnemy::CombatDamage(AActor* DamageDealer, float Damage, EDamageType DamageType)
 {
-	if (!HasAuthority()) { UE_LOG(LogTemp, Warning, TEXT("Called combat damage on actor but not through authority")); return;}
 	Health -= Damage;
 	if (Health <= 0 && !Dead)
 	{
 		Dead = true;
 		FVector LastMovementSpeed = GetCharacterMovement()->GetLastUpdateVelocity();
-		ServerDeath(LastMovementSpeed);
+		Death(LastMovementSpeed);
 	}
 }
 
-void ABaseEnemy::ServerDeath_Implementation(FVector LastMovementSpeed)
+void ABaseEnemy::Death(FVector LastMovementSpeed)
 {
-	Dismember_Implementation(LastMovementSpeed);	
+	Dismember(LastMovementSpeed);	
 }
 
-void ABaseEnemy::Dismember_Implementation(FVector LastMovementSpeed)
+void ABaseEnemy::Dismember(FVector LastMovementSpeed)
 {
 	CurrentState = EEnemyState::Death;
 	ABaseEnemyAIController* AIController = Cast<ABaseEnemyAIController>(Controller);
@@ -221,7 +220,7 @@ void ABaseEnemy::AttackGeneric(int AttackNum)
 	}
 }
 
-void ABaseEnemy::LaunchTowardsLocation(FVector TargetLocation)
+void ABaseEnemy::LaunchTowardsLocation(AActor* TargetActor, FOnLaunchFinished InOnLaunchFinished)
 {
 	if (LaunchCooldown >= LaunchRate && CurrentState != EEnemyState::Launching)
 	{
@@ -232,9 +231,9 @@ void ABaseEnemy::LaunchTowardsLocation(FVector TargetLocation)
 				CurrentState = EEnemyState::Busy;
 				AnimInstance->Montage_Play(MontageMap["WindUp"]);
 				FOnMontageEnded MontageEnded;
-				MontageEnded.BindLambda([this](UAnimMontage* Montage, bool bInteruppted)
+				MontageEnded.BindLambda([this, TargetActor](UAnimMontage* Montage, bool bInteruppted)
 				{
-					StartLaunch();
+					StartLaunch(TargetActor);
 				});
 				AnimInstance->Montage_SetEndDelegate(MontageEnded, MontageMap["WindUp"]);
 			}
@@ -242,15 +241,13 @@ void ABaseEnemy::LaunchTowardsLocation(FVector TargetLocation)
 	}	
 }
 
-void ABaseEnemy::StartLaunch()
+void ABaseEnemy::StartLaunch(AActor* TargetActor)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Starting Launch"));
-	if (LaunchSpline)
+	if (LaunchSpline && TargetActor)
 	{
-
-		ACharacter* PlayerCharacter = GetWorld()->GetFirstPlayerController()->GetCharacter();
-		LaunchGoalLocation = PlayerCharacter->GetActorLocation();
-		FVector PlayerVelocity = PlayerCharacter->GetVelocity();
+		LaunchGoalLocation = TargetActor->GetActorLocation();
+		FVector PlayerVelocity = TargetActor->GetVelocity();
 		FVector DirTowardsLocation = LaunchGoalLocation - GetActorLocation();
 		DirTowardsLocation.Normalize();
 		LaunchGoalLocation = LaunchGoalLocation + (DirTowardsLocation * 250.f) + (PlayerVelocity);

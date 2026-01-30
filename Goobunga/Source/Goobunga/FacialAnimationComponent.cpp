@@ -18,7 +18,6 @@ UFacialAnimationComponent::UFacialAnimationComponent()
 void UFacialAnimationComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
 	// ...
 	
 }

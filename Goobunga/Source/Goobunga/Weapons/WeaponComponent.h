@@ -4,12 +4,26 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Goobunga/PersistentData/GoobungaSaveFile.h"
 #include "WeaponComponent.generated.h"
 
+class AGoobunga_Player;
+struct FWeaponSaveData;
+class UGoobungaSaveFile;
 DEFINE_LOG_CATEGORY_STATIC(LogWeaponComponent, Log, All);
-
 class AWeapon;
 class UTimelineComponent;
+
+
+
+
+UENUM(BlueprintType)
+enum class EWeaponSlot : uint8
+{
+	None UMETA(DisplayName = "None"),
+	Primary UMETA(DisplayName = "Primary"),
+	Secondary UMETA(DisplayName = "Secondary"),
+};
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class GOOBUNGA_API UWeaponComponent : public UActorComponent
@@ -18,48 +32,74 @@ class GOOBUNGA_API UWeaponComponent : public UActorComponent
 
 public:
 	UWeaponComponent();
-	//Single timeline stretched based on current weapon ads time
+	virtual void InitializeComponent() override;
+	virtual void BeginPlay() override;
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	
+	UPROPERTY(EditAnywhere)
+	bool bUseDefaultWeapons = false;
+	UPROPERTY(EditAnywhere)
+	TMap<EWeaponSlot, FWeaponSaveData> DefaultWeapons;
+	
+	
+	//WEAPONS
+	UPROPERTY(EditAnywhere)
+	AWeapon* PrimaryWeaponInstance = nullptr;
+	UPROPERTY(EditAnywhere)
+	AWeapon* SecondaryWeaponInstance = nullptr;
+	
+	EWeaponSlot EquippedWeaponSlot = EWeaponSlot::Primary;
+	UFUNCTION(BlueprintCallable)
+	AWeapon* GetEquippedWeapon();
+	void EquipWeapon(EWeaponSlot Slot);
+	void UnEquipWeapon(EWeaponSlot Slot);
+	void SwapWeapons();
+	AWeapon* GetWeaponInSlot(EWeaponSlot Slot);
+	void SetWeapon(const FWeaponSaveData& Weapon, EWeaponSlot Slot);
+	
+	UPROPERTY(EditAnywhere)
+	TArray<FWeaponSaveData> OwnedWeapons;
+	
+	
+	//SAVE-LOAD
+	void InitializeFromSave(const UGoobungaSaveFile& SaveGame);
+	void SaveToSaveGame(UGoobungaSaveFile& SaveGame);
+	
+	
+	//ADS
+	FTransform GetWeaponSightTransform();
+	void AltFireStart();
+	void AltFireStop(bool Cancelled);
+	void PrimFireStart();
+	void PrimFireStop(bool Cancelled);
+	bool CanReload();
+	void ReloadWeapon();
 	UPROPERTY(EditAnywhere)
 	UTimelineComponent* AdsTimeline;
-	UPROPERTY(EditAnywhere)
-	AWeapon* EquippedWeapon = nullptr;
-	UPROPERTY(EditAnywhere)
-	AWeapon* SecondaryWeapon = nullptr;
-
-	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
-
-	
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-	void AltFireStart() { StartAds(); }
-	void AltFireStop() { StopAds(); }
-	
-	FTransform GetWeaponSightTransform();
-
-
-protected:
-	virtual void BeginPlay() override;
-
-	//Temp ads test vars
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FTransform AimRelativeTransform = FTransform::Identity;
 	UPROPERTY(EditAnywhere)
 	float AdsTime = 1.f;
 	UPROPERTY(EditAnywhere)
 	bool bAds = false;
 	UPROPERTY(EditAnywhere)
 	UCurveFloat* AdsCurve = nullptr;
-	//
-	
-	
 	UFUNCTION()
 	void OnAdsTimelineUpdate(float Value);
 	UFUNCTION()
 	void OnAdsTimelineFinished();
-	
 	void StartAds();
 	void StopAds();
-
-private:
 	void SetAdsTimeline();
+	
+	void SetUpAdsPoses();
+	void CalculateAdsTransform();
+	void UpdateAdsTransform(float Alpha);
+	
+	UPROPERTY(EditAnywhere)
+	AGoobunga_Player* PlayerOwner = nullptr;
+	
+	
 	
 	
 };

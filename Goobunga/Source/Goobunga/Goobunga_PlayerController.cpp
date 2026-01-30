@@ -8,52 +8,38 @@
 void AGoobunga_PlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-
-	if (IsLocalController())
-	{
-		CreateMainHUD();
-	}
+	InitializeMasterWidget();
 }
 
-void AGoobunga_PlayerController::OnRep_Pawn()
+void AGoobunga_PlayerController::InitializeMasterWidget()
 {
-	Super::OnRep_Pawn();
-
-	if (IsLocalController())
-	{
-		CreateMainHUD();
-	}
+	if (!MasterWidgetClass) { UE_LOG(LogTemp, Error, TEXT("Null MasterWidgetClass")); return; }
+	MasterWidget = CreateWidget<UMasterWidget>(this, MasterWidgetClass);
+	if (!MasterWidget) { UE_LOG(LogTemp, Error, TEXT("Failed to create MasterWidget")); return; }
+	MasterWidget->AddToViewport();
+	OnMasterWidgetCreated.Broadcast();
+	if (AGoobunga_Player* Goobunga_Player = Cast<AGoobunga_Player>(GetPawn())) { InitializePlayerHUD(); }
 }
 
-void AGoobunga_PlayerController::CreateMainHUD()
+void AGoobunga_PlayerController::InitializePlayerHUD()
 {
-	if (!MainHUD && MainHUDClass)
-	{
-		MainHUD = CreateWidget<UPlayerMainWidget>(this, MainHUDClass);
-		if (!MainHUD) { UE_LOG(LogTemp, Warning, TEXT("AGoobunga_PlayerController::OnRep_Pawn Tried to create MainHUD but failed")); }
-		else
-		{
-			MainHUD->AddToViewport();
-		}
-	}
+	if (!MainHUDClass) { UE_LOG(LogTemp, Error, TEXT("Null MainHUDClass")); return; }
+	MainHUD = Cast<UPlayerMainWidget>(MasterWidget->PushWidget(MainHUDClass, ELayerType::Game));
+	if (!MainHUD) { UE_LOG(LogTemp, Error, TEXT("Failed to create MainHUD")); return;  }
 }
 
 void AGoobunga_PlayerController::CreateWeaponUI(AWeapon* Weapon)
 {
 	if (WeaponUI) { WeaponUI->RemoveFromParent(); WeaponUI = nullptr; }
 	WeaponUI = CreateWidget<UPlayerWeaponAmmoWidget>(this, WeaponUIClass);
-	if (!WeaponUI) { UE_LOG(LogTemp, Warning, TEXT("AGoobunga_PlayerController::UpdateWeaponUI Tried to create WeaponUI but failed")); }
-	else if (MainHUD)
+	if (!WeaponUI) { UE_LOG(LogTemp, Warning, TEXT("AGoobunga_PlayerController::CreateWeaponUI Tried to create WeaponUI but failed")); return; }
+	if (!MainHUD) { UE_LOG(LogTemp, Warning, TEXT("AGoobunga_PlayerController::CreateWeaponUI No MainHUD")); return; }
+	if (MainHUD->WeaponUIContainer)
 	{
-		if (MainHUD->WeaponUIContainer)
-		{
-			WeaponUI->BindToWeapon(Weapon);
-			MainHUD->WeaponUIContainer->AddChild(WeaponUI);
-			UE_LOG(LogTemp, Error, TEXT("Added weapon ui to hud"));
-			return;
-		}
-		UE_LOG(LogTemp, Error, TEXT("No weapon ui container CreateWeaponUI"));
+		WeaponUI->BindToWeapon(Weapon);
+		MainHUD->WeaponUIContainer->AddChild(WeaponUI);
+		UE_LOG(LogTemp, Error, TEXT("Added weapon ui to hud"));
 		return;
 	}
-	UE_LOG(LogTemp, Error, TEXT("No mainhud CreateWeaponUI"));
+	UE_LOG(LogTemp, Error, TEXT("No weapon ui container CreateWeaponUI"));
 }

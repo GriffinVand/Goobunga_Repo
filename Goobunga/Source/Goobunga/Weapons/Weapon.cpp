@@ -9,9 +9,6 @@
 // Sets default values
 AWeapon::AWeapon()
 {
-	bReplicates = true;
-	SetReplicateMovement(true);
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	//Create components
@@ -165,7 +162,7 @@ UTexture2D* AWeapon::GetIcon(FString IconName)
 	return nullptr;
 }
 
-void AWeapon::DealDamage_Implementation(AActor* DamagedActor, float Damage)
+void AWeapon::DealDamage(AActor* DamagedActor, float Damage)
 {
 	if (!DamagedActor) { return; }
 	if (ICombatCallables* CombatCallablesInterface = Cast<ICombatCallables>(DamagedActor))

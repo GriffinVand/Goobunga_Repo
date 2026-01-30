@@ -11,42 +11,25 @@
 UBTTask_LaunchInDirection::UBTTask_LaunchInDirection()
 {
 	NodeName = "LaunchInDirection";
-	bNotifyTick = true;
+	bNotifyTick = false;
 }
 
 EBTNodeResult::Type UBTTask_LaunchInDirection::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	AActor* SelfActor = Cast<AActor>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(SelfActorKey.SelectedKeyName));
 	AActor* PlayerActor = Cast<AActor>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(PlayerActorKey.SelectedKeyName));
-	if (SelfActor && PlayerActor)
+	if (!SelfActor || !PlayerActor) return EBTNodeResult::Failed;
+	
+	if (IEnemyCallables* EnemyCallablesInterface = Cast<IEnemyCallables>(SelfActor))
 	{
-		FVector TargetLocation = PlayerActor->GetActorLocation();
-		if (IEnemyCallables* EnemyCallablesInterface = Cast<IEnemyCallables>(SelfActor))
+		UE_LOG(LogTemp, Warning, TEXT("Launch Begin"));
+		EnemyCallablesInterface->LaunchTowardsLocation(PlayerActor, FOnLaunchFinished::CreateLambda([this, OwnerCompPtr = &OwnerComp]()
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Launch Begin"));
-			EnemyCallablesInterface->LaunchTowardsLocation(TargetLocation);
-			return EBTNodeResult::InProgress;
-		}
+			FinishLatentTask(*OwnerCompPtr, EBTNodeResult::Succeeded);
+		}));
 	}
-	return EBTNodeResult::Failed;
-}
-
-void UBTTask_LaunchInDirection::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
-{
-	Super::TickTask(OwnerComp, NodeMemory, DeltaSeconds);
-	AActor* SelfActor = Cast<AActor>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(SelfActorKey.SelectedKeyName));
-	if (SelfActor)
-	{
-		if (IEnemyCallables* EnemyCallablesInterface = Cast<IEnemyCallables>(SelfActor))
-		{
-			if (EnemyCallablesInterface->GetCurrentState() != EEnemyState::Launching && EnemyCallablesInterface->GetCurrentState() != EEnemyState::Busy)
-			{
-				UE_LOG(LogTemp, Warning, TEXT("LaunchInProgress"));
-				FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
-			}
-		}
-	}
-	else { FinishLatentTask(OwnerComp, EBTNodeResult::Failed); }
+	
+	return EBTNodeResult::InProgress;
 }
 
 EBTNodeResult::Type UBTTask_LaunchInDirection::AbortTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)

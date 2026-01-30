@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "WeaponTypes.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Actor.h"
 #include "Goobunga/FireableCallables.h"
@@ -25,6 +24,8 @@ public:
 	
 	// Sets default values for this actor's properties
 	AWeapon();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FName WeaponID = "Weapon";
     
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Mesh, meta = (AllowPrivateAccess = "true"))
 	USkeletalMeshComponent* WeaponMesh;
@@ -43,8 +44,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = UserInterface, meta = (AllowPrivateAccess = "true"))
 	EWeaponUItype WeaponUIType = EWeaponUItype::Thin;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	EWeaponType WeaponType = EWeaponType::None;
 	//ADS information
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	bool ADS = false;
@@ -129,6 +128,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animation, meta = (AllowPrivateAccess = "true"))
 	TMap<FName, UAnimMontage*> OwnerAnimations;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Animation)
+	UAnimSequence* WeaponStaticAnim = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Animation)
+	UAnimSequence* OwnerStaticAnim = nullptr;
 	//Controlled by owner input
 	bool bFiring = false;
 	
@@ -165,7 +168,6 @@ public:
 
 	//Self-explanatory
 	virtual void FireWeapon();
-	UFUNCTION(Server, Reliable)
 	virtual void DealDamage(AActor* DamagedActor, float Damage);
 	//Sends recoil information to owner
 	virtual void ApplyRecoil();

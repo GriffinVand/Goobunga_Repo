@@ -9,17 +9,19 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+class AWeapon;
 #ifdef GOOBUNGA_WeaponComponent_generated_h
 #error "WeaponComponent.generated.h already included, missing '#pragma once' in WeaponComponent.h"
 #endif
 #define GOOBUNGA_WeaponComponent_generated_h
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_WeaponComponent_h_17_RPC_WRAPPERS_NO_PURE_DECLS \
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_WeaponComponent_h_31_RPC_WRAPPERS_NO_PURE_DECLS \
 	DECLARE_FUNCTION(execOnAdsTimelineFinished); \
-	DECLARE_FUNCTION(execOnAdsTimelineUpdate);
+	DECLARE_FUNCTION(execOnAdsTimelineUpdate); \
+	DECLARE_FUNCTION(execGetEquippedWeapon);
 
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_WeaponComponent_h_17_INCLASS_NO_PURE_DECLS \
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_WeaponComponent_h_31_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUWeaponComponent(); \
 	friend struct Z_Construct_UClass_UWeaponComponent_Statics; \
@@ -28,7 +30,7 @@ public: \
 	DECLARE_SERIALIZER(UWeaponComponent)
 
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_WeaponComponent_h_17_ENHANCED_CONSTRUCTORS \
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_WeaponComponent_h_31_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	UWeaponComponent(UWeaponComponent&&); \
@@ -40,13 +42,13 @@ public: \
 	NO_API virtual ~UWeaponComponent();
 
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_WeaponComponent_h_14_PROLOG
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_WeaponComponent_h_17_GENERATED_BODY \
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_WeaponComponent_h_28_PROLOG
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_WeaponComponent_h_31_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_WeaponComponent_h_17_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_WeaponComponent_h_17_INCLASS_NO_PURE_DECLS \
-	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_WeaponComponent_h_17_ENHANCED_CONSTRUCTORS \
+	FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_WeaponComponent_h_31_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_WeaponComponent_h_31_INCLASS_NO_PURE_DECLS \
+	FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_WeaponComponent_h_31_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -54,7 +56,16 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> GOOBUNGA_API UClass* StaticClass<class UWeaponComponent>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_WeaponComponent_h
+#define CURRENT_FILE_ID FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_WeaponComponent_h
 
+
+#define FOREACH_ENUM_EWEAPONSLOT(op) \
+	op(EWeaponSlot::None) \
+	op(EWeaponSlot::Primary) \
+	op(EWeaponSlot::Secondary) 
+
+enum class EWeaponSlot : uint8;
+template<> struct TIsUEnumClass<EWeaponSlot> { enum { Value = true }; };
+template<> GOOBUNGA_API UEnum* StaticEnum<EWeaponSlot>();
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

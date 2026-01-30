@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayTagContainer.h"
 #include "QuestStruct.generated.h"
 
 USTRUCT(BlueprintType)
@@ -26,6 +27,8 @@ struct FQuestStruct : public FTableRowBase
 	int QuestRewardAmount;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSoftObjectPtr<UTexture2D> QuestRewardIcon;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FGameplayTagContainer QuestProgressTags;
 
 	bool operator==(const FQuestStruct &other) const
 	{

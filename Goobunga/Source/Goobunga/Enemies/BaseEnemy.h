@@ -65,9 +65,9 @@ public:
 
 	EEnemyState CurrentState = Walking;
 	
-	UFUNCTION(Server, Reliable)
-	virtual void ServerDeath(FVector LastMovementSpeed);
-	UFUNCTION(NetMulticast, Reliable)
+	UFUNCTION()
+	virtual void Death(FVector LastMovementSpeed);
+	UFUNCTION()
 	virtual void Dismember(FVector LastMovementSpeed);
 	
 	virtual void UpdateFadeOut(float DeltaTime);
@@ -79,7 +79,7 @@ public:
 	TMap<FName, UAnimMontage*> MontageMap;
 	
 	virtual void AttackGeneric(int AttackNum);
-	virtual void LaunchTowardsLocation(FVector TargetLocation) override;
+	virtual void LaunchTowardsLocation(AActor* TargetActor, FOnLaunchFinished InOnLaunchFinished) override;
 
 	bool Dead = false;
 	bool Launching = false;
@@ -91,7 +91,7 @@ public:
 	float LaunchSplineTime = 0.7f;
 	float LaunchRate = 8.f;
 	float LaunchCooldown = 8.f;
-	virtual void StartLaunch();
+	virtual void StartLaunch(AActor* TargetActor);
 	virtual void UpdateLaunchProgress(float DeltaTime);
 	virtual void EndLaunch();
 

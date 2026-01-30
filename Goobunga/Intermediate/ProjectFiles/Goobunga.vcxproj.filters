@@ -58,6 +58,12 @@
     <ClCompile Include="..\..\Source\Goobunga\Goobunga_Player.h">
       <Filter>Source\Goobunga</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Goobunga_PlayerController.cpp">
+      <Filter>Source\Goobunga</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Goobunga_PlayerController.h">
+      <Filter>Source\Goobunga</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\PlayerCallables.cpp">
       <Filter>Source\Goobunga</Filter>
     </ClCompile>

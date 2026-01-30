@@ -4,11 +4,13 @@
 #include "PlayerCallables.h"
 #include "Combat/CombatCallables.h"
 #include "GameFramework/Character.h"
+#include "PersistentData/PersistentDataInterface.h"
 #include "Weapons/Weapon.h"
 #include "Weapons/WeaponComponent.h"
 #include "Weapons/WeaponSwayData.h"
 #include "Goobunga_Player.generated.h"
 
+class UAbilityComponent;
 class UQuestManagerComponent;
 struct FInputActionValue;
 class UInputMappingContext;
@@ -19,29 +21,21 @@ class UFacialAnimationComponent;
 class AWeapon;
 
 UCLASS()
-class GOOBUNGA_API AGoobunga_Player : public ACharacter, public IPlayerCallables, public ICombatCallables
+class GOOBUNGA_API AGoobunga_Player : public ACharacter, public IPlayerCallables, public ICombatCallables, public IPersistentDataInterface
 {
 	GENERATED_BODY()
-
-public:
-	// Sets default values for this character's properties
-	AGoobunga_Player();
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:
-
-	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	
+	AGoobunga_Player();
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 	
-	UFUNCTION(BlueprintCallable)
-	FWeaponSwayData GetWeaponSwayData();
-
-	//Default Components
+#pragma region Components
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
 	USkeletalMeshComponent* FPMesh;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
@@ -52,8 +46,7 @@ public:
 	USkeletalMeshComponent* FPEquipped_Static;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
 	USceneComponent* FPMesh_Align;
-
-	//Custom components
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	UFacialAnimationComponent* FacialAnimationComponent;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = true))
@@ -62,12 +55,14 @@ public:
 	UQuestManagerComponent* QuestManagerComponent;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = true))
 	UDialogueManagerComponent* DialogueManagerComponent;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UWeaponComponent* WeaponComponent;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UAbilityComponent* AbilityComponent;
+#pragma endregion
 
-	//Hand rotation location
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FTransform AimRelativeTransform = FTransform::Identity;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float AimAlpha = 0.f;
+	UFUNCTION()
+	void EquipWeapon(AWeapon* Weapon);
 	
 protected:
 	//Stats
@@ -81,28 +76,26 @@ protected:
 	
 	//2D Animation
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
-	UMaterialInterface* PlayerFaceMaterial;
+	UMaterialInstance* PlayerFaceMaterial;
 	
 	//Lag amount of spring arm
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	float MeshLag = 15.f;
 	FRotator LastLookRotation = FRotator::ZeroRotator;
 
-	//
-	//WEAPON INFORMATION
-	//
-	UPROPERTY(EditAnywhere)
-	UWeaponComponent* WeaponComponent = nullptr;
+	
 	//Reloading?
 	bool Reloading = false;
 	//Aim related
 	bool bAiming = false;
-	//
-	//Current equipped item, can be a weapon or an item
-	//
+	//Movement
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
+	bool Sprinting = false;
+	bool Busy = false;
 	
 	
-	//Buffer for weapon sway data
+	UFUNCTION(BlueprintCallable)
+	FWeaponSwayData GetWeaponSwayData();
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FWeaponSwayData TargetWeaponSwayData = FWeaponSwayData();
 	FWeaponSwayData CurrentWeaponSwayData = FWeaponSwayData();
@@ -120,97 +113,61 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	FVector AimOffset = FVector::ZeroVector;
 
-	//Movement
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
-	bool Sprinting = false;
-	bool Busy = false;
-
-	//
-	//Input
-	//
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
+#pragma region Input
+	
+	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputMappingContext* DefaultMappingContext;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* MoveAction;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* LookAction;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* JumpAction;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* FireAction;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* AltFireAction;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* SprintAction;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* ReloadAction;
-
-	//Basic move look
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* MainAbilityAction;
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* SecondaryAbilityAction;
+	
 	void Move(const FInputActionValue& Value);
-	//When moving stops
 	void EndMove(const FInputActionValue& Value);
 	
 	void Look(const FInputActionValue& Value);
 	void EndLook(const FInputActionValue& Value);
-
-	//Called on fire event started
+	
 	void FireStarted();
-	//Called on fire event completed or cancelled
 	void FireEnded(bool Cancelled);
-	//For enhanced input functionality
 	void FireInputEnded() { FireEnded(false);}
-
-	//Called on alt fire started
+	
 	void AltFireStarted();
-	//Called on alt fire completed or cancelled
 	void AltFireEnded(bool Cancelled);
-	//For enhanced input functionality
 	void AltFireInputEnded() { AltFireEnded(false);}
 	
-	//Called on sprint started
 	void SprintStarted();
-	//Called on sprint ended
 	void SprintEnded();
-
-	////
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Equipment", meta = (AllowPrivateAccess = "true"), ReplicatedUsing = OnRep_EquippedWeapon)
-	AWeapon* EquippedWeapon;
-	UFUNCTION()
-	void EquipWeapon(AWeapon* Weapon);
-	UFUNCTION()
-	void OnRep_EquippedWeapon();
-	UFUNCTION()
-	void CalculateAimDownSightTransform();
-	UFUNCTION()
-	void UpdateAimDownSightTransform();
-	UFUNCTION(BlueprintCallable)
-	void SpawnServerWeaponAction() { SpawnServerWeapon(); }
-	UFUNCTION(Server, Reliable)
-	void SpawnServerWeapon();
-	UPROPERTY(EditAnywhere)
-	TSubclassOf<AActor> ServerWeaponClass;
-	////
-
-	////
-	UPROPERTY(EditAnywhere)
-	TSubclassOf<AActor> ServerActorClass;
-	UFUNCTION(BlueprintCallable)
-	void SpawnServerActorAction() { SpawnServerActor(GetActorLocation() + FVector(0, 0, 300)); }
-	UFUNCTION(Server, Reliable)
-	void SpawnServerActor(FVector SpawnLocation);
-	////
 	
-
-	UFUNCTION(BlueprintCallable)
-	void UnequipCurrent();
+#pragma endregion
+	
+	
 	void StartReload();
 	virtual void EndReload(bool Success) override;
 	virtual void UpdateAds(float Alpha) override;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float AimAlpha = 0.f;
 	virtual void UpdateWeaponUI() override { return;}
 	void UpdateAimOffset();
 	void UpdateWeaponSwayData(float DeltaTime);
 	virtual void ApplyAimOffset(FVector AimOffsetInput) override;
 	virtual TArray<FVector> GetAimDirection() override;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Equipment", meta = (AllowPrivateAccess = "true"))
+	AWeapon* EquippedWeapon;
 
 	//
 	//combat function. Should probably be moved to a component
@@ -218,9 +175,13 @@ protected:
 	virtual void CombatDamage(AActor* DamageDealer, float Damage, EDamageType DamageType) override;
 	void DeathSequence();
 
-	//
-	//????
+	//Player callables?
 	virtual void PerformAction(const FString& Action) override;
 	virtual void PushWidget(FGameplayTag GameplayTag, UUserWidget* Widget) override {}
+	
+	//Persistent data
+	virtual void LoadGameFromFile(const UGoobungaSaveFile& SaveGame) override;
+	virtual void SaveGameToFile(UGoobungaSaveFile& SaveGame) override;
+	
 };
 
