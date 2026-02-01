@@ -37,7 +37,7 @@ struct Z_Construct_UClass_UBTTask_LaunchInDirection_Statics
 		{ "IncludePath", "Enemies/BTTask_LaunchInDirection.h" },
 		{ "ModuleRelativePath", "Enemies/BTTask_LaunchInDirection.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_PlayerActorKey_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_TargetActorKey_MetaData[] = {
 		{ "Category", "Blackboard" },
 		{ "ModuleRelativePath", "Enemies/BTTask_LaunchInDirection.h" },
 	};
@@ -46,7 +46,7 @@ struct Z_Construct_UClass_UBTTask_LaunchInDirection_Statics
 		{ "ModuleRelativePath", "Enemies/BTTask_LaunchInDirection.h" },
 	};
 #endif // WITH_METADATA
-	static const UECodeGen_Private::FStructPropertyParams NewProp_PlayerActorKey;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_TargetActorKey;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_SelfActorKey;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
@@ -55,10 +55,10 @@ struct Z_Construct_UClass_UBTTask_LaunchInDirection_Statics
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UBTTask_LaunchInDirection_Statics::NewProp_PlayerActorKey = { "PlayerActorKey", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UBTTask_LaunchInDirection, PlayerActorKey), Z_Construct_UScriptStruct_FBlackboardKeySelector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_PlayerActorKey_MetaData), NewProp_PlayerActorKey_MetaData) }; // 3940742986
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UBTTask_LaunchInDirection_Statics::NewProp_TargetActorKey = { "TargetActorKey", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UBTTask_LaunchInDirection, TargetActorKey), Z_Construct_UScriptStruct_FBlackboardKeySelector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_TargetActorKey_MetaData), NewProp_TargetActorKey_MetaData) }; // 3940742986
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UBTTask_LaunchInDirection_Statics::NewProp_SelfActorKey = { "SelfActorKey", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UBTTask_LaunchInDirection, SelfActorKey), Z_Construct_UScriptStruct_FBlackboardKeySelector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SelfActorKey_MetaData), NewProp_SelfActorKey_MetaData) }; // 3940742986
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UBTTask_LaunchInDirection_Statics::PropPointers[] = {
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UBTTask_LaunchInDirection_Statics::NewProp_PlayerActorKey,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UBTTask_LaunchInDirection_Statics::NewProp_TargetActorKey,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UBTTask_LaunchInDirection_Statics::NewProp_SelfActorKey,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UBTTask_LaunchInDirection_Statics::PropPointers) < 2048);
@@ -102,10 +102,10 @@ UBTTask_LaunchInDirection::~UBTTask_LaunchInDirection() {}
 struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTTask_LaunchInDirection_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UBTTask_LaunchInDirection, UBTTask_LaunchInDirection::StaticClass, TEXT("UBTTask_LaunchInDirection"), &Z_Registration_Info_UClass_UBTTask_LaunchInDirection, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBTTask_LaunchInDirection), 4088996363U) },
+		{ Z_Construct_UClass_UBTTask_LaunchInDirection, UBTTask_LaunchInDirection::StaticClass, TEXT("UBTTask_LaunchInDirection"), &Z_Registration_Info_UClass_UBTTask_LaunchInDirection, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBTTask_LaunchInDirection), 4273355513U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTTask_LaunchInDirection_h_510836483(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTTask_LaunchInDirection_h_627382545(TEXT("/Script/Goobunga"),
 	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTTask_LaunchInDirection_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTTask_LaunchInDirection_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

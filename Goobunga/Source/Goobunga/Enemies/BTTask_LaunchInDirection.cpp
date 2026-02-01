@@ -5,6 +5,8 @@
 
 #include "BaseEnemy.h"
 #include "EnemyCallables.h"
+#include "JoshEnemy.h"
+#include "LaunchInterface.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "GameFramework/Character.h"
 
@@ -17,13 +19,13 @@ UBTTask_LaunchInDirection::UBTTask_LaunchInDirection()
 EBTNodeResult::Type UBTTask_LaunchInDirection::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	AActor* SelfActor = Cast<AActor>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(SelfActorKey.SelectedKeyName));
-	AActor* PlayerActor = Cast<AActor>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(PlayerActorKey.SelectedKeyName));
-	if (!SelfActor || !PlayerActor) return EBTNodeResult::Failed;
+	AActor* TargetActor = Cast<AActor>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(TargetActorKey.SelectedKeyName));
+	if (!SelfActor || !TargetActor) return EBTNodeResult::Failed;
 	
-	if (IEnemyCallables* EnemyCallablesInterface = Cast<IEnemyCallables>(SelfActor))
+	if (ILaunchInterface* LaunchInterface = Cast<ILaunchInterface>(SelfActor))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Launch Begin"));
-		EnemyCallablesInterface->LaunchTowardsLocation(PlayerActor, FOnLaunchFinished::CreateLambda([this, OwnerCompPtr = &OwnerComp]()
+		LaunchInterface->LaunchTowardsLocation(TargetActor, FOnLaunchFinished::CreateLambda([this, OwnerCompPtr = &OwnerComp]()
 		{
 			FinishLatentTask(*OwnerCompPtr, EBTNodeResult::Succeeded);
 		}));
@@ -34,7 +36,7 @@ EBTNodeResult::Type UBTTask_LaunchInDirection::ExecuteTask(UBehaviorTreeComponen
 
 EBTNodeResult::Type UBTTask_LaunchInDirection::AbortTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
-	ABaseEnemy* SelfActor = Cast<ABaseEnemy>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(SelfActorKey.SelectedKeyName));
+	AJoshEnemy* SelfActor = Cast<AJoshEnemy>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(SelfActorKey.SelectedKeyName));
 	if (SelfActor)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Tell Actor end launch"));

@@ -18,7 +18,6 @@ void UBTS_UpdateEnemyCooldowns::TickNode(UBehaviorTreeComponent& OwnerComp, uint
 		if (IEnemyCallables* EnemyCallablesInterface = Cast<IEnemyCallables>(SelfActor))
 		{
 			OwnerComp.GetBlackboardComponent()->SetValueAsBool(CanAttackKey.SelectedKeyName, EnemyCallablesInterface->GetCanAttack());
-			OwnerComp.GetBlackboardComponent()->SetValueAsBool(CanLaunchKey.SelectedKeyName, EnemyCallablesInterface->GetCanLaunch());
 		}
 	}
 	

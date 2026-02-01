@@ -23,7 +23,7 @@ protected:
 	UPROPERTY(EditAnywhere, Category = Blackboard)
 	FBlackboardKeySelector SelfActorKey;
 	UPROPERTY(EditAnywhere, Category = Blackboard)
-	FBlackboardKeySelector Player;
+	FBlackboardKeySelector TargetActorKey;
 	UPROPERTY(EditAnywhere, Category = Blackboard)
 	FBlackboardKeySelector TargetLocation;
 };

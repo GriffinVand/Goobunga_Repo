@@ -78,6 +78,8 @@ public:
 	UTimelineComponent* AdsTimeline;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FTransform AimRelativeTransform = FTransform::Identity;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FRotator BarrelRotOffset = FRotator(0.0f, 0.0f, 0.0f);
 	UPROPERTY(EditAnywhere)
 	float AdsTime = 1.f;
 	UPROPERTY(EditAnywhere)
@@ -94,6 +96,7 @@ public:
 	
 	void SetUpAdsPoses();
 	void CalculateAdsTransform();
+	void CalculateRotOffset();
 	void UpdateAdsTransform(float Alpha);
 	
 	UPROPERTY(EditAnywhere)

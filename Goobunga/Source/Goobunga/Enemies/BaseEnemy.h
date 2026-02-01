@@ -25,8 +25,8 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	virtual void UpdateCurrentState(float DeltaTime);
 
 	UPROPERTY(EditDefaultsOnly)
 	class UBehaviorTree* BehaviorTree;
@@ -69,34 +69,20 @@ public:
 	virtual void Death(FVector LastMovementSpeed);
 	UFUNCTION()
 	virtual void Dismember(FVector LastMovementSpeed);
-	
 	virtual void UpdateFadeOut(float DeltaTime);
-
+	bool Dead = false;
+	
+	
 	UPROPERTY(EditDefaultsOnly, meta = (AllowPrivateAccess = "true"))
 	TArray<UAnimMontage*> AttackMontages;
-
 	UPROPERTY(EditDefaultsOnly, meta = (AllowPrivateAccess = "true"))
 	TMap<FName, UAnimMontage*> MontageMap;
-	
 	virtual void AttackGeneric(int AttackNum);
-	virtual void LaunchTowardsLocation(AActor* TargetActor, FOnLaunchFinished InOnLaunchFinished) override;
 
-	bool Dead = false;
-	bool Launching = false;
-	FVector LaunchGoalLocation;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
-	USplineComponent* LaunchSpline;
-	float LaunchForce = 500.f;
-	float LaunchSplineAlpha = 0.f;
-	float LaunchSplineTime = 0.7f;
-	float LaunchRate = 8.f;
-	float LaunchCooldown = 8.f;
-	virtual void StartLaunch(AActor* TargetActor);
-	virtual void UpdateLaunchProgress(float DeltaTime);
-	virtual void EndLaunch();
+	
+	
 
 	virtual bool GetCanAttack() override { return AttackCooldown > AttackRate; }
-	virtual bool GetCanLaunch() override { return LaunchCooldown > LaunchRate; }
 	virtual EEnemyState GetCurrentState() override { return CurrentState; }
 	
 	virtual void CombatDamage(AActor* DamageDealer, float Damage, EDamageType DamageType) override;

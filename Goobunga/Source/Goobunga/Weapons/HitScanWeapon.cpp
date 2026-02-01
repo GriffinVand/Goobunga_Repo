@@ -17,72 +17,34 @@ AHitScanWeapon::AHitScanWeapon()
 
 void AHitScanWeapon::FireWeapon()
 {
-	UE_LOG(LogTemp, Display, TEXT("Fire Weapon"));
 	CurrentMag--;
 	OnAmmoChanged.Broadcast();
-	if (GetOwner())
+	
+	FHitResult HitResult;
+	FCollisionQueryParams QueryParams;
+	QueryParams.AddIgnoredActor(this);
+	QueryParams.AddIgnoredActor(GetOwner());
+	
+	FTransform SpawnTransform = WeaponMesh->GetSocketTransform("Fire_Location");
+	FRotator SpawnRotation = GetFireDirection(true);
+	FVector FireDirection = SpawnRotation.Vector();
+	
+	bool WeaponTrace = GetWorld()->LineTraceSingleByChannel(HitResult, SpawnTransform.GetLocation(), SpawnTransform.GetLocation() + FireDirection*10000, ECollisionChannel::ECC_WorldDynamic, QueryParams);
+	FVector HitLocation = SpawnTransform.GetLocation() + FireDirection*10000;
+	if (FireSound) UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
+	PlayAnimationSimultaneous("Fire");
+	ApplyRecoil();
+	UpdateOwnerUI();
+	if (WeaponTrace)
 	{
-		if (IPlayerCallables* PlayerCallablesInterface = Cast<IPlayerCallables>(GetOwner()))
-		{
-
-			//Line trace from player cam forward. If hit, line trace from gun barrel to that location
-			//Uses owner true look location
-			FVector OwnerStart = PlayerCallablesInterface->GetAimDirection()[0];
-			FVector OwnerDirection = PlayerCallablesInterface->GetAimDirection()[1];
-			FHitResult HitResult;
-			FCollisionQueryParams QueryParams;
-			QueryParams.AddIgnoredActor(this);
-			QueryParams.AddIgnoredActor(GetOwner());
-
-			bool OwnerTrace = GetWorld()->LineTraceSingleByChannel(HitResult, OwnerStart, OwnerStart + OwnerDirection*10000, ECollisionChannel::ECC_WorldDynamic, QueryParams);
-
-			FVector HitLocation = OwnerStart + OwnerDirection*10000;
-			if (OwnerTrace)
-			{
-				HitLocation = HitResult.Location;
-			}
-			FTransform FireTransform = WeaponMesh->GetSocketTransform("Fire_Location");
-			FVector WeaponStart = FireTransform.GetLocation();
-			FVector FireDirection = HitLocation - WeaponStart;
-			float FirePitchOffset = FMath::FRandRange(-CurrentSpread.X, CurrentSpread.X);
-			float FireYawOffset = FMath::FRandRange(-CurrentSpread.Y, CurrentSpread.Y);
-			FRotator FireOffset = FRotator(FirePitchOffset, FireYawOffset, 0.f) * CurrentControl;
-			FireDirection = FireOffset.RotateVector(FireDirection);
-			bool WeaponTrace = GetWorld()->LineTraceSingleByChannel(HitResult, WeaponStart, WeaponStart + FireDirection*10000, ECollisionChannel::ECC_WorldDynamic, QueryParams);
-			HitLocation = WeaponStart + FireDirection*10000;
-			if (WeaponTrace)
-			{
-				HitLocation = HitResult.Location;
-				AActor* HitActor = HitResult.GetActor();
-				if (HitActor)
-				{
-					if (ICombatCallables* CombatCallablesInterface = Cast<ICombatCallables>(HitActor))
-					{
-						DealDamage(HitActor, BaseDamage);
-						UE_LOG(LogTemp, Display, TEXT("Apply Damage to Actor"));
-					}
-					else { UE_LOG(LogTemp, Display, TEXT("No damage to Actor")); }
-				}
-				else { UE_LOG(LogTemp, Display, TEXT("No hit Actor")); }
-			}
-			else { DrawDebugLine(GetWorld(), WeaponStart, HitLocation, FColor::Red); }
-			
-			//Play fire sound if possible
-			if (FireSound)
-				UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
-
-			//Try play fire animation
-			PlayAnimationSimultaneous("Fire");
-
-			//Apply recoil to owner after firing has stopped
-			ApplyRecoil();
-
-			//Update UI
-			UpdateOwnerUI();
-		}
-		else { UE_LOG(LogTemp, Warning, TEXT("Weapon owner in hitscan does not implement playercallables")); }
+		HitLocation = HitResult.Location;
+		AActor* HitActor = HitResult.GetActor();
+		if (!HitActor) return;
+		ICombatCallables* CombatCallablesInterface = Cast<ICombatCallables>(HitActor);
+		if (!CombatCallablesInterface) return;
+		DealDamage(HitActor, BaseDamage);
+		UE_LOG(LogTemp, Display, TEXT("Apply Damage to Actor"));
 	}
-	else { UE_LOG(LogTemp, Warning, TEXT("Fire called in hitscan weapon: No owner error")); }
 }
 
 //Self-explanatory

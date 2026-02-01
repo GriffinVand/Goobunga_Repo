@@ -1,0 +1,17 @@
+#pragma once
+
+#include "CoreMinimal.h"
+#include "BehaviorTree/BTDecorator.h"
+#include "BTD_CanLaunch.generated.h"
+
+
+UCLASS()
+class GOOBUNGA_API UBTD_CanLaunch : public UBTDecorator
+{
+	GENERATED_BODY()
+public:
+	virtual bool CalculateRawConditionValue(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) const override;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FBlackboardKeySelector SelfActorKey;
+};

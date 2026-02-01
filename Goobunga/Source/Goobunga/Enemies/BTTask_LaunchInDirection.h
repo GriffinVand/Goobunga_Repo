@@ -21,7 +21,7 @@ protected:
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 	virtual EBTNodeResult::Type AbortTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 	UPROPERTY(EditAnywhere, Category = Blackboard)
-	FBlackboardKeySelector PlayerActorKey;
+	FBlackboardKeySelector TargetActorKey;
 	UPROPERTY(EditAnywhere, Category = Blackboard)
 	FBlackboardKeySelector SelfActorKey;
 };

@@ -6,6 +6,7 @@
 #include "Goobunga/PlayerCallables.h"
 #include "Camera/CameraComponent.h"
 #include "Goobunga/Goobunga_Player.h"
+#include "Kismet/KismetMathLibrary.h"
 // Sets default values
 AWeapon::AWeapon()
 {
@@ -185,6 +186,53 @@ void AWeapon::Reload()
 		CurrentAmmo = 0;
 	}
 	OnAmmoChanged.Broadcast();
+}
+
+FRotator AWeapon::GetFireDirection(bool bTrue)
+{
+	AGoobunga_Player* GPlayer = Cast<AGoobunga_Player>(GetOwner());
+	if (!GPlayer) return FRotator();
+	
+	FVector OwnerStart = GPlayer->GetAimDirection()[0];
+	FVector OwnerDirection = GPlayer->GetAimDirection()[1];
+	FHitResult HitResult;
+	FCollisionQueryParams QueryParams;
+	QueryParams.AddIgnoredActor(this);
+	QueryParams.AddIgnoredActor(GetOwner());
+
+	FVector TrueStart = OwnerStart;
+	FVector TrueDirection = OwnerDirection;
+	if (bTrue && ADS && GPlayer->AimAlpha >= 1.f)
+	{
+		FTransform SightTransform = WeaponMesh->GetSocketTransform("Sight_Socket");
+		FVector SightLocation = SightTransform.GetLocation();
+		FVector SightDirection = SightTransform.GetUnitAxis(EAxis::X);
+		TrueDirection = SightDirection;
+		TrueStart = SightLocation;
+	}
+	
+	bool OwnerTrace = GetWorld()->LineTraceSingleByChannel(HitResult, TrueStart, TrueStart + TrueDirection*10000, ECollisionChannel::ECC_WorldDynamic, QueryParams);
+	FVector HitLocation = TrueStart + TrueDirection*10000;
+	if (OwnerTrace)
+	{
+		HitLocation = HitResult.Location;
+	}
+	FTransform FireTransform = WeaponMesh->GetSocketTransform("Fire_Location");
+	FVector WeaponStart = FireTransform.GetLocation();
+	FVector FireDirection = (HitLocation - WeaponStart).GetSafeNormal();
+	
+	float FirePitchOffset = FMath::FRandRange(-CurrentSpread.X, CurrentSpread.X);
+	float FireYawOffset = FMath::FRandRange(-CurrentSpread.Y, CurrentSpread.Y);
+	FRotator FireOffset = FRotator(FirePitchOffset, FireYawOffset, 0.f) * CurrentControl;
+	FireDirection = FireOffset.RotateVector(FireDirection);
+	
+	FRotator FireRotation = FireDirection.Rotation();
+	DrawDebugLine(GetWorld(), TrueStart, HitLocation, FColor::Red);
+	DrawDebugSphere(GetWorld(), HitLocation, 20.f, 10, FColor::Red);
+	return FireRotation;
+	
+	
+	
 }
 
 

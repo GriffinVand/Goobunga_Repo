@@ -15,11 +15,11 @@ UBTTask_SwerveWhileChasing::UBTTask_SwerveWhileChasing()
 EBTNodeResult::Type UBTTask_SwerveWhileChasing::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	AActor* SelfActor = Cast<AActor>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(SelfActorKey.SelectedKeyName));
-	AActor* PlayerActor = Cast<AActor>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(Player.SelectedKeyName));
-	if (SelfActor && PlayerActor)
+	AActor* TargetActor = Cast<AActor>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(TargetActorKey.SelectedKeyName));
+	if (SelfActor && TargetActor)
 	{
 		FVector EnemyLocation = SelfActor->GetActorLocation();
-		FVector PlayerLocation = PlayerActor->GetActorLocation();
+		FVector PlayerLocation = TargetActor->GetActorLocation();
 		FVector DirectionToPlayer = PlayerLocation - EnemyLocation;
 		DirectionToPlayer.Normalize();
 		FVector RightDir = FVector::CrossProduct(DirectionToPlayer, FVector::UpVector);

@@ -18,9 +18,6 @@ ABaseEnemy::ABaseEnemy()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	Health = MaxHealth;
-
-	LaunchSpline = CreateDefaultSubobject<USplineComponent>(TEXT("LaunchSpline"));
-	LaunchSpline->bDrawDebug = true;
 	
 }
 
@@ -50,25 +47,26 @@ void ABaseEnemy::BeginPlay()
 	}
 }
 
-// Called every frame
 void ABaseEnemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	UpdateCurrentState(DeltaTime);
+}
+
+void ABaseEnemy::UpdateCurrentState(float DeltaTime)
+{
 	switch (CurrentState)
 	{
 	default:
 		break;
 	case EEnemyState::Launching:
-		UpdateLaunchProgress(DeltaTime);
 		break;
 	case EEnemyState::Death:
 		UpdateFadeOut(DeltaTime);
 	}
 	AttackCooldown += DeltaTime;
-	LaunchCooldown += DeltaTime;
 }
 
-// Take damage
 void ABaseEnemy::CombatDamage(AActor* DamageDealer, float Damage, EDamageType DamageType)
 {
 	Health -= Damage;
@@ -193,7 +191,6 @@ void ABaseEnemy::AttackDamageTrace()
 
 void ABaseEnemy::AttackGeneric(int AttackNum)
 {
-	if (CurrentState == EEnemyState::Launching) { EndLaunch(); }
 	if (AttackCooldown >= AttackRate && CurrentState != EEnemyState::Attacking)
 	{
 		if (AttackMontages.Num() > AttackNum - 1)
@@ -218,84 +215,6 @@ void ABaseEnemy::AttackGeneric(int AttackNum)
 			}
 		}	
 	}
-}
-
-void ABaseEnemy::LaunchTowardsLocation(AActor* TargetActor, FOnLaunchFinished InOnLaunchFinished)
-{
-	if (LaunchCooldown >= LaunchRate && CurrentState != EEnemyState::Launching)
-	{
-		if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
-		{
-			if (MontageMap.Contains("WindUp"))
-			{
-				CurrentState = EEnemyState::Busy;
-				AnimInstance->Montage_Play(MontageMap["WindUp"]);
-				FOnMontageEnded MontageEnded;
-				MontageEnded.BindLambda([this, TargetActor](UAnimMontage* Montage, bool bInteruppted)
-				{
-					StartLaunch(TargetActor);
-				});
-				AnimInstance->Montage_SetEndDelegate(MontageEnded, MontageMap["WindUp"]);
-			}
-		}
-	}	
-}
-
-void ABaseEnemy::StartLaunch(AActor* TargetActor)
-{
-	UE_LOG(LogTemp, Warning, TEXT("Starting Launch"));
-	if (LaunchSpline && TargetActor)
-	{
-		LaunchGoalLocation = TargetActor->GetActorLocation();
-		FVector PlayerVelocity = TargetActor->GetVelocity();
-		FVector DirTowardsLocation = LaunchGoalLocation - GetActorLocation();
-		DirTowardsLocation.Normalize();
-		LaunchGoalLocation = LaunchGoalLocation + (DirTowardsLocation * 250.f) + (PlayerVelocity);
-		DrawDebugSphere(GetWorld(), LaunchGoalLocation, 100, 20, FColor::Green, true);
-		LaunchSplineAlpha = 0;
-		LaunchCooldown = 0.f;
-		AAIController* AIController = Cast<AAIController>(GetController());
-		if (AIController) { AIController->ClearFocus(EAIFocusPriority::Gameplay);}
-		LaunchSpline->ClearSplinePoints(true);
-		LaunchSpline->AddSplinePoint(GetActorLocation(), ESplineCoordinateSpace::World, true);
-		FVector Midpoint = (LaunchGoalLocation + GetActorLocation()) / 2.f;
-		Midpoint.Z += 250.f;
-		LaunchSpline->AddSplinePoint(Midpoint, ESplineCoordinateSpace::World, true);
-		LaunchSpline->AddSplinePoint(LaunchGoalLocation, ESplineCoordinateSpace::World, true);
-		FVector CurrentEndTangent = LaunchSpline->GetTangentAtSplinePoint(2, ESplineCoordinateSpace::World);
-		FVector NewTangent = CurrentEndTangent;
-		NewTangent.Z = FMath::Lerp(CurrentEndTangent.Z, 0, 0.5f);
-		LaunchSpline->SetTangentAtSplinePoint(2, NewTangent, ESplineCoordinateSpace::World);
-		LaunchSplineAlpha = 0.f;
-		CurrentState = EEnemyState::Launching;
-		Jump();
-	}
-}
-
-void ABaseEnemy::UpdateLaunchProgress(float DeltaTime)
-{
-	LaunchSplineAlpha += DeltaTime / LaunchSplineTime;
-	if (LaunchSplineAlpha >= 1) { EndLaunch(); return; }
-	
-	LaunchSplineAlpha = FMath::Clamp(LaunchSplineAlpha, 0, 1);
-	float TotalDist = LaunchSpline->GetSplineLength();
-	FVector NextPoint = LaunchSpline->GetLocationAtDistanceAlongSpline(LaunchSplineAlpha * TotalDist, ESplineCoordinateSpace::World);
-	DrawDebugSphere(GetWorld(), NextPoint, 10.f, 12, FColor::Red);
-	
-	FVector Direction = NextPoint - GetActorLocation();
-	float Speed = FVector::Dist(GetActorLocation(), NextPoint) * 50.f;
-	FVector Velocity = Direction * 5.f;
-	GetCharacterMovement()->Velocity = Velocity;
-	AddMovementInput(Velocity, true);
-}
-
-void ABaseEnemy::EndLaunch()
-{
-	UE_LOG(LogTemp, Warning, TEXT("Ending Launch"));
-	AAIController* AIController = Cast<AAIController>(GetController());
-	if (AIController) AIController->SetFocus(UGameplayStatics::GetPlayerCharacter(this, 0), EAIFocusPriority::Gameplay);
-	LaunchCooldown = 0;
-	CurrentState = EEnemyState::Walking;
 }
 
 

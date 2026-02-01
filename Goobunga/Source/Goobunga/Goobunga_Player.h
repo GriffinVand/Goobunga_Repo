@@ -64,6 +64,14 @@ public:
 	UFUNCTION()
 	void EquipWeapon(AWeapon* Weapon);
 	
+	UFUNCTION(BlueprintCallable)
+	FWeaponSwayData GetWeaponSwayData();
+	
+	virtual TArray<FVector> GetAimDirection() override;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float AimAlpha = 0.f;
+	
 protected:
 	//Stats
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Stats, meta =(AllowPrivateAccess=true))
@@ -94,8 +102,6 @@ protected:
 	bool Busy = false;
 	
 	
-	UFUNCTION(BlueprintCallable)
-	FWeaponSwayData GetWeaponSwayData();
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FWeaponSwayData TargetWeaponSwayData = FWeaponSwayData();
 	FWeaponSwayData CurrentWeaponSwayData = FWeaponSwayData();
@@ -103,8 +109,6 @@ protected:
 	FVector2D WeaponSwayAmounts = FVector2D(-5.f, 5.f);
 
 	//0 to 1, 1 being full ads, 0 being full hip
-	UPROPERTY(EditAnywhere, meta=(AllowPrivateAccess=true))
-	float CurrentAimAlpha = 0.f;
 	float DefaultSensitivity = 0.5;
 	float Sensitivity = DefaultSensitivity;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
@@ -159,13 +163,10 @@ protected:
 	void StartReload();
 	virtual void EndReload(bool Success) override;
 	virtual void UpdateAds(float Alpha) override;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float AimAlpha = 0.f;
 	virtual void UpdateWeaponUI() override { return;}
 	void UpdateAimOffset();
 	void UpdateWeaponSwayData(float DeltaTime);
 	virtual void ApplyAimOffset(FVector AimOffsetInput) override;
-	virtual TArray<FVector> GetAimDirection() override;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Equipment", meta = (AllowPrivateAccess = "true"))
 	AWeapon* EquippedWeapon;
 

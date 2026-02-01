@@ -41,7 +41,7 @@ struct Z_Construct_UClass_UBTTask_SwerveWhileChasing_Statics
 		{ "Category", "Blackboard" },
 		{ "ModuleRelativePath", "Enemies/BTTask_SwerveWhileChasing.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Player_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_TargetActorKey_MetaData[] = {
 		{ "Category", "Blackboard" },
 		{ "ModuleRelativePath", "Enemies/BTTask_SwerveWhileChasing.h" },
 	};
@@ -51,7 +51,7 @@ struct Z_Construct_UClass_UBTTask_SwerveWhileChasing_Statics
 	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FStructPropertyParams NewProp_SelfActorKey;
-	static const UECodeGen_Private::FStructPropertyParams NewProp_Player;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_TargetActorKey;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_TargetLocation;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
@@ -61,11 +61,11 @@ struct Z_Construct_UClass_UBTTask_SwerveWhileChasing_Statics
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UBTTask_SwerveWhileChasing_Statics::NewProp_SelfActorKey = { "SelfActorKey", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UBTTask_SwerveWhileChasing, SelfActorKey), Z_Construct_UScriptStruct_FBlackboardKeySelector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SelfActorKey_MetaData), NewProp_SelfActorKey_MetaData) }; // 3940742986
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UBTTask_SwerveWhileChasing_Statics::NewProp_Player = { "Player", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UBTTask_SwerveWhileChasing, Player), Z_Construct_UScriptStruct_FBlackboardKeySelector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Player_MetaData), NewProp_Player_MetaData) }; // 3940742986
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UBTTask_SwerveWhileChasing_Statics::NewProp_TargetActorKey = { "TargetActorKey", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UBTTask_SwerveWhileChasing, TargetActorKey), Z_Construct_UScriptStruct_FBlackboardKeySelector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_TargetActorKey_MetaData), NewProp_TargetActorKey_MetaData) }; // 3940742986
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UBTTask_SwerveWhileChasing_Statics::NewProp_TargetLocation = { "TargetLocation", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UBTTask_SwerveWhileChasing, TargetLocation), Z_Construct_UScriptStruct_FBlackboardKeySelector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_TargetLocation_MetaData), NewProp_TargetLocation_MetaData) }; // 3940742986
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UBTTask_SwerveWhileChasing_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UBTTask_SwerveWhileChasing_Statics::NewProp_SelfActorKey,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UBTTask_SwerveWhileChasing_Statics::NewProp_Player,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UBTTask_SwerveWhileChasing_Statics::NewProp_TargetActorKey,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UBTTask_SwerveWhileChasing_Statics::NewProp_TargetLocation,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UBTTask_SwerveWhileChasing_Statics::PropPointers) < 2048);
@@ -109,10 +109,10 @@ UBTTask_SwerveWhileChasing::~UBTTask_SwerveWhileChasing() {}
 struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTTask_SwerveWhileChasing_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UBTTask_SwerveWhileChasing, UBTTask_SwerveWhileChasing::StaticClass, TEXT("UBTTask_SwerveWhileChasing"), &Z_Registration_Info_UClass_UBTTask_SwerveWhileChasing, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBTTask_SwerveWhileChasing), 1957795890U) },
+		{ Z_Construct_UClass_UBTTask_SwerveWhileChasing, UBTTask_SwerveWhileChasing::StaticClass, TEXT("UBTTask_SwerveWhileChasing"), &Z_Registration_Info_UClass_UBTTask_SwerveWhileChasing, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBTTask_SwerveWhileChasing), 1697825855U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTTask_SwerveWhileChasing_h_2381499757(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTTask_SwerveWhileChasing_h_2515541179(TEXT("/Script/Goobunga"),
 	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTTask_SwerveWhileChasing_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTTask_SwerveWhileChasing_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

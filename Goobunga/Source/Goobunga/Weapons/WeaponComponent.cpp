@@ -86,11 +86,8 @@ void UWeaponComponent::EquipWeapon(EWeaponSlot Slot)
 	AWeapon* Weapon = GetWeaponInSlot(Slot);
 	if (!Weapon) return;
 	Weapon->SetActorHiddenInGame(false);
-	if (Weapon->CanADS())
-	{
-		SetUpAdsPoses();
-		CalculateAdsTransform();
-	}
+	SetUpAdsPoses();
+	CalculateAdsTransform();
 	PlayerOwner->EquipWeapon(Weapon);
 }
 void UWeaponComponent::UnEquipWeapon(EWeaponSlot Slot)

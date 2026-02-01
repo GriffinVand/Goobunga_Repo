@@ -176,5 +176,6 @@ public:
 	virtual void UpdateWeapon();
 	virtual void PlayFireEffect();
 	virtual void Reload();
+	virtual FRotator GetFireDirection(bool bTrue = false);
 	
 };
