@@ -12,7 +12,6 @@ void UPersistentDataSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 	UGameplayStatics::DeleteGameInSlot("1", 0);
 	UGameplayStatics::DeleteGameInSlot("2", 0);
 	UGameplayStatics::DeleteGameInSlot("3", 0);
-	FWorldDelegates::OnWorldInitializedActors.AddUObject(this, &UPersistentDataSubsystem::HandleWorldInitialized);
 }
 
 void UPersistentDataSubsystem::NewSaveGame(FString FileName)

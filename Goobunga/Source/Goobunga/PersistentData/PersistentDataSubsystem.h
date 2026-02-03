@@ -10,7 +10,8 @@ class GOOBUNGA_API UPersistentDataSubsystem : public UGameInstanceSubsystem
 	GENERATED_BODY()
 public:
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
-	void HandleWorldInitialized(const FActorsInitializedParams& Params) { UE_LOG(LogTemp, Error, TEXT("World initialized PDS::HandleWorldInitialized")); LoadPersistentActors(); }
+	UFUNCTION(BlueprintCallable)
+	void HandleWorldInitialized() { UE_LOG(LogTemp, Error, TEXT("World initialized PDS::HandleWorldInitialized")); LoadPersistentActors(); }
 	void NewSaveGame(FString FileName);
 	void SetDefaultSaveGame(UGoobungaSaveFile& SaveFile);
 	
