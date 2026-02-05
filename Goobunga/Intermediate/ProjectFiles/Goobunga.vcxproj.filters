@@ -52,6 +52,18 @@
     <ClCompile Include="..\..\Source\Goobunga\Goobunga.h">
       <Filter>Source\Goobunga</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\GoobungaGameInstance.cpp">
+      <Filter>Source\Goobunga</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\GoobungaGameInstance.h">
+      <Filter>Source\Goobunga</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\GoobungaPlayerState.cpp">
+      <Filter>Source\Goobunga</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\GoobungaPlayerState.h">
+      <Filter>Source\Goobunga</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Goobunga_Player.cpp">
       <Filter>Source\Goobunga</Filter>
     </ClCompile>
@@ -81,6 +93,21 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\ReloadManagerComponent.h">
       <Filter>Source\Goobunga</Filter>
+    </ClCompile>
+    <Filter Include="Source\Goobunga\Abilities">
+      <UniqueIdentifier>{9584A300-EE64-328C-A499-D9C03FAD665C}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\Abilities\AbilityBase.cpp">
+      <Filter>Source\Goobunga\Abilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Abilities\AbilityBase.h">
+      <Filter>Source\Goobunga\Abilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Abilities\AbilityComponent.cpp">
+      <Filter>Source\Goobunga\Abilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Abilities\AbilityComponent.h">
+      <Filter>Source\Goobunga\Abilities</Filter>
     </ClCompile>
     <Filter Include="Source\Goobunga\Combat">
       <UniqueIdentifier>{8879B5B3-86F1-34AB-ADBD-DE30FAA0BED8}</UniqueIdentifier>
@@ -220,9 +247,36 @@
     <ClCompile Include="..\..\Source\Goobunga\Enemies\EnemyStates.h">
       <Filter>Source\Goobunga\Enemies</Filter>
     </ClCompile>
+    <Filter Include="Source\Goobunga\PersistentData">
+      <UniqueIdentifier>{A3E43F76-3FE5-3B19-A74E-2F39960A7A55}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\PersistentData\GoobungaSaveFile.cpp">
+      <Filter>Source\Goobunga\PersistentData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\PersistentData\GoobungaSaveFile.h">
+      <Filter>Source\Goobunga\PersistentData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\PersistentData\PersistentDataInterface.cpp">
+      <Filter>Source\Goobunga\PersistentData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\PersistentData\PersistentDataInterface.h">
+      <Filter>Source\Goobunga\PersistentData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\PersistentData\PersistentDataSubsystem.cpp">
+      <Filter>Source\Goobunga\PersistentData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\PersistentData\PersistentDataSubsystem.h">
+      <Filter>Source\Goobunga\PersistentData</Filter>
+    </ClCompile>
     <Filter Include="Source\Goobunga\Quests">
       <UniqueIdentifier>{1A0997D3-5663-34FA-B96A-ED0DFCFAD3D1}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\Quests\QuestData.cpp">
+      <Filter>Source\Goobunga\Quests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Quests\QuestData.h">
+      <Filter>Source\Goobunga\Quests</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Quests\QuestItemWidget.cpp">
       <Filter>Source\Goobunga\Quests</Filter>
     </ClCompile>
@@ -241,6 +295,12 @@
     <ClCompile Include="..\..\Source\Goobunga\Quests\QuestManagerComponent.h">
       <Filter>Source\Goobunga\Quests</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Quests\QuestManagerSubsystem.cpp">
+      <Filter>Source\Goobunga\Quests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Quests\QuestManagerSubsystem.h">
+      <Filter>Source\Goobunga\Quests</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Quests\QuestStruct.cpp">
       <Filter>Source\Goobunga\Quests</Filter>
     </ClCompile>
@@ -250,6 +310,24 @@
     <Filter Include="Source\Goobunga\UserInterface">
       <UniqueIdentifier>{9534E5FC-D95C-316B-A574-23D6029143AB}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\UserInterface\LoadMenu.cpp">
+      <Filter>Source\Goobunga\UserInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\UserInterface\LoadMenu.h">
+      <Filter>Source\Goobunga\UserInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\UserInterface\LoadSlot.cpp">
+      <Filter>Source\Goobunga\UserInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\UserInterface\LoadSlot.h">
+      <Filter>Source\Goobunga\UserInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\UserInterface\MasterWidget.cpp">
+      <Filter>Source\Goobunga\UserInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\UserInterface\MasterWidget.h">
+      <Filter>Source\Goobunga\UserInterface</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\UserInterface\PlayerBulletWidget.cpp">
       <Filter>Source\Goobunga\UserInterface</Filter>
     </ClCompile>
@@ -323,12 +401,6 @@
       <Filter>Source\Goobunga\Weapons</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Weapons\WeaponSwayData.h">
-      <Filter>Source\Goobunga\Weapons</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Weapons\WeaponTypes.cpp">
-      <Filter>Source\Goobunga\Weapons</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Weapons\WeaponTypes.h">
       <Filter>Source\Goobunga\Weapons</Filter>
     </ClCompile>
   </ItemGroup>
