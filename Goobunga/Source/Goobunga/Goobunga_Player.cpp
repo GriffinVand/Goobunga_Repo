@@ -111,7 +111,6 @@ void AGoobunga_Player::StartReload()
 		{
 			FireEnded(true);
 			UE_LOG(LogTemp, Display, TEXT("PlayerStartReload"));
-			Reloading = true;
 			TArray<EReloadPattern> TempReloadPattern = TArray{EReloadPattern::Left, EReloadPattern::Right, EReloadPattern::Up, EReloadPattern::Down, EReloadPattern::Circle};
 			ReloadManagerComponent->StartReload(TempReloadPattern);
 		}

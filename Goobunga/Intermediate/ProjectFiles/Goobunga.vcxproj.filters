@@ -193,16 +193,22 @@
     <ClCompile Include="..\..\Source\Goobunga\Enemies\BaseEnemyAIController.h">
       <Filter>Source\Goobunga\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTD_CanLaunch.cpp">
+      <Filter>Source\Goobunga\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTD_CanLaunch.h">
+      <Filter>Source\Goobunga\Enemies</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Enemies\BTS_CanPlayerSeeThis.cpp">
       <Filter>Source\Goobunga\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Enemies\BTS_CanPlayerSeeThis.h">
       <Filter>Source\Goobunga\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTS_UpdateDistanceToPlayer.cpp">
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTS_UpdateDistanceToTarget.cpp">
       <Filter>Source\Goobunga\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTS_UpdateDistanceToPlayer.h">
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTS_UpdateDistanceToTarget.h">
       <Filter>Source\Goobunga\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Enemies\BTS_UpdateEnemyCooldowns.cpp">
@@ -245,6 +251,24 @@
       <Filter>Source\Goobunga\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Enemies\EnemyStates.h">
+      <Filter>Source\Goobunga\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\JoshEnemy.cpp">
+      <Filter>Source\Goobunga\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\JoshEnemy.h">
+      <Filter>Source\Goobunga\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\LaunchInterface.cpp">
+      <Filter>Source\Goobunga\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\LaunchInterface.h">
+      <Filter>Source\Goobunga\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\TeamInterface.cpp">
+      <Filter>Source\Goobunga\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\TeamInterface.h">
       <Filter>Source\Goobunga\Enemies</Filter>
     </ClCompile>
     <Filter Include="Source\Goobunga\PersistentData">

@@ -35,7 +35,6 @@
 			"Goobunga.cpp.obj",
 			"GoobungaGameInstance.cpp.obj",
 			"GoobungaPlayerState.cpp.obj",
-			"Goobunga_Player.cpp.obj",
 			"Goobunga_PlayerController.cpp.obj",
 			"GoobungaSaveFile.cpp.obj",
 			"PersistentDataInterface.cpp.obj",
@@ -48,7 +47,6 @@
 			"QuestManagerComponent.cpp.obj",
 			"QuestManagerSubsystem.cpp.obj",
 			"QuestStruct.cpp.obj",
-			"ReloadManagerComponent.cpp.obj",
 			"LoadMenu.cpp.obj",
 			"LoadSlot.cpp.obj",
 			"MasterWidget.cpp.obj",
@@ -90,6 +88,7 @@
 			"FireableCallables.gen.cpp.obj",
 			"Goobunga.init.gen.cpp.obj",
 			"GoobungaGameInstance.gen.cpp.obj",
+			"GoobungaPlayerAnimInstance.gen.cpp.obj",
 			"GoobungaPlayerState.gen.cpp.obj",
 			"GoobungaSaveFile.gen.cpp.obj",
 			"Goobunga_Player.gen.cpp.obj",
@@ -124,7 +123,10 @@
 			"Weapon.gen.cpp.obj",
 			"WeaponComponent.gen.cpp.obj",
 			"WeaponSwayData.gen.cpp.obj",
-			"WeaponUITypes.gen.cpp.obj"
+			"WeaponUITypes.gen.cpp.obj",
+			"GoobungaPlayerAnimInstance.cpp.obj",
+			"Goobunga_Player.cpp.obj",
+			"ReloadManagerComponent.cpp.obj"
 		]
 	}
 }

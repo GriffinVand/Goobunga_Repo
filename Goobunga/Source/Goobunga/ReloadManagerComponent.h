@@ -7,7 +7,6 @@
 #include "Goobunga/Combat/ReloadPatterns.h"
 #include "ReloadManagerComponent.generated.h"
 
-
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class GOOBUNGA_API UReloadManagerComponent : public UActorComponent
 {
@@ -37,6 +36,9 @@ protected:
 	TSubclassOf<UUserWidget> ReloadWidgetClass;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	UUserWidget* ReloadWidget = nullptr;
+	
+	bool bActive = false;
+	
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
@@ -45,5 +47,13 @@ public:
 	void StopReload(bool Success);
 	void CreateReloadWidget();
 	void RemoveReloadWidget();
+	UFUNCTION()
+	void OnFirstPatternCalled();
+	UFUNCTION()
+	void OnNextPatternCalled();
+	UFUNCTION()
+	void OnPatternFinished();
+	UFUNCTION()
+	void OnReloadCompleted();
 		
 };

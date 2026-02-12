@@ -19,9 +19,133 @@ UMG_API UClass* Z_Construct_UClass_UUserWidget_NoRegister();
 UPackage* Z_Construct_UPackage__Script_Goobunga();
 // End Cross Module References
 
+// Begin Class UReloadManagerComponent Function OnFirstPatternCalled
+struct Z_Construct_UFunction_UReloadManagerComponent_OnFirstPatternCalled_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "ReloadManagerComponent.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UReloadManagerComponent_OnFirstPatternCalled_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UReloadManagerComponent, nullptr, "OnFirstPatternCalled", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UReloadManagerComponent_OnFirstPatternCalled_Statics::Function_MetaDataParams), Z_Construct_UFunction_UReloadManagerComponent_OnFirstPatternCalled_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_UReloadManagerComponent_OnFirstPatternCalled()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UReloadManagerComponent_OnFirstPatternCalled_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(UReloadManagerComponent::execOnFirstPatternCalled)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->OnFirstPatternCalled();
+	P_NATIVE_END;
+}
+// End Class UReloadManagerComponent Function OnFirstPatternCalled
+
+// Begin Class UReloadManagerComponent Function OnNextPatternCalled
+struct Z_Construct_UFunction_UReloadManagerComponent_OnNextPatternCalled_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "ReloadManagerComponent.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UReloadManagerComponent_OnNextPatternCalled_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UReloadManagerComponent, nullptr, "OnNextPatternCalled", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UReloadManagerComponent_OnNextPatternCalled_Statics::Function_MetaDataParams), Z_Construct_UFunction_UReloadManagerComponent_OnNextPatternCalled_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_UReloadManagerComponent_OnNextPatternCalled()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UReloadManagerComponent_OnNextPatternCalled_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(UReloadManagerComponent::execOnNextPatternCalled)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->OnNextPatternCalled();
+	P_NATIVE_END;
+}
+// End Class UReloadManagerComponent Function OnNextPatternCalled
+
+// Begin Class UReloadManagerComponent Function OnPatternFinished
+struct Z_Construct_UFunction_UReloadManagerComponent_OnPatternFinished_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "ReloadManagerComponent.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UReloadManagerComponent_OnPatternFinished_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UReloadManagerComponent, nullptr, "OnPatternFinished", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UReloadManagerComponent_OnPatternFinished_Statics::Function_MetaDataParams), Z_Construct_UFunction_UReloadManagerComponent_OnPatternFinished_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_UReloadManagerComponent_OnPatternFinished()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UReloadManagerComponent_OnPatternFinished_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(UReloadManagerComponent::execOnPatternFinished)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->OnPatternFinished();
+	P_NATIVE_END;
+}
+// End Class UReloadManagerComponent Function OnPatternFinished
+
+// Begin Class UReloadManagerComponent Function OnReloadCompleted
+struct Z_Construct_UFunction_UReloadManagerComponent_OnReloadCompleted_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "ReloadManagerComponent.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UReloadManagerComponent_OnReloadCompleted_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UReloadManagerComponent, nullptr, "OnReloadCompleted", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UReloadManagerComponent_OnReloadCompleted_Statics::Function_MetaDataParams), Z_Construct_UFunction_UReloadManagerComponent_OnReloadCompleted_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_UReloadManagerComponent_OnReloadCompleted()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UReloadManagerComponent_OnReloadCompleted_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(UReloadManagerComponent::execOnReloadCompleted)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->OnReloadCompleted();
+	P_NATIVE_END;
+}
+// End Class UReloadManagerComponent Function OnReloadCompleted
+
 // Begin Class UReloadManagerComponent
 void UReloadManagerComponent::StaticRegisterNativesUReloadManagerComponent()
 {
+	UClass* Class = UReloadManagerComponent::StaticClass();
+	static const FNameNativePtrPair Funcs[] = {
+		{ "OnFirstPatternCalled", &UReloadManagerComponent::execOnFirstPatternCalled },
+		{ "OnNextPatternCalled", &UReloadManagerComponent::execOnNextPatternCalled },
+		{ "OnPatternFinished", &UReloadManagerComponent::execOnPatternFinished },
+		{ "OnReloadCompleted", &UReloadManagerComponent::execOnReloadCompleted },
+	};
+	FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
 }
 IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(UReloadManagerComponent);
 UClass* Z_Construct_UClass_UReloadManagerComponent_NoRegister()
@@ -73,6 +197,13 @@ struct Z_Construct_UClass_UReloadManagerComponent_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_ReloadWidget;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
+	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
+		{ &Z_Construct_UFunction_UReloadManagerComponent_OnFirstPatternCalled, "OnFirstPatternCalled" }, // 2533183040
+		{ &Z_Construct_UFunction_UReloadManagerComponent_OnNextPatternCalled, "OnNextPatternCalled" }, // 3665596335
+		{ &Z_Construct_UFunction_UReloadManagerComponent_OnPatternFinished, "OnPatternFinished" }, // 3705909171
+		{ &Z_Construct_UFunction_UReloadManagerComponent_OnReloadCompleted, "OnReloadCompleted" }, // 998599712
+	};
+	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<UReloadManagerComponent>::IsAbstract,
 	};
@@ -105,11 +236,11 @@ const UECodeGen_Private::FClassParams Z_Construct_UClass_UReloadManagerComponent
 	"Engine",
 	&StaticCppClassTypeInfo,
 	DependentSingletons,
-	nullptr,
+	FuncInfo,
 	Z_Construct_UClass_UReloadManagerComponent_Statics::PropPointers,
 	nullptr,
 	UE_ARRAY_COUNT(DependentSingletons),
-	0,
+	UE_ARRAY_COUNT(FuncInfo),
 	UE_ARRAY_COUNT(Z_Construct_UClass_UReloadManagerComponent_Statics::PropPointers),
 	0,
 	0x00B000A4u,
@@ -132,14 +263,14 @@ UReloadManagerComponent::~UReloadManagerComponent() {}
 // End Class UReloadManagerComponent
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_Statics
+struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UReloadManagerComponent, UReloadManagerComponent::StaticClass, TEXT("UReloadManagerComponent"), &Z_Registration_Info_UClass_UReloadManagerComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UReloadManagerComponent), 4259902439U) },
+		{ Z_Construct_UClass_UReloadManagerComponent, UReloadManagerComponent::StaticClass, TEXT("UReloadManagerComponent"), &Z_Registration_Info_UClass_UReloadManagerComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UReloadManagerComponent), 485052915U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_2110806463(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_2025391236(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

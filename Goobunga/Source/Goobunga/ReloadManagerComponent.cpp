@@ -3,7 +3,9 @@
 
 #include "ReloadManagerComponent.h"
 
+#include "Goobunga_Player.h"
 #include "PlayerCallables.h"
+#include "Animation/GoobungaPlayerAnimInstance.h"
 #include "Blueprint/UserWidget.h"
 #include "Chaos/Utilities.h"
 
@@ -28,13 +30,23 @@ UReloadManagerComponent::UReloadManagerComponent()
 void UReloadManagerComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
-	// ...
+	AGoobunga_Player* Player = Cast<AGoobunga_Player>(GetOwner());
+	if (!Player) return;
+	USkeletalMeshComponent* SKM = Player->FPMesh;
+	if (!SKM) return;
+	UGoobungaPlayerAnimInstance* PlayerAnimInstance = Cast<UGoobungaPlayerAnimInstance>(SKM->GetAnimInstance());
+	if (PlayerAnimInstance)
+	{
+		PlayerAnimInstance->OnFirstPatternCalled.AddUniqueDynamic(this, &UReloadManagerComponent::OnFirstPatternCalled);
+		PlayerAnimInstance->OnNextPatternCalled.AddUniqueDynamic(this, &UReloadManagerComponent::OnNextPatternCalled);
+		PlayerAnimInstance->OnReloadCompleted.AddUniqueDynamic(this, &UReloadManagerComponent::OnReloadCompleted);
+		PlayerAnimInstance->OnPatternFinished.AddUniqueDynamic(this, &UReloadManagerComponent::OnPatternFinished);
+	}
 	
 }
 
 
-// Called every frame
+
 void UReloadManagerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
@@ -44,43 +56,22 @@ void UReloadManagerComponent::TickComponent(float DeltaTime, ELevelTick TickType
 
 void UReloadManagerComponent::StartReload(TArray<EReloadPattern> NewPatternSequence)
 {
-	if (NewPatternSequence.Num() > 0)
+	CurrentPatternSequence = NewPatternSequence;
+	CreateReloadWidget();
+	if (ReloadWidget) { ReloadWidget->SetVisibility(ESlateVisibility::Hidden); }
+	if (CurrentPatternSequence.Num() == 0) OnReloadCompleted();
+	AGoobunga_Player* Owner = Cast<AGoobunga_Player>(GetOwner());
+	if (Owner)
 	{
-		CurrentPatternSequence = NewPatternSequence;
-		if (ReloadPatternMap.Contains(CurrentPatternSequence[0]))
-		{
-			CurrentPattern = ReloadPatternMap[CurrentPatternSequence[0]];
-			if (CurrentPattern.Num() > 1)
-			{
-				if (APawn* Player = Cast<APawn>(GetOwner()))
-				{
-					if (APlayerController* Controller = Cast<APlayerController>(Player->GetController()))
-					{
-						Controller->GetMousePosition(LastMouseLocation.X, LastMouseLocation.Y);
-					}
-				}
-				TotalProgress = 0.f;
-				CurrentProgress = 0.f;
-				LastPoint = CurrentPattern[0];
-				NextPoint = CurrentPattern[1];
-				UE_LOG(LogTemp, Display, TEXT("CurrentPoint: %f, %f"), LastPoint.X, LastPoint.Y);
-				UE_LOG(LogTemp, Display, TEXT("NextPoint: %f, %f"), NextPoint.X, NextPoint.Y);
-				CreateReloadWidget();
-				
-				return;
-			}
-		}
+		Owner->Reloading = true;
 	}
-	StopReload(false);
 }
 
-//Handles checking if actual mouse movement is inline with expected mouse direction
-//Updates progress from 0 to 1
+
 void UReloadManagerComponent::UpdateReload()
 {
-	//Mouse movement is based on vector from center of screen to last mouse position
-	//Compare this to vector from last point to next point and see if movement is correct
-	//Mouse is always set back to center of screen after UpdateReload()
+	if (!bActive) return;
+	
 	if (APlayerController* PC = Cast<APlayerController>(Cast<APawn>(GetOwner())->GetController()))
 	{
 		FVector2D NewMouseLocation;
@@ -95,18 +86,15 @@ void UReloadManagerComponent::UpdateReload()
 		float MovementSpeed = (NewMouseLocation - CenterScreen).Size();
 		MovementSpeed = FMath::GetMappedRangeValueClamped(FVector2D(0.f, 400.f), FVector2D(0.f, 1.f), MovementSpeed);
 		
-		//Reset mouse location
 		PC->SetMouseLocation(CenterScreen.X, CenterScreen.Y);
 		
-		//Only update progress if mouse movement is in correct direction
 		if (FVector2D::DotProduct(ExpectedDirection, ActualDirection) > 0.6)
 		{
-			//Updates current progress based on predefined progress rate and the actual speed of mouse or magnitude of traversal
 			float TotalSegs = ReloadPatternMap[CurrentPatternSequence[0]].Num();
 			float CurrentSegs = TotalSegs - CurrentPattern.Num();
 			CurrentProgress += GetWorld()->GetDeltaSeconds() * (ProgressRate * TotalSegs-1) * MovementSpeed;
+			CurrentProgress = FMath::Clamp(CurrentProgress, 0.f, 1.f);
 			TotalProgress = (CurrentSegs + CurrentProgress) / (TotalSegs - 1);
-			//UE_LOG(LogTemp, Display, TEXT("Current progress: %f"), CurrentProgress);
 			if (CurrentProgress >= 1.f)
 			{
 				LastPoint = NextPoint;
@@ -117,29 +105,60 @@ void UReloadManagerComponent::UpdateReload()
 					NextPoint = CurrentPattern[1];
 					UE_LOG(LogTemp, Display, TEXT("CurrentPoint: %f, %f"), LastPoint.X, LastPoint.Y);
 					UE_LOG(LogTemp, Display, TEXT("NextPoint: %f, %f"), NextPoint.X, NextPoint.Y);
-					return;
 				}
-				CurrentPatternSequence.RemoveAt(0);
-				if (CurrentPatternSequence.Num() > 0)
-				{
-					UE_LOG(LogTemp, Display, TEXT("Next Pattern"));	
-					CurrentPattern = ReloadPatternMap[CurrentPatternSequence[0]];
-					if (CurrentPattern.Num() > 1)
-					{
-						TotalProgress = 0.f;
-						CurrentProgress = 0.f;
-						LastPoint = CurrentPattern[0];
-						NextPoint = CurrentPattern[1];
-						UE_LOG(LogTemp, Display, TEXT("CurrentPoint: %f, %f"), LastPoint.X, LastPoint.Y);
-						UE_LOG(LogTemp, Display, TEXT("NextPoint: %f, %f"), NextPoint.X, NextPoint.Y);
-						return;
-					}
-				}
-				StopReload(true);
 			}
 		}
 	}
 	
+}
+
+void UReloadManagerComponent::OnFirstPatternCalled()
+{
+	if (CurrentPatternSequence.Num() == 0) return;
+	CurrentPattern = ReloadPatternMap[CurrentPatternSequence[0]];
+	if (CurrentPattern.Num() > 1)
+	{
+		TotalProgress = 0.f;
+		CurrentProgress = 0.f;
+		LastPoint = CurrentPattern[0];
+		NextPoint = CurrentPattern[1];
+		UE_LOG(LogTemp, Display, TEXT("CurrentPoint: %f, %f"), LastPoint.X, LastPoint.Y);
+		UE_LOG(LogTemp, Display, TEXT("NextPoint: %f, %f"), NextPoint.X, NextPoint.Y);
+		bActive = true;
+		if (ReloadWidget) { ReloadWidget->SetVisibility(ESlateVisibility::Visible); }
+	}
+}
+
+void UReloadManagerComponent::OnNextPatternCalled()
+{
+	if (CurrentPatternSequence.Num() == 0) return;
+	CurrentPatternSequence.RemoveAt(0);
+	TotalProgress = 0.f;
+	CurrentProgress = 0.f;
+	if (CurrentPatternSequence.Num() > 0)
+	{
+		CurrentPattern = ReloadPatternMap[CurrentPatternSequence[0]];
+		if (CurrentPattern.Num() > 1)
+		{
+			LastPoint = CurrentPattern[0];
+			NextPoint = CurrentPattern[1];
+			UE_LOG(LogTemp, Display, TEXT("CurrentPoint: %f, %f"), LastPoint.X, LastPoint.Y);
+			UE_LOG(LogTemp, Display, TEXT("NextPoint: %f, %f"), NextPoint.X, NextPoint.Y);
+			bActive = true;
+		}
+	}
+	if (ReloadWidget) { ReloadWidget->SetVisibility(ESlateVisibility::Visible); }
+}
+
+void UReloadManagerComponent::OnPatternFinished()
+{
+	bActive = false;
+	if (ReloadWidget) { ReloadWidget->SetVisibility(ESlateVisibility::Hidden); }
+}
+
+void UReloadManagerComponent::OnReloadCompleted()
+{
+	StopReload(true);
 }
 
 void UReloadManagerComponent::StopReload(bool Success)

@@ -72,6 +72,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float AimAlpha = 0.f;
 	
+	bool Reloading = false;
+	
 protected:
 	//Stats
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Stats, meta =(AllowPrivateAccess=true))
@@ -90,10 +92,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	float MeshLag = 15.f;
 	FRotator LastLookRotation = FRotator::ZeroRotator;
-
 	
-	//Reloading?
-	bool Reloading = false;
 	//Aim related
 	bool bAiming = false;
 	//Movement
