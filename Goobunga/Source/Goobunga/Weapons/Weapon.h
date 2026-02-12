@@ -3,12 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Camera/CameraComponent.h"
 #include "GameFramework/Actor.h"
 #include "Goobunga/FireableCallables.h"
 #include "Goobunga/Combat/WeaponUITypes.h"
 #include "Weapon.generated.h"
 
+struct FReloadPhase;
 class UNiagaraSystem;
 class UCameraComponent;
 
@@ -56,6 +56,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	FRotator ADSOffsetRot = FRotator::ZeroRotator;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Reload)
+	TArray<FReloadPhase> WeaponReloadPattern;
+	
 	//Default stats
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	float FireRate = 1.f;

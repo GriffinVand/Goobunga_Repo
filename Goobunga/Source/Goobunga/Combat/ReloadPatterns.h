@@ -5,6 +5,7 @@
 UENUM(BlueprintType)
 enum class EReloadPattern : uint8
 {
+	None UMETA(DisplayName = "None"),
 	Left UMETA(DisplayName = "Left"),
 	Right UMETA(DisplayName = "Right"),
 	Up UMETA(DisplayName = "Up"),

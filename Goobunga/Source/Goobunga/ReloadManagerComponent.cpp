@@ -54,23 +54,78 @@ void UReloadManagerComponent::TickComponent(float DeltaTime, ELevelTick TickType
 	// ...
 }
 
-void UReloadManagerComponent::StartReload(TArray<EReloadPattern> NewPatternSequence)
+void UReloadManagerComponent::StartReload(TArray<FReloadPhase>& NewReloadSequence)
 {
-	CurrentPatternSequence = NewPatternSequence;
+	ReloadSequence = NewReloadSequence;
+	CurrentReloadPhase = -1;
+	
 	CreateReloadWidget();
 	if (ReloadWidget) { ReloadWidget->SetVisibility(ESlateVisibility::Hidden); }
-	if (CurrentPatternSequence.Num() == 0) OnReloadCompleted();
-	AGoobunga_Player* Owner = Cast<AGoobunga_Player>(GetOwner());
-	if (Owner)
+	
+	if (ReloadSequence.Num() == 0) { OnReloadCompleted(); return; }
+	
+	StartPhase(true);
+	
+}
+
+void UReloadManagerComponent::StartPhase(bool bFirst)
+{
+	if (bFirst) { CurrentReloadPhase = 0; }
+	FReloadPhase Curr = ReloadSequence[CurrentReloadPhase];
+	switch (Curr.PhaseType)
 	{
-		Owner->Reloading = true;
+	case EReloadPhaseType::Visual:
+		break;
+	case EReloadPhaseType::Interactive:
+		break;
+	default:
+		break;
 	}
+}
+
+void UReloadManagerComponent::StartInteractivePhase(FReloadPhase& CurrPhase)
+{
+	CurrentProgress = 0.f;
+	TotalProgress = 0.f;
+	if (ReloadPatternMap.Contains(CurrPhase.PhasePattern))
+	{
+		CurrentPattern = ReloadPatternMap[CurrPhase.PhasePattern];
+		LastPoint = CurrentPattern[0];
+		NextPoint = CurrentPattern[1];
+	}
+	if (CurrPhase.PhaseAnimation) { CurrentSequenceTime = CurrPhase.PhaseAnimation->GetPlayLength(); }
+	
+}
+
+void UReloadManagerComponent::StartVisualPhase(FReloadPhase& CurrPhase)
+{
+	if (CurrPhase.PhaseAnimation) { CurrentSequenceTime = CurrPhase.PhaseAnimation->GetPlayLength(); }
+	CurrentSequenceTimeRemaining = CurrentSequenceTime;
+}
+
+void UReloadManagerComponent::UpdatePhase()
+{
+	
+}
+
+void UReloadManagerComponent::UpdateInteractivePhase(FReloadPhase& CurrPhase, float DeltaTime)
+{
+	
+}
+
+void UReloadManagerComponent::UpdateVisualPhase(FReloadPhase& CurrPhase, float DeltaTime)
+{
+	
+}
+
+void UReloadManagerComponent::CompletePhase()
+{
+	
 }
 
 
 void UReloadManagerComponent::UpdateReload()
 {
-	if (!bActive) return;
 	
 	if (APlayerController* PC = Cast<APlayerController>(Cast<APawn>(GetOwner())->GetController()))
 	{

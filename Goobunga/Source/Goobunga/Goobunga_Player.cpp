@@ -107,12 +107,13 @@ void AGoobunga_Player::StartReload()
 	}
 	if (!Reloading)
 	{
-		if (WeaponComponent && WeaponComponent->CanReload())
+		if (WeaponComponent && WeaponComponent->CanReload() && WeaponComponent->GetEquippedWeapon())
 		{
 			FireEnded(true);
 			UE_LOG(LogTemp, Display, TEXT("PlayerStartReload"));
 			TArray<EReloadPattern> TempReloadPattern = TArray{EReloadPattern::Left, EReloadPattern::Right, EReloadPattern::Up, EReloadPattern::Down, EReloadPattern::Circle};
-			ReloadManagerComponent->StartReload(TempReloadPattern);
+			ReloadManagerComponent->StartReload(WeaponComponent->GetEquippedWeapon()->WeaponReloadPattern);
+			Reloading = true;
 		}
 	}
 }

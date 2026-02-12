@@ -109,6 +109,15 @@
     <ClCompile Include="..\..\Source\Goobunga\Abilities\AbilityComponent.h">
       <Filter>Source\Goobunga\Abilities</Filter>
     </ClCompile>
+    <Filter Include="Source\Goobunga\Animation">
+      <UniqueIdentifier>{3995ED89-1789-349A-911B-67115CC0616D}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\Animation\GoobungaPlayerAnimInstance.cpp">
+      <Filter>Source\Goobunga\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Animation\GoobungaPlayerAnimInstance.h">
+      <Filter>Source\Goobunga\Animation</Filter>
+    </ClCompile>
     <Filter Include="Source\Goobunga\Combat">
       <UniqueIdentifier>{8879B5B3-86F1-34AB-ADBD-DE30FAA0BED8}</UniqueIdentifier>
     </Filter>

@@ -16,11 +16,11 @@ enum class ELayerType : uint8;
 #endif
 #define GOOBUNGA_MasterWidget_generated_h
 
-#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_MasterWidget_h_22_RPC_WRAPPERS_NO_PURE_DECLS \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_MasterWidget_h_22_RPC_WRAPPERS_NO_PURE_DECLS \
 	DECLARE_FUNCTION(execPushWidget);
 
 
-#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_MasterWidget_h_22_INCLASS_NO_PURE_DECLS \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_MasterWidget_h_22_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUMasterWidget(); \
 	friend struct Z_Construct_UClass_UMasterWidget_Statics; \
@@ -29,7 +29,7 @@ public: \
 	DECLARE_SERIALIZER(UMasterWidget)
 
 
-#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_MasterWidget_h_22_ENHANCED_CONSTRUCTORS \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_MasterWidget_h_22_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UMasterWidget(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 private: \
@@ -43,13 +43,13 @@ public: \
 	NO_API virtual ~UMasterWidget();
 
 
-#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_MasterWidget_h_19_PROLOG
-#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_MasterWidget_h_22_GENERATED_BODY \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_MasterWidget_h_19_PROLOG
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_MasterWidget_h_22_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_MasterWidget_h_22_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_MasterWidget_h_22_INCLASS_NO_PURE_DECLS \
-	FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_MasterWidget_h_22_ENHANCED_CONSTRUCTORS \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_MasterWidget_h_22_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_MasterWidget_h_22_INCLASS_NO_PURE_DECLS \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_MasterWidget_h_22_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -57,7 +57,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> GOOBUNGA_API UClass* StaticClass<class UMasterWidget>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_MasterWidget_h
+#define CURRENT_FILE_ID FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_MasterWidget_h
 
 
 #define FOREACH_ENUM_ELAYERTYPE(op) \
