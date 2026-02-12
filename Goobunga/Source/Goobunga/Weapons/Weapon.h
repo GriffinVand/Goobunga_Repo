@@ -5,12 +5,21 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Goobunga/FireableCallables.h"
+#include "Goobunga/ReloadManagerComponent.h"
 #include "Goobunga/Combat/WeaponUITypes.h"
+
 #include "Weapon.generated.h"
 
-struct FReloadPhase;
 class UNiagaraSystem;
 class UCameraComponent;
+
+UENUM(BlueprintType)
+enum class EWeapon : uint8
+{
+	None UMETA(DisplayName = "None"),
+	CatGun UMETA(DisplayName = "CatGun"),
+	GooGun UMETA(DisplayName = "GooGun")
+};
 
 UCLASS()
 class GOOBUNGA_API AWeapon : public AActor, public IFireableCallables
@@ -26,7 +35,8 @@ public:
 	AWeapon();
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FName WeaponID = "Weapon";
-    
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	EWeapon WeaponEnum = EWeapon::None;
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Mesh, meta = (AllowPrivateAccess = "true"))
 	USkeletalMeshComponent* WeaponMesh;
 

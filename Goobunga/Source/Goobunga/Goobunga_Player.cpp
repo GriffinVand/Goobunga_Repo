@@ -61,6 +61,10 @@ void AGoobunga_Player::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	UpdateAimOffset();
 	UpdateWeaponSwayData(DeltaTime);
+	if (Reloading)
+	{
+		ReloadManagerComponent->UpdatePhase(DeltaTime);
+	}
 }
 
 #pragma region INPUT FUNCTIONS
@@ -107,14 +111,19 @@ void AGoobunga_Player::StartReload()
 	}
 	if (!Reloading)
 	{
-		if (WeaponComponent && WeaponComponent->CanReload() && WeaponComponent->GetEquippedWeapon())
+		if (WeaponComponent && WeaponComponent->CanReload())
 		{
-			FireEnded(true);
-			UE_LOG(LogTemp, Display, TEXT("PlayerStartReload"));
-			TArray<EReloadPattern> TempReloadPattern = TArray{EReloadPattern::Left, EReloadPattern::Right, EReloadPattern::Up, EReloadPattern::Down, EReloadPattern::Circle};
-			ReloadManagerComponent->StartReload(WeaponComponent->GetEquippedWeapon()->WeaponReloadPattern);
-			Reloading = true;
+			if (WeaponComponent->GetEquippedWeapon())
+			{
+				FireEnded(true);
+				UE_LOG(LogTemp, Display, TEXT("PlayerStartReload"));
+				TArray<EReloadPattern> TempReloadPattern = TArray{EReloadPattern::Left, EReloadPattern::Right, EReloadPattern::Up, EReloadPattern::Down, EReloadPattern::Circle};
+				ReloadManagerComponent->StartReload(WeaponComponent->GetEquippedWeapon()->WeaponReloadPattern);
+				Reloading = true;
+			}
+			else { UE_LOG(LogTemp, Display, TEXT("No equipped weapon AGoobunga_Player::StartReload")); }
 		}
+		else { UE_LOG(LogTemp, Display, TEXT("No weapon comp or can't reload AGoobunga_Player::StartReload")); }
 	}
 }
 void AGoobunga_Player::EndReload(bool Success)
@@ -131,7 +140,7 @@ void AGoobunga_Player::EndReload(bool Success)
 }
 void AGoobunga_Player::Look(const FInputActionValue& Value)
 {
-	if (Reloading) { ReloadManagerComponent->UpdateReload(); return; }
+	if (Reloading) { return; }
 	const FVector2d LookVector = Value.Get<FVector2d>();
 	AddControllerYawInput(LookVector.X * Sensitivity);
 	AddControllerPitchInput(LookVector.Y * Sensitivity * -1);

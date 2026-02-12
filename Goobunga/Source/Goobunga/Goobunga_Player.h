@@ -72,6 +72,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float AimAlpha = 0.f;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool Reloading = false;
 	
 protected:

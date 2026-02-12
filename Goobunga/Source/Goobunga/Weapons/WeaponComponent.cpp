@@ -132,7 +132,7 @@ bool UWeaponComponent::CanReload()
 {
 	AWeapon* EquippedWeapon = GetEquippedWeapon();
 	if (!EquippedWeapon) return false;
-	return EquippedWeapon->CurrentMag < EquippedWeapon->MaxMag && EquippedWeapon->CurrentAmmo > 0;
+	return true;//EquippedWeapon->CurrentMag < EquippedWeapon->MaxMag && EquippedWeapon->CurrentAmmo > 0;
 }
 void UWeaponComponent::ReloadWeapon()
 {

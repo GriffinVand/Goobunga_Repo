@@ -35,15 +35,16 @@ class GOOBUNGA_API UReloadManagerComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:	
-	// Sets default values for this component's properties
 	UReloadManagerComponent();
 
 protected:
-	// Called when the game starts
 	virtual void BeginPlay() override;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FReloadPhase> ReloadSequence;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 CurrentReloadPhase = 0;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FVector2D> CurrentPattern;
 	FVector2D LastPoint = FVector2D::ZeroVector;
 	FVector2D NextPoint = FVector2D::ZeroVector;
@@ -71,10 +72,9 @@ protected:
 	
 	
 public:	
-	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	void StartReload(TArray<FReloadPhase>& NewReloadSequence);
-	void UpdatePhase();
+	void UpdatePhase(float DeltaTime);
 	void UpdateInteractivePhase(FReloadPhase& CurrPhase, float DeltaTime);
 	void UpdateVisualPhase(FReloadPhase& CurrPhase, float DeltaTime);
 	void StartPhase(bool bFirst = false);
@@ -82,17 +82,8 @@ public:
 	void StartVisualPhase(FReloadPhase& CurrPhase);
 	void CompletePhase();
 	
-	void UpdateReload();
 	void StopReload(bool Success);
 	void CreateReloadWidget();
 	void RemoveReloadWidget();
-	UFUNCTION()
-	void OnFirstPatternCalled();
-	UFUNCTION()
-	void OnNextPatternCalled();
-	UFUNCTION()
-	void OnPatternFinished();
-	UFUNCTION()
-	void OnReloadCompleted();
 		
 };

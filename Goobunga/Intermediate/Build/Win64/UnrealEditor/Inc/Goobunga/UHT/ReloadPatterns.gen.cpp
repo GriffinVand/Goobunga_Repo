@@ -40,6 +40,8 @@ struct Z_Construct_UEnum_Goobunga_EReloadPattern_Statics
 		{ "Left.DisplayName", "Left" },
 		{ "Left.Name", "EReloadPattern::Left" },
 		{ "ModuleRelativePath", "Combat/ReloadPatterns.h" },
+		{ "None.DisplayName", "None" },
+		{ "None.Name", "EReloadPattern::None" },
 		{ "Right.DisplayName", "Right" },
 		{ "Right.Name", "EReloadPattern::Right" },
 		{ "Up.DisplayName", "Up" },
@@ -47,6 +49,7 @@ struct Z_Construct_UEnum_Goobunga_EReloadPattern_Statics
 	};
 #endif // WITH_METADATA
 	static constexpr UECodeGen_Private::FEnumeratorParam Enumerators[] = {
+		{ "EReloadPattern::None", (int64)EReloadPattern::None },
 		{ "EReloadPattern::Left", (int64)EReloadPattern::Left },
 		{ "EReloadPattern::Right", (int64)EReloadPattern::Right },
 		{ "EReloadPattern::Up", (int64)EReloadPattern::Up },
@@ -78,15 +81,15 @@ UEnum* Z_Construct_UEnum_Goobunga_EReloadPattern()
 // End Enum EReloadPattern
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_ReloadPatterns_h_Statics
+struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_ReloadPatterns_h_Statics
 {
 	static constexpr FEnumRegisterCompiledInInfo EnumInfo[] = {
-		{ EReloadPattern_StaticEnum, TEXT("EReloadPattern"), &Z_Registration_Info_UEnum_EReloadPattern, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 2117102765U) },
+		{ EReloadPattern_StaticEnum, TEXT("EReloadPattern"), &Z_Registration_Info_UEnum_EReloadPattern, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 2653009470U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_ReloadPatterns_h_3552270870(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_ReloadPatterns_h_2584313694(TEXT("/Script/Goobunga"),
 	nullptr, 0,
 	nullptr, 0,
-	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_ReloadPatterns_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_ReloadPatterns_h_Statics::EnumInfo));
+	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_ReloadPatterns_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_ReloadPatterns_h_Statics::EnumInfo));
 // End Registration
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

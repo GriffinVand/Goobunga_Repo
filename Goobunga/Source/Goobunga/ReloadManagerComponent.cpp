@@ -1,4 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "ReloadManagerComponent.h"
@@ -9,14 +8,11 @@
 #include "Blueprint/UserWidget.h"
 #include "Chaos/Utilities.h"
 
-// Sets default values for this component's properties
 UReloadManagerComponent::UReloadManagerComponent()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
+	
 	PrimaryComponentTick.bCanEverTick = true;
 
-	// ...
 	ReloadPatternMap.Add(EReloadPattern::Left, TArray<FVector2D>{FVector2D(0,0), FVector2D(-1, 0)});
 	ReloadPatternMap.Add(EReloadPattern::Right, TArray<FVector2D>{FVector2D(0,0), FVector2D(1, 0)});
 	ReloadPatternMap.Add(EReloadPattern::Up, TArray<FVector2D>{FVector2D(0,0), FVector2D(0, 1)});
@@ -26,22 +22,9 @@ UReloadManagerComponent::UReloadManagerComponent()
 }
 
 
-// Called when the game starts
 void UReloadManagerComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	AGoobunga_Player* Player = Cast<AGoobunga_Player>(GetOwner());
-	if (!Player) return;
-	USkeletalMeshComponent* SKM = Player->FPMesh;
-	if (!SKM) return;
-	UGoobungaPlayerAnimInstance* PlayerAnimInstance = Cast<UGoobungaPlayerAnimInstance>(SKM->GetAnimInstance());
-	if (PlayerAnimInstance)
-	{
-		PlayerAnimInstance->OnFirstPatternCalled.AddUniqueDynamic(this, &UReloadManagerComponent::OnFirstPatternCalled);
-		PlayerAnimInstance->OnNextPatternCalled.AddUniqueDynamic(this, &UReloadManagerComponent::OnNextPatternCalled);
-		PlayerAnimInstance->OnReloadCompleted.AddUniqueDynamic(this, &UReloadManagerComponent::OnReloadCompleted);
-		PlayerAnimInstance->OnPatternFinished.AddUniqueDynamic(this, &UReloadManagerComponent::OnPatternFinished);
-	}
 	
 }
 
@@ -50,8 +33,6 @@ void UReloadManagerComponent::BeginPlay()
 void UReloadManagerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
 }
 
 void UReloadManagerComponent::StartReload(TArray<FReloadPhase>& NewReloadSequence)
@@ -62,21 +43,23 @@ void UReloadManagerComponent::StartReload(TArray<FReloadPhase>& NewReloadSequenc
 	CreateReloadWidget();
 	if (ReloadWidget) { ReloadWidget->SetVisibility(ESlateVisibility::Hidden); }
 	
-	if (ReloadSequence.Num() == 0) { OnReloadCompleted(); return; }
-	
+	if (ReloadSequence.Num() == 0) { StopReload(false); return; }
+	UE_LOG(LogTemp, Display, TEXT("ReloadSequence Length %d"), ReloadSequence.Num());
 	StartPhase(true);
 	
 }
 
 void UReloadManagerComponent::StartPhase(bool bFirst)
 {
-	if (bFirst) { CurrentReloadPhase = 0; }
+	if (bFirst) { CurrentReloadPhase = 0; } else { CurrentReloadPhase += 1; }
 	FReloadPhase Curr = ReloadSequence[CurrentReloadPhase];
 	switch (Curr.PhaseType)
 	{
 	case EReloadPhaseType::Visual:
+		StartVisualPhase(Curr);
 		break;
 	case EReloadPhaseType::Interactive:
+		StartInteractivePhase(Curr);
 		break;
 	default:
 		break;
@@ -87,6 +70,7 @@ void UReloadManagerComponent::StartInteractivePhase(FReloadPhase& CurrPhase)
 {
 	CurrentProgress = 0.f;
 	TotalProgress = 0.f;
+	CurrentSequenceTimeRemaining = 0.f;
 	if (ReloadPatternMap.Contains(CurrPhase.PhasePattern))
 	{
 		CurrentPattern = ReloadPatternMap[CurrPhase.PhasePattern];
@@ -94,6 +78,7 @@ void UReloadManagerComponent::StartInteractivePhase(FReloadPhase& CurrPhase)
 		NextPoint = CurrentPattern[1];
 	}
 	if (CurrPhase.PhaseAnimation) { CurrentSequenceTime = CurrPhase.PhaseAnimation->GetPlayLength(); }
+	if (ReloadWidget) { ReloadWidget->SetVisibility(ESlateVisibility::Visible); }
 	
 }
 
@@ -101,32 +86,27 @@ void UReloadManagerComponent::StartVisualPhase(FReloadPhase& CurrPhase)
 {
 	if (CurrPhase.PhaseAnimation) { CurrentSequenceTime = CurrPhase.PhaseAnimation->GetPlayLength(); }
 	CurrentSequenceTimeRemaining = CurrentSequenceTime;
+	if (ReloadWidget) { ReloadWidget->SetVisibility(ESlateVisibility::Hidden); }
 }
 
-void UReloadManagerComponent::UpdatePhase()
+void UReloadManagerComponent::UpdatePhase(float DeltaTime)
 {
-	
+	FReloadPhase Curr = ReloadSequence[CurrentReloadPhase];
+	switch (Curr.PhaseType)
+	{
+	case EReloadPhaseType::Visual:
+		UpdateVisualPhase(Curr, DeltaTime);
+		break;
+	case EReloadPhaseType::Interactive:
+		UpdateInteractivePhase(Curr, DeltaTime);
+		break;
+	default:
+		break;
+	}
 }
 
 void UReloadManagerComponent::UpdateInteractivePhase(FReloadPhase& CurrPhase, float DeltaTime)
 {
-	
-}
-
-void UReloadManagerComponent::UpdateVisualPhase(FReloadPhase& CurrPhase, float DeltaTime)
-{
-	
-}
-
-void UReloadManagerComponent::CompletePhase()
-{
-	
-}
-
-
-void UReloadManagerComponent::UpdateReload()
-{
-	
 	if (APlayerController* PC = Cast<APlayerController>(Cast<APawn>(GetOwner())->GetController()))
 	{
 		FVector2D NewMouseLocation;
@@ -145,11 +125,12 @@ void UReloadManagerComponent::UpdateReload()
 		
 		if (FVector2D::DotProduct(ExpectedDirection, ActualDirection) > 0.6)
 		{
-			float TotalSegs = ReloadPatternMap[CurrentPatternSequence[0]].Num();
+			float TotalSegs = ReloadPatternMap[CurrPhase.PhasePattern].Num();
 			float CurrentSegs = TotalSegs - CurrentPattern.Num();
-			CurrentProgress += GetWorld()->GetDeltaSeconds() * (ProgressRate * TotalSegs-1) * MovementSpeed;
+			CurrentProgress += DeltaTime * (ProgressRate * TotalSegs-1) * MovementSpeed;
 			CurrentProgress = FMath::Clamp(CurrentProgress, 0.f, 1.f);
 			TotalProgress = (CurrentSegs + CurrentProgress) / (TotalSegs - 1);
+			CurrentSequenceTimeRemaining = FMath::Lerp(0.f, CurrentSequenceTime, TotalProgress);
 			if (CurrentProgress >= 1.f)
 			{
 				LastPoint = NextPoint;
@@ -161,63 +142,28 @@ void UReloadManagerComponent::UpdateReload()
 					UE_LOG(LogTemp, Display, TEXT("CurrentPoint: %f, %f"), LastPoint.X, LastPoint.Y);
 					UE_LOG(LogTemp, Display, TEXT("NextPoint: %f, %f"), NextPoint.X, NextPoint.Y);
 				}
+				else { CompletePhase(); }
 			}
 		}
 	}
-	
 }
 
-void UReloadManagerComponent::OnFirstPatternCalled()
+void UReloadManagerComponent::UpdateVisualPhase(FReloadPhase& CurrPhase, float DeltaTime)
 {
-	if (CurrentPatternSequence.Num() == 0) return;
-	CurrentPattern = ReloadPatternMap[CurrentPatternSequence[0]];
-	if (CurrentPattern.Num() > 1)
-	{
-		TotalProgress = 0.f;
-		CurrentProgress = 0.f;
-		LastPoint = CurrentPattern[0];
-		NextPoint = CurrentPattern[1];
-		UE_LOG(LogTemp, Display, TEXT("CurrentPoint: %f, %f"), LastPoint.X, LastPoint.Y);
-		UE_LOG(LogTemp, Display, TEXT("NextPoint: %f, %f"), NextPoint.X, NextPoint.Y);
-		bActive = true;
-		if (ReloadWidget) { ReloadWidget->SetVisibility(ESlateVisibility::Visible); }
-	}
+	CurrentSequenceTimeRemaining -= DeltaTime;
+	if (CurrentSequenceTimeRemaining <= 0.f) { CompletePhase(); }
 }
 
-void UReloadManagerComponent::OnNextPatternCalled()
+void UReloadManagerComponent::CompletePhase()
 {
-	if (CurrentPatternSequence.Num() == 0) return;
-	CurrentPatternSequence.RemoveAt(0);
-	TotalProgress = 0.f;
-	CurrentProgress = 0.f;
-	if (CurrentPatternSequence.Num() > 0)
-	{
-		CurrentPattern = ReloadPatternMap[CurrentPatternSequence[0]];
-		if (CurrentPattern.Num() > 1)
-		{
-			LastPoint = CurrentPattern[0];
-			NextPoint = CurrentPattern[1];
-			UE_LOG(LogTemp, Display, TEXT("CurrentPoint: %f, %f"), LastPoint.X, LastPoint.Y);
-			UE_LOG(LogTemp, Display, TEXT("NextPoint: %f, %f"), NextPoint.X, NextPoint.Y);
-			bActive = true;
-		}
-	}
-	if (ReloadWidget) { ReloadWidget->SetVisibility(ESlateVisibility::Visible); }
-}
-
-void UReloadManagerComponent::OnPatternFinished()
-{
-	bActive = false;
-	if (ReloadWidget) { ReloadWidget->SetVisibility(ESlateVisibility::Hidden); }
-}
-
-void UReloadManagerComponent::OnReloadCompleted()
-{
+	int32 NewPhase = CurrentReloadPhase + 1;
+	if ((ReloadSequence.Num()) > NewPhase) { StartPhase(false); return;}
 	StopReload(true);
 }
 
 void UReloadManagerComponent::StopReload(bool Success)
 {
+	CurrentReloadPhase = -1;
 	RemoveReloadWidget();
 	UE_LOG(LogTemp, Display, TEXT("Successful Reload"));
 	if (IPlayerCallables* PlayerCallablesInterface = Cast<IPlayerCallables>(GetOwner()))

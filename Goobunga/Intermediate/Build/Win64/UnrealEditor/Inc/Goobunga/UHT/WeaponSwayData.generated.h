@@ -14,7 +14,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define GOOBUNGA_WeaponSwayData_generated_h
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_WeaponSwayData_h_9_GENERATED_BODY \
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_WeaponSwayData_h_9_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FWeaponSwayData_Statics; \
 	GOOBUNGA_API static class UScriptStruct* StaticStruct();
 
@@ -22,7 +22,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 template<> GOOBUNGA_API UScriptStruct* StaticStruct<struct FWeaponSwayData>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_WeaponSwayData_h
+#define CURRENT_FILE_ID FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_WeaponSwayData_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
