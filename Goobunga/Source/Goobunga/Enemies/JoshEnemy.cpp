@@ -4,7 +4,7 @@
 #include "JoshEnemy.h"
 
 #include "AIController.h"
-#include "BaseEnemyAIController.h"
+#include "Goobunga/Enemies/AI/BaseEnemyAIController.h"
 #include "BrainComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/SplineComponent.h"

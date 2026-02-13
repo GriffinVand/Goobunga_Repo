@@ -107,6 +107,8 @@ protected:
 	FWeaponSwayData CurrentWeaponSwayData = FWeaponSwayData();
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "WeaponSway")
 	FVector2D WeaponSwayAmounts = FVector2D(-5.f, 5.f);
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Grip")
+	float GripAlpha = 1.f;
 
 	//0 to 1, 1 being full ads, 0 being full hip
 	float DefaultSensitivity = 0.5;

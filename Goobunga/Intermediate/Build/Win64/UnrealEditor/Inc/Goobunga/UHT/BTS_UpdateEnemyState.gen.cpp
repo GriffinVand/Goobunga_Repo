@@ -5,7 +5,7 @@
 ===========================================================================*/
 
 #include "UObject/GeneratedCppIncludes.h"
-#include "Goobunga/Enemies/BTS_UpdateEnemyState.h"
+#include "Goobunga/Enemies/AI/BTS/BTS_UpdateEnemyState.h"
 #include "Runtime/AIModule/Classes/BehaviorTree/BehaviorTreeTypes.h"
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeBTS_UpdateEnemyState() {}
@@ -34,16 +34,16 @@ struct Z_Construct_UClass_UBTS_UpdateEnemyState_Statics
 #if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n * \n */" },
 #endif
-		{ "IncludePath", "Enemies/BTS_UpdateEnemyState.h" },
-		{ "ModuleRelativePath", "Enemies/BTS_UpdateEnemyState.h" },
+		{ "IncludePath", "Enemies/AI/BTS/BTS_UpdateEnemyState.h" },
+		{ "ModuleRelativePath", "Enemies/AI/BTS/BTS_UpdateEnemyState.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_SelfActorKey_MetaData[] = {
 		{ "Category", "Blackboard" },
-		{ "ModuleRelativePath", "Enemies/BTS_UpdateEnemyState.h" },
+		{ "ModuleRelativePath", "Enemies/AI/BTS/BTS_UpdateEnemyState.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_SelfActorStateKey_MetaData[] = {
 		{ "Category", "Blackboard" },
-		{ "ModuleRelativePath", "Enemies/BTS_UpdateEnemyState.h" },
+		{ "ModuleRelativePath", "Enemies/AI/BTS/BTS_UpdateEnemyState.h" },
 	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FStructPropertyParams NewProp_SelfActorKey;
@@ -99,14 +99,14 @@ UBTS_UpdateEnemyState::~UBTS_UpdateEnemyState() {}
 // End Class UBTS_UpdateEnemyState
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTS_UpdateEnemyState_h_Statics
+struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTS_BTS_UpdateEnemyState_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UBTS_UpdateEnemyState, UBTS_UpdateEnemyState::StaticClass, TEXT("UBTS_UpdateEnemyState"), &Z_Registration_Info_UClass_UBTS_UpdateEnemyState, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBTS_UpdateEnemyState), 249864300U) },
+		{ Z_Construct_UClass_UBTS_UpdateEnemyState, UBTS_UpdateEnemyState::StaticClass, TEXT("UBTS_UpdateEnemyState"), &Z_Registration_Info_UClass_UBTS_UpdateEnemyState, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBTS_UpdateEnemyState), 4051454884U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTS_UpdateEnemyState_h_3499430776(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTS_UpdateEnemyState_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTS_UpdateEnemyState_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTS_BTS_UpdateEnemyState_h_244545918(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTS_BTS_UpdateEnemyState_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTS_BTS_UpdateEnemyState_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

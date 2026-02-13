@@ -5,7 +5,7 @@
 ===========================================================================*/
 
 #include "UObject/GeneratedCppIncludes.h"
-#include "Goobunga/Enemies/BTD_CanLaunch.h"
+#include "Goobunga/Enemies/AI/BTD/BTD_CanLaunch.h"
 #include "Runtime/AIModule/Classes/BehaviorTree/BehaviorTreeTypes.h"
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeBTD_CanLaunch() {}
@@ -31,12 +31,12 @@ struct Z_Construct_UClass_UBTD_CanLaunch_Statics
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
-		{ "IncludePath", "Enemies/BTD_CanLaunch.h" },
-		{ "ModuleRelativePath", "Enemies/BTD_CanLaunch.h" },
+		{ "IncludePath", "Enemies/AI/BTD/BTD_CanLaunch.h" },
+		{ "ModuleRelativePath", "Enemies/AI/BTD/BTD_CanLaunch.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_SelfActorKey_MetaData[] = {
 		{ "Category", "BTD_CanLaunch" },
-		{ "ModuleRelativePath", "Enemies/BTD_CanLaunch.h" },
+		{ "ModuleRelativePath", "Enemies/AI/BTD/BTD_CanLaunch.h" },
 	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FStructPropertyParams NewProp_SelfActorKey;
@@ -90,14 +90,14 @@ UBTD_CanLaunch::~UBTD_CanLaunch() {}
 // End Class UBTD_CanLaunch
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTD_CanLaunch_h_Statics
+struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTD_BTD_CanLaunch_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UBTD_CanLaunch, UBTD_CanLaunch::StaticClass, TEXT("UBTD_CanLaunch"), &Z_Registration_Info_UClass_UBTD_CanLaunch, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBTD_CanLaunch), 1268228309U) },
+		{ Z_Construct_UClass_UBTD_CanLaunch, UBTD_CanLaunch::StaticClass, TEXT("UBTD_CanLaunch"), &Z_Registration_Info_UClass_UBTD_CanLaunch, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBTD_CanLaunch), 1405810828U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTD_CanLaunch_h_3458130945(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTD_CanLaunch_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTD_CanLaunch_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTD_BTD_CanLaunch_h_2919858865(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTD_BTD_CanLaunch_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTD_BTD_CanLaunch_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

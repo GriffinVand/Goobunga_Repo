@@ -14,7 +14,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define GOOBUNGA_AbilityBase_generated_h
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_8_INCLASS_NO_PURE_DECLS \
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_8_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUAbilityBase(); \
 	friend struct Z_Construct_UClass_UAbilityBase_Statics; \
@@ -23,7 +23,7 @@ public: \
 	DECLARE_SERIALIZER(UAbilityBase)
 
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_8_ENHANCED_CONSTRUCTORS \
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_8_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UAbilityBase(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 private: \
@@ -37,12 +37,12 @@ public: \
 	NO_API virtual ~UAbilityBase();
 
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_5_PROLOG
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_8_GENERATED_BODY \
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_5_PROLOG
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_8_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_8_INCLASS_NO_PURE_DECLS \
-	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_8_ENHANCED_CONSTRUCTORS \
+	FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_8_INCLASS_NO_PURE_DECLS \
+	FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_8_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -50,7 +50,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> GOOBUNGA_API UClass* StaticClass<class UAbilityBase>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h
+#define CURRENT_FILE_ID FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

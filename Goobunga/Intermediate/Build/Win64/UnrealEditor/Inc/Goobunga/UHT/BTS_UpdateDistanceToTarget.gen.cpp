@@ -5,7 +5,7 @@
 ===========================================================================*/
 
 #include "UObject/GeneratedCppIncludes.h"
-#include "Goobunga/Enemies/BTS_UpdateDistanceToTarget.h"
+#include "Goobunga/Enemies/AI/BTS/BTS_UpdateDistanceToTarget.h"
 #include "Runtime/AIModule/Classes/BehaviorTree/BehaviorTreeTypes.h"
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeBTS_UpdateDistanceToTarget() {}
@@ -34,23 +34,23 @@ struct Z_Construct_UClass_UBTS_UpdateDistanceToTarget_Statics
 #if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n * \n */" },
 #endif
-		{ "IncludePath", "Enemies/BTS_UpdateDistanceToTarget.h" },
-		{ "ModuleRelativePath", "Enemies/BTS_UpdateDistanceToTarget.h" },
+		{ "IncludePath", "Enemies/AI/BTS/BTS_UpdateDistanceToTarget.h" },
+		{ "ModuleRelativePath", "Enemies/AI/BTS/BTS_UpdateDistanceToTarget.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_SelfActorKey_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "Blackboard" },
-		{ "ModuleRelativePath", "Enemies/BTS_UpdateDistanceToTarget.h" },
+		{ "ModuleRelativePath", "Enemies/AI/BTS/BTS_UpdateDistanceToTarget.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_TargetKey_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "Blackboard" },
-		{ "ModuleRelativePath", "Enemies/BTS_UpdateDistanceToTarget.h" },
+		{ "ModuleRelativePath", "Enemies/AI/BTS/BTS_UpdateDistanceToTarget.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DistanceToTargetKey_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "Blackboard" },
-		{ "ModuleRelativePath", "Enemies/BTS_UpdateDistanceToTarget.h" },
+		{ "ModuleRelativePath", "Enemies/AI/BTS/BTS_UpdateDistanceToTarget.h" },
 	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FStructPropertyParams NewProp_SelfActorKey;
@@ -109,14 +109,14 @@ UBTS_UpdateDistanceToTarget::~UBTS_UpdateDistanceToTarget() {}
 // End Class UBTS_UpdateDistanceToTarget
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTS_UpdateDistanceToTarget_h_Statics
+struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTS_BTS_UpdateDistanceToTarget_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UBTS_UpdateDistanceToTarget, UBTS_UpdateDistanceToTarget::StaticClass, TEXT("UBTS_UpdateDistanceToTarget"), &Z_Registration_Info_UClass_UBTS_UpdateDistanceToTarget, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBTS_UpdateDistanceToTarget), 1333738951U) },
+		{ Z_Construct_UClass_UBTS_UpdateDistanceToTarget, UBTS_UpdateDistanceToTarget::StaticClass, TEXT("UBTS_UpdateDistanceToTarget"), &Z_Registration_Info_UClass_UBTS_UpdateDistanceToTarget, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBTS_UpdateDistanceToTarget), 1234600969U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTS_UpdateDistanceToTarget_h_2592686313(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTS_UpdateDistanceToTarget_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTS_UpdateDistanceToTarget_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTS_BTS_UpdateDistanceToTarget_h_3457359299(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTS_BTS_UpdateDistanceToTarget_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTS_BTS_UpdateDistanceToTarget_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

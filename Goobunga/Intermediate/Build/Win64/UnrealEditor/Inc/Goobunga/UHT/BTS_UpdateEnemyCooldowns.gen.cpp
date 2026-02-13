@@ -5,7 +5,7 @@
 ===========================================================================*/
 
 #include "UObject/GeneratedCppIncludes.h"
-#include "Goobunga/Enemies/BTS_UpdateEnemyCooldowns.h"
+#include "Goobunga/Enemies/AI/BTS/BTS_UpdateEnemyCooldowns.h"
 #include "Runtime/AIModule/Classes/BehaviorTree/BehaviorTreeTypes.h"
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeBTS_UpdateEnemyCooldowns() {}
@@ -34,20 +34,20 @@ struct Z_Construct_UClass_UBTS_UpdateEnemyCooldowns_Statics
 #if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n * \n */" },
 #endif
-		{ "IncludePath", "Enemies/BTS_UpdateEnemyCooldowns.h" },
-		{ "ModuleRelativePath", "Enemies/BTS_UpdateEnemyCooldowns.h" },
+		{ "IncludePath", "Enemies/AI/BTS/BTS_UpdateEnemyCooldowns.h" },
+		{ "ModuleRelativePath", "Enemies/AI/BTS/BTS_UpdateEnemyCooldowns.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_SelfActorKey_MetaData[] = {
 		{ "Category", "BTS_UpdateEnemyCooldowns" },
-		{ "ModuleRelativePath", "Enemies/BTS_UpdateEnemyCooldowns.h" },
+		{ "ModuleRelativePath", "Enemies/AI/BTS/BTS_UpdateEnemyCooldowns.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CanAttackKey_MetaData[] = {
 		{ "Category", "BTS_UpdateEnemyCooldowns" },
-		{ "ModuleRelativePath", "Enemies/BTS_UpdateEnemyCooldowns.h" },
+		{ "ModuleRelativePath", "Enemies/AI/BTS/BTS_UpdateEnemyCooldowns.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CanLaunchKey_MetaData[] = {
 		{ "Category", "BTS_UpdateEnemyCooldowns" },
-		{ "ModuleRelativePath", "Enemies/BTS_UpdateEnemyCooldowns.h" },
+		{ "ModuleRelativePath", "Enemies/AI/BTS/BTS_UpdateEnemyCooldowns.h" },
 	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FStructPropertyParams NewProp_SelfActorKey;
@@ -106,14 +106,14 @@ UBTS_UpdateEnemyCooldowns::~UBTS_UpdateEnemyCooldowns() {}
 // End Class UBTS_UpdateEnemyCooldowns
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTS_UpdateEnemyCooldowns_h_Statics
+struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTS_BTS_UpdateEnemyCooldowns_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UBTS_UpdateEnemyCooldowns, UBTS_UpdateEnemyCooldowns::StaticClass, TEXT("UBTS_UpdateEnemyCooldowns"), &Z_Registration_Info_UClass_UBTS_UpdateEnemyCooldowns, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBTS_UpdateEnemyCooldowns), 3363027317U) },
+		{ Z_Construct_UClass_UBTS_UpdateEnemyCooldowns, UBTS_UpdateEnemyCooldowns::StaticClass, TEXT("UBTS_UpdateEnemyCooldowns"), &Z_Registration_Info_UClass_UBTS_UpdateEnemyCooldowns, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBTS_UpdateEnemyCooldowns), 784865455U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTS_UpdateEnemyCooldowns_h_1669443498(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTS_UpdateEnemyCooldowns_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTS_UpdateEnemyCooldowns_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTS_BTS_UpdateEnemyCooldowns_h_2009300331(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTS_BTS_UpdateEnemyCooldowns_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTS_BTS_UpdateEnemyCooldowns_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

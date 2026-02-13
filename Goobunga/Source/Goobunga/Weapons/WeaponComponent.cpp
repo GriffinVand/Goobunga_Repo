@@ -132,7 +132,11 @@ bool UWeaponComponent::CanReload()
 {
 	AWeapon* EquippedWeapon = GetEquippedWeapon();
 	if (!EquippedWeapon) return false;
-	return true;//EquippedWeapon->CurrentMag < EquippedWeapon->MaxMag && EquippedWeapon->CurrentAmmo > 0;
+	bool bMagFull = EquippedWeapon->CurrentMag == EquippedWeapon->MaxMag;
+	UE_LOG(LogTemp, Error, TEXT("CurrentMag = %d"), EquippedWeapon->CurrentMag);
+	bool bAmmoReserves = (EquippedWeapon->CurrentAmmo) > 0;
+	UE_LOG(LogTemp, Error, TEXT("CurrentReserves = %d"), EquippedWeapon->CurrentAmmo);
+	return !bMagFull && bAmmoReserves;
 }
 void UWeaponComponent::ReloadWeapon()
 {
@@ -203,6 +207,10 @@ void UWeaponComponent::SetAdsTimeline()
 void UWeaponComponent::OnAdsTimelineUpdate(float Value)
 {
 	UE_LOG(LogWeaponComponent, Warning, TEXT("Ads Value: %f"), Value);
+	if (GetEquippedWeapon())
+	{
+		GetEquippedWeapon()->UpdateAccuracy(Value);
+	}
 	if (IPlayerCallables* PlayerCallablesInterface = Cast<IPlayerCallables>(GetOwner()))
 	{
 		UpdateAdsTransform(Value);

@@ -5,7 +5,7 @@
 ===========================================================================*/
 
 #include "UObject/GeneratedCppIncludes.h"
-#include "Goobunga/Enemies/BTTask_SwerveWhileChasing.h"
+#include "Goobunga/Enemies/AI/BTT/BTTask_SwerveWhileChasing.h"
 #include "Runtime/AIModule/Classes/BehaviorTree/BehaviorTreeTypes.h"
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeBTTask_SwerveWhileChasing() {}
@@ -34,20 +34,20 @@ struct Z_Construct_UClass_UBTTask_SwerveWhileChasing_Statics
 #if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n * \n */" },
 #endif
-		{ "IncludePath", "Enemies/BTTask_SwerveWhileChasing.h" },
-		{ "ModuleRelativePath", "Enemies/BTTask_SwerveWhileChasing.h" },
+		{ "IncludePath", "Enemies/AI/BTT/BTTask_SwerveWhileChasing.h" },
+		{ "ModuleRelativePath", "Enemies/AI/BTT/BTTask_SwerveWhileChasing.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_SelfActorKey_MetaData[] = {
 		{ "Category", "Blackboard" },
-		{ "ModuleRelativePath", "Enemies/BTTask_SwerveWhileChasing.h" },
+		{ "ModuleRelativePath", "Enemies/AI/BTT/BTTask_SwerveWhileChasing.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_TargetActorKey_MetaData[] = {
 		{ "Category", "Blackboard" },
-		{ "ModuleRelativePath", "Enemies/BTTask_SwerveWhileChasing.h" },
+		{ "ModuleRelativePath", "Enemies/AI/BTT/BTTask_SwerveWhileChasing.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_TargetLocation_MetaData[] = {
 		{ "Category", "Blackboard" },
-		{ "ModuleRelativePath", "Enemies/BTTask_SwerveWhileChasing.h" },
+		{ "ModuleRelativePath", "Enemies/AI/BTT/BTTask_SwerveWhileChasing.h" },
 	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FStructPropertyParams NewProp_SelfActorKey;
@@ -106,14 +106,14 @@ UBTTask_SwerveWhileChasing::~UBTTask_SwerveWhileChasing() {}
 // End Class UBTTask_SwerveWhileChasing
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTTask_SwerveWhileChasing_h_Statics
+struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTT_BTTask_SwerveWhileChasing_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UBTTask_SwerveWhileChasing, UBTTask_SwerveWhileChasing::StaticClass, TEXT("UBTTask_SwerveWhileChasing"), &Z_Registration_Info_UClass_UBTTask_SwerveWhileChasing, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBTTask_SwerveWhileChasing), 1697825855U) },
+		{ Z_Construct_UClass_UBTTask_SwerveWhileChasing, UBTTask_SwerveWhileChasing::StaticClass, TEXT("UBTTask_SwerveWhileChasing"), &Z_Registration_Info_UClass_UBTTask_SwerveWhileChasing, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBTTask_SwerveWhileChasing), 3930752633U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTTask_SwerveWhileChasing_h_2515541179(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTTask_SwerveWhileChasing_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTTask_SwerveWhileChasing_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTT_BTTask_SwerveWhileChasing_h_2799542050(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTT_BTTask_SwerveWhileChasing_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTT_BTTask_SwerveWhileChasing_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

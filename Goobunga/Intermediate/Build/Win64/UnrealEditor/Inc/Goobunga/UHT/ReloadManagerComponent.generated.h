@@ -14,14 +14,14 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define GOOBUNGA_ReloadManagerComponent_generated_h
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_20_GENERATED_BODY \
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_20_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FReloadPhase_Statics; \
 	GOOBUNGA_API static class UScriptStruct* StaticStruct();
 
 
 template<> GOOBUNGA_API UScriptStruct* StaticStruct<struct FReloadPhase>();
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_35_INCLASS_NO_PURE_DECLS \
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_35_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUReloadManagerComponent(); \
 	friend struct Z_Construct_UClass_UReloadManagerComponent_Statics; \
@@ -30,7 +30,7 @@ public: \
 	DECLARE_SERIALIZER(UReloadManagerComponent)
 
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_35_ENHANCED_CONSTRUCTORS \
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_35_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	UReloadManagerComponent(UReloadManagerComponent&&); \
@@ -42,12 +42,12 @@ public: \
 	NO_API virtual ~UReloadManagerComponent();
 
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_32_PROLOG
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_35_GENERATED_BODY \
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_32_PROLOG
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_35_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_35_INCLASS_NO_PURE_DECLS \
-	FID_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_35_ENHANCED_CONSTRUCTORS \
+	FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_35_INCLASS_NO_PURE_DECLS \
+	FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_35_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -55,7 +55,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> GOOBUNGA_API UClass* StaticClass<class UReloadManagerComponent>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h
+#define CURRENT_FILE_ID FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h
 
 
 #define FOREACH_ENUM_ERELOADPHASETYPE(op) \

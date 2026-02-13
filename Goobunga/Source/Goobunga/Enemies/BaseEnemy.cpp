@@ -3,7 +3,7 @@
 
 #include "BaseEnemy.h"
 
-#include "BaseEnemyAIController.h"
+#include "Goobunga/Enemies/AI/BaseEnemyAIController.h"
 #include "BrainComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/SplineComponent.h"
@@ -100,11 +100,7 @@ void ABaseEnemy::Dismember(FVector LastMovementSpeed)
 	}
 	else
 	{
-		if (HasAuthority())
-		{
-			Destroy();
-		}
-		else { UE_LOG(LogTemp, Warning, TEXT("ABaseEnemy::Dismember tried to destroy actor but no authority")); }
+		Destroy();
 	}
 	for (UStaticMeshComponent* DismemberPart : DismemberPartComponents)
 	{

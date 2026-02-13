@@ -31,8 +31,8 @@ public:
 	float LaunchForce = 500.f;
 	float LaunchSplineAlpha = 0.f;
 	float LaunchSplineTime = 0.7f;
-	float LaunchRate = 8.f;
-	float LaunchCooldown = 8.f;
+	float LaunchRate = 12.f;
+	float LaunchCooldown = 12.f;
 	FOnLaunchFinished LaunchFinishedDelegate;
 	virtual void StartLaunch(AActor* TargetActor);
 	virtual void UpdateLaunchProgress(float DeltaTime);

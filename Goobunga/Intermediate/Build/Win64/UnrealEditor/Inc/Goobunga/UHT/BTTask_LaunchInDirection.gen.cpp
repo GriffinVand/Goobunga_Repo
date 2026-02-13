@@ -5,7 +5,7 @@
 ===========================================================================*/
 
 #include "UObject/GeneratedCppIncludes.h"
-#include "Goobunga/Enemies/BTTask_LaunchInDirection.h"
+#include "Goobunga/Enemies/AI/BTT/BTTask_LaunchInDirection.h"
 #include "Runtime/AIModule/Classes/BehaviorTree/BehaviorTreeTypes.h"
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeBTTask_LaunchInDirection() {}
@@ -34,16 +34,16 @@ struct Z_Construct_UClass_UBTTask_LaunchInDirection_Statics
 #if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n * \n */" },
 #endif
-		{ "IncludePath", "Enemies/BTTask_LaunchInDirection.h" },
-		{ "ModuleRelativePath", "Enemies/BTTask_LaunchInDirection.h" },
+		{ "IncludePath", "Enemies/AI/BTT/BTTask_LaunchInDirection.h" },
+		{ "ModuleRelativePath", "Enemies/AI/BTT/BTTask_LaunchInDirection.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_TargetActorKey_MetaData[] = {
 		{ "Category", "Blackboard" },
-		{ "ModuleRelativePath", "Enemies/BTTask_LaunchInDirection.h" },
+		{ "ModuleRelativePath", "Enemies/AI/BTT/BTTask_LaunchInDirection.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_SelfActorKey_MetaData[] = {
 		{ "Category", "Blackboard" },
-		{ "ModuleRelativePath", "Enemies/BTTask_LaunchInDirection.h" },
+		{ "ModuleRelativePath", "Enemies/AI/BTT/BTTask_LaunchInDirection.h" },
 	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FStructPropertyParams NewProp_TargetActorKey;
@@ -99,14 +99,14 @@ UBTTask_LaunchInDirection::~UBTTask_LaunchInDirection() {}
 // End Class UBTTask_LaunchInDirection
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTTask_LaunchInDirection_h_Statics
+struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTT_BTTask_LaunchInDirection_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UBTTask_LaunchInDirection, UBTTask_LaunchInDirection::StaticClass, TEXT("UBTTask_LaunchInDirection"), &Z_Registration_Info_UClass_UBTTask_LaunchInDirection, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBTTask_LaunchInDirection), 4273355513U) },
+		{ Z_Construct_UClass_UBTTask_LaunchInDirection, UBTTask_LaunchInDirection::StaticClass, TEXT("UBTTask_LaunchInDirection"), &Z_Registration_Info_UClass_UBTTask_LaunchInDirection, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBTTask_LaunchInDirection), 1506598740U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTTask_LaunchInDirection_h_627382545(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTTask_LaunchInDirection_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_BTTask_LaunchInDirection_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTT_BTTask_LaunchInDirection_h_1545056113(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTT_BTTask_LaunchInDirection_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTT_BTTask_LaunchInDirection_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

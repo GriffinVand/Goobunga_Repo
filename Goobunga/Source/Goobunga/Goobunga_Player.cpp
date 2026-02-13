@@ -120,6 +120,7 @@ void AGoobunga_Player::StartReload()
 				TArray<EReloadPattern> TempReloadPattern = TArray{EReloadPattern::Left, EReloadPattern::Right, EReloadPattern::Up, EReloadPattern::Down, EReloadPattern::Circle};
 				ReloadManagerComponent->StartReload(WeaponComponent->GetEquippedWeapon()->WeaponReloadPattern);
 				Reloading = true;
+				GripAlpha = 0.f;
 			}
 			else { UE_LOG(LogTemp, Display, TEXT("No equipped weapon AGoobunga_Player::StartReload")); }
 		}
@@ -137,6 +138,7 @@ void AGoobunga_Player::EndReload(bool Success)
 		}
 	}
 	Reloading = false;
+	GripAlpha = 1.f;
 }
 void AGoobunga_Player::Look(const FInputActionValue& Value)
 {

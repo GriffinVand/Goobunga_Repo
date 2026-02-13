@@ -108,6 +108,7 @@ public:
 	//Ammo
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Ammo", meta = (AllowPrivateAccess = "true"))
 	int MaxAmmo = 120;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Ammo", meta = (AllowPrivateAccess = "true"))
 	int CurrentAmmo = MaxAmmo;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Ammo", meta = (AllowPrivateAccess = "true"))
 	int MaxMag = 30;
@@ -115,6 +116,7 @@ public:
 	int CurrentMag = 30;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Ammo", meta = (AllowPrivateAccess = "true"))
 	int MaxAltAmmo = 10;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Ammo", meta = (AllowPrivateAccess = "true"))
 	int CurrentAltAmmo = MaxAltAmmo;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Ammo", meta = (AllowPrivateAccess = "true"))
 	int MaxAltMag = 1;
