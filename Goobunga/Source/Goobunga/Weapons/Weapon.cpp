@@ -227,8 +227,7 @@ FRotator AWeapon::GetFireDirection(bool bTrue)
 	FireDirection = FireOffset.RotateVector(FireDirection);
 	
 	FRotator FireRotation = FireDirection.Rotation();
-	DrawDebugLine(GetWorld(), TrueStart, HitLocation, FColor::Red);
-	DrawDebugSphere(GetWorld(), HitLocation, 20.f, 10, FColor::Red);
+	DrawDebugLine(GetWorld(), TrueStart, TrueStart + (FireDirection * 10000), FColor::Red);
 	return FireRotation;
 	
 	
