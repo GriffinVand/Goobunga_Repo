@@ -400,6 +400,12 @@
     <ClCompile Include="..\..\Source\Goobunga\Weapons\CatGun.h">
       <Filter>Source\Goobunga\Weapons</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Weapons\FlintLockGun.cpp">
+      <Filter>Source\Goobunga\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Weapons\FlintLockGun.h">
+      <Filter>Source\Goobunga\Weapons</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Weapons\HitScanWeapon.cpp">
       <Filter>Source\Goobunga\Weapons</Filter>
     </ClCompile>

@@ -335,7 +335,7 @@ void AGoobunga_Player::PerformAction(const FString& Action)
 void AGoobunga_Player::UpdateAds(float Alpha)
 {
 	AimAlpha = Alpha;
-	float NewFOV = FMath::Lerp(90, 70, Alpha);
+	float NewFOV = FMath::Lerp(90, 60, Alpha);
 	Sensitivity = DefaultSensitivity * NewFOV / 90;
 	FPCamera->SetFieldOfView(NewFOV);
 	FPCamera->PostProcessSettings.bOverride_VignetteIntensity = true;

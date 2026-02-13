@@ -63,7 +63,7 @@ protected:
 	
 	
 	FVector2D LastMouseLocation = FVector2D::ZeroVector;
-	float ProgressRate = 20.f;
+	float ProgressRate = 5.f;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	TSubclassOf<UUserWidget> ReloadWidgetClass;
