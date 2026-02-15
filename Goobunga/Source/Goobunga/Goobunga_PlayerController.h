@@ -29,6 +29,7 @@ public:
 	void InitializePlayerHUD();
 	void CreateWeaponUI(AWeapon* Weapon);
 	virtual void BeginPlay() override;
+	virtual void OnPossess(APawn* Pawn) override;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UPlayerMainWidget* MainHUD = nullptr;

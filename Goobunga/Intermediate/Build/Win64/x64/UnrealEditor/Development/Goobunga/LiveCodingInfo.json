@@ -2,7 +2,6 @@
 	"RemapUnityFiles": 
 	{
 		"Module.Goobunga.1.cpp.obj": [
-			"PerModuleInline.gen.cpp.obj",
 			"AbilityBase.gen.cpp.obj",
 			"AbilityComponent.gen.cpp.obj",
 			"BaseEnemy.gen.cpp.obj",
@@ -43,7 +42,9 @@
 			"LaunchInterface.gen.cpp.obj",
 			"LoadMenu.gen.cpp.obj",
 			"LoadSlot.gen.cpp.obj",
-			"MasterWidget.gen.cpp.obj",
+			"MasterWidget.gen.cpp.obj"
+		],
+		"Module.Goobunga.2.cpp.obj": [
 			"MeleeWeapon.gen.cpp.obj",
 			"PersistentDataInterface.gen.cpp.obj",
 			"PersistentDataSubsystem.gen.cpp.obj",
@@ -68,9 +69,8 @@
 			"Weapon.gen.cpp.obj",
 			"WeaponComponent.gen.cpp.obj",
 			"WeaponSwayData.gen.cpp.obj",
-			"WeaponUITypes.gen.cpp.obj"
-		],
-		"Module.Goobunga.2.cpp.obj": [
+			"WeaponUITypes.gen.cpp.obj",
+			"PerModuleInline.gen.cpp.obj",
 			"AbilityBase.cpp.obj",
 			"AbilityComponent.cpp.obj",
 			"GoobungaPlayerAnimInstance.cpp.obj",
@@ -107,7 +107,6 @@
 			"GoobungaGameInstance.cpp.obj",
 			"GoobungaPlayerState.cpp.obj",
 			"Goobunga_Player.cpp.obj",
-			"Goobunga_PlayerController.cpp.obj",
 			"GoobungaSaveFile.cpp.obj",
 			"PersistentDataInterface.cpp.obj",
 			"PersistentDataSubsystem.cpp.obj",
@@ -134,9 +133,12 @@
 			"MeleeWeapon.cpp.obj",
 			"GoobungaProjectile.cpp.obj",
 			"ProjectileWeapon.cpp.obj",
+			"Weapon.cpp.obj",
+			"Goobunga_PlayerController.cpp.obj"
+		],
+		"Module.Goobunga.3.cpp.obj": [
 			"WeaponComponent.cpp.obj",
-			"WeaponSwayData.cpp.obj",
-			"Weapon.cpp.obj"
+			"WeaponSwayData.cpp.obj"
 		]
 	}
 }

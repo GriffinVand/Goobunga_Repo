@@ -134,9 +134,9 @@
 			"MeleeWeapon.cpp.obj",
 			"GoobungaProjectile.cpp.obj",
 			"ProjectileWeapon.cpp.obj",
-			"Weapon.cpp.obj",
 			"WeaponComponent.cpp.obj",
-			"WeaponSwayData.cpp.obj"
+			"WeaponSwayData.cpp.obj",
+			"Weapon.cpp.obj"
 		]
 	}
 }

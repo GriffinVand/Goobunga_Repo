@@ -62,6 +62,5 @@
 #include "E:/Goobunga_Repo/Goobunga/Source/Goobunga/Weapons/MeleeWeapons/MeleeWeapon.cpp"
 #include "E:/Goobunga_Repo/Goobunga/Source/Goobunga/Weapons/Projectiles/GoobungaProjectile.cpp"
 #include "E:/Goobunga_Repo/Goobunga/Source/Goobunga/Weapons/ProjectileWeapons/ProjectileWeapon.cpp"
-#include "E:/Goobunga_Repo/Goobunga/Source/Goobunga/Weapons/Weapon.cpp"
 #include "E:/Goobunga_Repo/Goobunga/Source/Goobunga/Weapons/WeaponComponent.cpp"
 #include "E:/Goobunga_Repo/Goobunga/Source/Goobunga/Weapons/WeaponSwayData.cpp"

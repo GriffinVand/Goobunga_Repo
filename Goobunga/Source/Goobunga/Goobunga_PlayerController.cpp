@@ -8,7 +8,6 @@
 void AGoobunga_PlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	InitializeMasterWidget();
 }
 
 void AGoobunga_PlayerController::InitializeMasterWidget()
@@ -18,12 +17,20 @@ void AGoobunga_PlayerController::InitializeMasterWidget()
 	if (!MasterWidget) { UE_LOG(LogTemp, Error, TEXT("Failed to create MasterWidget")); return; }
 	MasterWidget->AddToViewport();
 	OnMasterWidgetCreated.Broadcast();
-	if (AGoobunga_Player* Goobunga_Player = Cast<AGoobunga_Player>(GetPawn())) { InitializePlayerHUD(); }
+}
+
+void AGoobunga_PlayerController::OnPossess(APawn* InPawn)
+{
+	Super::OnPossess(InPawn);
+	UE_LOG(LogTemp, Error, TEXT("Possessed a pawn"));
+	InitializeMasterWidget();
+	if (AGoobunga_Player* Goobunga_Player = Cast<AGoobunga_Player>(InPawn)) { InitializePlayerHUD(); }
 }
 
 void AGoobunga_PlayerController::InitializePlayerHUD()
 {
 	if (!MainHUDClass) { UE_LOG(LogTemp, Error, TEXT("Null MainHUDClass")); return; }
+	if (!MasterWidget) { UE_LOG(LogTemp, Error, TEXT("Null Masterwidget")); return; }
 	MainHUD = Cast<UPlayerMainWidget>(MasterWidget->PushWidget(MainHUDClass, ELayerType::Game));
 	if (!MainHUD) { UE_LOG(LogTemp, Error, TEXT("Failed to create MainHUD")); return;  }
 }
