@@ -32,7 +32,8 @@ void AHitScanWeapon::FireWeapon()
 	bool WeaponTrace = GetWorld()->LineTraceSingleByChannel(HitResult, SpawnTransform.GetLocation(), SpawnTransform.GetLocation() + FireDirection*10000, ECollisionChannel::ECC_WorldDynamic, QueryParams);
 	FVector HitLocation = SpawnTransform.GetLocation() + FireDirection*10000;
 	if (FireSound) UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
-	PlayAnimationSimultaneous("Fire");
+	FOnMontageEnded EndDelegate;
+	PlayAnimationSimultaneous("Fire", EndDelegate);
 	ApplyRecoil();
 	UpdateOwnerUI();
 	if (WeaponTrace)

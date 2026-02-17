@@ -106,7 +106,6 @@
 			"Goobunga.cpp.obj",
 			"GoobungaGameInstance.cpp.obj",
 			"GoobungaPlayerState.cpp.obj",
-			"Goobunga_Player.cpp.obj",
 			"Goobunga_PlayerController.cpp.obj",
 			"GoobungaSaveFile.cpp.obj",
 			"PersistentDataInterface.cpp.obj",
@@ -127,16 +126,17 @@
 			"PlayerMainLayerWidget.cpp.obj",
 			"PlayerMainWidget.cpp.obj",
 			"PlayerReticleWidget.cpp.obj",
-			"PlayerWeaponAmmoWidget.cpp.obj",
 			"CatGun.cpp.obj",
 			"FlintLockGun.cpp.obj",
-			"HitScanWeapon.cpp.obj",
 			"MeleeWeapon.cpp.obj",
 			"GoobungaProjectile.cpp.obj",
-			"ProjectileWeapon.cpp.obj",
-			"WeaponComponent.cpp.obj",
 			"WeaponSwayData.cpp.obj",
-			"Weapon.cpp.obj"
+			"Goobunga_Player.cpp.obj",
+			"PlayerWeaponAmmoWidget.cpp.obj",
+			"HitScanWeapon.cpp.obj",
+			"ProjectileWeapon.cpp.obj",
+			"Weapon.cpp.obj",
+			"WeaponComponent.cpp.obj"
 		]
 	}
 }

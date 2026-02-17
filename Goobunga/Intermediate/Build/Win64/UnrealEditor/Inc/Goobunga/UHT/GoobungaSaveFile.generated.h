@@ -14,21 +14,21 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define GOOBUNGA_GoobungaSaveFile_generated_h
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_PersistentData_GoobungaSaveFile_h_12_GENERATED_BODY \
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_PersistentData_GoobungaSaveFile_h_12_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FWeaponSaveData_Statics; \
 	GOOBUNGA_API static class UScriptStruct* StaticStruct();
 
 
 template<> GOOBUNGA_API UScriptStruct* StaticStruct<struct FWeaponSaveData>();
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_PersistentData_GoobungaSaveFile_h_22_GENERATED_BODY \
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_PersistentData_GoobungaSaveFile_h_22_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FAbilitySaveData_Statics; \
 	GOOBUNGA_API static class UScriptStruct* StaticStruct();
 
 
 template<> GOOBUNGA_API UScriptStruct* StaticStruct<struct FAbilitySaveData>();
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_PersistentData_GoobungaSaveFile_h_31_INCLASS_NO_PURE_DECLS \
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_PersistentData_GoobungaSaveFile_h_31_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUGoobungaSaveFile(); \
 	friend struct Z_Construct_UClass_UGoobungaSaveFile_Statics; \
@@ -37,7 +37,7 @@ public: \
 	DECLARE_SERIALIZER(UGoobungaSaveFile)
 
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_PersistentData_GoobungaSaveFile_h_31_ENHANCED_CONSTRUCTORS \
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_PersistentData_GoobungaSaveFile_h_31_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UGoobungaSaveFile(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 private: \
@@ -51,12 +51,12 @@ public: \
 	NO_API virtual ~UGoobungaSaveFile();
 
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_PersistentData_GoobungaSaveFile_h_28_PROLOG
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_PersistentData_GoobungaSaveFile_h_31_GENERATED_BODY \
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_PersistentData_GoobungaSaveFile_h_28_PROLOG
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_PersistentData_GoobungaSaveFile_h_31_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Goobunga_Repo_Goobunga_Source_Goobunga_PersistentData_GoobungaSaveFile_h_31_INCLASS_NO_PURE_DECLS \
-	FID_Goobunga_Repo_Goobunga_Source_Goobunga_PersistentData_GoobungaSaveFile_h_31_ENHANCED_CONSTRUCTORS \
+	FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_PersistentData_GoobungaSaveFile_h_31_INCLASS_NO_PURE_DECLS \
+	FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_PersistentData_GoobungaSaveFile_h_31_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -64,7 +64,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> GOOBUNGA_API UClass* StaticClass<class UGoobungaSaveFile>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Goobunga_Repo_Goobunga_Source_Goobunga_PersistentData_GoobungaSaveFile_h
+#define CURRENT_FILE_ID FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_PersistentData_GoobungaSaveFile_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

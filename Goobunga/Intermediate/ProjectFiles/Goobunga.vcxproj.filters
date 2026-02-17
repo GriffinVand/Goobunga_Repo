@@ -133,6 +133,12 @@
     <ClCompile Include="..\..\Source\Goobunga\Combat\DamageTypes.h">
       <Filter>Source\Goobunga\Combat</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Combat\InDamageInterface.cpp">
+      <Filter>Source\Goobunga\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Combat\InDamageInterface.h">
+      <Filter>Source\Goobunga\Combat</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Combat\ReloadPatterns.cpp">
       <Filter>Source\Goobunga\Combat</Filter>
     </ClCompile>
@@ -143,6 +149,12 @@
       <Filter>Source\Goobunga\Combat</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Combat\StatusTypes.h">
+      <Filter>Source\Goobunga\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Combat\TeamInterface.cpp">
+      <Filter>Source\Goobunga\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Combat\TeamInterface.h">
       <Filter>Source\Goobunga\Combat</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Combat\WeaponUITypes.cpp">
@@ -196,60 +208,6 @@
     <ClCompile Include="..\..\Source\Goobunga\Enemies\BaseEnemy.h">
       <Filter>Source\Goobunga\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Enemies\BaseEnemyAIController.cpp">
-      <Filter>Source\Goobunga\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Enemies\BaseEnemyAIController.h">
-      <Filter>Source\Goobunga\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTD_CanLaunch.cpp">
-      <Filter>Source\Goobunga\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTD_CanLaunch.h">
-      <Filter>Source\Goobunga\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTS_CanPlayerSeeThis.cpp">
-      <Filter>Source\Goobunga\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTS_CanPlayerSeeThis.h">
-      <Filter>Source\Goobunga\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTS_UpdateDistanceToTarget.cpp">
-      <Filter>Source\Goobunga\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTS_UpdateDistanceToTarget.h">
-      <Filter>Source\Goobunga\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTS_UpdateEnemyCooldowns.cpp">
-      <Filter>Source\Goobunga\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTS_UpdateEnemyCooldowns.h">
-      <Filter>Source\Goobunga\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTS_UpdateEnemyState.cpp">
-      <Filter>Source\Goobunga\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTS_UpdateEnemyState.h">
-      <Filter>Source\Goobunga\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTTask_AttackGeneric.cpp">
-      <Filter>Source\Goobunga\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTTask_AttackGeneric.h">
-      <Filter>Source\Goobunga\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTTask_LaunchInDirection.cpp">
-      <Filter>Source\Goobunga\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTTask_LaunchInDirection.h">
-      <Filter>Source\Goobunga\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTTask_SwerveWhileChasing.cpp">
-      <Filter>Source\Goobunga\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Enemies\BTTask_SwerveWhileChasing.h">
-      <Filter>Source\Goobunga\Enemies</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Enemies\EnemyCallables.cpp">
       <Filter>Source\Goobunga\Enemies</Filter>
     </ClCompile>
@@ -274,11 +232,77 @@
     <ClCompile Include="..\..\Source\Goobunga\Enemies\LaunchInterface.h">
       <Filter>Source\Goobunga\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Enemies\TeamInterface.cpp">
-      <Filter>Source\Goobunga\Enemies</Filter>
+    <Filter Include="Source\Goobunga\Enemies\AI">
+      <UniqueIdentifier>{3C3B374A-540D-3A32-BC08-56CF4DF22F62}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BaseEnemyAIController.cpp">
+      <Filter>Source\Goobunga\Enemies\AI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Enemies\TeamInterface.h">
-      <Filter>Source\Goobunga\Enemies</Filter>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BaseEnemyAIController.h">
+      <Filter>Source\Goobunga\Enemies\AI</Filter>
+    </ClCompile>
+    <Filter Include="Source\Goobunga\Enemies\AI\BTD">
+      <UniqueIdentifier>{71BEB00A-6854-3954-83E9-C956A87F7B28}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTD\BTD_CanLaunch.cpp">
+      <Filter>Source\Goobunga\Enemies\AI\BTD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTD\BTD_CanLaunch.h">
+      <Filter>Source\Goobunga\Enemies\AI\BTD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTD\BTD_RandomChance.cpp">
+      <Filter>Source\Goobunga\Enemies\AI\BTD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTD\BTD_RandomChance.h">
+      <Filter>Source\Goobunga\Enemies\AI\BTD</Filter>
+    </ClCompile>
+    <Filter Include="Source\Goobunga\Enemies\AI\BTS">
+      <UniqueIdentifier>{240350A7-64FD-38D2-B464-7C6DF4F3BA9A}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTS\BTS_CanPlayerSeeThis.cpp">
+      <Filter>Source\Goobunga\Enemies\AI\BTS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTS\BTS_CanPlayerSeeThis.h">
+      <Filter>Source\Goobunga\Enemies\AI\BTS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTS\BTS_UpdateDistanceToTarget.cpp">
+      <Filter>Source\Goobunga\Enemies\AI\BTS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTS\BTS_UpdateDistanceToTarget.h">
+      <Filter>Source\Goobunga\Enemies\AI\BTS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTS\BTS_UpdateEnemyCooldowns.cpp">
+      <Filter>Source\Goobunga\Enemies\AI\BTS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTS\BTS_UpdateEnemyCooldowns.h">
+      <Filter>Source\Goobunga\Enemies\AI\BTS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTS\BTS_UpdateEnemyState.cpp">
+      <Filter>Source\Goobunga\Enemies\AI\BTS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTS\BTS_UpdateEnemyState.h">
+      <Filter>Source\Goobunga\Enemies\AI\BTS</Filter>
+    </ClCompile>
+    <Filter Include="Source\Goobunga\Enemies\AI\BTT">
+      <UniqueIdentifier>{610C72FC-43D8-35C1-8577-FE19466DC09F}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTT\BTTask_AttackGeneric.cpp">
+      <Filter>Source\Goobunga\Enemies\AI\BTT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTT\BTTask_AttackGeneric.h">
+      <Filter>Source\Goobunga\Enemies\AI\BTT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTT\BTTask_LaunchInDirection.cpp">
+      <Filter>Source\Goobunga\Enemies\AI\BTT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTT\BTTask_LaunchInDirection.h">
+      <Filter>Source\Goobunga\Enemies\AI\BTT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTT\BTTask_SwerveWhileChasing.cpp">
+      <Filter>Source\Goobunga\Enemies\AI\BTT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTT\BTTask_SwerveWhileChasing.h">
+      <Filter>Source\Goobunga\Enemies\AI\BTT</Filter>
     </ClCompile>
     <Filter Include="Source\Goobunga\PersistentData">
       <UniqueIdentifier>{A3E43F76-3FE5-3B19-A74E-2F39960A7A55}</UniqueIdentifier>
@@ -394,36 +418,6 @@
     <Filter Include="Source\Goobunga\Weapons">
       <UniqueIdentifier>{CC097E68-C714-3FBB-8CA8-77CF4B425530}</UniqueIdentifier>
     </Filter>
-    <ClCompile Include="..\..\Source\Goobunga\Weapons\CatGun.cpp">
-      <Filter>Source\Goobunga\Weapons</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Weapons\CatGun.h">
-      <Filter>Source\Goobunga\Weapons</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Weapons\FlintLockGun.cpp">
-      <Filter>Source\Goobunga\Weapons</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Weapons\FlintLockGun.h">
-      <Filter>Source\Goobunga\Weapons</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Weapons\HitScanWeapon.cpp">
-      <Filter>Source\Goobunga\Weapons</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Weapons\HitScanWeapon.h">
-      <Filter>Source\Goobunga\Weapons</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Weapons\MeleeWeapon.cpp">
-      <Filter>Source\Goobunga\Weapons</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Weapons\MeleeWeapon.h">
-      <Filter>Source\Goobunga\Weapons</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Weapons\ProjectileWeapon.cpp">
-      <Filter>Source\Goobunga\Weapons</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Weapons\ProjectileWeapon.h">
-      <Filter>Source\Goobunga\Weapons</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Weapons\Weapon.cpp">
       <Filter>Source\Goobunga\Weapons</Filter>
     </ClCompile>
@@ -441,6 +435,54 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Weapons\WeaponSwayData.h">
       <Filter>Source\Goobunga\Weapons</Filter>
+    </ClCompile>
+    <Filter Include="Source\Goobunga\Weapons\HitScanWeapons">
+      <UniqueIdentifier>{669C67BA-9285-32A3-85DD-9AB90F00DF42}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\Weapons\HitScanWeapons\CatGun.cpp">
+      <Filter>Source\Goobunga\Weapons\HitScanWeapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Weapons\HitScanWeapons\CatGun.h">
+      <Filter>Source\Goobunga\Weapons\HitScanWeapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Weapons\HitScanWeapons\FlintLockGun.cpp">
+      <Filter>Source\Goobunga\Weapons\HitScanWeapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Weapons\HitScanWeapons\FlintLockGun.h">
+      <Filter>Source\Goobunga\Weapons\HitScanWeapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Weapons\HitScanWeapons\HitScanWeapon.cpp">
+      <Filter>Source\Goobunga\Weapons\HitScanWeapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Weapons\HitScanWeapons\HitScanWeapon.h">
+      <Filter>Source\Goobunga\Weapons\HitScanWeapons</Filter>
+    </ClCompile>
+    <Filter Include="Source\Goobunga\Weapons\MeleeWeapons">
+      <UniqueIdentifier>{9AACF5B5-F430-3492-B5E8-95B27903E223}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\Weapons\MeleeWeapons\MeleeWeapon.cpp">
+      <Filter>Source\Goobunga\Weapons\MeleeWeapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Weapons\MeleeWeapons\MeleeWeapon.h">
+      <Filter>Source\Goobunga\Weapons\MeleeWeapons</Filter>
+    </ClCompile>
+    <Filter Include="Source\Goobunga\Weapons\Projectiles">
+      <UniqueIdentifier>{C57DB2E3-67BF-351F-BEE2-79DC460727A1}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\Weapons\Projectiles\GoobungaProjectile.cpp">
+      <Filter>Source\Goobunga\Weapons\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Weapons\Projectiles\GoobungaProjectile.h">
+      <Filter>Source\Goobunga\Weapons\Projectiles</Filter>
+    </ClCompile>
+    <Filter Include="Source\Goobunga\Weapons\ProjectileWeapons">
+      <UniqueIdentifier>{1E4F9DE8-7779-3F3E-9D0C-365F62B91B1C}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\Weapons\ProjectileWeapons\ProjectileWeapon.cpp">
+      <Filter>Source\Goobunga\Weapons\ProjectileWeapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Weapons\ProjectileWeapons\ProjectileWeapon.h">
+      <Filter>Source\Goobunga\Weapons\ProjectileWeapons</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

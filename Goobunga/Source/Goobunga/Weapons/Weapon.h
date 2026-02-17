@@ -40,6 +40,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Mesh, meta = (AllowPrivateAccess = "true"))
 	USkeletalMeshComponent* WeaponMesh;
 
+	bool bWeaponReady = false;
 	//Owning actor
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Context, meta = (AllowPrivateAccess = "true"))
 	AActor* WeaponOwner;
@@ -156,10 +157,10 @@ protected:
 
 public:
 	
-	virtual void PlayAnimationSimultaneous(FName AnimationName);
+	virtual UAnimInstance* PlayAnimationSimultaneous(FName AnimationName, FOnMontageEnded& EndDelegate);
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
+	
 	//Fireable interface functions
 	virtual void FireEvent() override;
 	virtual void EndFireEvent(bool Cancelled) override;

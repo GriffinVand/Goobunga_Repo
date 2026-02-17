@@ -63,6 +63,7 @@ public:
 
 	UFUNCTION()
 	void EquipWeapon(AWeapon* Weapon);
+	void UnequipWeapon(AWeapon* Weapon);
 	
 	UFUNCTION(BlueprintCallable)
 	FWeaponSwayData GetWeaponSwayData();
@@ -74,6 +75,9 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool Reloading = false;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Grip")
+	float GripAlpha = 1.f;
 	
 protected:
 	//Stats
@@ -107,8 +111,6 @@ protected:
 	FWeaponSwayData CurrentWeaponSwayData = FWeaponSwayData();
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "WeaponSway")
 	FVector2D WeaponSwayAmounts = FVector2D(-5.f, 5.f);
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Grip")
-	float GripAlpha = 1.f;
 
 	//0 to 1, 1 being full ads, 0 being full hip
 	float DefaultSensitivity = 0.5;
@@ -141,6 +143,8 @@ protected:
 	UInputAction* MainAbilityAction;
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* SecondaryAbilityAction;
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* SwapAction;
 	
 	void Move(const FInputActionValue& Value);
 	void EndMove(const FInputActionValue& Value);
@@ -158,6 +162,8 @@ protected:
 	
 	void SprintStarted();
 	void SprintEnded();
+	
+	void SwapStarted();
 	
 #pragma endregion
 	

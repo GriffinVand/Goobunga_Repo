@@ -22,7 +22,8 @@ void AProjectileWeapon::FireWeapon()
 		UE_LOG(LogTemp, Display, TEXT("Projectile created"));
 		
 		if (FireSound) UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
-		PlayAnimationSimultaneous("Fire");
+		FOnMontageEnded EndDelegate;
+		PlayAnimationSimultaneous("Fire", EndDelegate);
 		ApplyRecoil();
 		UpdateOwnerUI();
 	}

@@ -90,6 +90,7 @@ void AGoobunga_Player::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Canceled, this, &AGoobunga_Player::SprintEnded);
 		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &AGoobunga_Player::SprintEnded);
 		EnhancedInputComponent->BindAction(ReloadAction, ETriggerEvent::Started, this, &AGoobunga_Player::StartReload);
+		EnhancedInputComponent->BindAction(SwapAction, ETriggerEvent::Started, this, &AGoobunga_Player::SwapStarted);
 	}
 }
 void AGoobunga_Player::Move(const FInputActionValue& Value)
@@ -212,6 +213,16 @@ void AGoobunga_Player::AltFireEnded(bool Cancelled)
 	if (WeaponComponent)
 	{
 		WeaponComponent->AltFireStop(Cancelled);
+	}
+}
+void AGoobunga_Player::SwapStarted()
+{
+	if (WeaponComponent)
+	{
+		ReloadManagerComponent->StopReload(false);
+		WeaponComponent->PrimFireStop(true);
+		WeaponComponent->AltFireStop(true);
+		WeaponComponent->SwapWeapons();
 	}
 }
 #pragma endregion
@@ -365,4 +376,9 @@ void AGoobunga_Player::EquipWeapon(AWeapon* Weapon)
 		Goobunga_Controller->CreateWeaponUI(Weapon);
 	}
 	else { UE_LOG(LogTemp, Error, TEXT("Not goobunga_controller"));}
+}
+
+void AGoobunga_Player::UnequipWeapon(AWeapon* Weapon)
+{
+
 }

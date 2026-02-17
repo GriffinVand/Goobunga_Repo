@@ -72,6 +72,7 @@ void UWeaponComponent::SetWeapon(const FWeaponSaveData& Weapon, EWeaponSlot Slot
 	if (!NewWeapon) { UE_LOG(LogTemp, Error, TEXT("Tried to create new weapon but null WeaponComponent::SetWeapon")); return; }
 	if (AWeapon* ExWeapon = GetWeaponInSlot(Slot)) { ExWeapon->Destroy(); }
 	*SelectedWeaponPtr = NewWeapon;
+	UE_LOG(LogTemp, Error, TEXT("Set weapon in slot %s to %s"), *UEnum::GetValueAsString(Slot), *NewWeapon->GetName());
 	NewWeapon->SetActorHiddenInGame(true);
 	if (EquippedWeaponSlot == Slot)
 	{
@@ -85,17 +86,43 @@ void UWeaponComponent::EquipWeapon(EWeaponSlot Slot)
 
 	AWeapon* Weapon = GetWeaponInSlot(Slot);
 	if (!Weapon) return;
+	UE_LOG(LogTemp, Error, TEXT("Equipped weapon name %s"), *Weapon->GetName());
+	EquippedWeaponSlot = Slot;
 	Weapon->SetActorHiddenInGame(false);
+	Weapon->bWeaponReady = false;
+	PlayerOwner->GripAlpha = 0.f;
 	SetUpAdsPoses();
 	CalculateAdsTransform();
+	FOnMontageEnded OnMontageEndedDelegate;
+	OnMontageEndedDelegate.BindUObject(this, &UWeaponComponent::WeaponFullyDrawn);
+	Weapon->PlayAnimationSimultaneous(FName("Draw"), OnMontageEndedDelegate);
 	PlayerOwner->EquipWeapon(Weapon);
 }
 void UWeaponComponent::UnEquipWeapon(EWeaponSlot Slot)
 {
+	PlayerOwner = Cast<AGoobunga_Player>(GetOwner());
+	if (!PlayerOwner) { UE_LOG(LogTemp, Error, TEXT("No player owner. Some shit happened. WeaponComponent::BeginPlay")); return; }
+	
 	AWeapon* Weapon = GetWeaponInSlot(Slot);
 	if (!Weapon) return;
+	Weapon->bWeaponReady = false;
 	Weapon->SetActorHiddenInGame(true);
+	EquippedWeaponSlot = EWeaponSlot::None;
+	PlayerOwner->UnequipWeapon(Weapon);
 }
+
+void UWeaponComponent::WeaponFullyDrawn(UAnimMontage* Montage, bool bInterrupted)
+{
+	if (AWeapon* Weapon = GetEquippedWeapon())
+	{
+		Weapon->bWeaponReady = !bInterrupted;
+	}
+	if (AGoobunga_Player* Player = Cast<AGoobunga_Player>(GetOwner()))
+	{
+		Player->GripAlpha = bInterrupted ? 0.f : 1.f;
+	}
+}
+
 void UWeaponComponent::SwapWeapons()
 {
 	switch (EquippedWeaponSlot)
@@ -104,9 +131,11 @@ void UWeaponComponent::SwapWeapons()
 		UE_LOG(LogTemp, Error, TEXT("Called SwapWeapons but active slot is None WeaponComponent::SwapWeapons"));
 		return;
 	case EWeaponSlot::Primary:
+		UnEquipWeapon(EWeaponSlot::Primary);
 		EquipWeapon(EWeaponSlot::Secondary);
 		break;
 	case EWeaponSlot::Secondary:
+		UnEquipWeapon(EWeaponSlot::Secondary);
 		EquipWeapon(EWeaponSlot::Primary);
 		break;
 	default:
@@ -130,13 +159,14 @@ AWeapon* UWeaponComponent::GetWeaponInSlot(EWeaponSlot Slot)
 }
 bool UWeaponComponent::CanReload()
 {
+	//say no if weapon is not ready
 	AWeapon* EquippedWeapon = GetEquippedWeapon();
 	if (!EquippedWeapon) return false;
 	bool bMagFull = EquippedWeapon->CurrentMag == EquippedWeapon->MaxMag;
 	UE_LOG(LogTemp, Error, TEXT("CurrentMag = %d"), EquippedWeapon->CurrentMag);
 	bool bAmmoReserves = (EquippedWeapon->CurrentAmmo) > 0;
 	UE_LOG(LogTemp, Error, TEXT("CurrentReserves = %d"), EquippedWeapon->CurrentAmmo);
-	return !bMagFull && bAmmoReserves;
+	return !bMagFull && bAmmoReserves && EquippedWeapon->bWeaponReady;
 }
 void UWeaponComponent::ReloadWeapon()
 {

@@ -36,7 +36,7 @@ void AWeapon::Tick(float DeltaTime)
 void AWeapon::UpdateWeapon()
 {
 	FireCooldown+=GetWorld()->GetDeltaSeconds();
-	if (bFiring && FireCooldown>FireRate && CurrentMag > 0)
+	if (bWeaponReady && bFiring && FireCooldown>FireRate && CurrentMag > 0)
 	{
 		FireCooldown=0;
 		FireWeapon();
@@ -84,8 +84,9 @@ void AWeapon::EquipEvent(AActor* EquippingInstigator)
 
 //Weapon can control playing animations on both itself and its owner
 //Keeps logic constrained here
-void AWeapon::PlayAnimationSimultaneous(FName AnimationName)
+UAnimInstance* AWeapon::PlayAnimationSimultaneous(FName AnimationName, FOnMontageEnded& EndDelegate)
 {
+	UAnimInstance* ReturnIns = nullptr;
 	if (UAnimMontage** OwnerMontage = OwnerAnimations.Find(AnimationName))
 	{
 		if (AGoobunga_Player* Player = Cast<AGoobunga_Player>(GetOwner()))
@@ -93,6 +94,8 @@ void AWeapon::PlayAnimationSimultaneous(FName AnimationName)
 			if (UAnimInstance* PlayerABP = Player->FPMesh->GetAnimInstance())
 			{
 				PlayerABP->Montage_Play(*OwnerMontage);
+				PlayerABP->Montage_SetEndDelegate(EndDelegate, *OwnerMontage);
+				ReturnIns = PlayerABP;
 			}
 			else { UE_LOG(LogTemp, Warning, TEXT("Anim instance of owner not found")); }
 		}
@@ -108,6 +111,7 @@ void AWeapon::PlayAnimationSimultaneous(FName AnimationName)
 		else { UE_LOG(LogTemp, Warning, TEXT("Anim instance of weapon not found")); }
 	}
 	else { UE_LOG(LogTemp, Warning, TEXT("Weapon montage not found by name: %s"), *AnimationName.ToString());}
+	return ReturnIns;
 }
 
 //Inform owner when to apply recoil effects

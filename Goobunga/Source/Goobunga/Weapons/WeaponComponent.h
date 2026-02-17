@@ -54,6 +54,7 @@ public:
 	void EquipWeapon(EWeaponSlot Slot);
 	void UnEquipWeapon(EWeaponSlot Slot);
 	void SwapWeapons();
+	void WeaponFullyDrawn(UAnimMontage* Montage, bool bInterrupted);
 	AWeapon* GetWeaponInSlot(EWeaponSlot Slot);
 	void SetWeapon(const FWeaponSaveData& Weapon, EWeaponSlot Slot);
 	

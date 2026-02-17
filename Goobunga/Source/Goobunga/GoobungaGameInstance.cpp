@@ -7,5 +7,5 @@ void UGoobungaGameInstance::SetDefaultSaveFile(UGoobungaSaveFile& SaveFile)
 {
 	SaveFile.CurrentHub = "L_Forest";
 	SaveFile.PlayerPrimaryWeapon = DefPrimaryWeapon;
-	SaveFile.PlayerSecondaryWeapon = DefPrimaryWeapon;
+	SaveFile.PlayerSecondaryWeapon = DefSecondaryWeapon;
 }
