@@ -75,6 +75,9 @@ public:
 	void PrimFireStop(bool Cancelled);
 	bool CanReload();
 	void ReloadWeapon();
+	bool bPrimFirePressed = false;
+	bool bAltFirePressed = false;
+	bool bReady = false;
 	UPROPERTY(EditAnywhere)
 	UTimelineComponent* AdsTimeline;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

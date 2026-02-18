@@ -36,11 +36,6 @@ void AWeapon::Tick(float DeltaTime)
 void AWeapon::UpdateWeapon()
 {
 	FireCooldown+=GetWorld()->GetDeltaSeconds();
-	if (bWeaponReady && bFiring && FireCooldown>FireRate && CurrentMag > 0)
-	{
-		FireCooldown=0;
-		FireWeapon();
-	}
 }
 
 //
@@ -50,12 +45,16 @@ void AWeapon::FireWeapon()
 //
 void AWeapon::FireEvent() 
 {
-	bFiring = true;
+	if (FireCooldown >= FireRate && CurrentMag > 0)
+	{
+		FireWeapon();
+		FireCooldown  = 0;
+	}
 }
 //
 void AWeapon::EndFireEvent(bool Cancelled)
 {
-	bFiring = false;
+	
 }
 //
 void AWeapon::AltFireEvent() 

@@ -148,8 +148,6 @@ public:
 	UAnimSequence* WeaponStaticAnim = nullptr;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Animation)
 	UAnimSequence* OwnerStaticAnim = nullptr;
-	//Controlled by owner input
-	bool bFiring = false;
 	
 protected:
 	// Called when the game starts or when spawned

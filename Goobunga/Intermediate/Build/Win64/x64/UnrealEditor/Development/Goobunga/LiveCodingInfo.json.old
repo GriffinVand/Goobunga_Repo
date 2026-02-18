@@ -2,7 +2,6 @@
 	"RemapUnityFiles": 
 	{
 		"Module.Goobunga.1.cpp.obj": [
-			"PerModuleInline.gen.cpp.obj",
 			"AbilityBase.gen.cpp.obj",
 			"AbilityComponent.gen.cpp.obj",
 			"BaseEnemy.gen.cpp.obj",
@@ -42,7 +41,9 @@
 			"JoshEnemy.gen.cpp.obj",
 			"LaunchInterface.gen.cpp.obj",
 			"LoadMenu.gen.cpp.obj",
-			"LoadSlot.gen.cpp.obj",
+			"LoadSlot.gen.cpp.obj"
+		],
+		"Module.Goobunga.2.cpp.obj": [
 			"MasterWidget.gen.cpp.obj",
 			"MeleeWeapon.gen.cpp.obj",
 			"PersistentDataInterface.gen.cpp.obj",
@@ -68,9 +69,8 @@
 			"Weapon.gen.cpp.obj",
 			"WeaponComponent.gen.cpp.obj",
 			"WeaponSwayData.gen.cpp.obj",
-			"WeaponUITypes.gen.cpp.obj"
-		],
-		"Module.Goobunga.2.cpp.obj": [
+			"WeaponUITypes.gen.cpp.obj",
+			"PerModuleInline.gen.cpp.obj",
 			"AbilityBase.cpp.obj",
 			"AbilityComponent.cpp.obj",
 			"GoobungaPlayerAnimInstance.cpp.obj",
@@ -106,6 +106,7 @@
 			"Goobunga.cpp.obj",
 			"GoobungaGameInstance.cpp.obj",
 			"GoobungaPlayerState.cpp.obj",
+			"Goobunga_Player.cpp.obj",
 			"Goobunga_PlayerController.cpp.obj",
 			"GoobungaSaveFile.cpp.obj",
 			"PersistentDataInterface.cpp.obj",
@@ -118,7 +119,9 @@
 			"QuestManagerComponent.cpp.obj",
 			"QuestManagerSubsystem.cpp.obj",
 			"QuestStruct.cpp.obj",
-			"ReloadManagerComponent.cpp.obj",
+			"ReloadManagerComponent.cpp.obj"
+		],
+		"Module.Goobunga.3.cpp.obj": [
 			"LoadMenu.cpp.obj",
 			"LoadSlot.cpp.obj",
 			"MasterWidget.cpp.obj",
@@ -126,15 +129,14 @@
 			"PlayerMainLayerWidget.cpp.obj",
 			"PlayerMainWidget.cpp.obj",
 			"PlayerReticleWidget.cpp.obj",
+			"PlayerWeaponAmmoWidget.cpp.obj",
 			"CatGun.cpp.obj",
 			"FlintLockGun.cpp.obj",
+			"HitScanWeapon.cpp.obj",
 			"MeleeWeapon.cpp.obj",
 			"GoobungaProjectile.cpp.obj",
-			"WeaponSwayData.cpp.obj",
-			"Goobunga_Player.cpp.obj",
-			"PlayerWeaponAmmoWidget.cpp.obj",
-			"HitScanWeapon.cpp.obj",
 			"ProjectileWeapon.cpp.obj",
+			"WeaponSwayData.cpp.obj",
 			"Weapon.cpp.obj",
 			"WeaponComponent.cpp.obj"
 		]

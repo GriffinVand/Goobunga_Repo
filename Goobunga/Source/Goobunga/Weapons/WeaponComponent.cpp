@@ -89,12 +89,12 @@ void UWeaponComponent::EquipWeapon(EWeaponSlot Slot)
 	UE_LOG(LogTemp, Error, TEXT("Equipped weapon name %s"), *Weapon->GetName());
 	EquippedWeaponSlot = Slot;
 	Weapon->SetActorHiddenInGame(false);
-	Weapon->bWeaponReady = false;
 	PlayerOwner->GripAlpha = 0.f;
 	SetUpAdsPoses();
 	CalculateAdsTransform();
 	FOnMontageEnded OnMontageEndedDelegate;
 	OnMontageEndedDelegate.BindUObject(this, &UWeaponComponent::WeaponFullyDrawn);
+	bReady = false;
 	Weapon->PlayAnimationSimultaneous(FName("Draw"), OnMontageEndedDelegate);
 	PlayerOwner->EquipWeapon(Weapon);
 }
@@ -105,7 +105,6 @@ void UWeaponComponent::UnEquipWeapon(EWeaponSlot Slot)
 	
 	AWeapon* Weapon = GetWeaponInSlot(Slot);
 	if (!Weapon) return;
-	Weapon->bWeaponReady = false;
 	Weapon->SetActorHiddenInGame(true);
 	EquippedWeaponSlot = EWeaponSlot::None;
 	PlayerOwner->UnequipWeapon(Weapon);
@@ -113,10 +112,7 @@ void UWeaponComponent::UnEquipWeapon(EWeaponSlot Slot)
 
 void UWeaponComponent::WeaponFullyDrawn(UAnimMontage* Montage, bool bInterrupted)
 {
-	if (AWeapon* Weapon = GetEquippedWeapon())
-	{
-		Weapon->bWeaponReady = !bInterrupted;
-	}
+	bReady = !bInterrupted;
 	if (AGoobunga_Player* Player = Cast<AGoobunga_Player>(GetOwner()))
 	{
 		Player->GripAlpha = bInterrupted ? 0.f : 1.f;
@@ -166,7 +162,7 @@ bool UWeaponComponent::CanReload()
 	UE_LOG(LogTemp, Error, TEXT("CurrentMag = %d"), EquippedWeapon->CurrentMag);
 	bool bAmmoReserves = (EquippedWeapon->CurrentAmmo) > 0;
 	UE_LOG(LogTemp, Error, TEXT("CurrentReserves = %d"), EquippedWeapon->CurrentAmmo);
-	return !bMagFull && bAmmoReserves && EquippedWeapon->bWeaponReady;
+	return !bMagFull && bAmmoReserves && bReady;
 }
 void UWeaponComponent::ReloadWeapon()
 {
@@ -177,35 +173,47 @@ void UWeaponComponent::ReloadWeapon()
 void UWeaponComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	AWeapon* Weapon = GetEquippedWeapon();
+	if (!Weapon) return;
+	if (!bReady) return;
+	if (bPrimFirePressed)
+	{
+		Weapon->FireEvent();
+		return;
+	}
+	if (bAltFirePressed)
+	{
+		if (Weapon->CanADS()) return;
+		Weapon->AltFireEvent();
+		return;
+	}
 
 }
 
 #pragma region FIRING
 void UWeaponComponent::PrimFireStart()
 {
-	AWeapon* EquippedWeapon = GetEquippedWeapon();
-	if (!EquippedWeapon) return;
-	EquippedWeapon->FireEvent();
+	bAltFirePressed=false;
+	bPrimFirePressed=true;
 }
 void UWeaponComponent::PrimFireStop(bool Cancelled)
 {
-	AWeapon* EquippedWeapon = GetEquippedWeapon();
-	if (!EquippedWeapon) return;
-	EquippedWeapon->EndFireEvent(Cancelled);
+	bPrimFirePressed=false;
 }
 void UWeaponComponent::AltFireStart()
 {
+	bPrimFirePressed=false;
+	bAltFirePressed=true;
 	AWeapon* EquippedWeapon = GetEquippedWeapon();
 	if (!EquippedWeapon) return;
 	if (EquippedWeapon->CanADS()) { StartAds(); return; }
-	EquippedWeapon->AltFireEvent();
 }
 void UWeaponComponent::AltFireStop(bool Cancelled)
 {
+	bAltFirePressed=false;
 	AWeapon* EquippedWeapon = GetEquippedWeapon();
 	if (!EquippedWeapon) return;
 	if (EquippedWeapon->CanADS()) { StopAds(); return; }
-	EquippedWeapon->EndAltFireEvent(Cancelled);
 }
 #pragma endregion
 #pragma region ADS

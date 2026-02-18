@@ -219,9 +219,7 @@ void AGoobunga_Player::SwapStarted()
 {
 	if (WeaponComponent)
 	{
-		ReloadManagerComponent->StopReload(false);
-		WeaponComponent->PrimFireStop(true);
-		WeaponComponent->AltFireStop(true);
+		if (Reloading) { ReloadManagerComponent->StopReload(false); }
 		WeaponComponent->SwapWeapons();
 	}
 }
