@@ -81,11 +81,15 @@ public:
 	UPROPERTY(EditAnywhere)
 	UTimelineComponent* AdsTimeline;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FTransform AimTestingTransform = FTransform::Identity;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FTransform AimRelativeTransform = FTransform::Identity;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FRotator BarrelRotOffset = FRotator(0.0f, 0.0f, 0.0f);
 	UPROPERTY(EditAnywhere)
 	float AdsTime = 1.f;
+	UPROPERTY(EditAnywhere)
+	float AdsAlpha = 0.f;
 	UPROPERTY(EditAnywhere)
 	bool bAds = false;
 	UPROPERTY(EditAnywhere)
@@ -94,6 +98,7 @@ public:
 	void OnAdsTimelineUpdate(float Value);
 	UFUNCTION()
 	void OnAdsTimelineFinished();
+	void UpdateAds(bool bADS, float DeltaTime);
 	void StartAds();
 	void StopAds();
 	void SetAdsTimeline();

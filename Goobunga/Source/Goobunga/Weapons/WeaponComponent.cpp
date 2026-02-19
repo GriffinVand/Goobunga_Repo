@@ -91,10 +91,10 @@ void UWeaponComponent::EquipWeapon(EWeaponSlot Slot)
 	Weapon->SetActorHiddenInGame(false);
 	PlayerOwner->GripAlpha = 0.f;
 	SetUpAdsPoses();
-	CalculateAdsTransform();
 	FOnMontageEnded OnMontageEndedDelegate;
 	OnMontageEndedDelegate.BindUObject(this, &UWeaponComponent::WeaponFullyDrawn);
 	bReady = false;
+	AdsAlpha = 0.f;
 	Weapon->PlayAnimationSimultaneous(FName("Draw"), OnMontageEndedDelegate);
 	PlayerOwner->EquipWeapon(Weapon);
 }
@@ -173,20 +173,23 @@ void UWeaponComponent::ReloadWeapon()
 void UWeaponComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
 	AWeapon* Weapon = GetEquippedWeapon();
 	if (!Weapon) return;
-	if (!bReady) return;
-	if (bPrimFirePressed)
+	if (bReady)
 	{
-		Weapon->FireEvent();
-		return;
+		if (bPrimFirePressed)
+		{
+			Weapon->FireEvent();
+			return;
+		}
+		if (bAltFirePressed)
+		{
+			if (Weapon->CanADS()) { UpdateAds(true, DeltaTime); }
+			else { Weapon->AltFireEvent(); }
+		}
 	}
-	if (bAltFirePressed)
-	{
-		if (Weapon->CanADS()) return;
-		Weapon->AltFireEvent();
-		return;
-	}
+	if (Weapon->CanADS() && !bAltFirePressed) { UpdateAds(false, DeltaTime); }
 
 }
 
@@ -204,16 +207,10 @@ void UWeaponComponent::AltFireStart()
 {
 	bPrimFirePressed=false;
 	bAltFirePressed=true;
-	AWeapon* EquippedWeapon = GetEquippedWeapon();
-	if (!EquippedWeapon) return;
-	if (EquippedWeapon->CanADS()) { StartAds(); return; }
 }
 void UWeaponComponent::AltFireStop(bool Cancelled)
 {
 	bAltFirePressed=false;
-	AWeapon* EquippedWeapon = GetEquippedWeapon();
-	if (!EquippedWeapon) return;
-	if (EquippedWeapon->CanADS()) { StopAds(); return; }
 }
 #pragma endregion
 #pragma region ADS
@@ -255,13 +252,38 @@ void UWeaponComponent::OnAdsTimelineUpdate(float Value)
 		PlayerCallablesInterface->UpdateAds(Value);
 	}
 }
+
+void UWeaponComponent::UpdateAds(bool bADS, float DeltaTime)
+{
+	AWeapon* Weapon = GetEquippedWeapon();
+	if (!Weapon) return;
+	float Target = bADS ? 1.f : -1.f;
+	AdsAlpha = AdsAlpha + (DeltaTime * Weapon->GetADSSpeed() * Target);
+	AdsAlpha = FMath::Clamp(AdsAlpha, 0.f, 1.f);
+	UE_LOG(LogWeaponComponent, Warning, TEXT("Ads Value: %f"), AdsAlpha);
+	if (GetEquippedWeapon())
+	{
+		GetEquippedWeapon()->UpdateAccuracy(AdsAlpha);
+	}
+	if (IPlayerCallables* PlayerCallablesInterface = Cast<IPlayerCallables>(GetOwner()))
+	{
+		UpdateAdsTransform(AdsAlpha);
+		PlayerCallablesInterface->UpdateAds(AdsAlpha);
+	}
+	
+}
 void UWeaponComponent::SetUpAdsPoses()
 {
 	UE_LOG(LogTemp, Error, TEXT("WeaponMesh: %s"), *GetNameSafe(GetEquippedWeapon()->WeaponMesh->GetSkinnedAsset()));
 	if (!PlayerOwner) { UE_LOG(LogTemp, Error, TEXT("No player")); return; }
 	if (!PlayerOwner->FPEquipped_Static) { UE_LOG(LogTemp, Error, TEXT("No player fpequippedstatic")); return; }
-	if (!GetEquippedWeapon()) { UE_LOG(LogTemp, Error, TEXT("No equipped weapon")); return; }
+	AWeapon* Weapon = GetEquippedWeapon();
+	if (!Weapon) { UE_LOG(LogTemp, Error, TEXT("No equipped weapon")); return; }
 	if (!GetEquippedWeapon()->WeaponMesh->GetSkeletalMeshAsset()) { UE_LOG(LogTemp, Error, TEXT("No weapon skm")); return; }
+	UAnimationAsset* FPMesh_Anim = Weapon->OwnerStaticAnim;
+	UAnimationAsset* FPEquipped_Anim = Weapon->WeaponStaticAnim;
+	if (!FPMesh_Anim || !FPEquipped_Anim) { UE_LOG(LogTemp, Error, TEXT("Weapon missing static animations")); return; }
+	UE_LOG(LogTemp, Error, TEXT("Made it here"));
 	PlayerOwner->FPEquipped_Static->SetSkeletalMeshAsset(GetEquippedWeapon()->WeaponMesh->GetSkeletalMeshAsset());
 	PlayerOwner->FPEquipped_Static->AttachToComponent(PlayerOwner->FPMesh_Static, FAttachmentTransformRules::SnapToTargetIncludingScale, GetEquippedWeapon()->AttachSocketName);
 	PlayerOwner->FPEquipped_Static->SetRelativeTransform(FTransform::Identity);
@@ -275,8 +297,12 @@ void UWeaponComponent::CalculateAdsTransform()
 	FTransform CamTransform = PlayerOwner->FPCamera->GetComponentTransform();
 	FTransform SightTransform = PlayerOwner->FPEquipped_Static->GetSocketTransform("Sight_Socket");
 	FTransform RelativeTransform = SightTransform.GetRelativeTransform(CamTransform);
-	AimRelativeTransform = RelativeTransform.Inverse();
-	AimRelativeTransform.SetLocation(FVector(-10, AimRelativeTransform.GetLocation().Y, AimRelativeTransform.GetLocation().Z));
+	AimTestingTransform = RelativeTransform.Inverse();
+	AimTestingTransform.SetLocation(FVector(-10, AimRelativeTransform.GetLocation().Y, AimRelativeTransform.GetLocation().Z));
+	if (AWeapon* Weapon = GetEquippedWeapon())
+	{
+		AimRelativeTransform = Weapon->AimTransform;
+	}
 }
 void UWeaponComponent::UpdateAdsTransform(float Alpha)
 {

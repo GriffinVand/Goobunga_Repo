@@ -13,6 +13,4 @@
 #include "C:/Users/griff/Documents/GitHub/Goobunga_Repo/Goobunga/Source/Goobunga/Weapons/MeleeWeapons/MeleeWeapon.cpp"
 #include "C:/Users/griff/Documents/GitHub/Goobunga_Repo/Goobunga/Source/Goobunga/Weapons/Projectiles/GoobungaProjectile.cpp"
 #include "C:/Users/griff/Documents/GitHub/Goobunga_Repo/Goobunga/Source/Goobunga/Weapons/ProjectileWeapons/ProjectileWeapon.cpp"
-#include "C:/Users/griff/Documents/GitHub/Goobunga_Repo/Goobunga/Source/Goobunga/Weapons/Weapon.cpp"
-#include "C:/Users/griff/Documents/GitHub/Goobunga_Repo/Goobunga/Source/Goobunga/Weapons/WeaponComponent.cpp"
 #include "C:/Users/griff/Documents/GitHub/Goobunga_Repo/Goobunga/Source/Goobunga/Weapons/WeaponSwayData.cpp"

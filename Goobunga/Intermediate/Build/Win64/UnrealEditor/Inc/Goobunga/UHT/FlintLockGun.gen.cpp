@@ -81,10 +81,10 @@ AFlintLockGun::~AFlintLockGun() {}
 struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_FlintLockGun_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AFlintLockGun, AFlintLockGun::StaticClass, TEXT("AFlintLockGun"), &Z_Registration_Info_UClass_AFlintLockGun, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AFlintLockGun), 3623134424U) },
+		{ Z_Construct_UClass_AFlintLockGun, AFlintLockGun::StaticClass, TEXT("AFlintLockGun"), &Z_Registration_Info_UClass_AFlintLockGun, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AFlintLockGun), 1008374977U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_FlintLockGun_h_2471365798(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_FlintLockGun_h_3477353892(TEXT("/Script/Goobunga"),
 	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_FlintLockGun_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_FlintLockGun_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

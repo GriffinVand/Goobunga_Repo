@@ -79,6 +79,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Grip")
 	float GripAlpha = 1.f;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FVector TrueWeaponSwayData = FVector::ZeroVector;
+	
 protected:
 	//Stats
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Stats, meta =(AllowPrivateAccess=true))

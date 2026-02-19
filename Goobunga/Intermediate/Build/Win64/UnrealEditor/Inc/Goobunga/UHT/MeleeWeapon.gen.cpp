@@ -82,10 +82,10 @@ AMeleeWeapon::~AMeleeWeapon() {}
 struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_MeleeWeapons_MeleeWeapon_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AMeleeWeapon, AMeleeWeapon::StaticClass, TEXT("AMeleeWeapon"), &Z_Registration_Info_UClass_AMeleeWeapon, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMeleeWeapon), 2021145650U) },
+		{ Z_Construct_UClass_AMeleeWeapon, AMeleeWeapon::StaticClass, TEXT("AMeleeWeapon"), &Z_Registration_Info_UClass_AMeleeWeapon, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMeleeWeapon), 1948655782U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_MeleeWeapons_MeleeWeapon_h_1390377618(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_MeleeWeapons_MeleeWeapon_h_1761023620(TEXT("/Script/Goobunga"),
 	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_MeleeWeapons_MeleeWeapon_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_MeleeWeapons_MeleeWeapon_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

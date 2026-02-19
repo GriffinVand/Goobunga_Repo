@@ -286,6 +286,12 @@ void AGoobunga_Player::UpdateWeaponSwayData(float DeltaTime)
 		NewLookY,
 		DeltaTime,
 		5.f);
+	
+	FVector CamRight = FPCamera->GetRightVector();
+	FVector CamUp = FPCamera->GetUpVector();
+	FVector CamForward = FPCamera->GetForwardVector();
+	FVector ModifiedOffset = CamRight * CurrentWeaponSwayData.Look.X + CamUp * CurrentWeaponSwayData.Look.Y + CamForward * CurrentWeaponSwayData.Movement.X;
+	TrueWeaponSwayData = FPMesh_Align->GetComponentTransform().InverseTransformVector(ModifiedOffset);
 }
 FWeaponSwayData AGoobunga_Player::GetWeaponSwayData()
 {

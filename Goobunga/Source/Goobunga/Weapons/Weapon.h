@@ -62,10 +62,8 @@ public:
 	float ADSTime = 2.f;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	float ADSSpeed = 1.f;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
-	FVector ADSOffsetLoc = FVector::ZeroVector;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
-	FRotator ADSOffsetRot = FRotator::ZeroRotator;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FTransform AimTransform;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Reload)
 	TArray<FReloadPhase> WeaponReloadPattern;
