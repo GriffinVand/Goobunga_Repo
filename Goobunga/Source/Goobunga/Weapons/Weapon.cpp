@@ -129,6 +129,7 @@ void AWeapon::ApplyRecoil()
 			FMath::FRandRange(RecoilIntensityMin.Y, RecoilIntensityMax.Y),
 			FMath::FRandRange(RecoilIntensityMin.Z, RecoilIntensityMax.Z));
 			PlayerCallablesInterface->ApplyAimOffset(NewDirection*NewIntensity*CurrentControl);
+			PlayerCallablesInterface->ApplyWeaponKick(KickDirection, KickRotation, MaxKickDirection, MaxKickRotation);
 		}
 		else { UE_LOG(LogTemp, Warning, TEXT("AWeapon::ApplyRecoil Player callable interface cast failed")); }
 	}

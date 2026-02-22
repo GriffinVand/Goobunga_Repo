@@ -82,6 +82,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FVector TrueWeaponSwayData = FVector::ZeroVector;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FVector CurrentAdsLoc;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FQuat CurrentAdsRot;
+	
 protected:
 	//Stats
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Stats, meta =(AllowPrivateAccess=true))
@@ -123,6 +128,15 @@ protected:
 	//Used for actual controller look offset
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	FVector AimOffset = FVector::ZeroVector;
+	//Used for weapon recoil visually in hand
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FVector CurrentWeaponKickDir;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FRotator CurrentWeaponKickRot;
+	
+	void UpdateFPAlign();
+	
+	
 
 #pragma region Input
 	
@@ -175,11 +189,11 @@ protected:
 	virtual void EndReload(bool Success) override;
 	virtual void UpdateAds(float Alpha) override;
 	virtual void UpdateWeaponUI() override { return;}
-	void UpdateAimOffset();
 	void UpdateWeaponSwayData(float DeltaTime);
 	virtual void ApplyAimOffset(FVector AimOffsetInput) override;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Equipment", meta = (AllowPrivateAccess = "true"))
-	AWeapon* EquippedWeapon;
+	void UpdateAimOffset();
+	virtual void ApplyWeaponKick(FVector KickDirection, FRotator KickRotation, FVector MaxDir, FRotator MaxRot) override;
+	void UpdateWeaponKick();
 
 	//
 	//combat function. Should probably be moved to a component

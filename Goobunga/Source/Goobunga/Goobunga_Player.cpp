@@ -60,6 +60,8 @@ void AGoobunga_Player::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	UpdateAimOffset();
+	UpdateWeaponKick();
+	UpdateFPAlign();
 	UpdateWeaponSwayData(DeltaTime);
 	if (Reloading)
 	{
@@ -117,8 +119,9 @@ void AGoobunga_Player::StartReload()
 			if (WeaponComponent->GetEquippedWeapon())
 			{
 				FireEnded(true);
+				AltFireEnded(true);
+				WeaponComponent->StartReload();
 				UE_LOG(LogTemp, Display, TEXT("PlayerStartReload"));
-				TArray<EReloadPattern> TempReloadPattern = TArray{EReloadPattern::Left, EReloadPattern::Right, EReloadPattern::Up, EReloadPattern::Down, EReloadPattern::Circle};
 				ReloadManagerComponent->StartReload(WeaponComponent->GetEquippedWeapon()->WeaponReloadPattern);
 				Reloading = true;
 				GripAlpha = 0.f;
@@ -240,6 +243,35 @@ void AGoobunga_Player::UpdateAimOffset()
 	}
 	AimOffset = FMath::VInterpTo(AimOffset, FVector::ZeroVector, GetWorld()->GetDeltaSeconds(), 20.f);
 }
+
+void AGoobunga_Player::ApplyWeaponKick(FVector KickDirection, FRotator KickRotation, FVector MaxDir, FRotator MaxRot)
+{
+	CurrentWeaponKickDir += KickDirection;
+	CurrentWeaponKickRot += KickRotation;
+	float DirX = CurrentWeaponKickDir.X;
+	float DirY = CurrentWeaponKickDir.Y;
+	float DirZ = CurrentWeaponKickDir.Z;
+	DirX = FMath::Clamp(DirX, -MaxDir.X, MaxDir.X);
+	DirY = FMath::Clamp(DirY, -MaxDir.Y, MaxDir.Y);
+	DirZ = FMath::Clamp(DirZ, -MaxDir.Z, MaxDir.Z);
+	CurrentWeaponKickDir = FVector(DirX, DirY, DirZ);
+	
+}
+
+void AGoobunga_Player::UpdateWeaponKick()
+{
+	CurrentWeaponKickDir = FMath::VInterpTo(CurrentWeaponKickDir, FVector::ZeroVector, GetWorld()->GetDeltaSeconds(), 20.f);
+}
+
+void AGoobunga_Player::UpdateFPAlign()
+{
+	FTransform NewTransform;
+	NewTransform.SetLocation(CurrentWeaponKickDir + CurrentAdsLoc);
+	NewTransform.SetRotation(CurrentAdsRot);
+	FPMesh_Align->SetRelativeTransform(NewTransform);
+}
+
+
 //Return location and rotation of true look direction
 TArray<FVector> AGoobunga_Player::GetAimDirection()
 {

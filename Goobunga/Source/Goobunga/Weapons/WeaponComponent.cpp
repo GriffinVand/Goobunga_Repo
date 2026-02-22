@@ -9,14 +9,12 @@
 UWeaponComponent::UWeaponComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
-	AdsTimeline = CreateDefaultSubobject<UTimelineComponent>("AdsTimelineComponent");
 }
 void UWeaponComponent::BeginPlay()
 {
 	Super::BeginPlay();
 	PlayerOwner = Cast<AGoobunga_Player>(GetOwner());
 	if (!PlayerOwner) { UE_LOG(LogTemp, Error, TEXT("No player owner. Some shit happened. WeaponComponent::BeginPlay")); return; }
-	SetAdsTimeline();
 	if (bUseDefaultWeapons)
 	{
 		for (auto& Pair : DefaultWeapons)
@@ -30,6 +28,28 @@ void UWeaponComponent::InitializeComponent()
 {
 	PlayerOwner = Cast<AGoobunga_Player>(GetOwner());
 	if (!PlayerOwner) { UE_LOG(LogTemp, Error, TEXT("No player owner. Some shit happened. WeaponComponent::BeginPlay")); return; }
+}
+
+void UWeaponComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	AWeapon* Weapon = GetEquippedWeapon();
+	if (!Weapon) return;
+	
+	if (bReady)
+	{
+		if (bPrimFirePressed)
+		{
+			Weapon->FireEvent();
+		}
+		else if (bAltFirePressed)
+		{
+			Weapon->AltFireEvent();
+		}
+		UpdateAds(bAds, DeltaTime);
+	}
+
 }
 
 AWeapon* UWeaponComponent::GetEquippedWeapon()
@@ -95,6 +115,7 @@ void UWeaponComponent::EquipWeapon(EWeaponSlot Slot)
 	OnMontageEndedDelegate.BindUObject(this, &UWeaponComponent::WeaponFullyDrawn);
 	bReady = false;
 	AdsAlpha = 0.f;
+	HandleNewAds();
 	Weapon->PlayAnimationSimultaneous(FName("Draw"), OnMontageEndedDelegate);
 	PlayerOwner->EquipWeapon(Weapon);
 }
@@ -170,28 +191,6 @@ void UWeaponComponent::ReloadWeapon()
 	if (!EquippedWeapon) return;
 	EquippedWeapon->Reload();
 }
-void UWeaponComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	AWeapon* Weapon = GetEquippedWeapon();
-	if (!Weapon) return;
-	if (bReady)
-	{
-		if (bPrimFirePressed)
-		{
-			Weapon->FireEvent();
-			return;
-		}
-		if (bAltFirePressed)
-		{
-			if (Weapon->CanADS()) { UpdateAds(true, DeltaTime); }
-			else { Weapon->AltFireEvent(); }
-		}
-	}
-	if (Weapon->CanADS() && !bAltFirePressed) { UpdateAds(false, DeltaTime); }
-
-}
 
 #pragma region FIRING
 void UWeaponComponent::PrimFireStart()
@@ -205,12 +204,17 @@ void UWeaponComponent::PrimFireStop(bool Cancelled)
 }
 void UWeaponComponent::AltFireStart()
 {
-	bPrimFirePressed=false;
 	bAltFirePressed=true;
+	if (AWeapon* Weapon = GetEquippedWeapon())
+	{
+		if (Weapon->CanADS()) { bAds = true; return; }
+	}
+	bPrimFirePressed=false;
 }
 void UWeaponComponent::AltFireStop(bool Cancelled)
 {
 	bAltFirePressed=false;
+	bAds=false;
 }
 #pragma endregion
 #pragma region ADS
@@ -222,37 +226,6 @@ FTransform UWeaponComponent::GetWeaponSightTransform()
 	}
 	return FTransform();
 }
-void UWeaponComponent::SetAdsTimeline()
-{
-	if (AdsCurve && AdsTimeline)
-	{
-		FOnTimelineFloat AdsUpdate;
-		AdsUpdate.BindUFunction(this, "OnAdsTimelineUpdate");
-		AdsTimeline->AddInterpFloat(AdsCurve, AdsUpdate);
-		FOnTimelineEvent AdsFinished;
-		AdsFinished.BindUFunction(this, "OnAdsTimelineFinish");
-		AdsTimeline->SetTimelineFinishedFunc(AdsFinished);
-
-		float NewPlayRate = 1.f / AdsTime;
-		AdsTimeline->SetPlayRate(NewPlayRate);
-		AdsTimeline->SetNewTime(0.f);
-	}
-	else { UE_LOG(LogWeaponComponent, Warning, TEXT("Curve or timeline not valid")); }
-}
-void UWeaponComponent::OnAdsTimelineUpdate(float Value)
-{
-	UE_LOG(LogWeaponComponent, Warning, TEXT("Ads Value: %f"), Value);
-	if (GetEquippedWeapon())
-	{
-		GetEquippedWeapon()->UpdateAccuracy(Value);
-	}
-	if (IPlayerCallables* PlayerCallablesInterface = Cast<IPlayerCallables>(GetOwner()))
-	{
-		UpdateAdsTransform(Value);
-		PlayerCallablesInterface->UpdateAds(Value);
-	}
-}
-
 void UWeaponComponent::UpdateAds(bool bADS, float DeltaTime)
 {
 	AWeapon* Weapon = GetEquippedWeapon();
@@ -260,6 +233,11 @@ void UWeaponComponent::UpdateAds(bool bADS, float DeltaTime)
 	float Target = bADS ? 1.f : -1.f;
 	AdsAlpha = AdsAlpha + (DeltaTime * Weapon->GetADSSpeed() * Target);
 	AdsAlpha = FMath::Clamp(AdsAlpha, 0.f, 1.f);
+	HandleNewAds();
+}
+
+void UWeaponComponent::HandleNewAds()
+{
 	UE_LOG(LogWeaponComponent, Warning, TEXT("Ads Value: %f"), AdsAlpha);
 	if (GetEquippedWeapon())
 	{
@@ -270,8 +248,8 @@ void UWeaponComponent::UpdateAds(bool bADS, float DeltaTime)
 		UpdateAdsTransform(AdsAlpha);
 		PlayerCallablesInterface->UpdateAds(AdsAlpha);
 	}
-	
 }
+
 void UWeaponComponent::SetUpAdsPoses()
 {
 	UE_LOG(LogTemp, Error, TEXT("WeaponMesh: %s"), *GetNameSafe(GetEquippedWeapon()->WeaponMesh->GetSkinnedAsset()));
@@ -307,22 +285,9 @@ void UWeaponComponent::CalculateAdsTransform()
 void UWeaponComponent::UpdateAdsTransform(float Alpha)
 {
 	FTransform NewTransform = UKismetMathLibrary::TLerp(FTransform::Identity, AimRelativeTransform, Alpha);
-	PlayerOwner->FPMesh_Align->SetRelativeTransform(NewTransform);
-}
-void UWeaponComponent::OnAdsTimelineFinished()
-{
-	UE_LOG(LogTemp, Warning, TEXT("Ads Finished"));
-	bAds = false;
-}
-void UWeaponComponent::StartAds()
-{
-	bAds = true;
-	AdsTimeline->Play();
-}
-void UWeaponComponent::StopAds()
-{
-	bAds = true;
-	AdsTimeline->Reverse();
+	//PlayerOwner->FPMesh_Align->SetRelativeTransform(NewTransform);
+	PlayerOwner->CurrentAdsLoc = NewTransform.GetLocation();
+	PlayerOwner->CurrentAdsRot = NewTransform.GetRotation();
 }
 #pragma endregion
 #pragma region SAVE/LOAD

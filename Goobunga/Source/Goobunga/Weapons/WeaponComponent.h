@@ -74,38 +74,25 @@ public:
 	void PrimFireStart();
 	void PrimFireStop(bool Cancelled);
 	bool CanReload();
+	void StartReload() { AdsAlpha = 0.f; HandleNewAds(); }
 	void ReloadWeapon();
 	bool bPrimFirePressed = false;
 	bool bAltFirePressed = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bAds = false;
 	bool bReady = false;
-	UPROPERTY(EditAnywhere)
-	UTimelineComponent* AdsTimeline;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FTransform AimTestingTransform = FTransform::Identity;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FTransform AimRelativeTransform = FTransform::Identity;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FRotator BarrelRotOffset = FRotator(0.0f, 0.0f, 0.0f);
-	UPROPERTY(EditAnywhere)
-	float AdsTime = 1.f;
-	UPROPERTY(EditAnywhere)
 	float AdsAlpha = 0.f;
-	UPROPERTY(EditAnywhere)
-	bool bAds = false;
-	UPROPERTY(EditAnywhere)
-	UCurveFloat* AdsCurve = nullptr;
-	UFUNCTION()
-	void OnAdsTimelineUpdate(float Value);
-	UFUNCTION()
-	void OnAdsTimelineFinished();
+	
 	void UpdateAds(bool bADS, float DeltaTime);
-	void StartAds();
-	void StopAds();
-	void SetAdsTimeline();
+	void HandleNewAds();
 	
 	void SetUpAdsPoses();
 	void CalculateAdsTransform();
-	void CalculateRotOffset();
 	void UpdateAdsTransform(float Alpha);
 	
 	UPROPERTY(EditAnywhere)

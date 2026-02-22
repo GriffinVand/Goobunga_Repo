@@ -103,6 +103,15 @@ public:
 	FVector RecoilIntensityMin = FVector(1, 1, 1);
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Recoil", meta = (AllowPrivateAccess = "true"))
 	FVector RecoilIntensityMax = FVector(1, 1, 1);
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FVector KickDirection;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FRotator KickRotation;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FVector MaxKickDirection;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FRotator MaxKickRotation;
 
 	//Ammo
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Ammo", meta = (AllowPrivateAccess = "true"))

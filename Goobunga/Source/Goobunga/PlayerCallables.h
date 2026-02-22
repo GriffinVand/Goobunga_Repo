@@ -27,6 +27,7 @@ public:
 	virtual void UpdateAds(float Alpha) = 0;
 	virtual void EndReload(bool Success) = 0;
 	virtual void ApplyAimOffset(FVector AimOffsetInput) = 0;
+	virtual void ApplyWeaponKick(FVector KickDirection, FRotator KickRotation, FVector MaxDir, FRotator MaxRot) = 0;
 	virtual void UpdateWeaponUI() = 0;
 	virtual TArray<FVector> GetAimDirection() = 0;
 	virtual void PerformAction(const FString& Action) = 0;
