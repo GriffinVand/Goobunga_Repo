@@ -14,6 +14,8 @@ struct FAbilityLoadout
 	TSubclassOf<UAbilityBase> MainAbilityClass = nullptr;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<UAbilityBase> SecondaryAbilityClass = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<UAbilityBase> HealAbilityClass = nullptr;
 };
 
 UCLASS(Blueprintable)
@@ -26,19 +28,22 @@ public:
 	FAbilityLoadout AbilityLoadout;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UAbilityBase* PrimaryAbility;
+	UAbilityBase* SmallAbility;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UAbilityBase* SecondaryAbility;
+	UAbilityBase* LargeAbility;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UAbilityBase* HealAbility;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FAbilitySaveData> OwnedAbilities;
 	
 	
-	void AbilityStart(int32 AbilitySlot);
-	void AbilityFinish(int32 AbilitySlot);
-	void EquipAbility(int32 AbilitySlot, TSubclassOf<UAbilityBase> AbilityClass);
+	void AbilityStart(EAbilityType Slot);
+	void AbilityFinish(EAbilityType Slot);
+	void EquipAbility(EAbilityType Slot, TSubclassOf<UAbilityBase> AbilityClass);
+	UAbilityBase* GetAbility(EAbilityType Slot);
+	bool CanUseAbility(EAbilityType Slot);
 	
 	void InitializeFromSave(const UGoobungaSaveFile& SaveGame);
-	void InitializeFromLoadout();
 	void SaveToSaveGame(UGoobungaSaveFile& SaveGame);
 	
 	

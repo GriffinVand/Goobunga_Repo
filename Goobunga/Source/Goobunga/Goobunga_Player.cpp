@@ -93,6 +93,7 @@ void AGoobunga_Player::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &AGoobunga_Player::SprintEnded);
 		EnhancedInputComponent->BindAction(ReloadAction, ETriggerEvent::Started, this, &AGoobunga_Player::StartReload);
 		EnhancedInputComponent->BindAction(SwapAction, ETriggerEvent::Started, this, &AGoobunga_Player::SwapStarted);
+		EnhancedInputComponent->BindAction(HealAction, ETriggerEvent::Started, this, &AGoobunga_Player::HealStarted);
 	}
 }
 void AGoobunga_Player::Move(const FInputActionValue& Value)
@@ -108,28 +109,23 @@ void AGoobunga_Player::EndMove(const FInputActionValue& Value)
 }
 void AGoobunga_Player::StartReload()
 {
-	if (Sprinting)
+	if (Reloading || !WeaponComponent || !WeaponComponent->CanReload()) return;
+	
+	if (WeaponComponent->GetEquippedWeapon())
 	{
-		SprintEnded();
-	}
-	if (!Reloading)
-	{
-		if (WeaponComponent && WeaponComponent->CanReload())
+		if (Sprinting)
 		{
-			if (WeaponComponent->GetEquippedWeapon())
-			{
-				FireEnded(true);
-				AltFireEnded(true);
-				WeaponComponent->StartReload();
-				UE_LOG(LogTemp, Display, TEXT("PlayerStartReload"));
-				ReloadManagerComponent->StartReload(WeaponComponent->GetEquippedWeapon()->WeaponReloadPattern);
-				Reloading = true;
-				GripAlpha = 0.f;
-			}
-			else { UE_LOG(LogTemp, Display, TEXT("No equipped weapon AGoobunga_Player::StartReload")); }
+			SprintEnded();
 		}
-		else { UE_LOG(LogTemp, Display, TEXT("No weapon comp or can't reload AGoobunga_Player::StartReload")); }
+		FireEnded(true);
+		AltFireEnded(true);
+		WeaponComponent->StartReload();
+		UE_LOG(LogTemp, Display, TEXT("PlayerStartReload AGoobungaPlayer::StartReload"));
+		ReloadManagerComponent->StartReload(WeaponComponent->GetEquippedWeapon()->WeaponReloadPattern);
+		Reloading = true;
+		GripAlpha = 0.f;
 	}
+	else { UE_LOG(LogTemp, Display, TEXT("No equipped weapon AGoobunga_Player::StartReload")); }
 }
 void AGoobunga_Player::EndReload(bool Success)
 {
@@ -225,6 +221,11 @@ void AGoobunga_Player::SwapStarted()
 		if (Reloading) { ReloadManagerComponent->StopReload(false); }
 		WeaponComponent->SwapWeapons();
 	}
+}
+
+void AGoobunga_Player::HealStarted()
+{
+	
 }
 #pragma endregion
 #pragma region AIM OFFSET/ WEAPON SWAY

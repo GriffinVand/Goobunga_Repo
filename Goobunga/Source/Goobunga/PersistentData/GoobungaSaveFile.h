@@ -49,6 +49,8 @@ public:
 	FAbilitySaveData PlayerPrimaryAbility;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FAbilitySaveData PlayerSecondaryAbility;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FAbilitySaveData PlayerHealAbility;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 PlayerMoney;

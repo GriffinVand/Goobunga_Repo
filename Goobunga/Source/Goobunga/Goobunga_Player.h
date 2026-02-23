@@ -162,6 +162,8 @@ protected:
 	UInputAction* SecondaryAbilityAction;
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* SwapAction;
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* HealAction;
 	
 	void Move(const FInputActionValue& Value);
 	void EndMove(const FInputActionValue& Value);
@@ -181,6 +183,7 @@ protected:
 	void SprintEnded();
 	
 	void SwapStarted();
+	void HealStarted();
 	
 #pragma endregion
 	

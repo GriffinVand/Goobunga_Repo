@@ -6,50 +6,58 @@ void UAbilityComponent::InitializeFromSave(const UGoobungaSaveFile& SaveGame)
 	TSubclassOf<UAbilityBase> AbilityClass = SaveGame.PlayerPrimaryAbility.AbilityClass;
 	if (AbilityClass)
 	{
-		EquipAbility(1, AbilityClass);
-	} else { UE_LOG(LogTemp, Error, TEXT("PrimaryAbility class is null AbilityComponent::InitializeFromSave")); }
+		EquipAbility(EAbilityType::Small, AbilityClass);
+	} else { UE_LOG(LogTemp, Error, TEXT("SmallAbility class is null AbilityComponent::InitializeFromSave")); }
 	AbilityClass = SaveGame.PlayerSecondaryAbility.AbilityClass;
 	if (AbilityClass)
 	{
-		EquipAbility(2, AbilityClass);
-	} else { UE_LOG(LogTemp, Error, TEXT("SecondaryAbility class is null AbilityComponent::InitializeFromSave")); }
-}
-
-void UAbilityComponent::InitializeFromLoadout()
-{
-	if (AbilityLoadout.MainAbilityClass) { EquipAbility(1, AbilityLoadout.MainAbilityClass); }
-	if (AbilityLoadout.SecondaryAbilityClass) { EquipAbility(2, AbilityLoadout.SecondaryAbilityClass); }
+		EquipAbility(EAbilityType::Large, AbilityClass);
+	} else { UE_LOG(LogTemp, Error, TEXT("LargeAbility class is null AbilityComponent::InitializeFromSave")); }
+	AbilityClass = SaveGame.PlayerHealAbility.AbilityClass;
+	if (AbilityClass)
+	{
+		EquipAbility(EAbilityType::Heal, AbilityClass);
+	} else { UE_LOG(LogTemp, Error, TEXT("HealAbility class is null AbilityComponent::InitializeFromSave")); }
 }
 
 void UAbilityComponent::SaveToSaveGame(UGoobungaSaveFile& SaveGame)
 {
 	FAbilitySaveData PrimaryAbilityData;
-	if (PrimaryAbility)
+	if (SmallAbility)
 	{
-		PrimaryAbilityData.AbilityClass = PrimaryAbility->GetClass();
+		PrimaryAbilityData.AbilityClass = SmallAbility->GetClass();
 	}
 	SaveGame.PlayerPrimaryAbility = PrimaryAbilityData;
 	FAbilitySaveData SecondaryAbilityData;
-	if (SecondaryAbility)
+	if (LargeAbility)
 	{
-		SecondaryAbilityData.AbilityClass = SecondaryAbility->GetClass();
+		SecondaryAbilityData.AbilityClass = LargeAbility->GetClass();
 	}
 	SaveGame.PlayerSecondaryAbility = SecondaryAbilityData;
+	FAbilitySaveData HealAbilityData;
+	if (HealAbility)
+	{
+		HealAbilityData.AbilityClass = HealAbility->GetClass();
+	}
+	SaveGame.PlayerHealAbility = HealAbilityData;
 	
 	SaveGame.PlayerOwnedAbilities = OwnedAbilities;
 }
 
-void UAbilityComponent::EquipAbility(int32 AbilitySlot, TSubclassOf<UAbilityBase> AbilityClass)
+void UAbilityComponent::EquipAbility(EAbilityType Slot, TSubclassOf<UAbilityBase> AbilityClass)
 {
 	if (!AbilityClass) { UE_LOG(LogTemp, Error, TEXT("Passed in AbilityClass is null AbilityComponent::EquipAbility")); return; }
 	UAbilityBase** AbilitySlotPtr;
-	switch (AbilitySlot)
+	switch (Slot)
 	{
-	case 1:
-		AbilitySlotPtr = &PrimaryAbility;
+	case EAbilityType::Small:
+		AbilitySlotPtr = &SmallAbility;
 		break;
-	case 2:
-		AbilitySlotPtr = &SecondaryAbility;
+	case EAbilityType::Large:
+		AbilitySlotPtr = &LargeAbility;
+		break;
+	case EAbilityType::Heal:
+		AbilitySlotPtr = &HealAbility;
 		break;
 	default:
 		return;
@@ -58,32 +66,39 @@ void UAbilityComponent::EquipAbility(int32 AbilitySlot, TSubclassOf<UAbilityBase
 	if (!*AbilitySlotPtr) { UE_LOG(LogTemp, Error, TEXT("Tried to create new ability but nullptr AbilityComponent::EquipAbility")); }
 }
 
-void UAbilityComponent::AbilityStart(int32 AbilitySlot)
+void UAbilityComponent::AbilityStart(EAbilityType Slot)
 {
-	switch (AbilitySlot)
+	UAbilityBase* Ability = GetAbility(Slot);
+	if (!Ability) return;
+}
+
+void UAbilityComponent::AbilityFinish(EAbilityType Slot)
+{
+	UAbilityBase* Ability = GetAbility(Slot);
+	if (!Ability) return;
+	
+}
+
+UAbilityBase* UAbilityComponent::GetAbility(EAbilityType Slot)
+{
+	switch (Slot)
 	{
-	case 1:
-		
-		break;
-	case 2:
-		
-		break;
+	case EAbilityType::Small:
+		return SmallAbility;
+	case EAbilityType::Large:
+		return LargeAbility;
+	case EAbilityType::Heal:
+		return HealAbility;
 	default:
-		break;
+		return nullptr;
 	}
 }
 
-void UAbilityComponent::AbilityFinish(int32 AbilitySlot)
+bool UAbilityComponent::CanUseAbility(EAbilityType Slot)
 {
-	switch (AbilitySlot)
-	{
-	case 1:
-		
-		break;
-	case 2:
-		
-		break;
-	default:
-		break;
-	}
+	UAbilityBase* Ability = GetAbility(Slot);
+	if (!Ability) return false;
+	
+	
+	return false;
 }
