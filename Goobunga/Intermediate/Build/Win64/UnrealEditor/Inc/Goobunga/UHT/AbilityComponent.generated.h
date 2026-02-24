@@ -14,14 +14,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define GOOBUNGA_AbilityComponent_generated_h
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_12_GENERATED_BODY \
-	friend struct Z_Construct_UScriptStruct_FAbilityLoadout_Statics; \
-	GOOBUNGA_API static class UScriptStruct* StaticStruct();
-
-
-template<> GOOBUNGA_API UScriptStruct* StaticStruct<struct FAbilityLoadout>();
-
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_22_INCLASS_NO_PURE_DECLS \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_23_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUAbilityComponent(); \
 	friend struct Z_Construct_UClass_UAbilityComponent_Statics; \
@@ -30,7 +23,7 @@ public: \
 	DECLARE_SERIALIZER(UAbilityComponent)
 
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_22_ENHANCED_CONSTRUCTORS \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_23_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UAbilityComponent(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 private: \
@@ -44,12 +37,12 @@ public: \
 	NO_API virtual ~UAbilityComponent();
 
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_19_PROLOG
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_22_GENERATED_BODY \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_20_PROLOG
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_23_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_22_INCLASS_NO_PURE_DECLS \
-	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_22_ENHANCED_CONSTRUCTORS \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_23_INCLASS_NO_PURE_DECLS \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_23_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -59,5 +52,17 @@ template<> GOOBUNGA_API UClass* StaticClass<class UAbilityComponent>();
 #undef CURRENT_FILE_ID
 #define CURRENT_FILE_ID FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h
 
+
+#define FOREACH_ENUM_EABILITYBLOCKFLAG(op) \
+	op(EAbilityBlockFlag::Fire) \
+	op(EAbilityBlockFlag::Aim) \
+	op(EAbilityBlockFlag::Grip) \
+	op(EAbilityBlockFlag::Reload) \
+	op(EAbilityBlockFlag::Sprint) \
+	op(EAbilityBlockFlag::Swap) 
+
+enum class EAbilityBlockFlag : uint8;
+template<> struct TIsUEnumClass<EAbilityBlockFlag> { enum { Value = true }; };
+template<> GOOBUNGA_API UEnum* StaticEnum<EAbilityBlockFlag>();
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

@@ -6,7 +6,6 @@
 #include "InputActionValue.h"
 #include "Camera/CameraComponent.h"
 #include "Math/UnrealMathUtility.h"
-#include "FireableCallables.h"
 #include "Goobunga_PlayerController.h"
 #include "ReloadManagerComponent.h"
 #include "Dialogue/DialogueManagerComponent.h"
@@ -82,18 +81,18 @@ void AGoobunga_Player::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Completed, this, &AGoobunga_Player::EndLook);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &AGoobunga_Player::Jump);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &AGoobunga_Player::StopJumping);
-		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Started, this, &AGoobunga_Player::FireStarted);
+		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Started, this, &AGoobunga_Player::FireInputStarted);
 		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Completed, this, &AGoobunga_Player::FireInputEnded);
 		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Canceled, this, &AGoobunga_Player::FireInputEnded);
-		EnhancedInputComponent->BindAction(AltFireAction, ETriggerEvent::Started, this, &AGoobunga_Player::AltFireStarted);
+		EnhancedInputComponent->BindAction(AltFireAction, ETriggerEvent::Started, this, &AGoobunga_Player::AltFireInputStarted);
 		EnhancedInputComponent->BindAction(AltFireAction, ETriggerEvent::Completed, this, &AGoobunga_Player::AltFireInputEnded);
 		EnhancedInputComponent->BindAction(AltFireAction, ETriggerEvent::Canceled, this, &AGoobunga_Player::AltFireInputEnded);
-		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Started, this, &AGoobunga_Player::SprintStarted);
-		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Canceled, this, &AGoobunga_Player::SprintEnded);
-		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &AGoobunga_Player::SprintEnded);
-		EnhancedInputComponent->BindAction(ReloadAction, ETriggerEvent::Started, this, &AGoobunga_Player::StartReload);
-		EnhancedInputComponent->BindAction(SwapAction, ETriggerEvent::Started, this, &AGoobunga_Player::SwapStarted);
-		EnhancedInputComponent->BindAction(HealAction, ETriggerEvent::Started, this, &AGoobunga_Player::HealStarted);
+		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Started, this, &AGoobunga_Player::SprintInputStarted);
+		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Canceled, this, &AGoobunga_Player::SprintInputEnded);
+		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &AGoobunga_Player::SprintInputEnded);
+		EnhancedInputComponent->BindAction(ReloadAction, ETriggerEvent::Started, this, &AGoobunga_Player::ReloadInputStarted);
+		EnhancedInputComponent->BindAction(SwapAction, ETriggerEvent::Started, this, &AGoobunga_Player::SwapInputStarted);
+		EnhancedInputComponent->BindAction(HealAction, ETriggerEvent::Started, this, &AGoobunga_Player::HealAbilityInputStarted);
 	}
 }
 void AGoobunga_Player::Move(const FInputActionValue& Value)
@@ -107,35 +106,22 @@ void AGoobunga_Player::EndMove(const FInputActionValue& Value)
 {
 	TargetWeaponSwayData.Movement = FVector2D::ZeroVector;
 }
+
 void AGoobunga_Player::StartReload()
 {
-	if (Reloading || !WeaponComponent || !WeaponComponent->CanReload()) return;
-	
-	if (WeaponComponent->GetEquippedWeapon())
-	{
-		if (Sprinting)
-		{
-			SprintEnded();
-		}
-		FireEnded(true);
-		AltFireEnded(true);
-		WeaponComponent->StartReload();
-		UE_LOG(LogTemp, Display, TEXT("PlayerStartReload AGoobungaPlayer::StartReload"));
-		ReloadManagerComponent->StartReload(WeaponComponent->GetEquippedWeapon()->WeaponReloadPattern);
-		Reloading = true;
-		GripAlpha = 0.f;
-	}
-	else { UE_LOG(LogTemp, Display, TEXT("No equipped weapon AGoobunga_Player::StartReload")); }
+	if (!WeaponComponent && !WeaponComponent->GetEquippedWeapon()) return;
+	Reloading = true;
+	WeaponComponent->AdsAlpha = 0.f;
+	WeaponComponent->HandleNewAds();
+	GripAlpha = 0.f;
+	ReloadManagerComponent->StartReload(WeaponComponent->GetEquippedWeapon()->WeaponReloadPattern);
 }
 void AGoobunga_Player::EndReload(bool Success)
 {
-	UE_LOG(LogTemp, Display, TEXT("PlayerEndReload"));
+	if (!WeaponComponent) return;
 	if (Success)
 	{
-		if (WeaponComponent)
-		{
-			WeaponComponent->ReloadWeapon();
-		}
+		WeaponComponent->ReloadWeapon();
 	}
 	Reloading = false;
 	GripAlpha = 1.f;
@@ -154,78 +140,49 @@ void AGoobunga_Player::EndLook(const FInputActionValue& Value)
 }
 void AGoobunga_Player::SprintStarted()
 {
-	if (Sprinting == false)
+	if (!Sprinting)
 	{
-		FireEnded(true);
-		AltFireEnded(true);
-		if (ReloadManagerComponent) { ReloadManagerComponent->StopReload(false); }
+		Sprinting = true;
+		GetCharacterMovement()->MaxWalkSpeed = 1200.f;
 	}
-	Sprinting = true;
-	GetCharacterMovement()->MaxWalkSpeed = 1200.f;
 }
 void AGoobunga_Player::SprintEnded()
 {
-	Sprinting = false;
-	GetCharacterMovement()->MaxWalkSpeed = 800.f;	
+	if (Sprinting)
+	{
+		Sprinting = false;
+		GetCharacterMovement()->MaxWalkSpeed = 800.f;	
+	}
 }
 void AGoobunga_Player::FireStarted()
 {
-	if (Reloading)
-	{
-		ReloadManagerComponent->StopReload(false);
-	}
-	if (Sprinting)
-	{
-		SprintEnded();
-	}
-	if (WeaponComponent)
-	{
-		WeaponComponent->PrimFireStart();
-	}
-	else {UE_LOG(LogTemp, Warning, TEXT("No Weapon Component Goobunga_Player::FireStarted"));}
+	if (!WeaponComponent) return;
+	
+	WeaponComponent->PrimFireStart();
 }
 void AGoobunga_Player::FireEnded(bool Cancelled)
 {
-	if (WeaponComponent)
-	{
-		WeaponComponent->PrimFireStop(Cancelled);
-	}
-	else {UE_LOG(LogTemp, Warning, TEXT("No Weapon Component Goobunga_Player::FireEnded"));}
+	if (!WeaponComponent) return;
+	
+	WeaponComponent->PrimFireStop(Cancelled);
 }
 void AGoobunga_Player::AltFireStarted()
 {
-	if (Reloading)
-	{
-		ReloadManagerComponent->StopReload(false);
-	}
-	if (Sprinting)
-	{
-		SprintEnded();
-	}
-	if (WeaponComponent)
-	{
-		WeaponComponent->AltFireStart();
-	}
+	if (!WeaponComponent) return;
+	
+	WeaponComponent->AltFireStart();
 }
 void AGoobunga_Player::AltFireEnded(bool Cancelled)
 {
-	if (WeaponComponent)
-	{
-		WeaponComponent->AltFireStop(Cancelled);
-	}
+	if (!WeaponComponent) return;
+	
+	WeaponComponent->AltFireStop(Cancelled);
 }
 void AGoobunga_Player::SwapStarted()
 {
-	if (WeaponComponent)
-	{
-		if (Reloading) { ReloadManagerComponent->StopReload(false); }
-		WeaponComponent->SwapWeapons();
-	}
-}
-
-void AGoobunga_Player::HealStarted()
-{
+	if (!WeaponComponent) return;
 	
+	WeaponComponent->SwapWeapons();
 }
 #pragma endregion
 #pragma region AIM OFFSET/ WEAPON SWAY
@@ -419,3 +376,179 @@ void AGoobunga_Player::UnequipWeapon(AWeapon* Weapon)
 {
 
 }
+
+#pragma region ACTIONS
+void AGoobunga_Player::TryStartAction(ECombatAction Action)
+{
+	if (CanPerformAction(Action))
+	{
+		ResolveActionConflicts(Action);
+		StartAction(Action);
+	}
+}
+
+bool AGoobunga_Player::CanPerformAction(ECombatAction Action)
+{
+	
+	const bool WeaponDrawn = (WeaponComponent->bReady);
+	switch (Action)
+	{
+	case ECombatAction::PrimFire:
+		return (!AbilityComponent->IsFlagBlocked(EAbilityBlockFlag::Fire));
+	case ECombatAction::SecFire:
+		return (!AbilityComponent->IsFlagBlocked(EAbilityBlockFlag::Fire));
+	case ECombatAction::Reload:
+		return (!AbilityComponent->IsFlagBlocked(EAbilityBlockFlag::Reload) && WeaponComponent->CanReload());	
+	case ECombatAction::Aim:
+		return (!AbilityComponent->IsFlagBlocked(EAbilityBlockFlag::Aim));
+	case ECombatAction::SmallAbility:
+		return (AbilityComponent->CanUseAbility(EAbilityType::Small));
+	case ECombatAction::LargeAbility:
+		return (AbilityComponent->CanUseAbility(EAbilityType::Large));
+	case ECombatAction::HealAbility:
+		return (AbilityComponent->CanUseAbility(EAbilityType::Heal));
+	case ECombatAction::Swap:
+		return (!AbilityComponent->IsFlagBlocked(EAbilityBlockFlag::Swap));
+	case ECombatAction::Sprint:
+		return (!AbilityComponent->IsFlagBlocked(EAbilityBlockFlag::Sprint) && !Sprinting && WeaponDrawn);
+	default:
+		return false;
+	}
+}
+
+void AGoobunga_Player::ResolveActionConflicts(ECombatAction Action)
+{
+	switch (Action)
+	{
+	case ECombatAction::PrimFire:
+		if (Reloading) { ReloadManagerComponent->StopReload(false); }
+		if (Sprinting) { SprintEnded(); }
+		break;
+	case ECombatAction::SecFire:
+		if (Reloading) { ReloadManagerComponent->StopReload(false); }
+		if (Sprinting) { SprintEnded(); }
+		break;
+	case ECombatAction::Aim:
+		if (Reloading) { ReloadManagerComponent->StopReload(false); }
+		if (Sprinting) { SprintEnded(); }
+		break;
+	case ECombatAction::Reload:
+		FireEnded(true);
+		AltFireEnded(true);
+		if (Sprinting) { SprintEnded(); }
+		break;
+	case ECombatAction::Sprint:
+		FireEnded(true);
+		AltFireEnded(true);
+		WeaponComponent->AdsAlpha = 0.f;
+		WeaponComponent->HandleNewAds();
+		break;
+	case ECombatAction::Swap:
+		FireEnded(true);
+		AltFireEnded(true);
+		if (Sprinting) { SprintEnded(); }
+		WeaponComponent->AdsAlpha = 0.f;
+		WeaponComponent->HandleNewAds();
+		break;
+	case ECombatAction::SmallAbility:
+		if (UAbilityBase* Ability = AbilityComponent->GetAbility(EAbilityType::Small))
+		{
+			if (Ability->GetBlocksFire()) { FireEnded(true); AltFireEnded(true); }
+			if (Ability->GetBlocksADS()) { WeaponComponent->AdsAlpha = 0.f; WeaponComponent->HandleNewAds(); }
+			if (Reloading) { ReloadManagerComponent->StopReload(false); }
+			if (Ability->GetDisablesGrip()) { GripAlpha = 0.f; }
+			if (Sprinting) { SprintEnded(); }
+		}
+		break;
+	case ECombatAction::LargeAbility:
+		if (UAbilityBase* Ability = AbilityComponent->GetAbility(EAbilityType::Large))
+		{
+			if (Ability->GetBlocksFire()) { FireEnded(true); AltFireEnded(true); }
+			if (Ability->GetBlocksADS()) { WeaponComponent->AdsAlpha = 0.f; WeaponComponent->HandleNewAds(); }
+			if (Reloading) { ReloadManagerComponent->StopReload(false); }
+			if (Ability->GetDisablesGrip()) { GripAlpha = 0.f; }
+			if (Sprinting) { SprintEnded(); }
+		}
+		break;
+	case ECombatAction::HealAbility:
+		if (UAbilityBase* Ability = AbilityComponent->GetAbility(EAbilityType::Heal))
+		{
+			if (Ability->GetBlocksFire()) { FireEnded(true); AltFireEnded(true); }
+			if (Ability->GetBlocksADS()) { WeaponComponent->AdsAlpha = 0.f; WeaponComponent->HandleNewAds(); }
+			if (Reloading) { ReloadManagerComponent->StopReload(false); }
+			if (Ability->GetDisablesGrip()) { GripAlpha = 0.f; }
+			if (Sprinting) { SprintEnded(); }
+		}
+		break;
+	}
+}
+
+void AGoobunga_Player::StartAction(ECombatAction Action)
+{
+	switch (Action)
+	{
+	case ECombatAction::PrimFire:
+		FireStarted();
+		break;
+	case ECombatAction::SecFire:
+		AltFireStarted();
+		break;
+	case ECombatAction::Aim:
+		break;
+	case ECombatAction::Swap:
+		SwapStarted();
+		break;
+	case ECombatAction::Reload:
+		StartReload();
+		break;
+	case ECombatAction::Sprint:
+		SprintStarted();
+	case ECombatAction::SmallAbility:
+		AbilityComponent->AbilityStart(EAbilityType::Small);
+		break;
+	case ECombatAction::LargeAbility:
+		AbilityComponent->AbilityStart(EAbilityType::Large);
+		break;
+	case ECombatAction::HealAbility:
+		AbilityComponent->AbilityStart(EAbilityType::Heal);
+		break;
+	}
+}
+#pragma endregion ACTIONS
+
+#pragma region Ability
+
+void AGoobunga_Player::HideWeaponForAbility()
+{
+	
+}
+
+void AGoobunga_Player::PlayAbilityMontage(UAnimMontage* Montage)
+{
+	if (UAnimInstance* AnimInst = FPMesh->GetAnimInstance())
+	{
+		FOnMontageEnded EndDelegate;
+		EndDelegate.BindUObject(this, &AGoobunga_Player::NotifyAbilityMontageEnded);
+		AnimInst->Montage_Play(Montage);
+		AnimInst->Montage_SetEndDelegate(EndDelegate);
+	}
+}
+
+void AGoobunga_Player::PlayAbilityMontageLoop(UAnimMontage* Montage, FName StartSection)
+{
+	if (UAnimInstance* AnimInst = FPMesh->GetAnimInstance())
+	{
+		AnimInst->Montage_Play(Montage);
+		AnimInst->Montage_JumpToSection(StartSection);
+	}
+}
+
+void AGoobunga_Player::NotifyAbilityMontageEnded(UAnimMontage* Montage, bool bInterrupted)
+{
+	if (AbilityComponent)
+	{
+		AbilityComponent->NotifyMontageEnded(Montage);
+	}
+}
+
+#pragma endregion Ability

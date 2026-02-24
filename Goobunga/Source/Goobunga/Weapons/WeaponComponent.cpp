@@ -108,27 +108,46 @@ void UWeaponComponent::EquipWeapon(EWeaponSlot Slot)
 	if (!Weapon) return;
 	UE_LOG(LogTemp, Error, TEXT("Equipped weapon name %s"), *Weapon->GetName());
 	EquippedWeaponSlot = Slot;
-	Weapon->SetActorHiddenInGame(false);
-	PlayerOwner->GripAlpha = 0.f;
 	SetUpAdsPoses();
-	FOnMontageEnded OnMontageEndedDelegate;
-	OnMontageEndedDelegate.BindUObject(this, &UWeaponComponent::WeaponFullyDrawn);
-	bReady = false;
-	AdsAlpha = 0.f;
-	HandleNewAds();
-	Weapon->PlayAnimationSimultaneous(FName("Draw"), OnMontageEndedDelegate);
 	PlayerOwner->EquipWeapon(Weapon);
+	DrawWeapon(Weapon);
 }
 void UWeaponComponent::UnEquipWeapon(EWeaponSlot Slot)
 {
 	PlayerOwner = Cast<AGoobunga_Player>(GetOwner());
 	if (!PlayerOwner) { UE_LOG(LogTemp, Error, TEXT("No player owner. Some shit happened. WeaponComponent::BeginPlay")); return; }
-	
 	AWeapon* Weapon = GetWeaponInSlot(Slot);
 	if (!Weapon) return;
-	Weapon->SetActorHiddenInGame(true);
+	HolsterWeapon(Weapon);
 	EquippedWeaponSlot = EWeaponSlot::None;
 	PlayerOwner->UnequipWeapon(Weapon);
+}
+
+void UWeaponComponent::HolsterWeapon(AWeapon* Weapon)
+{
+	if (Weapon)
+	{
+		bReady = false;
+		Weapon->SetActorHiddenInGame(true);
+		PlayerOwner->GripAlpha = 0.f;
+		AdsAlpha = 0.f;
+		HandleNewAds();
+	}
+}
+
+void UWeaponComponent::DrawWeapon(AWeapon* Weapon)
+{
+	if (Weapon)
+	{
+		Weapon->SetActorHiddenInGame(false);
+		PlayerOwner->GripAlpha = 0.f;
+		FOnMontageEnded OnMontageEndedDelegate;
+		OnMontageEndedDelegate.BindUObject(this, &UWeaponComponent::WeaponFullyDrawn);
+		bReady = false;
+		AdsAlpha = 0.f;
+		HandleNewAds();
+		Weapon->PlayAnimationSimultaneous(FName("Draw"), OnMontageEndedDelegate);
+	}
 }
 
 void UWeaponComponent::WeaponFullyDrawn(UAnimMontage* Montage, bool bInterrupted)

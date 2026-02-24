@@ -39,13 +39,13 @@ void EmptyLinkFunctionForGeneratedCodeGoobunga_init() {}
 				SingletonFuncArray,
 				UE_ARRAY_COUNT(SingletonFuncArray),
 				PKG_CompiledIn | 0x00000000,
-				0xFD3E5D05,
-				0xAC4BBB05,
+				0xA0C06998,
+				0xF3FB04D8,
 				METADATA_PARAMS(0, nullptr)
 			};
 			UECodeGen_Private::ConstructUPackage(Z_Registration_Info_UPackage__Script_Goobunga.OuterSingleton, PackageParams);
 		}
 		return Z_Registration_Info_UPackage__Script_Goobunga.OuterSingleton;
 	}
-	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_Goobunga(Z_Construct_UPackage__Script_Goobunga, TEXT("/Script/Goobunga"), Z_Registration_Info_UPackage__Script_Goobunga, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0xFD3E5D05, 0xAC4BBB05));
+	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_Goobunga(Z_Construct_UPackage__Script_Goobunga, TEXT("/Script/Goobunga"), Z_Registration_Info_UPackage__Script_Goobunga, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0xA0C06998, 0xF3FB04D8));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

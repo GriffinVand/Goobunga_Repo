@@ -55,6 +55,8 @@ public:
 	void UnEquipWeapon(EWeaponSlot Slot);
 	void SwapWeapons();
 	void WeaponFullyDrawn(UAnimMontage* Montage, bool bInterrupted);
+	void DrawWeapon(AWeapon* Weapon);
+	void HolsterWeapon(AWeapon* Weapon);
 	AWeapon* GetWeaponInSlot(EWeaponSlot Slot);
 	void SetWeapon(const FWeaponSaveData& Weapon, EWeaponSlot Slot);
 	
@@ -74,7 +76,6 @@ public:
 	void PrimFireStart();
 	void PrimFireStop(bool Cancelled);
 	bool CanReload();
-	void StartReload() { AdsAlpha = 0.f; HandleNewAds(); }
 	void ReloadWeapon();
 	bool bPrimFirePressed = false;
 	bool bAltFirePressed = false;

@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "PlayerCallables.h"
+#include "Abilities/AbilityComponent.h"
 #include "Combat/CombatCallables.h"
 #include "GameFramework/Character.h"
 #include "PersistentData/PersistentDataInterface.h"
@@ -20,6 +21,20 @@ class UDialogueManagerComponent;
 class UFacialAnimationComponent;
 class AWeapon;
 
+UENUM(BlueprintType)
+enum class ECombatAction : uint8
+{
+	PrimFire UMETA(DisplayName = "PrimFire"),
+	SecFire UMETA(DisplayName = "SecFire"),
+	Aim UMETA(DisplayName = "Aim"),
+	SmallAbility UMETA(DisplayName = "SmallAbility"),
+	LargeAbility UMETA(DisplayName = "LargeAbility"),
+	HealAbility UMETA(DisplayName = "HealAbility"),
+	Sprint UMETA(DisplayName = "Sprint"),
+	Reload UMETA(DisplayName = "Reload"),
+	Swap UMETA(DisplayName = "Swap")
+};
+
 UCLASS()
 class GOOBUNGA_API AGoobunga_Player : public ACharacter, public IPlayerCallables, public ICombatCallables, public IPersistentDataInterface
 {
@@ -34,7 +49,7 @@ public:
 	AGoobunga_Player();
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
-	
+
 #pragma region Components
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
 	USkeletalMeshComponent* FPMesh;
@@ -96,7 +111,8 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Stats, meta=(AllowPrivateAccess=true))
 	float SprintSpeed = 800.f;
 
-	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Animation)
+	UAnimMontage* HideWeaponMontage;
 	//2D Animation
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	UMaterialInstance* PlayerFaceMaterial;
@@ -171,25 +187,41 @@ protected:
 	void Look(const FInputActionValue& Value);
 	void EndLook(const FInputActionValue& Value);
 	
+	void ReloadInputStarted() { TryStartAction(ECombatAction::Reload); }
+	void StartReload();
+	virtual void EndReload(bool Success) override;
+	
 	void FireStarted();
 	void FireEnded(bool Cancelled);
+	void FireInputStarted() { TryStartAction(ECombatAction::PrimFire); }
 	void FireInputEnded() { FireEnded(false);}
 	
 	void AltFireStarted();
 	void AltFireEnded(bool Cancelled);
+	void AltFireInputStarted() { TryStartAction(ECombatAction::SecFire); }
 	void AltFireInputEnded() { AltFireEnded(false);}
 	
 	void SprintStarted();
 	void SprintEnded();
+	void SprintInputStarted() { TryStartAction(ECombatAction::Sprint); }
+	void SprintInputEnded() { SprintEnded(); }
 	
 	void SwapStarted();
-	void HealStarted();
+	void SwapInputStarted() { TryStartAction(ECombatAction::Swap); }
+	void SmallAbilityInputStarted() { TryStartAction(ECombatAction::SmallAbility); }
+	void SmallAbilityInputEnded() { AbilityComponent->AbilityFinish(EAbilityType::Small); }
+	void LargeAbilityInputStarted() { TryStartAction(ECombatAction::LargeAbility); }
+	void LargeAbilityInputEnded() { AbilityComponent->AbilityFinish(EAbilityType::Large); }
+	void HealAbilityInputStarted() { TryStartAction(ECombatAction::HealAbility); }
+	void HealAbilityInputEnded() { AbilityComponent->AbilityFinish(EAbilityType::Heal); }
+	
+	void TryStartAction(ECombatAction Action);
+	bool CanPerformAction(ECombatAction Action);
+	void ResolveActionConflicts(ECombatAction Action);
+	void StartAction(ECombatAction Action);
 	
 #pragma endregion
 	
-	
-	void StartReload();
-	virtual void EndReload(bool Success) override;
 	virtual void UpdateAds(float Alpha) override;
 	virtual void UpdateWeaponUI() override { return;}
 	void UpdateWeaponSwayData(float DeltaTime);
@@ -197,7 +229,10 @@ protected:
 	void UpdateAimOffset();
 	virtual void ApplyWeaponKick(FVector KickDirection, FRotator KickRotation, FVector MaxDir, FRotator MaxRot) override;
 	void UpdateWeaponKick();
-
+	void PlayAbilityMontage(UAnimMontage* Montage);
+	void PlayAbilityMontageLoop(UAnimMontage* Montage, FName StartSection);
+	void NotifyAbilityMontageEnded(UAnimMontage* Montage, bool bInterrupted);
+	void HideWeaponForAbility();
 	//
 	//combat function. Should probably be moved to a component
 	//

@@ -16,12 +16,12 @@ struct FWeaponSwayData;
 #endif
 #define GOOBUNGA_Goobunga_Player_generated_h
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_26_RPC_WRAPPERS_NO_PURE_DECLS \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_41_RPC_WRAPPERS_NO_PURE_DECLS \
 	DECLARE_FUNCTION(execGetWeaponSwayData); \
 	DECLARE_FUNCTION(execEquipWeapon);
 
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_26_INCLASS_NO_PURE_DECLS \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_41_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAGoobunga_Player(); \
 	friend struct Z_Construct_UClass_AGoobunga_Player_Statics; \
@@ -31,7 +31,7 @@ public: \
 	virtual UObject* _getUObject() const override { return const_cast<AGoobunga_Player*>(this); }
 
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_26_ENHANCED_CONSTRUCTORS \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_41_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	AGoobunga_Player(AGoobunga_Player&&); \
@@ -43,13 +43,13 @@ public: \
 	NO_API virtual ~AGoobunga_Player();
 
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_23_PROLOG
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_26_GENERATED_BODY \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_38_PROLOG
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_41_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_26_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_26_INCLASS_NO_PURE_DECLS \
-	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_26_ENHANCED_CONSTRUCTORS \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_41_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_41_INCLASS_NO_PURE_DECLS \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_41_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -59,5 +59,20 @@ template<> GOOBUNGA_API UClass* StaticClass<class AGoobunga_Player>();
 #undef CURRENT_FILE_ID
 #define CURRENT_FILE_ID FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h
 
+
+#define FOREACH_ENUM_ECOMBATACTION(op) \
+	op(ECombatAction::PrimFire) \
+	op(ECombatAction::SecFire) \
+	op(ECombatAction::Aim) \
+	op(ECombatAction::SmallAbility) \
+	op(ECombatAction::LargeAbility) \
+	op(ECombatAction::HealAbility) \
+	op(ECombatAction::Sprint) \
+	op(ECombatAction::Reload) \
+	op(ECombatAction::Swap) 
+
+enum class ECombatAction : uint8;
+template<> struct TIsUEnumClass<ECombatAction> { enum { Value = true }; };
+template<> GOOBUNGA_API UEnum* StaticEnum<ECombatAction>();
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

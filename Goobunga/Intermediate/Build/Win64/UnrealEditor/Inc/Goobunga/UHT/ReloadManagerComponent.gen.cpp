@@ -177,6 +177,10 @@ struct Z_Construct_UClass_UReloadManagerComponent_Statics
 		{ "IncludePath", "ReloadManagerComponent.h" },
 		{ "ModuleRelativePath", "ReloadManagerComponent.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ProgressRate_MetaData[] = {
+		{ "Category", "ReloadManagerComponent" },
+		{ "ModuleRelativePath", "ReloadManagerComponent.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ReloadSequence_MetaData[] = {
 		{ "Category", "ReloadManagerComponent" },
 		{ "ModuleRelativePath", "ReloadManagerComponent.h" },
@@ -219,6 +223,7 @@ struct Z_Construct_UClass_UReloadManagerComponent_Statics
 		{ "ModuleRelativePath", "ReloadManagerComponent.h" },
 	};
 #endif // WITH_METADATA
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_ProgressRate;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_ReloadSequence_Inner;
 	static const UECodeGen_Private::FArrayPropertyParams NewProp_ReloadSequence;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_CurrentReloadPhase;
@@ -237,6 +242,7 @@ struct Z_Construct_UClass_UReloadManagerComponent_Statics
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UReloadManagerComponent_Statics::NewProp_ProgressRate = { "ProgressRate", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UReloadManagerComponent, ProgressRate), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ProgressRate_MetaData), NewProp_ProgressRate_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UReloadManagerComponent_Statics::NewProp_ReloadSequence_Inner = { "ReloadSequence", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FReloadPhase, METADATA_PARAMS(0, nullptr) }; // 2585317397
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UReloadManagerComponent_Statics::NewProp_ReloadSequence = { "ReloadSequence", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UReloadManagerComponent, ReloadSequence), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ReloadSequence_MetaData), NewProp_ReloadSequence_MetaData) }; // 2585317397
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_UReloadManagerComponent_Statics::NewProp_CurrentReloadPhase = { "CurrentReloadPhase", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UReloadManagerComponent, CurrentReloadPhase), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CurrentReloadPhase_MetaData), NewProp_CurrentReloadPhase_MetaData) };
@@ -249,6 +255,7 @@ const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UReloadManagerC
 const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_UReloadManagerComponent_Statics::NewProp_ReloadWidgetClass = { "ReloadWidgetClass", nullptr, (EPropertyFlags)0x0024080000000015, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UReloadManagerComponent, ReloadWidgetClass), Z_Construct_UClass_UClass, Z_Construct_UClass_UUserWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ReloadWidgetClass_MetaData), NewProp_ReloadWidgetClass_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UReloadManagerComponent_Statics::NewProp_ReloadWidget = { "ReloadWidget", nullptr, (EPropertyFlags)0x002008000008001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UReloadManagerComponent, ReloadWidget), Z_Construct_UClass_UUserWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ReloadWidget_MetaData), NewProp_ReloadWidget_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UReloadManagerComponent_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UReloadManagerComponent_Statics::NewProp_ProgressRate,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UReloadManagerComponent_Statics::NewProp_ReloadSequence_Inner,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UReloadManagerComponent_Statics::NewProp_ReloadSequence,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UReloadManagerComponent_Statics::NewProp_CurrentReloadPhase,
@@ -308,10 +315,10 @@ struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadMa
 		{ FReloadPhase::StaticStruct, Z_Construct_UScriptStruct_FReloadPhase_Statics::NewStructOps, TEXT("ReloadPhase"), &Z_Registration_Info_UScriptStruct_ReloadPhase, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FReloadPhase), 2585317397U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UReloadManagerComponent, UReloadManagerComponent::StaticClass, TEXT("UReloadManagerComponent"), &Z_Registration_Info_UClass_UReloadManagerComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UReloadManagerComponent), 1078013205U) },
+		{ Z_Construct_UClass_UReloadManagerComponent, UReloadManagerComponent::StaticClass, TEXT("UReloadManagerComponent"), &Z_Registration_Info_UClass_UReloadManagerComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UReloadManagerComponent), 3633169640U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_798425112(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_3349346410(TEXT("/Script/Goobunga"),
 	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_Statics::ClassInfo),
 	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_Statics::ScriptStructInfo),
 	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_ReloadManagerComponent_h_Statics::EnumInfo));

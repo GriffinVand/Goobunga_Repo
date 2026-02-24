@@ -1,4 +1,13 @@
 #include "AbilityComponent.h"
+#include "Goobunga/Goobunga_Player.h"
+
+void UAbilityComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	if (ActiveAbility)
+	{
+		ActiveAbility->UpdateSpell(DeltaTime);
+	}
+}
 
 void UAbilityComponent::InitializeFromSave(const UGoobungaSaveFile& SaveGame)
 {
@@ -62,7 +71,13 @@ void UAbilityComponent::EquipAbility(EAbilityType Slot, TSubclassOf<UAbilityBase
 	default:
 		return;
 	}
-	*AbilitySlotPtr = NewObject<UAbilityBase>(this, AbilityClass);
+	if (UAbilityBase* NewAbility = NewObject<UAbilityBase>(this, AbilityClass))
+	{
+		AGoobunga_Player* Owner = Cast<AGoobunga_Player>(GetOwner());
+		NewAbility->SetPlayerInstance(Owner);
+		*AbilitySlotPtr = NewAbility;
+	}
+	
 	if (!*AbilitySlotPtr) { UE_LOG(LogTemp, Error, TEXT("Tried to create new ability but nullptr AbilityComponent::EquipAbility")); }
 }
 
@@ -70,13 +85,15 @@ void UAbilityComponent::AbilityStart(EAbilityType Slot)
 {
 	UAbilityBase* Ability = GetAbility(Slot);
 	if (!Ability) return;
+	if (!Ability->GetIsActive()) { Ability->StartSpell(); return; }
+	if (Ability->GetIsToggle()) { Ability->StartSpell(); }
 }
 
 void UAbilityComponent::AbilityFinish(EAbilityType Slot)
 {
 	UAbilityBase* Ability = GetAbility(Slot);
 	if (!Ability) return;
-	
+	if (Ability->GetIsActive()) { Ability->EndSpell(); }
 }
 
 UAbilityBase* UAbilityComponent::GetAbility(EAbilityType Slot)
@@ -94,11 +111,51 @@ UAbilityBase* UAbilityComponent::GetAbility(EAbilityType Slot)
 	}
 }
 
+void UAbilityComponent::NotifyMontageEnded(UAnimMontage* Montage)
+{
+	if (ActiveAbility)
+	{
+		ActiveAbility->NotifyMontageEnded(Montage);
+	}
+}
+
+void UAbilityComponent::NotifyAbilityFinished(EAbilityType Slot)
+{
+	
+}
+
 bool UAbilityComponent::CanUseAbility(EAbilityType Slot)
 {
 	UAbilityBase* Ability = GetAbility(Slot);
 	if (!Ability) return false;
 	
+	if (!Ability->IsReady()) return false;
+	if (Ability->GetIsActive() && Ability->GetIsToggle()) return true;
+	if (ActiveAbility && !Ability->GetIsPassive()) return false;
 	
+	return true;
+	
+}
+
+bool UAbilityComponent::IsFlagBlocked(EAbilityBlockFlag Flag)
+{
+	if (ActiveAbility)
+	{
+		switch (Flag)
+		{
+		case EAbilityBlockFlag::Fire:
+			return ActiveAbility->GetBlocksFire();
+		case EAbilityBlockFlag::Aim:
+			return ActiveAbility->GetBlocksADS();
+		case EAbilityBlockFlag::Grip:
+			return ActiveAbility->GetDisablesGrip();
+		case EAbilityBlockFlag::Reload:
+			return true;
+		case EAbilityBlockFlag::Sprint:
+			return true;
+		case EAbilityBlockFlag::Swap:
+			return true;
+		}
+	}
 	return false;
 }

@@ -4,19 +4,18 @@
 #include "Goobunga/PersistentData/GoobungaSaveFile.h"
 #include "AbilityComponent.generated.h"
 
-class UGoobungaSaveFile;
-
-USTRUCT(BlueprintType)
-struct FAbilityLoadout
+UENUM(BlueprintType)
+enum class EAbilityBlockFlag : uint8
 {
-	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<UAbilityBase> MainAbilityClass = nullptr;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<UAbilityBase> SecondaryAbilityClass = nullptr;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<UAbilityBase> HealAbilityClass = nullptr;
+	Fire UMETA(DisplayName = "Fire"),
+	Aim UMETA(DisplayName = "Aim"),
+	Grip UMETA(DisplayName = "Grip"),
+	Reload UMETA(DisplayName = "Reload"),
+	Sprint UMETA(DisplayName = "Sprint"),
+	Swap UMETA(DisplayName = "Swap"),
 };
+
+class UGoobungaSaveFile;
 
 UCLASS(Blueprintable)
 class GOOBUNGA_API UAbilityComponent : public UActorComponent
@@ -25,8 +24,7 @@ class GOOBUNGA_API UAbilityComponent : public UActorComponent
 public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FAbilityLoadout AbilityLoadout;
-	
+	UAbilityBase* ActiveAbility;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UAbilityBase* SmallAbility;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -41,10 +39,17 @@ public:
 	void AbilityFinish(EAbilityType Slot);
 	void EquipAbility(EAbilityType Slot, TSubclassOf<UAbilityBase> AbilityClass);
 	UAbilityBase* GetAbility(EAbilityType Slot);
-	bool CanUseAbility(EAbilityType Slot);
+	
+	void NotifyMontageEnded(UAnimMontage*);
+	void NotifyAbilityFinished(EAbilityType Slot);
+	
+	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	
 	void InitializeFromSave(const UGoobungaSaveFile& SaveGame);
 	void SaveToSaveGame(UGoobungaSaveFile& SaveGame);
+	
+	bool CanUseAbility(EAbilityType Slot);
+	bool IsFlagBlocked(EAbilityBlockFlag Flag);
 	
 	
 };

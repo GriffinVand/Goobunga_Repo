@@ -11,84 +11,80 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeAbilityComponent() {}
 
 // Begin Cross Module References
-COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 ENGINE_API UClass* Z_Construct_UClass_UActorComponent();
 GOOBUNGA_API UClass* Z_Construct_UClass_UAbilityBase_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_UAbilityComponent();
 GOOBUNGA_API UClass* Z_Construct_UClass_UAbilityComponent_NoRegister();
-GOOBUNGA_API UScriptStruct* Z_Construct_UScriptStruct_FAbilityLoadout();
+GOOBUNGA_API UEnum* Z_Construct_UEnum_Goobunga_EAbilityBlockFlag();
 GOOBUNGA_API UScriptStruct* Z_Construct_UScriptStruct_FAbilitySaveData();
 UPackage* Z_Construct_UPackage__Script_Goobunga();
 // End Cross Module References
 
-// Begin ScriptStruct FAbilityLoadout
-static FStructRegistrationInfo Z_Registration_Info_UScriptStruct_AbilityLoadout;
-class UScriptStruct* FAbilityLoadout::StaticStruct()
+// Begin Enum EAbilityBlockFlag
+static FEnumRegistrationInfo Z_Registration_Info_UEnum_EAbilityBlockFlag;
+static UEnum* EAbilityBlockFlag_StaticEnum()
 {
-	if (!Z_Registration_Info_UScriptStruct_AbilityLoadout.OuterSingleton)
+	if (!Z_Registration_Info_UEnum_EAbilityBlockFlag.OuterSingleton)
 	{
-		Z_Registration_Info_UScriptStruct_AbilityLoadout.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FAbilityLoadout, (UObject*)Z_Construct_UPackage__Script_Goobunga(), TEXT("AbilityLoadout"));
+		Z_Registration_Info_UEnum_EAbilityBlockFlag.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_Goobunga_EAbilityBlockFlag, (UObject*)Z_Construct_UPackage__Script_Goobunga(), TEXT("EAbilityBlockFlag"));
 	}
-	return Z_Registration_Info_UScriptStruct_AbilityLoadout.OuterSingleton;
+	return Z_Registration_Info_UEnum_EAbilityBlockFlag.OuterSingleton;
 }
-template<> GOOBUNGA_API UScriptStruct* StaticStruct<FAbilityLoadout>()
+template<> GOOBUNGA_API UEnum* StaticEnum<EAbilityBlockFlag>()
 {
-	return FAbilityLoadout::StaticStruct();
+	return EAbilityBlockFlag_StaticEnum();
 }
-struct Z_Construct_UScriptStruct_FAbilityLoadout_Statics
+struct Z_Construct_UEnum_Goobunga_EAbilityBlockFlag_Statics
 {
 #if WITH_METADATA
-	static constexpr UECodeGen_Private::FMetaDataPairParam Struct_MetaDataParams[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[] = {
+		{ "Aim.DisplayName", "Aim" },
+		{ "Aim.Name", "EAbilityBlockFlag::Aim" },
 		{ "BlueprintType", "true" },
+		{ "Fire.DisplayName", "Fire" },
+		{ "Fire.Name", "EAbilityBlockFlag::Fire" },
+		{ "Grip.DisplayName", "Grip" },
+		{ "Grip.Name", "EAbilityBlockFlag::Grip" },
 		{ "ModuleRelativePath", "Abilities/AbilityComponent.h" },
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_MainAbilityClass_MetaData[] = {
-		{ "Category", "AbilityLoadout" },
-		{ "ModuleRelativePath", "Abilities/AbilityComponent.h" },
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_SecondaryAbilityClass_MetaData[] = {
-		{ "Category", "AbilityLoadout" },
-		{ "ModuleRelativePath", "Abilities/AbilityComponent.h" },
+		{ "Reload.DisplayName", "Reload" },
+		{ "Reload.Name", "EAbilityBlockFlag::Reload" },
+		{ "Sprint.DisplayName", "Sprint" },
+		{ "Sprint.Name", "EAbilityBlockFlag::Sprint" },
+		{ "Swap.DisplayName", "Swap" },
+		{ "Swap.Name", "EAbilityBlockFlag::Swap" },
 	};
 #endif // WITH_METADATA
-	static const UECodeGen_Private::FClassPropertyParams NewProp_MainAbilityClass;
-	static const UECodeGen_Private::FClassPropertyParams NewProp_SecondaryAbilityClass;
-	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
-	static void* NewStructOps()
-	{
-		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FAbilityLoadout>();
-	}
-	static const UECodeGen_Private::FStructParams StructParams;
+	static constexpr UECodeGen_Private::FEnumeratorParam Enumerators[] = {
+		{ "EAbilityBlockFlag::Fire", (int64)EAbilityBlockFlag::Fire },
+		{ "EAbilityBlockFlag::Aim", (int64)EAbilityBlockFlag::Aim },
+		{ "EAbilityBlockFlag::Grip", (int64)EAbilityBlockFlag::Grip },
+		{ "EAbilityBlockFlag::Reload", (int64)EAbilityBlockFlag::Reload },
+		{ "EAbilityBlockFlag::Sprint", (int64)EAbilityBlockFlag::Sprint },
+		{ "EAbilityBlockFlag::Swap", (int64)EAbilityBlockFlag::Swap },
+	};
+	static const UECodeGen_Private::FEnumParams EnumParams;
 };
-const UECodeGen_Private::FClassPropertyParams Z_Construct_UScriptStruct_FAbilityLoadout_Statics::NewProp_MainAbilityClass = { "MainAbilityClass", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FAbilityLoadout, MainAbilityClass), Z_Construct_UClass_UClass, Z_Construct_UClass_UAbilityBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MainAbilityClass_MetaData), NewProp_MainAbilityClass_MetaData) };
-const UECodeGen_Private::FClassPropertyParams Z_Construct_UScriptStruct_FAbilityLoadout_Statics::NewProp_SecondaryAbilityClass = { "SecondaryAbilityClass", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FAbilityLoadout, SecondaryAbilityClass), Z_Construct_UClass_UClass, Z_Construct_UClass_UAbilityBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SecondaryAbilityClass_MetaData), NewProp_SecondaryAbilityClass_MetaData) };
-const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FAbilityLoadout_Statics::PropPointers[] = {
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FAbilityLoadout_Statics::NewProp_MainAbilityClass,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FAbilityLoadout_Statics::NewProp_SecondaryAbilityClass,
-};
-static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAbilityLoadout_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FStructParams Z_Construct_UScriptStruct_FAbilityLoadout_Statics::StructParams = {
-	(UObject* (*)())Z_Construct_UPackage__Script_Goobunga,
+const UECodeGen_Private::FEnumParams Z_Construct_UEnum_Goobunga_EAbilityBlockFlag_Statics::EnumParams = {
+	(UObject*(*)())Z_Construct_UPackage__Script_Goobunga,
 	nullptr,
-	&NewStructOps,
-	"AbilityLoadout",
-	Z_Construct_UScriptStruct_FAbilityLoadout_Statics::PropPointers,
-	UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAbilityLoadout_Statics::PropPointers),
-	sizeof(FAbilityLoadout),
-	alignof(FAbilityLoadout),
+	"EAbilityBlockFlag",
+	"EAbilityBlockFlag",
+	Z_Construct_UEnum_Goobunga_EAbilityBlockFlag_Statics::Enumerators,
 	RF_Public|RF_Transient|RF_MarkAsNative,
-	EStructFlags(0x00000001),
-	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAbilityLoadout_Statics::Struct_MetaDataParams), Z_Construct_UScriptStruct_FAbilityLoadout_Statics::Struct_MetaDataParams)
+	UE_ARRAY_COUNT(Z_Construct_UEnum_Goobunga_EAbilityBlockFlag_Statics::Enumerators),
+	EEnumFlags::None,
+	(uint8)UEnum::ECppForm::EnumClass,
+	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UEnum_Goobunga_EAbilityBlockFlag_Statics::Enum_MetaDataParams), Z_Construct_UEnum_Goobunga_EAbilityBlockFlag_Statics::Enum_MetaDataParams)
 };
-UScriptStruct* Z_Construct_UScriptStruct_FAbilityLoadout()
+UEnum* Z_Construct_UEnum_Goobunga_EAbilityBlockFlag()
 {
-	if (!Z_Registration_Info_UScriptStruct_AbilityLoadout.InnerSingleton)
+	if (!Z_Registration_Info_UEnum_EAbilityBlockFlag.InnerSingleton)
 	{
-		UECodeGen_Private::ConstructUScriptStruct(Z_Registration_Info_UScriptStruct_AbilityLoadout.InnerSingleton, Z_Construct_UScriptStruct_FAbilityLoadout_Statics::StructParams);
+		UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_EAbilityBlockFlag.InnerSingleton, Z_Construct_UEnum_Goobunga_EAbilityBlockFlag_Statics::EnumParams);
 	}
-	return Z_Registration_Info_UScriptStruct_AbilityLoadout.InnerSingleton;
+	return Z_Registration_Info_UEnum_EAbilityBlockFlag.InnerSingleton;
 }
-// End ScriptStruct FAbilityLoadout
+// End Enum EAbilityBlockFlag
 
 // Begin Class UAbilityComponent
 void UAbilityComponent::StaticRegisterNativesUAbilityComponent()
@@ -108,15 +104,19 @@ struct Z_Construct_UClass_UAbilityComponent_Statics
 		{ "IsBlueprintBase", "true" },
 		{ "ModuleRelativePath", "Abilities/AbilityComponent.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_AbilityLoadout_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ActiveAbility_MetaData[] = {
 		{ "Category", "AbilityComponent" },
 		{ "ModuleRelativePath", "Abilities/AbilityComponent.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_PrimaryAbility_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_SmallAbility_MetaData[] = {
 		{ "Category", "AbilityComponent" },
 		{ "ModuleRelativePath", "Abilities/AbilityComponent.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_SecondaryAbility_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_LargeAbility_MetaData[] = {
+		{ "Category", "AbilityComponent" },
+		{ "ModuleRelativePath", "Abilities/AbilityComponent.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_HealAbility_MetaData[] = {
 		{ "Category", "AbilityComponent" },
 		{ "ModuleRelativePath", "Abilities/AbilityComponent.h" },
 	};
@@ -125,9 +125,10 @@ struct Z_Construct_UClass_UAbilityComponent_Statics
 		{ "ModuleRelativePath", "Abilities/AbilityComponent.h" },
 	};
 #endif // WITH_METADATA
-	static const UECodeGen_Private::FStructPropertyParams NewProp_AbilityLoadout;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_PrimaryAbility;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_SecondaryAbility;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_ActiveAbility;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_SmallAbility;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_LargeAbility;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_HealAbility;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_OwnedAbilities_Inner;
 	static const UECodeGen_Private::FArrayPropertyParams NewProp_OwnedAbilities;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
@@ -137,15 +138,17 @@ struct Z_Construct_UClass_UAbilityComponent_Statics
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UAbilityComponent_Statics::NewProp_AbilityLoadout = { "AbilityLoadout", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAbilityComponent, AbilityLoadout), Z_Construct_UScriptStruct_FAbilityLoadout, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AbilityLoadout_MetaData), NewProp_AbilityLoadout_MetaData) }; // 2146623539
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAbilityComponent_Statics::NewProp_PrimaryAbility = { "PrimaryAbility", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAbilityComponent, PrimaryAbility), Z_Construct_UClass_UAbilityBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_PrimaryAbility_MetaData), NewProp_PrimaryAbility_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAbilityComponent_Statics::NewProp_SecondaryAbility = { "SecondaryAbility", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAbilityComponent, SecondaryAbility), Z_Construct_UClass_UAbilityBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SecondaryAbility_MetaData), NewProp_SecondaryAbility_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAbilityComponent_Statics::NewProp_ActiveAbility = { "ActiveAbility", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAbilityComponent, ActiveAbility), Z_Construct_UClass_UAbilityBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ActiveAbility_MetaData), NewProp_ActiveAbility_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAbilityComponent_Statics::NewProp_SmallAbility = { "SmallAbility", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAbilityComponent, SmallAbility), Z_Construct_UClass_UAbilityBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SmallAbility_MetaData), NewProp_SmallAbility_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAbilityComponent_Statics::NewProp_LargeAbility = { "LargeAbility", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAbilityComponent, LargeAbility), Z_Construct_UClass_UAbilityBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_LargeAbility_MetaData), NewProp_LargeAbility_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAbilityComponent_Statics::NewProp_HealAbility = { "HealAbility", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAbilityComponent, HealAbility), Z_Construct_UClass_UAbilityBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_HealAbility_MetaData), NewProp_HealAbility_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UAbilityComponent_Statics::NewProp_OwnedAbilities_Inner = { "OwnedAbilities", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FAbilitySaveData, METADATA_PARAMS(0, nullptr) }; // 3876655937
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UAbilityComponent_Statics::NewProp_OwnedAbilities = { "OwnedAbilities", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAbilityComponent, OwnedAbilities), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OwnedAbilities_MetaData), NewProp_OwnedAbilities_MetaData) }; // 3876655937
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UAbilityComponent_Statics::PropPointers[] = {
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAbilityComponent_Statics::NewProp_AbilityLoadout,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAbilityComponent_Statics::NewProp_PrimaryAbility,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAbilityComponent_Statics::NewProp_SecondaryAbility,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAbilityComponent_Statics::NewProp_ActiveAbility,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAbilityComponent_Statics::NewProp_SmallAbility,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAbilityComponent_Statics::NewProp_LargeAbility,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAbilityComponent_Statics::NewProp_HealAbility,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAbilityComponent_Statics::NewProp_OwnedAbilities_Inner,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAbilityComponent_Statics::NewProp_OwnedAbilities,
 };
@@ -190,16 +193,16 @@ UAbilityComponent::~UAbilityComponent() {}
 // Begin Registration
 struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_Statics
 {
-	static constexpr FStructRegisterCompiledInInfo ScriptStructInfo[] = {
-		{ FAbilityLoadout::StaticStruct, Z_Construct_UScriptStruct_FAbilityLoadout_Statics::NewStructOps, TEXT("AbilityLoadout"), &Z_Registration_Info_UScriptStruct_AbilityLoadout, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FAbilityLoadout), 2146623539U) },
+	static constexpr FEnumRegisterCompiledInInfo EnumInfo[] = {
+		{ EAbilityBlockFlag_StaticEnum, TEXT("EAbilityBlockFlag"), &Z_Registration_Info_UEnum_EAbilityBlockFlag, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 443050785U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UAbilityComponent, UAbilityComponent::StaticClass, TEXT("UAbilityComponent"), &Z_Registration_Info_UClass_UAbilityComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAbilityComponent), 1293663946U) },
+		{ Z_Construct_UClass_UAbilityComponent, UAbilityComponent::StaticClass, TEXT("UAbilityComponent"), &Z_Registration_Info_UClass_UAbilityComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAbilityComponent), 1819749232U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_2863492748(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_2853154432(TEXT("/Script/Goobunga"),
 	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_Statics::ClassInfo),
-	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_Statics::ScriptStructInfo),
-	nullptr, 0);
+	nullptr, 0,
+	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_Statics::EnumInfo));
 // End Registration
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

@@ -35,6 +35,8 @@ class GOOBUNGA_API UReloadManagerComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float ProgressRate = 5.f;
 	UReloadManagerComponent();
 
 protected:
@@ -63,7 +65,6 @@ protected:
 	
 	
 	FVector2D LastMouseLocation = FVector2D::ZeroVector;
-	float ProgressRate = 5.f;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	TSubclassOf<UUserWidget> ReloadWidgetClass;
