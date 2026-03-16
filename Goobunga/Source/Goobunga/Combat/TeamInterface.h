@@ -11,7 +11,7 @@ enum class EAllegiance : uint8
 	Friendly UMETA(DisplayName="Friendly"),
 };
 
-UINTERFACE()
+UINTERFACE(MinimalAPI, NotBlueprintable)
 class UTeamInterface : public UInterface
 {
 	GENERATED_BODY()
@@ -22,7 +22,7 @@ class GOOBUNGA_API ITeamInterface
 	GENERATED_BODY()
 
 public:
-	
+	UFUNCTION(BlueprintCallable)
 	virtual EAllegiance GetAllegiance() const = 0;
 	
 };

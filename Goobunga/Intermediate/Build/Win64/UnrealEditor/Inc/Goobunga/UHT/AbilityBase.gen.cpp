@@ -11,6 +11,7 @@ void EmptyLinkFunctionForGeneratedCodeAbilityBase() {}
 
 // Begin Cross Module References
 COREUOBJECT_API UClass* Z_Construct_UClass_UObject();
+ENGINE_API UClass* Z_Construct_UClass_UAnimMontage_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_AGoobunga_Player_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_UAbilityBase();
 GOOBUNGA_API UClass* Z_Construct_UClass_UAbilityBase_NoRegister();
@@ -189,7 +190,19 @@ struct Z_Construct_UClass_UAbilityBase_Statics
 		{ "Category", "AbilityBase" },
 		{ "ModuleRelativePath", "Abilities/AbilityBase.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_bRequiresActiveStart_MetaData[] = {
+		{ "Category", "AbilityBase" },
+		{ "ModuleRelativePath", "Abilities/AbilityBase.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_bIsPassive_MetaData[] = {
+		{ "Category", "AbilityBase" },
+		{ "ModuleRelativePath", "Abilities/AbilityBase.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_bBlocksWeapon_MetaData[] = {
+		{ "Category", "AbilityBase" },
+		{ "ModuleRelativePath", "Abilities/AbilityBase.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CurrActiveMontage_MetaData[] = {
 		{ "Category", "AbilityBase" },
 		{ "ModuleRelativePath", "Abilities/AbilityBase.h" },
 	};
@@ -215,8 +228,13 @@ struct Z_Construct_UClass_UAbilityBase_Statics
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_bDisablesGrip;
 	static void NewProp_bIsToggle_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_bIsToggle;
+	static void NewProp_bRequiresActiveStart_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_bRequiresActiveStart;
 	static void NewProp_bIsPassive_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_bIsPassive;
+	static void NewProp_bBlocksWeapon_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_bBlocksWeapon;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_CurrActiveMontage;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_Player;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_AbilityComponent;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
@@ -250,11 +268,22 @@ void Z_Construct_UClass_UAbilityBase_Statics::NewProp_bIsToggle_SetBit(void* Obj
 	((UAbilityBase*)Obj)->bIsToggle = 1;
 }
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UAbilityBase_Statics::NewProp_bIsToggle = { "bIsToggle", nullptr, (EPropertyFlags)0x0020080000010015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UAbilityBase), &Z_Construct_UClass_UAbilityBase_Statics::NewProp_bIsToggle_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bIsToggle_MetaData), NewProp_bIsToggle_MetaData) };
+void Z_Construct_UClass_UAbilityBase_Statics::NewProp_bRequiresActiveStart_SetBit(void* Obj)
+{
+	((UAbilityBase*)Obj)->bRequiresActiveStart = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UAbilityBase_Statics::NewProp_bRequiresActiveStart = { "bRequiresActiveStart", nullptr, (EPropertyFlags)0x0020080000010015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UAbilityBase), &Z_Construct_UClass_UAbilityBase_Statics::NewProp_bRequiresActiveStart_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bRequiresActiveStart_MetaData), NewProp_bRequiresActiveStart_MetaData) };
 void Z_Construct_UClass_UAbilityBase_Statics::NewProp_bIsPassive_SetBit(void* Obj)
 {
 	((UAbilityBase*)Obj)->bIsPassive = 1;
 }
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UAbilityBase_Statics::NewProp_bIsPassive = { "bIsPassive", nullptr, (EPropertyFlags)0x0020080000010015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UAbilityBase), &Z_Construct_UClass_UAbilityBase_Statics::NewProp_bIsPassive_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bIsPassive_MetaData), NewProp_bIsPassive_MetaData) };
+void Z_Construct_UClass_UAbilityBase_Statics::NewProp_bBlocksWeapon_SetBit(void* Obj)
+{
+	((UAbilityBase*)Obj)->bBlocksWeapon = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UAbilityBase_Statics::NewProp_bBlocksWeapon = { "bBlocksWeapon", nullptr, (EPropertyFlags)0x0020080000010015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UAbilityBase), &Z_Construct_UClass_UAbilityBase_Statics::NewProp_bBlocksWeapon_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bBlocksWeapon_MetaData), NewProp_bBlocksWeapon_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAbilityBase_Statics::NewProp_CurrActiveMontage = { "CurrActiveMontage", nullptr, (EPropertyFlags)0x0020080000000014, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAbilityBase, CurrActiveMontage), Z_Construct_UClass_UAnimMontage_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CurrActiveMontage_MetaData), NewProp_CurrActiveMontage_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAbilityBase_Statics::NewProp_Player = { "Player", nullptr, (EPropertyFlags)0x0020080000000014, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAbilityBase, Player), Z_Construct_UClass_AGoobunga_Player_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Player_MetaData), NewProp_Player_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAbilityBase_Statics::NewProp_AbilityComponent = { "AbilityComponent", nullptr, (EPropertyFlags)0x002008000008001c, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAbilityBase, AbilityComponent), Z_Construct_UClass_UAbilityComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AbilityComponent_MetaData), NewProp_AbilityComponent_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UAbilityBase_Statics::PropPointers[] = {
@@ -266,7 +295,10 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UAbilityB
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAbilityBase_Statics::NewProp_bBlocksFire,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAbilityBase_Statics::NewProp_bDisablesGrip,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAbilityBase_Statics::NewProp_bIsToggle,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAbilityBase_Statics::NewProp_bRequiresActiveStart,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAbilityBase_Statics::NewProp_bIsPassive,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAbilityBase_Statics::NewProp_bBlocksWeapon,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAbilityBase_Statics::NewProp_CurrActiveMontage,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAbilityBase_Statics::NewProp_Player,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAbilityBase_Statics::NewProp_AbilityComponent,
 };
@@ -316,10 +348,10 @@ struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilitie
 		{ EAbilityState_StaticEnum, TEXT("EAbilityState"), &Z_Registration_Info_UEnum_EAbilityState, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3671422150U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UAbilityBase, UAbilityBase::StaticClass, TEXT("UAbilityBase"), &Z_Registration_Info_UClass_UAbilityBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAbilityBase), 1679897782U) },
+		{ Z_Construct_UClass_UAbilityBase, UAbilityBase::StaticClass, TEXT("UAbilityBase"), &Z_Registration_Info_UClass_UAbilityBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAbilityBase), 4210669246U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_3689464570(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_1666070761(TEXT("/Script/Goobunga"),
 	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_Statics::ClassInfo),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_Statics::EnumInfo));

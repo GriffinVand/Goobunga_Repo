@@ -192,11 +192,11 @@ struct Z_Construct_UClass_UFacialAnimationComponent_Statics
 		{ "IncludePath", "FacialAnimationComponent.h" },
 		{ "ModuleRelativePath", "FacialAnimationComponent.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Animations_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Material_MetaData[] = {
 		{ "Category", "FacialAnimationComponent" },
 		{ "ModuleRelativePath", "FacialAnimationComponent.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Material_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Animations_MetaData[] = {
 		{ "Category", "FacialAnimationComponent" },
 		{ "ModuleRelativePath", "FacialAnimationComponent.h" },
 	};
@@ -213,10 +213,10 @@ struct Z_Construct_UClass_UFacialAnimationComponent_Statics
 		{ "ModuleRelativePath", "FacialAnimationComponent.h" },
 	};
 #endif // WITH_METADATA
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_Material;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_Animations_ValueProp;
 	static const UECodeGen_Private::FNamePropertyParams NewProp_Animations_Key_KeyProp;
 	static const UECodeGen_Private::FMapPropertyParams NewProp_Animations;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_Material;
 	static const UECodeGen_Private::FNamePropertyParams NewProp_CurrentAnimation;
 	static const UECodeGen_Private::FNamePropertyParams NewProp_DefaultAnimation;
 	static void NewProp_Looping_SetBit(void* Obj);
@@ -232,10 +232,10 @@ struct Z_Construct_UClass_UFacialAnimationComponent_Statics
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UFacialAnimationComponent_Statics::NewProp_Material = { "Material", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UFacialAnimationComponent, Material), Z_Construct_UClass_UMaterialInstanceDynamic_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Material_MetaData), NewProp_Material_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UFacialAnimationComponent_Statics::NewProp_Animations_ValueProp = { "Animations", nullptr, (EPropertyFlags)0x0000000000000001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 1, Z_Construct_UScriptStruct_FFacialAnimationStruct, METADATA_PARAMS(0, nullptr) }; // 529807409
 const UECodeGen_Private::FNamePropertyParams Z_Construct_UClass_UFacialAnimationComponent_Statics::NewProp_Animations_Key_KeyProp = { "Animations_Key", nullptr, (EPropertyFlags)0x0000000000000001, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FMapPropertyParams Z_Construct_UClass_UFacialAnimationComponent_Statics::NewProp_Animations = { "Animations", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UFacialAnimationComponent, Animations), EMapPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Animations_MetaData), NewProp_Animations_MetaData) }; // 529807409
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UFacialAnimationComponent_Statics::NewProp_Material = { "Material", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UFacialAnimationComponent, Material), Z_Construct_UClass_UMaterialInstanceDynamic_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Material_MetaData), NewProp_Material_MetaData) };
 const UECodeGen_Private::FNamePropertyParams Z_Construct_UClass_UFacialAnimationComponent_Statics::NewProp_CurrentAnimation = { "CurrentAnimation", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UFacialAnimationComponent, CurrentAnimation), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CurrentAnimation_MetaData), NewProp_CurrentAnimation_MetaData) };
 const UECodeGen_Private::FNamePropertyParams Z_Construct_UClass_UFacialAnimationComponent_Statics::NewProp_DefaultAnimation = { "DefaultAnimation", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UFacialAnimationComponent, DefaultAnimation), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DefaultAnimation_MetaData), NewProp_DefaultAnimation_MetaData) };
 void Z_Construct_UClass_UFacialAnimationComponent_Statics::NewProp_Looping_SetBit(void* Obj)
@@ -244,10 +244,10 @@ void Z_Construct_UClass_UFacialAnimationComponent_Statics::NewProp_Looping_SetBi
 }
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UFacialAnimationComponent_Statics::NewProp_Looping = { "Looping", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UFacialAnimationComponent), &Z_Construct_UClass_UFacialAnimationComponent_Statics::NewProp_Looping_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Looping_MetaData), NewProp_Looping_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UFacialAnimationComponent_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UFacialAnimationComponent_Statics::NewProp_Material,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UFacialAnimationComponent_Statics::NewProp_Animations_ValueProp,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UFacialAnimationComponent_Statics::NewProp_Animations_Key_KeyProp,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UFacialAnimationComponent_Statics::NewProp_Animations,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UFacialAnimationComponent_Statics::NewProp_Material,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UFacialAnimationComponent_Statics::NewProp_CurrentAnimation,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UFacialAnimationComponent_Statics::NewProp_DefaultAnimation,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UFacialAnimationComponent_Statics::NewProp_Looping,
@@ -296,10 +296,10 @@ struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_FacialAn
 		{ FFacialAnimationStruct::StaticStruct, Z_Construct_UScriptStruct_FFacialAnimationStruct_Statics::NewStructOps, TEXT("FacialAnimationStruct"), &Z_Registration_Info_UScriptStruct_FacialAnimationStruct, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FFacialAnimationStruct), 529807409U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UFacialAnimationComponent, UFacialAnimationComponent::StaticClass, TEXT("UFacialAnimationComponent"), &Z_Registration_Info_UClass_UFacialAnimationComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UFacialAnimationComponent), 1239742766U) },
+		{ Z_Construct_UClass_UFacialAnimationComponent, UFacialAnimationComponent::StaticClass, TEXT("UFacialAnimationComponent"), &Z_Registration_Info_UClass_UFacialAnimationComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UFacialAnimationComponent), 1174743880U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_FacialAnimationComponent_h_3033750085(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_FacialAnimationComponent_h_3278080379(TEXT("/Script/Goobunga"),
 	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_FacialAnimationComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_FacialAnimationComponent_h_Statics::ClassInfo),
 	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_FacialAnimationComponent_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_FacialAnimationComponent_h_Statics::ScriptStructInfo),
 	nullptr, 0);

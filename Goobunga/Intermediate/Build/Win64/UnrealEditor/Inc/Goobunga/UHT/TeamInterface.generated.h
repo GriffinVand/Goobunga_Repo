@@ -9,23 +9,28 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+enum class EAllegiance : uint8;
 #ifdef GOOBUNGA_TeamInterface_generated_h
 #error "TeamInterface.generated.h already included, missing '#pragma once' in TeamInterface.h"
 #endif
 #define GOOBUNGA_TeamInterface_generated_h
 
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_TeamInterface_h_17_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execGetAllegiance);
+
+
 #define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_TeamInterface_h_17_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
-	NO_API UTeamInterface(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
+	GOOBUNGA_API UTeamInterface(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	UTeamInterface(UTeamInterface&&); \
 	UTeamInterface(const UTeamInterface&); \
 public: \
-	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UTeamInterface); \
+	DECLARE_VTABLE_PTR_HELPER_CTOR(GOOBUNGA_API, UTeamInterface); \
 	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UTeamInterface); \
 	DEFINE_ABSTRACT_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UTeamInterface) \
-	NO_API virtual ~UTeamInterface();
+	GOOBUNGA_API virtual ~UTeamInterface();
 
 
 #define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_TeamInterface_h_17_GENERATED_UINTERFACE_BODY() \
@@ -33,7 +38,7 @@ private: \
 	static void StaticRegisterNativesUTeamInterface(); \
 	friend struct Z_Construct_UClass_UTeamInterface_Statics; \
 public: \
-	DECLARE_CLASS(UTeamInterface, UInterface, COMPILED_IN_FLAGS(CLASS_Abstract | CLASS_Interface), CASTCLASS_None, TEXT("/Script/Goobunga"), NO_API) \
+	DECLARE_CLASS(UTeamInterface, UInterface, COMPILED_IN_FLAGS(CLASS_Abstract | CLASS_Interface), CASTCLASS_None, TEXT("/Script/Goobunga"), GOOBUNGA_API) \
 	DECLARE_SERIALIZER(UTeamInterface)
 
 
@@ -58,6 +63,7 @@ public: \
 #define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_TeamInterface_h_22_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_TeamInterface_h_17_RPC_WRAPPERS_NO_PURE_DECLS \
 	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_TeamInterface_h_17_INCLASS_IINTERFACE_NO_PURE_DECLS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

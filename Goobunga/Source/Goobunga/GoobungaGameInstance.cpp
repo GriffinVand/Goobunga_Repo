@@ -8,4 +8,7 @@ void UGoobungaGameInstance::SetDefaultSaveFile(UGoobungaSaveFile& SaveFile)
 	SaveFile.CurrentHub = "L_Forest";
 	SaveFile.PlayerPrimaryWeapon = DefPrimaryWeapon;
 	SaveFile.PlayerSecondaryWeapon = DefSecondaryWeapon;
+	SaveFile.PlayerHealAbility = DefHealAbility;
+	SaveFile.PlayerSmallAbility = DefSmallAbility;
+	SaveFile.PlayerLargeAbility = DefLargeAbility;
 }

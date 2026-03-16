@@ -5,7 +5,7 @@
 ===========================================================================*/
 
 #include "UObject/GeneratedCppIncludes.h"
-#include "Goobunga/Abilities/AbilityInstant.h"
+#include "Goobunga/Abilities/Instants/AbilityInstant.h"
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeAbilityInstant() {}
 
@@ -31,16 +31,21 @@ struct Z_Construct_UClass_UAbilityInstant_Statics
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
 		{ "BlueprintType", "true" },
-		{ "IncludePath", "Abilities/AbilityInstant.h" },
+		{ "IncludePath", "Abilities/Instants/AbilityInstant.h" },
 		{ "IsBlueprintBase", "true" },
-		{ "ModuleRelativePath", "Abilities/AbilityInstant.h" },
+		{ "ModuleRelativePath", "Abilities/Instants/AbilityInstant.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_AbilityAnimation_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_StartUpAnimation_MetaData[] = {
 		{ "Category", "Animation" },
-		{ "ModuleRelativePath", "Abilities/AbilityInstant.h" },
+		{ "ModuleRelativePath", "Abilities/Instants/AbilityInstant.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CooldownTime_MetaData[] = {
+		{ "Category", "Stats" },
+		{ "ModuleRelativePath", "Abilities/Instants/AbilityInstant.h" },
 	};
 #endif // WITH_METADATA
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_AbilityAnimation;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_StartUpAnimation;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_CooldownTime;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -48,9 +53,11 @@ struct Z_Construct_UClass_UAbilityInstant_Statics
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAbilityInstant_Statics::NewProp_AbilityAnimation = { "AbilityAnimation", nullptr, (EPropertyFlags)0x0020080000010015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAbilityInstant, AbilityAnimation), Z_Construct_UClass_UAnimMontage_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AbilityAnimation_MetaData), NewProp_AbilityAnimation_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAbilityInstant_Statics::NewProp_StartUpAnimation = { "StartUpAnimation", nullptr, (EPropertyFlags)0x0020080000010015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAbilityInstant, StartUpAnimation), Z_Construct_UClass_UAnimMontage_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_StartUpAnimation_MetaData), NewProp_StartUpAnimation_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UAbilityInstant_Statics::NewProp_CooldownTime = { "CooldownTime", nullptr, (EPropertyFlags)0x0020080000010015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAbilityInstant, CooldownTime), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CooldownTime_MetaData), NewProp_CooldownTime_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UAbilityInstant_Statics::PropPointers[] = {
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAbilityInstant_Statics::NewProp_AbilityAnimation,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAbilityInstant_Statics::NewProp_StartUpAnimation,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAbilityInstant_Statics::NewProp_CooldownTime,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAbilityInstant_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_UAbilityInstant_Statics::DependentSingletons[])() = {
@@ -91,14 +98,14 @@ UAbilityInstant::~UAbilityInstant() {}
 // End Class UAbilityInstant
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityInstant_h_Statics
+struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_Instants_AbilityInstant_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UAbilityInstant, UAbilityInstant::StaticClass, TEXT("UAbilityInstant"), &Z_Registration_Info_UClass_UAbilityInstant, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAbilityInstant), 1011739197U) },
+		{ Z_Construct_UClass_UAbilityInstant, UAbilityInstant::StaticClass, TEXT("UAbilityInstant"), &Z_Registration_Info_UClass_UAbilityInstant, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAbilityInstant), 4024025393U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityInstant_h_681005840(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityInstant_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityInstant_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_Instants_AbilityInstant_h_193563863(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_Instants_AbilityInstant_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_Instants_AbilityInstant_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

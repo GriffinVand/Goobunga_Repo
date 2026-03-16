@@ -12,12 +12,12 @@ void UAbilityComponent::TickComponent(float DeltaTime, enum ELevelTick TickType,
 void UAbilityComponent::InitializeFromSave(const UGoobungaSaveFile& SaveGame)
 {
 	OwnedAbilities = SaveGame.PlayerOwnedAbilities;
-	TSubclassOf<UAbilityBase> AbilityClass = SaveGame.PlayerPrimaryAbility.AbilityClass;
+	TSubclassOf<UAbilityBase> AbilityClass = SaveGame.PlayerSmallAbility.AbilityClass;
 	if (AbilityClass)
 	{
 		EquipAbility(EAbilityType::Small, AbilityClass);
 	} else { UE_LOG(LogTemp, Error, TEXT("SmallAbility class is null AbilityComponent::InitializeFromSave")); }
-	AbilityClass = SaveGame.PlayerSecondaryAbility.AbilityClass;
+	AbilityClass = SaveGame.PlayerLargeAbility.AbilityClass;
 	if (AbilityClass)
 	{
 		EquipAbility(EAbilityType::Large, AbilityClass);
@@ -36,13 +36,13 @@ void UAbilityComponent::SaveToSaveGame(UGoobungaSaveFile& SaveGame)
 	{
 		PrimaryAbilityData.AbilityClass = SmallAbility->GetClass();
 	}
-	SaveGame.PlayerPrimaryAbility = PrimaryAbilityData;
+	SaveGame.PlayerSmallAbility = PrimaryAbilityData;
 	FAbilitySaveData SecondaryAbilityData;
 	if (LargeAbility)
 	{
 		SecondaryAbilityData.AbilityClass = LargeAbility->GetClass();
 	}
-	SaveGame.PlayerSecondaryAbility = SecondaryAbilityData;
+	SaveGame.PlayerLargeAbility = SecondaryAbilityData;
 	FAbilitySaveData HealAbilityData;
 	if (HealAbility)
 	{
@@ -73,8 +73,15 @@ void UAbilityComponent::EquipAbility(EAbilityType Slot, TSubclassOf<UAbilityBase
 	}
 	if (UAbilityBase* NewAbility = NewObject<UAbilityBase>(this, AbilityClass))
 	{
+		if (UAbilityBase* OldAbility = *AbilitySlotPtr)
+		{
+			OldAbility->CancelSpell();
+			OldAbility->MarkAsGarbage();
+		}
 		AGoobunga_Player* Owner = Cast<AGoobunga_Player>(GetOwner());
+		if (!Owner) { UE_LOG(LogTemp, Error, TEXT("Owner invalid AbilityComponent::EquipAbility")); } else { UE_LOG(LogTemp, Error, TEXT("Owner IS VALID AbilityComponent::EquipAbility")); }
 		NewAbility->SetPlayerInstance(Owner);
+		NewAbility->SetAbilityCompInstance(this);
 		*AbilitySlotPtr = NewAbility;
 	}
 	
@@ -85,7 +92,7 @@ void UAbilityComponent::AbilityStart(EAbilityType Slot)
 {
 	UAbilityBase* Ability = GetAbility(Slot);
 	if (!Ability) return;
-	if (!Ability->GetIsActive()) { Ability->StartSpell(); return; }
+	if (!Ability->GetIsActive()) { Ability->StartSpell(); if (!Ability->GetIsPassive()){ ActiveAbility = Ability; } return; }
 	if (Ability->GetIsToggle()) { Ability->StartSpell(); }
 }
 
@@ -94,6 +101,13 @@ void UAbilityComponent::AbilityFinish(EAbilityType Slot)
 	UAbilityBase* Ability = GetAbility(Slot);
 	if (!Ability) return;
 	if (Ability->GetIsActive()) { Ability->EndSpell(); }
+}
+
+void UAbilityComponent::AbilityCancel(EAbilityType Slot)
+{
+	UAbilityBase* Ability = GetAbility(Slot);
+	if (!Ability) return;
+	if (Ability->GetIsActive()) { Ability->CancelSpell(); }
 }
 
 UAbilityBase* UAbilityComponent::GetAbility(EAbilityType Slot)
@@ -117,11 +131,26 @@ void UAbilityComponent::NotifyMontageEnded(UAnimMontage* Montage)
 	{
 		ActiveAbility->NotifyMontageEnded(Montage);
 	}
+	else { UE_LOG(LogTemp, Error, TEXT("No active ability to notify"));}
 }
 
-void UAbilityComponent::NotifyAbilityFinished(EAbilityType Slot)
+void UAbilityComponent::NotifyMontageNotifyRecieved(FName NotifyName)
 {
-	
+	for (UAbilityBase* Ability : TArray<UAbilityBase*>{HealAbility, SmallAbility, LargeAbility})
+	{
+		if (Ability && Ability->GetIsActive())
+		{
+			Ability->NotifyMontageNotifyBegin(NotifyName);
+		}
+	}
+}
+
+void UAbilityComponent::NotifyAbilityActiveFinished(EAbilityType Slot)
+{
+	if (UAbilityBase* Ability = GetAbility(Slot))
+	{
+		if (Ability == ActiveAbility) { ActiveAbility = nullptr; }
+	}
 }
 
 bool UAbilityComponent::CanUseAbility(EAbilityType Slot)
@@ -131,8 +160,8 @@ bool UAbilityComponent::CanUseAbility(EAbilityType Slot)
 	
 	if (!Ability->IsReady()) return false;
 	if (Ability->GetIsActive() && Ability->GetIsToggle()) return true;
-	if (ActiveAbility && !Ability->GetIsPassive()) return false;
-	
+	if (ActiveAbility && !Ability->GetIsPassive() || Ability->GetRequiresActiveStart()) return false;
+	UE_LOG(LogTemp, Error, TEXT("Can actually perform small ability"));
 	return true;
 	
 }

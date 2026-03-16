@@ -1,28 +1,34 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
 #include "DamageTypes.h"
+#include "TeamInterface.h"
 #include "CombatCallables.generated.h"
 
-// This class does not need to be modified.
-UINTERFACE(MinimalAPI, BlueprintType)
+UENUM(BlueprintType)
+enum class EDamageResult : uint8
+{
+	None UMETA(DisplayName = "None"),
+	Default UMETA(DisplayName = "Default"),
+	Critical UMETA(DisplayName = "Critical"),
+	Kill UMETA(DisplayName = "Kill"),
+};
+
+UINTERFACE(MinimalAPI, NotBlueprintable)
 class UCombatCallables : public UInterface
 {
 	GENERATED_BODY()
 };
 
-/**
- * 
- */
+
 class GOOBUNGA_API ICombatCallables
 {
 	GENERATED_BODY()
 
-	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 
-	virtual void CombatDamage(AActor* DamageDealer, float Damage, EDamageType DamageType) = 0;
+	UFUNCTION(BlueprintCallable)
+	virtual EDamageResult CombatDamage(AActor* DamageDealer, float Damage, EDamageType DamageType, EAllegiance Allegiance) = 0;
+	virtual void OnDealtDamage(EDamageResult DamageResult) {}
 };

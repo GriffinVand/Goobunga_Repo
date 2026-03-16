@@ -4,11 +4,7 @@
 #include "JoshEnemy.h"
 
 #include "AIController.h"
-#include "Goobunga/Enemies/AI/BaseEnemyAIController.h"
-#include "BrainComponent.h"
-#include "Components/CapsuleComponent.h"
 #include "Components/SplineComponent.h"
-#include "Engine/OverlapResult.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Goobunga/Goobunga_Player.h"
 #include "Kismet/GameplayStatics.h"
@@ -17,6 +13,8 @@ AJoshEnemy::AJoshEnemy()
 {
 	PrimaryActorTick.bCanEverTick = true;
 	
+	FacialAnimationComponent = CreateDefaultSubobject<UFacialAnimationComponent>(TEXT("FacialAnimationComponent"));
+	
 	LaunchSpline = CreateDefaultSubobject<USplineComponent>(TEXT("LaunchSpline"));
 	LaunchSpline->bDrawDebug = true;
 }
@@ -24,12 +22,22 @@ AJoshEnemy::AJoshEnemy()
 void AJoshEnemy::BeginPlay()
 {
 	Super::BeginPlay();
+	if (FacialAnimationComponent)
+	{
+		FacialAnimationComponent->Material = GetMesh()->CreateAndSetMaterialInstanceDynamic(1);
+		FacialAnimationComponent->PlayAnimation("Idle", true);
+	}
+	if (UAnimInstance* AnimInst = GetMesh()->GetAnimInstance())
+	{
+		AnimInst->OnPlayMontageNotifyBegin.AddUniqueDynamic(this, &AJoshEnemy::OnMontageNotifyBegin);
+	}
 	
 }
 
 void AJoshEnemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	UpdateCurrentState(DeltaTime);
 }
 
 void AJoshEnemy::UpdateCurrentState(float DeltaTime)
@@ -42,16 +50,10 @@ void AJoshEnemy::UpdateCurrentState(float DeltaTime)
 		UpdateLaunchProgress(DeltaTime);
 		break;
 	case EEnemyState::Death:
-		UpdateFadeOut(DeltaTime);
+		return;
 	}
 	AttackCooldown += DeltaTime;
 	LaunchCooldown += DeltaTime;
-}
-
-// Called to bind functionality to input
-void AJoshEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
 void AJoshEnemy::LaunchTowardsLocation(AActor* TargetActor, FOnLaunchFinished InOnLaunchFinished)
@@ -61,16 +63,16 @@ void AJoshEnemy::LaunchTowardsLocation(AActor* TargetActor, FOnLaunchFinished In
 	{
 		if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
 		{
-			if (MontageMap.Contains("WindUp"))
+			if (WindUpMontage)
 			{
 				CurrentState = EEnemyState::Busy;
-				AnimInstance->Montage_Play(MontageMap["WindUp"]);
+				AnimInstance->Montage_Play(WindUpMontage);
 				FOnMontageEnded MontageEnded;
 				MontageEnded.BindLambda([this, TargetActor](UAnimMontage* Montage, bool bInteruppted)
 				{
 					StartLaunch(TargetActor);
 				});
-				AnimInstance->Montage_SetEndDelegate(MontageEnded, MontageMap["WindUp"]);
+				AnimInstance->Montage_SetEndDelegate(MontageEnded, WindUpMontage);
 				return;
 			}
 		}
@@ -80,7 +82,7 @@ void AJoshEnemy::LaunchTowardsLocation(AActor* TargetActor, FOnLaunchFinished In
 
 void AJoshEnemy::StartLaunch(AActor* TargetActor)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Starting Launch"));
+	//UE_LOG(LogTemp, Warning, TEXT("Starting Launch"));
 	if (LaunchSpline && TargetActor)
 	{
 		LaunchGoalLocation = TargetActor->GetActorLocation();
@@ -128,7 +130,7 @@ void AJoshEnemy::UpdateLaunchProgress(float DeltaTime)
 
 void AJoshEnemy::EndLaunch()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Ending Launch"));
+	//UE_LOG(LogTemp, Warning, TEXT("Ending Launch"));
 	AAIController* AIController = Cast<AAIController>(GetController());
 	if (AIController) AIController->SetFocus(UGameplayStatics::GetPlayerCharacter(this, 0), EAIFocusPriority::Gameplay);
 	LaunchCooldown = 0;
@@ -136,32 +138,44 @@ void AJoshEnemy::EndLaunch()
 	if (LaunchFinishedDelegate.IsBound()) LaunchFinishedDelegate.Execute();
 }
 
-void AJoshEnemy::AttackGeneric(int AttackNum)
+void AJoshEnemy::AttackPrimary(AActor* Target)
 {
 	if (CurrentState == EEnemyState::Launching) { EndLaunch(); }
 	if (AttackCooldown >= AttackRate && CurrentState != EEnemyState::Attacking)
 	{
-		if (AttackMontages.Num() > AttackNum - 1)
+		if (StabMontage != nullptr)
 		{
 			if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
 			{
 				CurrentState = EEnemyState::Attacking;
-				AnimInstance->Montage_Play(AttackMontages[AttackNum - 1]);
+				AnimInstance->Montage_Play(StabMontage);
 				UE_LOG(LogTemp, Warning, TEXT("PLAY MONTAGE"));
 				FOnMontageEnded MontageEnded;
 				MontageEnded.BindLambda([this](UAnimMontage* Montage, bool bInteruppted)
 				{
 					AttackCooldown = 0;
 					CurrentState = EEnemyState::Walking;
+					OnAttackFinished.Broadcast();
 					UE_LOG(LogTemp, Warning, TEXT("MONTAGE ENDED"));
 				});
-				AnimInstance->Montage_SetEndDelegate(MontageEnded, AttackMontages[AttackNum - 1]);
+				AnimInstance->Montage_SetEndDelegate(MontageEnded, StabMontage);
 			}
 			else
 			{
 				UE_LOG(LogTemp, Warning, TEXT("Anim instance not found: AttackGeneric()"));
 			}
 		}	
+	}
+}
+
+void AJoshEnemy::OnMontageNotifyBegin(FName NotifyName, const FBranchingPointNotifyPayload& Payload)
+{
+	if (NotifyName == ExpectedStabNotifyName)
+	{
+		FVector TraceLoc = FVector::ZeroVector;
+		if (GetMesh()) { TraceLoc = GetMesh()->GetSocketLocation(AttackSocketName); }
+		DrawDebugSphere(GetWorld(), TraceLoc, 10.f, 12, FColor::Red, true, 3.f);
+		AttackDamageTrace(TraceLoc, AttackRadius, AttackDamage, EDamageType::Default);
 	}
 }
 

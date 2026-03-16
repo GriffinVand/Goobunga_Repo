@@ -7,6 +7,17 @@
         "Includes": [
             "e:\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\goobunga\\definitions.goobunga.h",
             "e:\\goobunga_repo\\goobunga\\source\\goobunga\\weapons\\projectiles\\goobungaprojectile.h",
+            "e:\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\components\\boxcomponent.h",
+            "e:\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\components\\shapecomponent.h",
+            "e:\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\shapecomponent.generated.h",
+            "e:\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\boxcomponent.generated.h",
+            "e:\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\gameframework\\projectilemovementcomponent.h",
+            "e:\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\gameframework\\movementcomponent.h",
+            "e:\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\movementcomponent.generated.h",
+            "e:\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\projectilemovementcomponent.generated.h",
+            "e:\\goobunga_repo\\goobunga\\source\\goobunga\\combat\\damagetypes.h",
+            "e:\\goobunga_repo\\goobunga\\source\\goobunga\\combat\\teaminterface.h",
+            "e:\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\teaminterface.generated.h",
             "e:\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\goobungaprojectile.generated.h"
         ],
         "ImportedModules": [],

@@ -9,9 +9,9 @@
 void UPersistentDataSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
 	Super::Initialize(Collection);
-	UGameplayStatics::DeleteGameInSlot("1", 0);
-	UGameplayStatics::DeleteGameInSlot("2", 0);
-	UGameplayStatics::DeleteGameInSlot("3", 0);
+	//UGameplayStatics::DeleteGameInSlot("1", 0);
+	//UGameplayStatics::DeleteGameInSlot("2", 0);
+	//UGameplayStatics::DeleteGameInSlot("3", 0);
 }
 
 void UPersistentDataSubsystem::NewSaveGame(FString FileName)

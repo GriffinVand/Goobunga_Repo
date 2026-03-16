@@ -3,6 +3,7 @@
 
 #include "Goobunga_PlayerController.h"
 #include "Goobunga_Player.h"
+#include "UserInterface/PlayerWeaponAmmoWidget.h"
 #include "Components/SizeBox.h"
 
 void AGoobunga_PlayerController::BeginPlay()

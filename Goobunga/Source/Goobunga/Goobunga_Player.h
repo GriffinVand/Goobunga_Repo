@@ -4,6 +4,7 @@
 #include "PlayerCallables.h"
 #include "Abilities/AbilityComponent.h"
 #include "Combat/CombatCallables.h"
+#include "Combat/TeamInterface.h"
 #include "GameFramework/Character.h"
 #include "PersistentData/PersistentDataInterface.h"
 #include "Weapons/Weapon.h"
@@ -36,7 +37,7 @@ enum class ECombatAction : uint8
 };
 
 UCLASS()
-class GOOBUNGA_API AGoobunga_Player : public ACharacter, public IPlayerCallables, public ICombatCallables, public IPersistentDataInterface
+class GOOBUNGA_API AGoobunga_Player : public ACharacter, public IPlayerCallables, public ICombatCallables, public IPersistentDataInterface, public ITeamInterface
 {
 	GENERATED_BODY()
 
@@ -49,6 +50,11 @@ public:
 	AGoobunga_Player();
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
+	
+	virtual EAllegiance GetAllegiance() const override { return PlayerAllegiance; }
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	EAllegiance PlayerAllegiance = EAllegiance::Friendly;
 
 #pragma region Components
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
@@ -102,7 +108,26 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FQuat CurrentAdsRot;
 	
+	void PlayAbilityMontage(UAnimMontage* Montage);
+	void PlayAbilityMontageLoop(UAnimMontage* Montage, FName StartSection);
+	void NotifyAbilityMontageEnded(UAnimMontage* Montage, bool bInterrupted);
+	void HideWeaponForAbility();
+	void ShowWeaponAfterAbility();
+	void StopAbilityMontage(UAnimMontage* Montage);
+	UFUNCTION()
+	void OnMontageNotifyBegin(FName NotifyName, const FBranchingPointNotifyPayload& Payload);
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UAudioComponent* HitSoundComponent;
+	
 protected:
+	
+	//Sound
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Sound)
+	USoundBase* CriticalHitSound;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Sound)
+	USoundBase* RegularHitSound;
+	
 	//Stats
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Stats, meta =(AllowPrivateAccess=true))
 	int MaxHealth = 100;
@@ -180,6 +205,10 @@ protected:
 	UInputAction* SwapAction;
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* HealAction;
+	UPROPERTY(EditAnywhere, Category="Input")
+	UInputAction* SmallAbilityAction;
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* LargeAbilityAction;
 	
 	void Move(const FInputActionValue& Value);
 	void EndMove(const FInputActionValue& Value);
@@ -210,6 +239,7 @@ protected:
 	void SwapInputStarted() { TryStartAction(ECombatAction::Swap); }
 	void SmallAbilityInputStarted() { TryStartAction(ECombatAction::SmallAbility); }
 	void SmallAbilityInputEnded() { AbilityComponent->AbilityFinish(EAbilityType::Small); }
+	void SmallAbilityInputCancelled() {}
 	void LargeAbilityInputStarted() { TryStartAction(ECombatAction::LargeAbility); }
 	void LargeAbilityInputEnded() { AbilityComponent->AbilityFinish(EAbilityType::Large); }
 	void HealAbilityInputStarted() { TryStartAction(ECombatAction::HealAbility); }
@@ -229,14 +259,13 @@ protected:
 	void UpdateAimOffset();
 	virtual void ApplyWeaponKick(FVector KickDirection, FRotator KickRotation, FVector MaxDir, FRotator MaxRot) override;
 	void UpdateWeaponKick();
-	void PlayAbilityMontage(UAnimMontage* Montage);
-	void PlayAbilityMontageLoop(UAnimMontage* Montage, FName StartSection);
-	void NotifyAbilityMontageEnded(UAnimMontage* Montage, bool bInterrupted);
-	void HideWeaponForAbility();
 	//
 	//combat function. Should probably be moved to a component
 	//
-	virtual void CombatDamage(AActor* DamageDealer, float Damage, EDamageType DamageType) override;
+	virtual EDamageResult CombatDamage(AActor* DamageDealer, float Damage, EDamageType DamageType, EAllegiance Allegiance) override;
+	virtual void OnDealtDamage(EDamageResult DamageResult) override;
+	
+	void HandleDamageEffect(EDamageType DamageType);
 	void DeathSequence();
 
 	//Player callables?

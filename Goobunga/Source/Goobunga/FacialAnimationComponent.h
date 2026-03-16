@@ -28,16 +28,15 @@ class GOOBUNGA_API UFacialAnimationComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:	
-	// Sets default values for this component's properties
 	UFacialAnimationComponent();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UMaterialInstanceDynamic* Material = nullptr;
 
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TMap<FName, FFacialAnimationStruct> Animations;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UMaterialInstanceDynamic* Material = nullptr;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FName CurrentAnimation = "Idle";
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

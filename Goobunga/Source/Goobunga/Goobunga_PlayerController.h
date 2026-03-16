@@ -8,6 +8,8 @@
 #include "UserInterface/PlayerMainWidget.h"
 #include "Goobunga_PlayerController.generated.h"
 
+class UPlayerWeaponAmmoWidget;
+enum class EDamageType : uint8;
 /**
  * 
  */

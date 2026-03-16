@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "MediaSoundComponent.h"
 #include "GameFramework/Actor.h"
 #include "Goobunga/FireableCallables.h"
 #include "Goobunga/ReloadManagerComponent.h"
@@ -142,8 +143,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Visuals, meta = (AllowPrivateAccess = "true"))
 	UNiagaraSystem* FireEffect;
 	//Sound to play when fired
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Audio, meta = (AllowPrivateAccess = "true"))
-	USoundBase* FireSound;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Audio)
+	UAudioComponent* FireSoundComponent;
 
 	//Animations are stored in two maps. Uses names to find corresponding animations
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animation, meta = (AllowPrivateAccess = "true"))

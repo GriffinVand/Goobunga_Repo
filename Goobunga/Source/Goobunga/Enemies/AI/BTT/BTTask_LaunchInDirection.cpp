@@ -21,7 +21,7 @@ EBTNodeResult::Type UBTTask_LaunchInDirection::ExecuteTask(UBehaviorTreeComponen
 	
 	if (ILaunchInterface* LaunchInterface = Cast<ILaunchInterface>(SelfActor))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Launch Begin"));
+		//UE_LOG(LogTemp, Warning, TEXT("Launch Begin"));
 		LaunchInterface->LaunchTowardsLocation(TargetActor, FOnLaunchFinished::CreateLambda([this, OwnerCompPtr = &OwnerComp]()
 		{
 			FinishLatentTask(*OwnerCompPtr, EBTNodeResult::Succeeded);
@@ -36,10 +36,10 @@ EBTNodeResult::Type UBTTask_LaunchInDirection::AbortTask(UBehaviorTreeComponent&
 	AJoshEnemy* SelfActor = Cast<AJoshEnemy>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(SelfActorKey.SelectedKeyName));
 	if (SelfActor)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Tell Actor end launch"));
+		//UE_LOG(LogTemp, Warning, TEXT("Tell Actor end launch"));
 		SelfActor->EndLaunch();
 	}
-	UE_LOG(LogTemp, Warning, TEXT("LaunchAborted"));
+	//UE_LOG(LogTemp, Warning, TEXT("LaunchAborted"));
 	return EBTNodeResult::Aborted;
 }
 

@@ -9,12 +9,20 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+class AActor;
+enum class EAllegiance : uint8;
+enum class EDamageResult : uint8;
+enum class EDamageType : uint8;
 #ifdef GOOBUNGA_CombatCallables_generated_h
 #error "CombatCallables.generated.h already included, missing '#pragma once' in CombatCallables.h"
 #endif
 #define GOOBUNGA_CombatCallables_generated_h
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_14_ENHANCED_CONSTRUCTORS \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_21_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execCombatDamage);
+
+
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_21_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	GOOBUNGA_API UCombatCallables(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 private: \
@@ -28,7 +36,7 @@ public: \
 	GOOBUNGA_API virtual ~UCombatCallables();
 
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_14_GENERATED_UINTERFACE_BODY() \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_21_GENERATED_UINTERFACE_BODY() \
 private: \
 	static void StaticRegisterNativesUCombatCallables(); \
 	friend struct Z_Construct_UClass_UCombatCallables_Statics; \
@@ -37,15 +45,15 @@ public: \
 	DECLARE_SERIALIZER(UCombatCallables)
 
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_14_GENERATED_BODY \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_21_GENERATED_BODY \
 	PRAGMA_DISABLE_DEPRECATION_WARNINGS \
-	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_14_GENERATED_UINTERFACE_BODY() \
-	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_14_ENHANCED_CONSTRUCTORS \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_21_GENERATED_UINTERFACE_BODY() \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_21_ENHANCED_CONSTRUCTORS \
 private: \
 	PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_14_INCLASS_IINTERFACE_NO_PURE_DECLS \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_21_INCLASS_IINTERFACE_NO_PURE_DECLS \
 protected: \
 	virtual ~ICombatCallables() {} \
 public: \
@@ -54,11 +62,12 @@ public: \
 	virtual UObject* _getUObject() const { return nullptr; }
 
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_11_PROLOG
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_22_GENERATED_BODY \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_18_PROLOG
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_27_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_14_INCLASS_IINTERFACE_NO_PURE_DECLS \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_21_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_21_INCLASS_IINTERFACE_NO_PURE_DECLS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -68,5 +77,15 @@ template<> GOOBUNGA_API UClass* StaticClass<class UCombatCallables>();
 #undef CURRENT_FILE_ID
 #define CURRENT_FILE_ID FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h
 
+
+#define FOREACH_ENUM_EDAMAGERESULT(op) \
+	op(EDamageResult::None) \
+	op(EDamageResult::Default) \
+	op(EDamageResult::Critical) \
+	op(EDamageResult::Kill) 
+
+enum class EDamageResult : uint8;
+template<> struct TIsUEnumClass<EDamageResult> { enum { Value = true }; };
+template<> GOOBUNGA_API UEnum* StaticEnum<EDamageResult>();
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

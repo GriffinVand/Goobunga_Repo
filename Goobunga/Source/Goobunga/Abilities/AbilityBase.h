@@ -37,6 +37,7 @@ public:
 	virtual void StartSpell() {}
 	virtual void UpdateSpell(float DeltaTime) {}
 	virtual void EndSpell() {}
+	virtual void CancelSpell() {}
 	
 	bool GetBlocksADS() const { return bBlocksADS; }
 	bool GetDisablesGrip() const { return bDisablesGrip; }
@@ -44,12 +45,15 @@ public:
 	bool GetIsActive() const { return bIsActive; }
 	bool GetIsToggle() const { return bIsToggle; }
 	bool GetIsPassive() const { return bIsPassive; }
+	bool GetBlocksWeapon() const { return bBlocksWeapon; }
+	bool GetRequiresActiveStart() const { return bRequiresActiveStart; }
 	virtual bool IsReady() { return false; }
 	
 	void SetPlayerInstance(AGoobunga_Player* PlayerInst);
 	void SetAbilityCompInstance(UAbilityComponent* AbilityCompInst);
 	virtual void Finish();
 	virtual void NotifyMontageEnded(UAnimMontage* Montage) {}
+	virtual void NotifyMontageNotifyBegin(FName NotifyName) {}
 	EAbilityState GetAbilityState() const { return AbilityState; }
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
@@ -63,9 +67,14 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	bool bIsToggle = false;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	bool bRequiresActiveStart;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	bool bIsPassive =  false;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	bool bBlocksWeapon =  false;
 	
-	
+	UPROPERTY(BlueprintReadOnly)
+	UAnimMontage* CurrActiveMontage = nullptr;
 	EAbilityState AbilityState = EAbilityState::Idle;
 	UPROPERTY(BlueprintReadOnly)
 	AGoobunga_Player* Player;

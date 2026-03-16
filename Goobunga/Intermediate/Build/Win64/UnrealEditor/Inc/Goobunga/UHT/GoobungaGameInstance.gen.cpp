@@ -14,6 +14,7 @@ void EmptyLinkFunctionForGeneratedCodeGoobungaGameInstance() {}
 ENGINE_API UClass* Z_Construct_UClass_UGameInstance();
 GOOBUNGA_API UClass* Z_Construct_UClass_UGoobungaGameInstance();
 GOOBUNGA_API UClass* Z_Construct_UClass_UGoobungaGameInstance_NoRegister();
+GOOBUNGA_API UScriptStruct* Z_Construct_UScriptStruct_FAbilitySaveData();
 GOOBUNGA_API UScriptStruct* Z_Construct_UScriptStruct_FWeaponSaveData();
 UPackage* Z_Construct_UPackage__Script_Goobunga();
 // End Cross Module References
@@ -42,9 +43,24 @@ struct Z_Construct_UClass_UGoobungaGameInstance_Statics
 		{ "Category", "GoobungaGameInstance" },
 		{ "ModuleRelativePath", "GoobungaGameInstance.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DefHealAbility_MetaData[] = {
+		{ "Category", "GoobungaGameInstance" },
+		{ "ModuleRelativePath", "GoobungaGameInstance.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DefSmallAbility_MetaData[] = {
+		{ "Category", "GoobungaGameInstance" },
+		{ "ModuleRelativePath", "GoobungaGameInstance.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DefLargeAbility_MetaData[] = {
+		{ "Category", "GoobungaGameInstance" },
+		{ "ModuleRelativePath", "GoobungaGameInstance.h" },
+	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FStructPropertyParams NewProp_DefPrimaryWeapon;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_DefSecondaryWeapon;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_DefHealAbility;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_DefSmallAbility;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_DefLargeAbility;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -54,9 +70,15 @@ struct Z_Construct_UClass_UGoobungaGameInstance_Statics
 };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UGoobungaGameInstance_Statics::NewProp_DefPrimaryWeapon = { "DefPrimaryWeapon", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UGoobungaGameInstance, DefPrimaryWeapon), Z_Construct_UScriptStruct_FWeaponSaveData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DefPrimaryWeapon_MetaData), NewProp_DefPrimaryWeapon_MetaData) }; // 1263523386
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UGoobungaGameInstance_Statics::NewProp_DefSecondaryWeapon = { "DefSecondaryWeapon", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UGoobungaGameInstance, DefSecondaryWeapon), Z_Construct_UScriptStruct_FWeaponSaveData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DefSecondaryWeapon_MetaData), NewProp_DefSecondaryWeapon_MetaData) }; // 1263523386
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UGoobungaGameInstance_Statics::NewProp_DefHealAbility = { "DefHealAbility", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UGoobungaGameInstance, DefHealAbility), Z_Construct_UScriptStruct_FAbilitySaveData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DefHealAbility_MetaData), NewProp_DefHealAbility_MetaData) }; // 3876655937
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UGoobungaGameInstance_Statics::NewProp_DefSmallAbility = { "DefSmallAbility", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UGoobungaGameInstance, DefSmallAbility), Z_Construct_UScriptStruct_FAbilitySaveData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DefSmallAbility_MetaData), NewProp_DefSmallAbility_MetaData) }; // 3876655937
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UGoobungaGameInstance_Statics::NewProp_DefLargeAbility = { "DefLargeAbility", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UGoobungaGameInstance, DefLargeAbility), Z_Construct_UScriptStruct_FAbilitySaveData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DefLargeAbility_MetaData), NewProp_DefLargeAbility_MetaData) }; // 3876655937
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UGoobungaGameInstance_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UGoobungaGameInstance_Statics::NewProp_DefPrimaryWeapon,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UGoobungaGameInstance_Statics::NewProp_DefSecondaryWeapon,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UGoobungaGameInstance_Statics::NewProp_DefHealAbility,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UGoobungaGameInstance_Statics::NewProp_DefSmallAbility,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UGoobungaGameInstance_Statics::NewProp_DefLargeAbility,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UGoobungaGameInstance_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_UGoobungaGameInstance_Statics::DependentSingletons[])() = {
@@ -100,10 +122,10 @@ UGoobungaGameInstance::~UGoobungaGameInstance() {}
 struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_GoobungaGameInstance_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UGoobungaGameInstance, UGoobungaGameInstance::StaticClass, TEXT("UGoobungaGameInstance"), &Z_Registration_Info_UClass_UGoobungaGameInstance, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UGoobungaGameInstance), 1963947395U) },
+		{ Z_Construct_UClass_UGoobungaGameInstance, UGoobungaGameInstance::StaticClass, TEXT("UGoobungaGameInstance"), &Z_Registration_Info_UClass_UGoobungaGameInstance, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UGoobungaGameInstance), 192348110U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_GoobungaGameInstance_h_4096137216(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_GoobungaGameInstance_h_3482293607(TEXT("/Script/Goobunga"),
 	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_GoobungaGameInstance_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_GoobungaGameInstance_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

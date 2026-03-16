@@ -1,13 +1,9 @@
 
 #include "Weapon.h"
 
-#include "NiagaraComponent.h"
 #include "NiagaraFunctionLibrary.h"
 #include "Goobunga/PlayerCallables.h"
-#include "Camera/CameraComponent.h"
 #include "Goobunga/Goobunga_Player.h"
-#include "Kismet/KismetMathLibrary.h"
-// Sets default values
 AWeapon::AWeapon()
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -15,6 +11,9 @@ AWeapon::AWeapon()
 	//Create components
 	WeaponMesh = CreateDefaultSubobject<USkeletalMeshComponent>("WeaponMesh");
 	RootComponent = WeaponMesh;
+	FireSoundComponent = CreateDefaultSubobject<UAudioComponent>("FireSoundComponent");
+	FireSoundComponent->SetupAttachment(RootComponent);
+	FireSoundComponent->SetAutoActivate(false);
 }
 
 // Called when the game starts or when spawned
@@ -146,7 +145,7 @@ void AWeapon::UpdateAccuracy(float NewAccuracy)
 //
 void AWeapon::PlayFireEffect()
 {
-	UNiagaraComponent* NewFireEffect = UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, FireEffect, FVector(0, 0, 0));
+	UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, FireEffect, FVector(0, 0, 0));
 }
 
 void AWeapon::UpdateOwnerUI()
@@ -172,7 +171,11 @@ void AWeapon::DealDamage(AActor* DamagedActor, float Damage)
 	if (!DamagedActor) { return; }
 	if (ICombatCallables* CombatCallablesInterface = Cast<ICombatCallables>(DamagedActor))
 	{
-		CombatCallablesInterface->CombatDamage(GetOwner(), Damage, EDamageType::None);
+		if (ITeamInterface* TI = Cast<ITeamInterface>(GetOwner()))
+		{
+			const EDamageResult Result = CombatCallablesInterface->CombatDamage(GetOwner(), Damage, EDamageType::Default, TI->GetAllegiance());
+			if (ICombatCallables* OwnerCC = Cast<ICombatCallables>(GetOwner())) { OwnerCC->OnDealtDamage(Result); }
+		}
 	}
 }
 

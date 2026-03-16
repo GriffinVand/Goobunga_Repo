@@ -5,7 +5,6 @@
 
 #include "NiagaraComponent.h"
 #include "NiagaraFunctionLibrary.h"
-#include "Goobunga/PlayerCallables.h"
 #include "Goobunga/Combat/CombatCallables.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -28,10 +27,9 @@ void AHitScanWeapon::FireWeapon()
 	FTransform SpawnTransform = WeaponMesh->GetSocketTransform("Fire_Location");
 	FRotator SpawnRotation = GetFireDirection(true);
 	FVector FireDirection = SpawnRotation.Vector();
-	
-	bool WeaponTrace = GetWorld()->LineTraceSingleByChannel(HitResult, SpawnTransform.GetLocation(), SpawnTransform.GetLocation() + FireDirection*10000, ECollisionChannel::ECC_WorldDynamic, QueryParams);
+	bool WeaponTrace = GetWorld()->LineTraceSingleByChannel(HitResult, SpawnTransform.GetLocation(), SpawnTransform.GetLocation() + FireDirection*10000, ECollisionChannel::ECC_Visibility, QueryParams);
 	FVector HitLocation = SpawnTransform.GetLocation() + FireDirection*10000;
-	if (FireSound) UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
+	FireSoundComponent->Play();
 	FOnMontageEnded EndDelegate;
 	PlayAnimationSimultaneous("Fire", EndDelegate);
 	ApplyRecoil();
@@ -40,12 +38,13 @@ void AHitScanWeapon::FireWeapon()
 	{
 		HitLocation = HitResult.Location;
 		AActor* HitActor = HitResult.GetActor();
-		if (!HitActor) return;
-		ICombatCallables* CombatCallablesInterface = Cast<ICombatCallables>(HitActor);
-		if (!CombatCallablesInterface) return;
-		DealDamage(HitActor, BaseDamage);
-		UE_LOG(LogTemp, Display, TEXT("Apply Damage to Actor"));
+		if (HitActor)
+		{
+			DealDamage(HitActor, BaseDamage);
+			UE_LOG(LogTemp, Display, TEXT("Apply Damage to Actor"));
+		}
 	}
+	SpawnTrailSystem(HitLocation);
 }
 
 //Self-explanatory

@@ -9,12 +9,17 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+struct FBranchingPointNotifyPayload;
 #ifdef GOOBUNGA_JoshEnemy_generated_h
 #error "JoshEnemy.generated.h already included, missing '#pragma once' in JoshEnemy.h"
 #endif
 #define GOOBUNGA_JoshEnemy_generated_h
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_JoshEnemy_h_13_INCLASS_NO_PURE_DECLS \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_JoshEnemy_h_14_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execOnMontageNotifyBegin);
+
+
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_JoshEnemy_h_14_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAJoshEnemy(); \
 	friend struct Z_Construct_UClass_AJoshEnemy_Statics; \
@@ -24,7 +29,7 @@ public: \
 	virtual UObject* _getUObject() const override { return const_cast<AJoshEnemy*>(this); }
 
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_JoshEnemy_h_13_ENHANCED_CONSTRUCTORS \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_JoshEnemy_h_14_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	AJoshEnemy(AJoshEnemy&&); \
@@ -36,12 +41,13 @@ public: \
 	NO_API virtual ~AJoshEnemy();
 
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_JoshEnemy_h_10_PROLOG
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_JoshEnemy_h_13_GENERATED_BODY \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_JoshEnemy_h_11_PROLOG
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_JoshEnemy_h_14_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_JoshEnemy_h_13_INCLASS_NO_PURE_DECLS \
-	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_JoshEnemy_h_13_ENHANCED_CONSTRUCTORS \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_JoshEnemy_h_14_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_JoshEnemy_h_14_INCLASS_NO_PURE_DECLS \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_JoshEnemy_h_14_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

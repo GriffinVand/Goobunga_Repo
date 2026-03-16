@@ -257,7 +257,7 @@ void UWeaponComponent::UpdateAds(bool bADS, float DeltaTime)
 
 void UWeaponComponent::HandleNewAds()
 {
-	UE_LOG(LogWeaponComponent, Warning, TEXT("Ads Value: %f"), AdsAlpha);
+	//UE_LOG(LogWeaponComponent, Warning, TEXT("Ads Value: %f"), AdsAlpha);
 	if (GetEquippedWeapon())
 	{
 		GetEquippedWeapon()->UpdateAccuracy(AdsAlpha);

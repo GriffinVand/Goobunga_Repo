@@ -81,10 +81,10 @@ AFlintLockGun::~AFlintLockGun() {}
 struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_FlintLockGun_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AFlintLockGun, AFlintLockGun::StaticClass, TEXT("AFlintLockGun"), &Z_Registration_Info_UClass_AFlintLockGun, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AFlintLockGun), 2124550851U) },
+		{ Z_Construct_UClass_AFlintLockGun, AFlintLockGun::StaticClass, TEXT("AFlintLockGun"), &Z_Registration_Info_UClass_AFlintLockGun, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AFlintLockGun), 3345713744U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_FlintLockGun_h_769185441(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_FlintLockGun_h_360559363(TEXT("/Script/Goobunga"),
 	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_FlintLockGun_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_FlintLockGun_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

@@ -20,10 +20,9 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
 
 #define FOREACH_ENUM_EDAMAGETYPE(op) \
-	op(EDamageType::None) \
-	op(EDamageType::Spider) \
-	op(EDamageType::Player) \
-	op(EDamageType::Slug) 
+	op(EDamageType::Default) \
+	op(EDamageType::Explosion) \
+	op(EDamageType::Goo) 
 
 enum class EDamageType : uint8;
 template<> struct TIsUEnumClass<EDamageType> { enum { Value = true }; };

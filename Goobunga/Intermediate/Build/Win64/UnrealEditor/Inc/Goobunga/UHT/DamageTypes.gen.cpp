@@ -33,22 +33,19 @@ struct Z_Construct_UEnum_Goobunga_EDamageType_Statics
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[] = {
 		{ "BlueprintType", "true" },
+		{ "Default.DisplayName", "Default" },
+		{ "Default.Name", "EDamageType::Default" },
+		{ "Explosion.DisplayName", "Explosion" },
+		{ "Explosion.Name", "EDamageType::Explosion" },
+		{ "Goo.DisplayName", "Goo" },
+		{ "Goo.Name", "EDamageType::Goo" },
 		{ "ModuleRelativePath", "Combat/DamageTypes.h" },
-		{ "None.DisplayName", "None" },
-		{ "None.Name", "EDamageType::None" },
-		{ "Player.DisplayName", "Player" },
-		{ "Player.Name", "EDamageType::Player" },
-		{ "Slug.DisplayName", "Slug" },
-		{ "Slug.Name", "EDamageType::Slug" },
-		{ "Spider.DisplayName", "Spider" },
-		{ "Spider.Name", "EDamageType::Spider" },
 	};
 #endif // WITH_METADATA
 	static constexpr UECodeGen_Private::FEnumeratorParam Enumerators[] = {
-		{ "EDamageType::None", (int64)EDamageType::None },
-		{ "EDamageType::Spider", (int64)EDamageType::Spider },
-		{ "EDamageType::Player", (int64)EDamageType::Player },
-		{ "EDamageType::Slug", (int64)EDamageType::Slug },
+		{ "EDamageType::Default", (int64)EDamageType::Default },
+		{ "EDamageType::Explosion", (int64)EDamageType::Explosion },
+		{ "EDamageType::Goo", (int64)EDamageType::Goo },
 	};
 	static const UECodeGen_Private::FEnumParams EnumParams;
 };
@@ -78,10 +75,10 @@ UEnum* Z_Construct_UEnum_Goobunga_EDamageType()
 struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_DamageTypes_h_Statics
 {
 	static constexpr FEnumRegisterCompiledInInfo EnumInfo[] = {
-		{ EDamageType_StaticEnum, TEXT("EDamageType"), &Z_Registration_Info_UEnum_EDamageType, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3962680001U) },
+		{ EDamageType_StaticEnum, TEXT("EDamageType"), &Z_Registration_Info_UEnum_EDamageType, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 2919233219U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_DamageTypes_h_1464902748(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_DamageTypes_h_1297393564(TEXT("/Script/Goobunga"),
 	nullptr, 0,
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_DamageTypes_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_DamageTypes_h_Statics::EnumInfo));

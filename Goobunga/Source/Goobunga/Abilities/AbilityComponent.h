@@ -37,11 +37,13 @@ public:
 	
 	void AbilityStart(EAbilityType Slot);
 	void AbilityFinish(EAbilityType Slot);
+	void AbilityCancel(EAbilityType Slot);
 	void EquipAbility(EAbilityType Slot, TSubclassOf<UAbilityBase> AbilityClass);
 	UAbilityBase* GetAbility(EAbilityType Slot);
 	
+	void NotifyMontageNotifyRecieved(FName NotifyName);
 	void NotifyMontageEnded(UAnimMontage*);
-	void NotifyAbilityFinished(EAbilityType Slot);
+	void NotifyAbilityActiveFinished(EAbilityType Slot);
 	
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	

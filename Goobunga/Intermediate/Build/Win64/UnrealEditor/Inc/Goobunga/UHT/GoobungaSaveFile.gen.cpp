@@ -189,11 +189,11 @@ struct Z_Construct_UClass_UGoobungaSaveFile_Statics
 		{ "Category", "GoobungaSaveFile" },
 		{ "ModuleRelativePath", "PersistentData/GoobungaSaveFile.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_PlayerPrimaryAbility_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_PlayerSmallAbility_MetaData[] = {
 		{ "Category", "GoobungaSaveFile" },
 		{ "ModuleRelativePath", "PersistentData/GoobungaSaveFile.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_PlayerSecondaryAbility_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_PlayerLargeAbility_MetaData[] = {
 		{ "Category", "GoobungaSaveFile" },
 		{ "ModuleRelativePath", "PersistentData/GoobungaSaveFile.h" },
 	};
@@ -215,8 +215,8 @@ struct Z_Construct_UClass_UGoobungaSaveFile_Statics
 	static const UECodeGen_Private::FStructPropertyParams NewProp_PlayerSecondaryWeapon;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_PlayerOwnedAbilities_Inner;
 	static const UECodeGen_Private::FArrayPropertyParams NewProp_PlayerOwnedAbilities;
-	static const UECodeGen_Private::FStructPropertyParams NewProp_PlayerPrimaryAbility;
-	static const UECodeGen_Private::FStructPropertyParams NewProp_PlayerSecondaryAbility;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_PlayerSmallAbility;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_PlayerLargeAbility;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_PlayerHealAbility;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_PlayerMoney;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
@@ -235,8 +235,8 @@ const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UGoobungaSaveF
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UGoobungaSaveFile_Statics::NewProp_PlayerSecondaryWeapon = { "PlayerSecondaryWeapon", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UGoobungaSaveFile, PlayerSecondaryWeapon), Z_Construct_UScriptStruct_FWeaponSaveData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_PlayerSecondaryWeapon_MetaData), NewProp_PlayerSecondaryWeapon_MetaData) }; // 1263523386
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UGoobungaSaveFile_Statics::NewProp_PlayerOwnedAbilities_Inner = { "PlayerOwnedAbilities", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FAbilitySaveData, METADATA_PARAMS(0, nullptr) }; // 3876655937
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UGoobungaSaveFile_Statics::NewProp_PlayerOwnedAbilities = { "PlayerOwnedAbilities", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UGoobungaSaveFile, PlayerOwnedAbilities), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_PlayerOwnedAbilities_MetaData), NewProp_PlayerOwnedAbilities_MetaData) }; // 3876655937
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UGoobungaSaveFile_Statics::NewProp_PlayerPrimaryAbility = { "PlayerPrimaryAbility", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UGoobungaSaveFile, PlayerPrimaryAbility), Z_Construct_UScriptStruct_FAbilitySaveData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_PlayerPrimaryAbility_MetaData), NewProp_PlayerPrimaryAbility_MetaData) }; // 3876655937
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UGoobungaSaveFile_Statics::NewProp_PlayerSecondaryAbility = { "PlayerSecondaryAbility", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UGoobungaSaveFile, PlayerSecondaryAbility), Z_Construct_UScriptStruct_FAbilitySaveData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_PlayerSecondaryAbility_MetaData), NewProp_PlayerSecondaryAbility_MetaData) }; // 3876655937
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UGoobungaSaveFile_Statics::NewProp_PlayerSmallAbility = { "PlayerSmallAbility", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UGoobungaSaveFile, PlayerSmallAbility), Z_Construct_UScriptStruct_FAbilitySaveData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_PlayerSmallAbility_MetaData), NewProp_PlayerSmallAbility_MetaData) }; // 3876655937
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UGoobungaSaveFile_Statics::NewProp_PlayerLargeAbility = { "PlayerLargeAbility", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UGoobungaSaveFile, PlayerLargeAbility), Z_Construct_UScriptStruct_FAbilitySaveData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_PlayerLargeAbility_MetaData), NewProp_PlayerLargeAbility_MetaData) }; // 3876655937
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UGoobungaSaveFile_Statics::NewProp_PlayerHealAbility = { "PlayerHealAbility", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UGoobungaSaveFile, PlayerHealAbility), Z_Construct_UScriptStruct_FAbilitySaveData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_PlayerHealAbility_MetaData), NewProp_PlayerHealAbility_MetaData) }; // 3876655937
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_UGoobungaSaveFile_Statics::NewProp_PlayerMoney = { "PlayerMoney", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UGoobungaSaveFile, PlayerMoney), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_PlayerMoney_MetaData), NewProp_PlayerMoney_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UGoobungaSaveFile_Statics::PropPointers[] = {
@@ -249,8 +249,8 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UGoobunga
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UGoobungaSaveFile_Statics::NewProp_PlayerSecondaryWeapon,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UGoobungaSaveFile_Statics::NewProp_PlayerOwnedAbilities_Inner,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UGoobungaSaveFile_Statics::NewProp_PlayerOwnedAbilities,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UGoobungaSaveFile_Statics::NewProp_PlayerPrimaryAbility,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UGoobungaSaveFile_Statics::NewProp_PlayerSecondaryAbility,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UGoobungaSaveFile_Statics::NewProp_PlayerSmallAbility,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UGoobungaSaveFile_Statics::NewProp_PlayerLargeAbility,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UGoobungaSaveFile_Statics::NewProp_PlayerHealAbility,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UGoobungaSaveFile_Statics::NewProp_PlayerMoney,
 };
@@ -300,10 +300,10 @@ struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Persiste
 		{ FAbilitySaveData::StaticStruct, Z_Construct_UScriptStruct_FAbilitySaveData_Statics::NewStructOps, TEXT("AbilitySaveData"), &Z_Registration_Info_UScriptStruct_AbilitySaveData, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FAbilitySaveData), 3876655937U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UGoobungaSaveFile, UGoobungaSaveFile::StaticClass, TEXT("UGoobungaSaveFile"), &Z_Registration_Info_UClass_UGoobungaSaveFile, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UGoobungaSaveFile), 2285442744U) },
+		{ Z_Construct_UClass_UGoobungaSaveFile, UGoobungaSaveFile::StaticClass, TEXT("UGoobungaSaveFile"), &Z_Registration_Info_UClass_UGoobungaSaveFile, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UGoobungaSaveFile), 1563040784U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_PersistentData_GoobungaSaveFile_h_83227575(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_PersistentData_GoobungaSaveFile_h_1785382109(TEXT("/Script/Goobunga"),
 	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_PersistentData_GoobungaSaveFile_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_PersistentData_GoobungaSaveFile_h_Statics::ClassInfo),
 	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_PersistentData_GoobungaSaveFile_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_PersistentData_GoobungaSaveFile_h_Statics::ScriptStructInfo),
 	nullptr, 0);

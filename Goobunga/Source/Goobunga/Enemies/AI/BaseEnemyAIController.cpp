@@ -16,6 +16,7 @@ void ABaseEnemyAIController::BeginPlay()
 	{
 		RunBehaviorTree(Enemy->BehaviorTree);
 		GetBlackboardComponent()->SetValueAsObject("Player", UGameplayStatics::GetPlayerCharacter(this, 0));
+		GetBlackboardComponent()->SetValueAsObject("SelfActor", GetPawn());
 		SetFocus(UGameplayStatics::GetPlayerCharacter(this, 0), EAIFocusPriority::Gameplay);
 	}
 }

@@ -15,6 +15,7 @@
 #include "Quests/QuestManagerComponent.h"
 #include "Weapons/Weapon.h"
 #include "Abilities/AbilityComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 AGoobunga_Player::AGoobunga_Player()
 {
@@ -32,6 +33,9 @@ AGoobunga_Player::AGoobunga_Player()
 	FPMesh_Static->SetupAttachment(FPCamera);
 	FPEquipped_Static = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FPEquipped_Static"));
 	FPEquipped_Static->SetupAttachment(FPMesh_Static);
+	HitSoundComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("HitSoundComponent"));
+	HitSoundComponent->SetupAttachment(RootComponent);
+	HitSoundComponent->SetAutoActivate(false);
 	
 	//Base components
 	FacialAnimationComponent = CreateDefaultSubobject<UFacialAnimationComponent>(TEXT("FacialAnimationComponent"));
@@ -44,6 +48,11 @@ AGoobunga_Player::AGoobunga_Player()
 void AGoobunga_Player::BeginPlay()
 {
 	Super::BeginPlay();
+	
+	if (UAnimInstance* FPMeshInst = FPMesh->GetAnimInstance())
+	{
+		FPMeshInst->OnPlayMontageNotifyBegin.AddUniqueDynamic(this, &AGoobunga_Player::OnMontageNotifyBegin);
+	}
 	
 	APlayerController* PlayerController = Cast<APlayerController>(GetController());
 	if (PlayerController)
@@ -93,6 +102,11 @@ void AGoobunga_Player::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		EnhancedInputComponent->BindAction(ReloadAction, ETriggerEvent::Started, this, &AGoobunga_Player::ReloadInputStarted);
 		EnhancedInputComponent->BindAction(SwapAction, ETriggerEvent::Started, this, &AGoobunga_Player::SwapInputStarted);
 		EnhancedInputComponent->BindAction(HealAction, ETriggerEvent::Started, this, &AGoobunga_Player::HealAbilityInputStarted);
+		EnhancedInputComponent->BindAction(HealAction, ETriggerEvent::Completed, this, &AGoobunga_Player::HealAbilityInputEnded);
+		EnhancedInputComponent->BindAction(SmallAbilityAction, ETriggerEvent::Started, this, &AGoobunga_Player::SmallAbilityInputStarted);
+		EnhancedInputComponent->BindAction(SmallAbilityAction, ETriggerEvent::Completed, this, &AGoobunga_Player::SmallAbilityInputEnded);
+		EnhancedInputComponent->BindAction(LargeAbilityAction, ETriggerEvent::Started, this, &AGoobunga_Player::LargeAbilityInputStarted);
+		EnhancedInputComponent->BindAction(LargeAbilityAction, ETriggerEvent::Completed, this, &AGoobunga_Player::LargeAbilityInputEnded);
 	}
 }
 void AGoobunga_Player::Move(const FInputActionValue& Value)
@@ -347,14 +361,54 @@ void AGoobunga_Player::UpdateAds(float Alpha)
 	FPCamera->SetFieldOfView(NewFOV);
 	FPCamera->PostProcessSettings.bOverride_VignetteIntensity = true;
 	FPCamera->PostProcessSettings.VignetteIntensity = FMath::Lerp(0.f, 1.f, Alpha);
-	UE_LOG(LogTemp, Warning, TEXT("AimAlpha: %f"), Alpha);
+	//UE_LOG(LogTemp, Warning, TEXT("AimAlpha: %f"), Alpha);
 }
-void AGoobunga_Player::CombatDamage(AActor* DamageCauser, float Damage, EDamageType DamageType)
+EDamageResult AGoobunga_Player::CombatDamage(AActor* DamageCauser, float Damage, EDamageType DamageType, EAllegiance Allegiance)
 {
+	if (Allegiance == PlayerAllegiance) { return EDamageResult::None; }
 	CurrHealth -= Damage;
+	HandleDamageEffect(DamageType);
 	UE_LOG(LogTemp, Error, TEXT("PLAYER WAS HURT"))
-	if (CurrHealth <= 0) { DeathSequence(); }
+	if (CurrHealth <= 0) { DeathSequence(); return EDamageResult::Kill; }
+	return EDamageResult::Default;
 }
+
+void AGoobunga_Player::OnDealtDamage(EDamageResult DamageResult)
+{
+	AGoobunga_PlayerController* PC = Cast<AGoobunga_PlayerController>(GetController());
+	if (!PC || !PC->MainHUD) { return; }
+	USoundBase* HitSound;
+	switch (DamageResult)
+	{
+	case EDamageResult::None:
+		return;
+	case EDamageResult::Default:
+		HitSound = RegularHitSound;
+		break;
+	case EDamageResult::Critical:
+		HitSound = CriticalHitSound;
+		break;
+	case EDamageResult::Kill:
+		HitSound = CriticalHitSound;
+		break;
+	default:
+		return;
+	}
+	PC->MainHUD->HandleHitEffect(DamageResult);
+	UGameplayStatics::PlaySound2D(this, HitSound);
+	HitSoundComponent->Stop();
+	HitSoundComponent->SetSound(HitSound);
+	HitSoundComponent->Play();
+}
+
+void AGoobunga_Player::HandleDamageEffect(EDamageType Type)
+{
+	if (AGoobunga_PlayerController* PC = Cast<AGoobunga_PlayerController>(GetController()))
+	{
+		if (PC->MainHUD) { PC->MainHUD->HandleDamageEffect(Type); }
+	}
+}
+
 void AGoobunga_Player::DeathSequence()
 {
 	UKismetSystemLibrary::QuitGame(this, nullptr, EQuitPreference::Quit, true);
@@ -402,11 +456,12 @@ bool AGoobunga_Player::CanPerformAction(ECombatAction Action)
 	case ECombatAction::Aim:
 		return (!AbilityComponent->IsFlagBlocked(EAbilityBlockFlag::Aim));
 	case ECombatAction::SmallAbility:
-		return (AbilityComponent->CanUseAbility(EAbilityType::Small));
+		UE_LOG(LogTemp, Error, TEXT("Can perform small ability"));
+		return (AbilityComponent->CanUseAbility(EAbilityType::Small) && WeaponComponent->bReady);
 	case ECombatAction::LargeAbility:
-		return (AbilityComponent->CanUseAbility(EAbilityType::Large));
+		return (AbilityComponent->CanUseAbility(EAbilityType::Large) && WeaponComponent->bReady);
 	case ECombatAction::HealAbility:
-		return (AbilityComponent->CanUseAbility(EAbilityType::Heal));
+		return (AbilityComponent->CanUseAbility(EAbilityType::Heal) && WeaponComponent->bReady);
 	case ECombatAction::Swap:
 		return (!AbilityComponent->IsFlagBlocked(EAbilityBlockFlag::Swap));
 	case ECombatAction::Sprint:
@@ -451,10 +506,11 @@ void AGoobunga_Player::ResolveActionConflicts(ECombatAction Action)
 		WeaponComponent->HandleNewAds();
 		break;
 	case ECombatAction::SmallAbility:
+		UE_LOG(LogTemp, Error, TEXT("Resolve conflicts small ability"));
 		if (UAbilityBase* Ability = AbilityComponent->GetAbility(EAbilityType::Small))
 		{
 			if (Ability->GetBlocksFire()) { FireEnded(true); AltFireEnded(true); }
-			if (Ability->GetBlocksADS()) { WeaponComponent->AdsAlpha = 0.f; WeaponComponent->HandleNewAds(); }
+			if (Ability->GetBlocksADS() && WeaponComponent->GetEquippedWeapon() && WeaponComponent->GetEquippedWeapon()->ADS) { AltFireEnded(true); WeaponComponent->AdsAlpha = 0.f; WeaponComponent->HandleNewAds(); }
 			if (Reloading) { ReloadManagerComponent->StopReload(false); }
 			if (Ability->GetDisablesGrip()) { GripAlpha = 0.f; }
 			if (Sprinting) { SprintEnded(); }
@@ -503,7 +559,9 @@ void AGoobunga_Player::StartAction(ECombatAction Action)
 		break;
 	case ECombatAction::Sprint:
 		SprintStarted();
+		break;
 	case ECombatAction::SmallAbility:
+		UE_LOG(LogTemp, Error, TEXT("Start action small ability"));
 		AbilityComponent->AbilityStart(EAbilityType::Small);
 		break;
 	case ECombatAction::LargeAbility:
@@ -520,17 +578,48 @@ void AGoobunga_Player::StartAction(ECombatAction Action)
 
 void AGoobunga_Player::HideWeaponForAbility()
 {
-	
+	if (!WeaponComponent) return;
+	if (AWeapon* Weapon = WeaponComponent->GetEquippedWeapon())
+	{
+		WeaponComponent->HolsterWeapon(Weapon);
+	}
+}
+
+void AGoobunga_Player::ShowWeaponAfterAbility()
+{
+	if (!WeaponComponent) return;
+	if (AWeapon* Weapon = WeaponComponent->GetEquippedWeapon())
+	{
+		WeaponComponent->DrawWeapon(Weapon);
+	}
 }
 
 void AGoobunga_Player::PlayAbilityMontage(UAnimMontage* Montage)
 {
 	if (UAnimInstance* AnimInst = FPMesh->GetAnimInstance())
 	{
+		UE_LOG(LogTemp, Error, TEXT("Player playability montage"));
 		FOnMontageEnded EndDelegate;
 		EndDelegate.BindUObject(this, &AGoobunga_Player::NotifyAbilityMontageEnded);
 		AnimInst->Montage_Play(Montage);
 		AnimInst->Montage_SetEndDelegate(EndDelegate);
+	}
+}
+
+void AGoobunga_Player::StopAbilityMontage(UAnimMontage* Montage)
+{
+	if (UAnimInstance* AnimInst = FPMesh->GetAnimInstance())
+	{
+		AnimInst->Montage_Stop(0.f, Montage);
+	}
+}
+
+void AGoobunga_Player::OnMontageNotifyBegin(FName NotifyName, const FBranchingPointNotifyPayload& Payload)
+{
+	if (AbilityComponent)
+	{
+		UE_LOG(LogTemp, Error, TEXT("AGoobunga_Player::OnMontageNotifyBegin"));
+		AbilityComponent->NotifyMontageNotifyRecieved(NotifyName);
 	}
 }
 
@@ -547,6 +636,7 @@ void AGoobunga_Player::NotifyAbilityMontageEnded(UAnimMontage* Montage, bool bIn
 {
 	if (AbilityComponent)
 	{
+		UE_LOG(LogTemp, Error, TEXT("AGoobunga_Player::NotifyAbilityMontageEnded"));
 		AbilityComponent->NotifyMontageEnded(Montage);
 	}
 }

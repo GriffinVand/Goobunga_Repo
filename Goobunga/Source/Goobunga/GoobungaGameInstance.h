@@ -17,6 +17,13 @@ public:
 	FWeaponSaveData DefPrimaryWeapon = FWeaponSaveData();
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FWeaponSaveData DefSecondaryWeapon = FWeaponSaveData();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FAbilitySaveData DefHealAbility;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FAbilitySaveData DefSmallAbility;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FAbilitySaveData DefLargeAbility;
+	
 	
 	void SetDefaultSaveFile(UGoobungaSaveFile& SaveFile);
 };

@@ -6,9 +6,8 @@
 #include "Goobunga/Weapons/Weapon.h"
 #include "ProjectileWeapon.generated.h"
 
-/**
- * 
- */
+class AGoobungaProjectile;
+
 UCLASS()
 class GOOBUNGA_API AProjectileWeapon : public AWeapon
 {
@@ -18,7 +17,7 @@ public:
 	AProjectileWeapon();
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Projectile, meta = (AllowPrivateAccess = "true"))
-	TSubclassOf<AActor> ProjectileClass;
+	TSubclassOf<AGoobungaProjectile> ProjectileClass;
 
 public:
 	virtual void FireWeapon() override;

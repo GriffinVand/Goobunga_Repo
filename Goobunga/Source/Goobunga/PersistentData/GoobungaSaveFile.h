@@ -46,9 +46,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FAbilitySaveData> PlayerOwnedAbilities;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FAbilitySaveData PlayerPrimaryAbility;
+	FAbilitySaveData PlayerSmallAbility;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FAbilitySaveData PlayerSecondaryAbility;
+	FAbilitySaveData PlayerLargeAbility;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FAbilitySaveData PlayerHealAbility;
 	

@@ -6,6 +6,8 @@
 #include "EnemyCallables.generated.h"
 
 
+class FOnAttackFinished;
+
 UINTERFACE(BlueprintType, MinimalAPI)
 class UEnemyCallables : public UInterface
 {
@@ -20,7 +22,10 @@ class IEnemyCallables
 
 public:
 
-	virtual void AttackPrimary() = 0;
-	virtual bool GetCanAttack() = 0;
+	virtual void AttackPrimary(AActor* Target) = 0;
+	virtual void AttackSecondary(AActor* Target) = 0;
+	virtual bool GetCanAttackPrim() = 0;
+	virtual bool GetCanAttackSec() = 0;
+	virtual FOnAttackFinished& GetAttackFinishedDelegate() = 0;
 	virtual EEnemyState GetCurrentState() = 0;
 };
