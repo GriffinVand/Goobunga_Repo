@@ -11,20 +11,21 @@ class GOOBUNGA_API UQuestData : public UDataAsset
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FName QuestID;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSoftObjectPtr<UTexture2D> QuestIcon;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int MaxQuestProgress;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FName QuestObjID;
+	FGameplayTagContainer QuestProgressTags;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSoftObjectPtr<UTexture2D> QuestObjIcon;
+	TArray<FName> QuestRewardID;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FName QuestRewardID;
+	TArray<int> QuestRewardAmount;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int QuestRewardAmount;
+	TSoftObjectPtr<UTexture2D> QuestIcon;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSoftObjectPtr<UTexture2D> QuestRewardIcon;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FGameplayTagContainer QuestProgressTags;
+	TSoftObjectPtr<UTexture2D> QuestObjIcon;
 };

@@ -1,83 +1,59 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "DialogueManagerComponent.h"
+
+#include "DialogueInterface.h"
 #include "DialogueWidget.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/TextBlock.h"
 #include "Goobunga/FacialAnimationComponent.h"
 #include "Goobunga/Goobunga_Player.h"
+#include "Goobunga/Goobunga_PlayerController.h"
 #include "Goobunga/PlayerCallables.h"
 #include "Kismet/GameplayStatics.h"
+#include "BaseShopWidget.h"
 #include "Kismet/KismetSystemLibrary.h"
 
-
-// Sets default values for this component's properties
 UDialogueManagerComponent::UDialogueManagerComponent()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = false;
-
-	// ...
 }
 
-
-// Called when the game starts
 void UDialogueManagerComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	// ...
-	
 }
 
-
-// Called every frame
-void UDialogueManagerComponent::TickComponent(float DeltaTime, ELevelTick TickType,
-                                              FActorComponentTickFunction* ThisTickFunction)
+void UDialogueManagerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
 }
 
-void UDialogueManagerComponent::StartDialogue(FName Character)
+void UDialogueManagerComponent::StartDialogue(AActor* DialogueActor)
 {
-	if (APlayerController* PlayerController = Cast<APlayerController>(Cast<AGoobunga_Player>(GetOwner())->GetController()))
+	IDialogueInterface* DI = Cast<IDialogueInterface>(DialogueActor);
+	if (!DI) { UE_LOG(LogTemp, Error, TEXT("Other actor does not have dialogue interface")); return; }
+	CurrDialogueActor = DialogueActor;
+	if (AGoobunga_PlayerController* PC = Cast<AGoobunga_PlayerController>(Cast<APawn>(GetOwner())->GetController()))
 	{
-		FInputModeUIOnly Input;
-		PlayerController->SetInputMode(Input);
-		PlayerController->bShowMouseCursor = true;
-	}
-	if (AGoobunga_Player* Goobunga_Player = Cast<AGoobunga_Player>(GetOwner()))
-	{
-		UE_LOG(LogTemp, Error, TEXT("STARTING DIALOGUE ANIMATION"));
-		Goobunga_Player->FacialAnimationComponent->PlayAnimation("Talking", true);
-	}
-	if (CharacterCurrentDialogues.Contains(Character))
-	{
-		CreateDialogueWidget();
 		UE_LOG(LogTemp, Display, TEXT("Create Widget"));
-		DialogueWidget->DialogueManager = this;
-		DialogueWidget->AddToViewport();
-		UpdateDialogue(CharacterCurrentDialogues[Character]);
-		UE_LOG(LogTemp, Display, TEXT("Dialogue found"));
+		DialogueWidget = Cast<UDialogueWidget>(PC->MasterWidget->PushWidget(DialogueWidgetClass, ELayerType::Menu));
+		if (DialogueWidget)
+		{
+			UE_LOG(LogTemp, Display, TEXT("Widget exists"));
+			DialogueWidget->DialogueManager = this;
+			DialogueWidget->BindReplyWidgets();
+			UpdateDialogue(DI->GetCurrentDialogue());
+			UE_LOG(LogTemp, Display, TEXT("Dialogue found"));
+			
+			if (AGoobunga_Player* Goobunga_Player = Cast<AGoobunga_Player>(GetOwner()))
+			{
+				UE_LOG(LogTemp, Error, TEXT("STARTING DIALOGUE ANIMATION"));
+				Goobunga_Player->FacialAnimationComponent->PlayAnimation("Talking", true);
+			}
+			
+			return;
+		}
 	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("Character-Dialogue pair not found"));
-		EndDialogue();
-	}
-}
-
-void UDialogueManagerComponent::CreateDialogueWidget()
-{
-	DialogueWidget = CreateWidget<UDialogueWidget>(GetWorld(), DialogueWidgetClass);
-	if (!DialogueWidget)
-	{
-		UE_LOG(LogTemp, Error, TEXT("Widget could not be created"));
-		UKismetSystemLibrary::QuitEditor();
-	}
+	EndDialogue();
 }
 
 void UDialogueManagerComponent::UpdateDialogue(FName DialogueID)
@@ -187,66 +163,82 @@ void UDialogueManagerComponent::OnReplySelected(int ReplyIndex)
 	{
 		UE_LOG(LogTemp, Display, TEXT("Reply index found"));
 		FDialogueReply SelectedReply = CurrentDialogueReplies[ReplyIndex];
-		//Handle reply actions
-		if (SelectedReply.Actions.Num() > 0)
-		{
-			if (SelectedReply.Actions[0] == "Quit")
-			{
-				UE_LOG(LogTemp, Display, TEXT("Quit requested"));
-				EndDialogue();
-				return;
-			}
-			HandleReplyActions(SelectedReply.Actions);
-		}
-		UE_LOG(LogTemp, Display, TEXT("Continue dialogue"));
-		UpdateDialogue(SelectedReply.NextID);
+		
+		ReplyActions = SelectedReply.Actions;
+		ReplyNextID = SelectedReply.NextID;
+		ProcessActions();
 	}
 	else
 	{
+		EndDialogue();
 		UE_LOG(LogTemp, Error, TEXT("Reply index out of bounds"));
 	}
 }
 
+void UDialogueManagerComponent::ProcessActions()
+{
+	while (ReplyActions.Num() > 0)
+	{
+		const FDialogueActionStruct& Action = ReplyActions[0];
+
+		if (!HandleReplyAction(Action))
+		{
+			return;
+		}
+
+		ReplyActions.RemoveAt(0);
+	}
+	UpdateDialogue(ReplyNextID);
+}
+
+void UDialogueManagerComponent::ContinueDialogue()
+{
+	ProcessActions();
+}
+
 void UDialogueManagerComponent::EndDialogue()
 {
-	if (APlayerController* PlayerController = Cast<APlayerController>(Cast<APawn>(GetOwner())->GetController()))
-	{
-		FInputModeGameOnly Game;
-		PlayerController->SetInputMode(Game);
-		PlayerController->bShowMouseCursor = false;
-	}
 	if (AGoobunga_Player* Goobunga_Player = Cast<AGoobunga_Player>(GetOwner()))
 	{
 		Goobunga_Player->FacialAnimationComponent->PlayAnimation("Idle", true);
 	}
 	if (DialogueWidget) { DialogueWidget->RemoveFromParent(); }
+	CurrDialogueActor = nullptr;
 }
 
-void UDialogueManagerComponent::AddCharacterDialogue(FName Character, FName DialogueID)
+bool UDialogueManagerComponent::HandleReplyAction(const FDialogueActionStruct& Action)
 {
-	CharacterCurrentDialogues.Add(Character);
-	CharacterCurrentDialogues[Character] = DialogueID;
-}
-
-void UDialogueManagerComponent::HandleReplyActions(const TArray<FString>& Actions)
-{
-	if (IPlayerCallables* PlayerCallablesInterface = Cast<IPlayerCallables>(GetOwner()))
+	IPlayerCallables* PCI = Cast<IPlayerCallables>(GetOwner());
+	if (!PCI) { EndDialogue(); return true; }
+	AGoobunga_PlayerController* PC = Cast<AGoobunga_PlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+	if (!PC) { EndDialogue(); return true; }
+	IDialogueInterface* DI = Cast<IDialogueInterface>(CurrDialogueActor);
+	if (!DI) { EndDialogue(); return true; }
+	
+	switch (Action.ActionType)
 	{
-		for (auto Action : Actions)
+	case EDialogueActionType::OPEN_SHOP:
+	{
+		TSubclassOf<UBaseShopWidget> ShopWidgetClass = DI->GetShopWidgetClass();
+		if (ShopWidgetClass)
 		{
-			PlayerCallablesInterface->PerformAction(Action);
+			UBaseShopWidget* ShopUI = Cast<UBaseShopWidget>(PC->MasterWidget->PushWidget(ShopWidgetClass, ELayerType::Menu));
+			if (ShopUI) { ShopUI->OnShopCloseInput.AddUniqueDynamic(this, &UDialogueManagerComponent::ContinueDialogue); return false;}
 		}
-		return;
+		return true;
 	}
-	UE_LOG(LogTemp, Display, TEXT("Player callables interface not found"));
-}
-
-void UDialogueManagerComponent::SetCharacterDialogue(FName Character, FName DialogueID)
-{
-	if (CharacterCurrentDialogues.Contains(Character))
-	{
-		UE_LOG(LogTemp, Display, TEXT("Dialogue manager successfully set current dialogue ID"));
-		CharacterCurrentDialogues[Character] = DialogueID;
+	case EDialogueActionType::GIVE_REWARD:
+		return true;
+	case EDialogueActionType::ADD_QUEST:
+		return true;
+	case EDialogueActionType::REMOVE_QUEST:
+		return true;
+	case EDialogueActionType::COMPLETE_QUEST:
+		return true;
+	case EDialogueActionType::SET_DIALOGUE:
+		return true;
+	default:
+		return true;
 	}
 }
 

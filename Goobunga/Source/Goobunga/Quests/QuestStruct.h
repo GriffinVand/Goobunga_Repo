@@ -11,20 +11,20 @@ struct FQuestStruct : public FTableRowBase
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FName QuestID;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSoftObjectPtr<UTexture2D> QuestIcon;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int QuestProgress;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int MaxQuestProgress;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FName QuestObjID;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSoftObjectPtr<UTexture2D> QuestObjIcon;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FName QuestRewardID;
+	TArray<FName> QuestRewardID;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int QuestRewardAmount;
+	TArray<int32> QuestRewardAmount;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSoftObjectPtr<UTexture2D> QuestIcon;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSoftObjectPtr<UTexture2D> QuestRewardIcon;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

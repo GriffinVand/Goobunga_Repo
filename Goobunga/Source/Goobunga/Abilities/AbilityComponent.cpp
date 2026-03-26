@@ -160,7 +160,7 @@ bool UAbilityComponent::CanUseAbility(EAbilityType Slot)
 	
 	if (!Ability->IsReady()) return false;
 	if (Ability->GetIsActive() && Ability->GetIsToggle()) return true;
-	if (ActiveAbility && !Ability->GetIsPassive() || Ability->GetRequiresActiveStart()) return false;
+	if (ActiveAbility && (!Ability->GetIsPassive() || Ability->GetRequiresActiveStart())) return false;
 	UE_LOG(LogTemp, Error, TEXT("Can actually perform small ability"));
 	return true;
 	

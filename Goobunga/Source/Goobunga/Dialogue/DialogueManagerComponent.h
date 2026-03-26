@@ -16,27 +16,22 @@ class GOOBUNGA_API UDialogueManagerComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this component's properties
 	UDialogueManagerComponent();
 
 protected:
-	// Called when the game starts
 	virtual void BeginPlay() override;
 
 public:
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
-	                           FActorComponentTickFunction* ThisTickFunction) override;
-
-	//Data table of dialogue
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UDataTable* DialogueData;
-
-	//Data table of replies
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UDataTable* ReplyData;
-
-	//The widget we want to display this in
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	AActor* CurrDialogueActor = nullptr;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<UDialogueWidget> DialogueWidgetClass;
 
@@ -47,23 +42,24 @@ public:
 	TArray<FDialogueReply> CurrentDialogueReplies;
 	TArray<bool> CurrentDialogueRepliesAvailable;
 	
-	TMap<FName, FName> CharacterCurrentDialogues;
-	
 	UFUNCTION(BlueprintCallable)
-	void StartDialogue(FName Character);
-	UFUNCTION(BlueprintCallable)
-	void AddCharacterDialogue(FName Character, FName DialogueID);
+	void StartDialogue(AActor* DialogueActor);
 	UFUNCTION(BlueprintCallable)
 	void OnReplySelected(int ReplyIndex);
-	void SetCharacterDialogue(FName Character, FName DialogueID);
 
 private:
 	void UpdateDialogue(FName DialogueID);
 	FDialogueLine LoadDialogue(FName DialogueID);
-	void CreateDialogueWidget();
 	void DisplayDialogue();
+	
+	UFUNCTION()
+	void ContinueDialogue();
+	void ProcessActions();
 	FDialogueReply LoadDialogueReply(FName ReplyID);
 	void DisplayDialogueReply(const TArray<FText>& ReplyTexts);
 	void EndDialogue();
-	void HandleReplyActions(const TArray<FString>& Actions);
+	bool HandleReplyAction(const FDialogueActionStruct& Action);
+	
+	TArray<FDialogueActionStruct> ReplyActions;
+	FName ReplyNextID;
 };

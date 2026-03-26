@@ -30,6 +30,7 @@ public:
 	void InitializeMasterWidget();
 	void InitializePlayerHUD();
 	void CreateWeaponUI(AWeapon* Weapon);
+	
 	virtual void BeginPlay() override;
 	virtual void OnPossess(APawn* Pawn) override;
 	

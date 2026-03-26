@@ -33,7 +33,8 @@ enum class ECombatAction : uint8
 	HealAbility UMETA(DisplayName = "HealAbility"),
 	Sprint UMETA(DisplayName = "Sprint"),
 	Reload UMETA(DisplayName = "Reload"),
-	Swap UMETA(DisplayName = "Swap")
+	Swap UMETA(DisplayName = "Swap"),
+	Interact UMETA(DisplayName = "Interact"),
 };
 
 UCLASS()
@@ -175,6 +176,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FRotator CurrentWeaponKickRot;
 	
+	
 	void UpdateFPAlign();
 	
 	
@@ -187,6 +189,8 @@ protected:
 	UInputAction* MoveAction;
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* LookAction;
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* InteractAction;
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* JumpAction;
 	UPROPERTY(EditAnywhere, Category = "Input")
@@ -216,6 +220,13 @@ protected:
 	void Look(const FInputActionValue& Value);
 	void EndLook(const FInputActionValue& Value);
 	
+	void InteractInputStarted(const FInputActionValue& Value) { TryStartAction(ECombatAction::Interact); }
+	void InteractInputEnded(const FInputActionValue& Value) { InteractEnded(false); }
+	void InteractStarted();
+	void InteractEnded(bool Cancelled);
+	bool CanInteract();
+	bool bInteracting = false;
+	
 	void ReloadInputStarted() { TryStartAction(ECombatAction::Reload); }
 	void StartReload();
 	virtual void EndReload(bool Success) override;
@@ -227,7 +238,7 @@ protected:
 	
 	void AltFireStarted();
 	void AltFireEnded(bool Cancelled);
-	void AltFireInputStarted() { TryStartAction(ECombatAction::SecFire); }
+	void AltFireInputStarted();
 	void AltFireInputEnded() { AltFireEnded(false);}
 	
 	void SprintStarted();

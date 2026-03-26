@@ -15,18 +15,17 @@ void UDialogueWidget::NativeConstruct()
 	ReplyWidgets.Add(ReplyWidget2);
 	ReplyWidgets.Add(ReplyWidget3);
 	ReplyWidgets.Add(ReplyWidget4);
-	if (DialogueManager)
-	{
-		BindReplyWidgets();
-	}
 }
 
 void UDialogueWidget::BindReplyWidgets()
 {
+	if (!DialogueManager) { return; }
 	UE_LOG(LogTemp, Display, TEXT("Binding Reply Widgets"));
 	for (int i = 0; i < ReplyWidgets.Num(); i++)
 	{
 		UE_LOG(LogTemp, Display, TEXT("Bound widget"));
+		ReplyWidgets[i]->ReplyIndex = i;
+		ReplyWidgets[i]->OnReplySelected.AddDynamic(DialogueManager, &UDialogueManagerComponent::OnReplySelected);
 	}
 }
 

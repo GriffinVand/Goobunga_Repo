@@ -37,6 +37,8 @@ protected:
 	int32 OtherBodyIndex,
 	bool bFromSweep,
 	const FHitResult& SweepResult);
+	bool DoesHaveTeam(AActor* OtherActor, EAllegiance& OutTeam);
+	void DealDamageAndNotify(int32 Damage, EDamageType Type, AActor* OtherActor);
 
 public:
 	virtual void Tick(float DeltaTime) override;

@@ -3,8 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CommonActivatableWidget.h"
 #include "DialogueReplyWidget.h"
-#include "Blueprint/UserWidget.h"
 #include "DialogueWidget.generated.h"
 
 class UCommonButtonStyle;
@@ -14,7 +14,7 @@ class UCommonButtonStyle;
 class UTextBlock;
 class UDialogueManagerComponent;
 UCLASS()
-class GOOBUNGA_API UDialogueWidget : public UUserWidget
+class GOOBUNGA_API UDialogueWidget : public UCommonActivatableWidget
 {
 	GENERATED_BODY()
 public:

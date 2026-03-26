@@ -15,15 +15,10 @@ class GOOBUNGA_API UQuestManagerComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:
-	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnEnemyKilled, FName, EnemyType);
-	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnItemCollected, FName, ItemType);
-	DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnLevelCompleted, FName, LevelType, float, CompletionTime);
 	
-	// Sets default values for this component's properties
 	UQuestManagerComponent();
 
 protected:
-	// Called when the game starts
 	virtual void BeginPlay() override;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -41,16 +36,18 @@ protected:
 	UDataTable* QuestTable;
 	
 public:
-	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
 	                           FActorComponentTickFunction* ThisTickFunction) override;
 
 	bool IsQuestComplete(FName QuestID);
 	
+	void AddQuestToQuestList(FName QuestID);
 	void RemoveQuest(FName QuestID);
 	void CompleteQuest(FName QuestID);
+	
 	void CreateQuestIndicatorWidget();
 	void CreateQuestListWidget();
-	void AddQuestToQuestList(FName QuestID);
-	void UpdateQuestProgress(FName QuestObjID, int ProgressIncrement);
+	
+	UFUNCTION()
+	void UpdateQuestProgress(FGameplayTagContainer QuestObjTags, int ProgressIncrement);
 };

@@ -103,11 +103,32 @@
     <ClCompile Include="..\..\Source\Goobunga\Abilities\AbilityBase.h">
       <Filter>Source\Goobunga\Abilities</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Abilities\AbilityChannel.cpp">
+      <Filter>Source\Goobunga\Abilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Abilities\AbilityChannel.h">
+      <Filter>Source\Goobunga\Abilities</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Abilities\AbilityComponent.cpp">
       <Filter>Source\Goobunga\Abilities</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Abilities\AbilityComponent.h">
       <Filter>Source\Goobunga\Abilities</Filter>
+    </ClCompile>
+    <Filter Include="Source\Goobunga\Abilities\Instants">
+      <UniqueIdentifier>{32D72552-D181-391C-AF1A-F2C7A175CB49}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\Abilities\Instants\AbilityFireball.cpp">
+      <Filter>Source\Goobunga\Abilities\Instants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Abilities\Instants\AbilityFireball.h">
+      <Filter>Source\Goobunga\Abilities\Instants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Abilities\Instants\AbilityInstant.cpp">
+      <Filter>Source\Goobunga\Abilities\Instants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Abilities\Instants\AbilityInstant.h">
+      <Filter>Source\Goobunga\Abilities\Instants</Filter>
     </ClCompile>
     <Filter Include="Source\Goobunga\Animation">
       <UniqueIdentifier>{3995ED89-1789-349A-911B-67115CC0616D}</UniqueIdentifier>
@@ -220,6 +241,12 @@
     <ClCompile Include="..\..\Source\Goobunga\Enemies\EnemyStates.h">
       <Filter>Source\Goobunga\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\GavinEnemy.cpp">
+      <Filter>Source\Goobunga\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\GavinEnemy.h">
+      <Filter>Source\Goobunga\Enemies</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Enemies\JoshEnemy.cpp">
       <Filter>Source\Goobunga\Enemies</Filter>
     </ClCompile>
@@ -250,6 +277,18 @@
     <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTD\BTD_CanLaunch.h">
       <Filter>Source\Goobunga\Enemies\AI\BTD</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTD\BTD_CanPrimAttack.cpp">
+      <Filter>Source\Goobunga\Enemies\AI\BTD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTD\BTD_CanPrimAttack.h">
+      <Filter>Source\Goobunga\Enemies\AI\BTD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTD\BTD_CanSecAttack.cpp">
+      <Filter>Source\Goobunga\Enemies\AI\BTD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTD\BTD_CanSecAttack.h">
+      <Filter>Source\Goobunga\Enemies\AI\BTD</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTD\BTD_RandomChance.cpp">
       <Filter>Source\Goobunga\Enemies\AI\BTD</Filter>
     </ClCompile>
@@ -271,12 +310,6 @@
     <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTS\BTS_UpdateDistanceToTarget.h">
       <Filter>Source\Goobunga\Enemies\AI\BTS</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTS\BTS_UpdateEnemyCooldowns.cpp">
-      <Filter>Source\Goobunga\Enemies\AI\BTS</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTS\BTS_UpdateEnemyCooldowns.h">
-      <Filter>Source\Goobunga\Enemies\AI\BTS</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTS\BTS_UpdateEnemyState.cpp">
       <Filter>Source\Goobunga\Enemies\AI\BTS</Filter>
     </ClCompile>
@@ -286,10 +319,16 @@
     <Filter Include="Source\Goobunga\Enemies\AI\BTT">
       <UniqueIdentifier>{610C72FC-43D8-35C1-8577-FE19466DC09F}</UniqueIdentifier>
     </Filter>
-    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTT\BTTask_AttackGeneric.cpp">
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTT\BTTask_AttackPrim.cpp">
       <Filter>Source\Goobunga\Enemies\AI\BTT</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTT\BTTask_AttackGeneric.h">
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTT\BTTask_AttackPrim.h">
+      <Filter>Source\Goobunga\Enemies\AI\BTT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTT\BTTask_AttackSec.cpp">
+      <Filter>Source\Goobunga\Enemies\AI\BTT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTT\BTTask_AttackSec.h">
       <Filter>Source\Goobunga\Enemies\AI\BTT</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTT\BTTask_LaunchInDirection.cpp">

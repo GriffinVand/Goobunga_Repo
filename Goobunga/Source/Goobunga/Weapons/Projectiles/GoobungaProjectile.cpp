@@ -26,23 +26,40 @@ void AGoobungaProjectile::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
+bool AGoobungaProjectile::DoesHaveTeam(AActor* OtherActor, EAllegiance& OutAllegiance)
+{	
+	if (ITeamInterface* TI = Cast<ITeamInterface>(OtherActor))
+	{
+		OutAllegiance = TI->GetAllegiance();
+		return true;
+	}
+	return false;
+}
+
+void AGoobungaProjectile::DealDamageAndNotify(int32 Damage, EDamageType Type, AActor* OtherActor)
+{
+	ICombatCallables* CC = Cast<ICombatCallables>(OtherActor);
+	if (!CC) return;
+	
+	const EDamageResult Result = CC->CombatDamage(GetInstigator(), DefaultDamage, Type, InstigatorAllegiance);
+	if (GetInstigator())
+	{
+		if (ICombatCallables* OwnerCC = Cast<ICombatCallables>(GetInstigator())) { OwnerCC->OnDealtDamage(Result); }
+	}
+}
+
 void AGoobungaProjectile::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	ITeamInterface* OtherTI = Cast<ITeamInterface>(OtherActor);
-	ICombatCallables* CC = Cast<ICombatCallables>(OtherActor);
-	if (OtherTI && CC)
+	EAllegiance OtherAllegiance;
+	if (DoesHaveTeam(OtherActor, OtherAllegiance))
 	{
-		if (InstigatorAllegiance != OtherTI->GetAllegiance())
+		if (InstigatorAllegiance != OtherAllegiance)
 		{
 			UE_LOG(LogTemp, Error, TEXT("Overlapped %s"), *OtherActor->GetName());
-			const EDamageResult Result = CC->CombatDamage(GetInstigator(), DefaultDamage, DamageType, InstigatorAllegiance);
-			if (GetInstigator())
-			{
-				if (ICombatCallables* OwnerCC = Cast<ICombatCallables>(GetInstigator())) { OwnerCC->OnDealtDamage(Result); }
-			}
+			DealDamageAndNotify(DefaultDamage, DamageType, OtherActor);
 			Destroy();
+			return;
 		}
 	}
-	
 }
 

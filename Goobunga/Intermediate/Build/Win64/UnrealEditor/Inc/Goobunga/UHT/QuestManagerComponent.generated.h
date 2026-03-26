@@ -9,24 +9,17 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+struct FGameplayTagContainer;
 #ifdef GOOBUNGA_QuestManagerComponent_generated_h
 #error "QuestManagerComponent.generated.h already included, missing '#pragma once' in QuestManagerComponent.h"
 #endif
 #define GOOBUNGA_QuestManagerComponent_generated_h
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestManagerComponent_h_18_DELEGATE \
-static void FOnEnemyKilled_DelegateWrapper(const FMulticastScriptDelegate& OnEnemyKilled, FName EnemyType);
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestManagerComponent_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execUpdateQuestProgress);
 
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestManagerComponent_h_19_DELEGATE \
-static void FOnItemCollected_DelegateWrapper(const FMulticastScriptDelegate& OnItemCollected, FName ItemType);
-
-
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestManagerComponent_h_20_DELEGATE \
-static void FOnLevelCompleted_DelegateWrapper(const FMulticastScriptDelegate& OnLevelCompleted, FName LevelType, float CompletionTime);
-
-
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestManagerComponent_h_15_INCLASS_NO_PURE_DECLS \
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestManagerComponent_h_15_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUQuestManagerComponent(); \
 	friend struct Z_Construct_UClass_UQuestManagerComponent_Statics; \
@@ -35,7 +28,7 @@ public: \
 	DECLARE_SERIALIZER(UQuestManagerComponent)
 
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestManagerComponent_h_15_ENHANCED_CONSTRUCTORS \
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestManagerComponent_h_15_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	UQuestManagerComponent(UQuestManagerComponent&&); \
@@ -47,12 +40,13 @@ public: \
 	NO_API virtual ~UQuestManagerComponent();
 
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestManagerComponent_h_12_PROLOG
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestManagerComponent_h_15_GENERATED_BODY \
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestManagerComponent_h_12_PROLOG
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestManagerComponent_h_15_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestManagerComponent_h_15_INCLASS_NO_PURE_DECLS \
-	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestManagerComponent_h_15_ENHANCED_CONSTRUCTORS \
+	FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestManagerComponent_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestManagerComponent_h_15_INCLASS_NO_PURE_DECLS \
+	FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestManagerComponent_h_15_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -60,7 +54,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> GOOBUNGA_API UClass* StaticClass<class UQuestManagerComponent>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestManagerComponent_h
+#define CURRENT_FILE_ID FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Quests_QuestManagerComponent_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

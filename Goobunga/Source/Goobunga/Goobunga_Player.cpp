@@ -15,6 +15,7 @@
 #include "Quests/QuestManagerComponent.h"
 #include "Weapons/Weapon.h"
 #include "Abilities/AbilityComponent.h"
+#include "Interaction/InteractInterface.h"
 #include "Kismet/GameplayStatics.h"
 
 AGoobunga_Player::AGoobunga_Player()
@@ -107,6 +108,8 @@ void AGoobunga_Player::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		EnhancedInputComponent->BindAction(SmallAbilityAction, ETriggerEvent::Completed, this, &AGoobunga_Player::SmallAbilityInputEnded);
 		EnhancedInputComponent->BindAction(LargeAbilityAction, ETriggerEvent::Started, this, &AGoobunga_Player::LargeAbilityInputStarted);
 		EnhancedInputComponent->BindAction(LargeAbilityAction, ETriggerEvent::Completed, this, &AGoobunga_Player::LargeAbilityInputEnded);
+		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Started, this, &AGoobunga_Player::InteractInputStarted);
+		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Completed, this, &AGoobunga_Player::InteractInputEnded);
 	}
 }
 void AGoobunga_Player::Move(const FInputActionValue& Value)
@@ -119,6 +122,32 @@ void AGoobunga_Player::Move(const FInputActionValue& Value)
 void AGoobunga_Player::EndMove(const FInputActionValue& Value)
 {
 	TargetWeaponSwayData.Movement = FVector2D::ZeroVector;
+}
+
+bool AGoobunga_Player::CanInteract()
+{
+	return true;
+}
+
+void AGoobunga_Player::InteractStarted()
+{
+	FHitResult Hit;
+	FCollisionQueryParams CollisionParams;
+	CollisionParams.AddIgnoredActor(this);
+	FVector Start = FPCamera->GetComponentLocation();
+	FVector End = Start + (FPCamera->GetForwardVector() * 300);
+	if (GetWorld()->LineTraceSingleByChannel(Hit, Start, End, ECollisionChannel::ECC_Visibility, CollisionParams))
+	{
+		if (IInteractInterface* II = Cast<IInteractInterface>(Hit.GetActor()))
+		{
+			II->Interact(this);
+		}
+	}
+}
+
+void AGoobunga_Player::InteractEnded(bool Cancelled)
+{
+	
 }
 
 void AGoobunga_Player::StartReload()
@@ -180,6 +209,13 @@ void AGoobunga_Player::FireEnded(bool Cancelled)
 	
 	WeaponComponent->PrimFireStop(Cancelled);
 }
+
+void AGoobunga_Player::AltFireInputStarted()
+{
+	if (!WeaponComponent) { return; }
+	WeaponComponent->GetEquippedWeapon()->ADS ? TryStartAction(ECombatAction::Aim) : TryStartAction(ECombatAction::SecFire);
+}
+
 void AGoobunga_Player::AltFireStarted()
 {
 	if (!WeaponComponent) return;
@@ -238,7 +274,7 @@ void AGoobunga_Player::UpdateWeaponKick()
 void AGoobunga_Player::UpdateFPAlign()
 {
 	FTransform NewTransform;
-	NewTransform.SetLocation(CurrentWeaponKickDir + CurrentAdsLoc);
+	NewTransform.SetLocation(CurrentAdsLoc);
 	NewTransform.SetRotation(CurrentAdsRot);
 	FPMesh_Align->SetRelativeTransform(NewTransform);
 }
@@ -321,37 +357,7 @@ void AGoobunga_Player::SaveGameToFile(UGoobungaSaveFile& SaveGame)
 
 void AGoobunga_Player::PerformAction(const FString& Action)
 {
-	TArray<FString> ActionArguments = UKismetStringLibrary::ParseIntoArray(Action, "x", true);
-	for (auto string : ActionArguments)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Action: %s"), *string);
-	}
-	if (ActionArguments.Num() == 2)
-	{
-		if (ActionArguments[0] == "ADD_QUEST")
-		{
-			UE_LOG(LogTemp, Display, TEXT("Recieved add quest command"));
-			FName QuestID = FName(ActionArguments[1]);
-			QuestManagerComponent->AddQuestToQuestList(QuestID);
-		}
-		else if (ActionArguments[0] == "SET_DIALOGUE")
-		{
-			UE_LOG(LogTemp, Display, TEXT("Set current dialogue command"));
-			TArray<FString> Arguments = UKismetStringLibrary::ParseIntoArray(ActionArguments[1], "-", true);
-			for (auto string : Arguments)
-			{
-				UE_LOG(LogTemp, Warning, TEXT("Action: %s"), *string);
-			}
-			if (Arguments.Num() == 2)
-			{
-				FName CharacterName = FName(ActionArguments[0]);
-				FName DialogueID = FName(ActionArguments[1]);
-				UE_LOG(LogTemp, Display, TEXT("Tell dialogue manager set character dialogue"));
-				DialogueManagerComponent->SetCharacterDialogue(CharacterName, DialogueID);
-			}
-		}
-	}
-	UE_LOG(LogTemp, Warning, TEXT("Performing Action: %s"), *Action);
+	
 }
 void AGoobunga_Player::UpdateAds(float Alpha)
 {
@@ -466,6 +472,8 @@ bool AGoobunga_Player::CanPerformAction(ECombatAction Action)
 		return (!AbilityComponent->IsFlagBlocked(EAbilityBlockFlag::Swap));
 	case ECombatAction::Sprint:
 		return (!AbilityComponent->IsFlagBlocked(EAbilityBlockFlag::Sprint) && !Sprinting && WeaponDrawn);
+	case ECombatAction::Interact:
+		return CanInteract();
 	default:
 		return false;
 	}
@@ -536,6 +544,10 @@ void AGoobunga_Player::ResolveActionConflicts(ECombatAction Action)
 			if (Sprinting) { SprintEnded(); }
 		}
 		break;
+	case ECombatAction::Interact:
+		break;
+	default:
+		break;
 	}
 }
 
@@ -550,6 +562,7 @@ void AGoobunga_Player::StartAction(ECombatAction Action)
 		AltFireStarted();
 		break;
 	case ECombatAction::Aim:
+		AltFireStarted();
 		break;
 	case ECombatAction::Swap:
 		SwapStarted();
@@ -569,6 +582,11 @@ void AGoobunga_Player::StartAction(ECombatAction Action)
 		break;
 	case ECombatAction::HealAbility:
 		AbilityComponent->AbilityStart(EAbilityType::Heal);
+		break;
+	case ECombatAction::Interact:
+		InteractStarted();
+		break;
+	default:
 		break;
 	}
 }

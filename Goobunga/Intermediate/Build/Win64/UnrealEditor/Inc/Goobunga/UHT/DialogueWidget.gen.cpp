@@ -10,6 +10,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeDialogueWidget() {}
 
 // Begin Cross Module References
+COMMONUI_API UClass* Z_Construct_UClass_UCommonActivatableWidget();
 COMMONUI_API UClass* Z_Construct_UClass_UCommonButtonStyle_NoRegister();
 COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 GOOBUNGA_API UClass* Z_Construct_UClass_UDialogueManagerComponent_NoRegister();
@@ -17,7 +18,6 @@ GOOBUNGA_API UClass* Z_Construct_UClass_UDialogueReplyWidget_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_UDialogueWidget();
 GOOBUNGA_API UClass* Z_Construct_UClass_UDialogueWidget_NoRegister();
 UMG_API UClass* Z_Construct_UClass_UTextBlock_NoRegister();
-UMG_API UClass* Z_Construct_UClass_UUserWidget();
 UPackage* Z_Construct_UPackage__Script_Goobunga();
 // End Cross Module References
 
@@ -128,7 +128,7 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UDialogue
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UDialogueWidget_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_UDialogueWidget_Statics::DependentSingletons[])() = {
-	(UObject* (*)())Z_Construct_UClass_UUserWidget,
+	(UObject* (*)())Z_Construct_UClass_UCommonActivatableWidget,
 	(UObject* (*)())Z_Construct_UPackage__Script_Goobunga,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UDialogueWidget_Statics::DependentSingletons) < 16);
@@ -165,14 +165,14 @@ UDialogueWidget::~UDialogueWidget() {}
 // End Class UDialogueWidget
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueWidget_h_Statics
+struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueWidget_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UDialogueWidget, UDialogueWidget::StaticClass, TEXT("UDialogueWidget"), &Z_Registration_Info_UClass_UDialogueWidget, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UDialogueWidget), 3118177108U) },
+		{ Z_Construct_UClass_UDialogueWidget, UDialogueWidget::StaticClass, TEXT("UDialogueWidget"), &Z_Registration_Info_UClass_UDialogueWidget, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UDialogueWidget), 1661867833U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueWidget_h_435708309(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueWidget_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueWidget_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueWidget_h_3803812816(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueWidget_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueWidget_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

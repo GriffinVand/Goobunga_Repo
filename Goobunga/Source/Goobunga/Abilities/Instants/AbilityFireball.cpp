@@ -9,11 +9,20 @@ void UAbilityFireball::PerformSpell()
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 	SpawnParams.Instigator = Player;
-	FVector Dir = Player->GetAimDirection()[1];
-	FVector Loc = Player->FPMesh->GetSocketLocation(FireballSocket);
+	FHitResult Result;
+	FVector CamLoc = Player->FPCamera->GetComponentLocation();
+	FVector CamDir = Player->FPCamera->GetForwardVector();
+	FVector Final = CamLoc + (CamDir * 5000);
+	FCollisionQueryParams QueryParams;
+	QueryParams.AddIgnoredActor(Player);
+	FVector SpawnLoc = Player->FPMesh->GetSocketLocation(FireballSocket);
+	FVector SpawnDir;
+	bool bHit = GetWorld()->LineTraceSingleByChannel(Result, CamLoc, Final, ECollisionChannel::ECC_Visibility, QueryParams);
+	SpawnDir = bHit ? (Result.ImpactPoint - SpawnLoc) : (Final - SpawnLoc);
+	SpawnDir.Normalize();
 	FTransform SpawnTransform = FTransform();
-	SpawnTransform.SetRotation(Dir.ToOrientationQuat());
-	SpawnTransform.SetLocation(Loc);
+	SpawnTransform.SetRotation(SpawnDir.ToOrientationQuat());
+	SpawnTransform.SetLocation(SpawnLoc);
 	GetWorld()->SpawnActor<AActor>(FireballClass, SpawnTransform, SpawnParams);
 }
 

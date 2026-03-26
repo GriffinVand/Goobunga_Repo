@@ -11,6 +11,7 @@ void EmptyLinkFunctionForGeneratedCodeDialogueManagerComponent() {}
 
 // Begin Cross Module References
 COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
+ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_UActorComponent();
 ENGINE_API UClass* Z_Construct_UClass_UDataTable_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_UDialogueManagerComponent();
@@ -19,52 +20,34 @@ GOOBUNGA_API UClass* Z_Construct_UClass_UDialogueWidget_NoRegister();
 UPackage* Z_Construct_UPackage__Script_Goobunga();
 // End Cross Module References
 
-// Begin Class UDialogueManagerComponent Function AddCharacterDialogue
-struct Z_Construct_UFunction_UDialogueManagerComponent_AddCharacterDialogue_Statics
+// Begin Class UDialogueManagerComponent Function ContinueDialogue
+struct Z_Construct_UFunction_UDialogueManagerComponent_ContinueDialogue_Statics
 {
-	struct DialogueManagerComponent_eventAddCharacterDialogue_Parms
-	{
-		FName Character;
-		FName DialogueID;
-	};
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
 		{ "ModuleRelativePath", "Dialogue/DialogueManagerComponent.h" },
 	};
 #endif // WITH_METADATA
-	static const UECodeGen_Private::FNamePropertyParams NewProp_Character;
-	static const UECodeGen_Private::FNamePropertyParams NewProp_DialogueID;
-	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_UDialogueManagerComponent_AddCharacterDialogue_Statics::NewProp_Character = { "Character", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(DialogueManagerComponent_eventAddCharacterDialogue_Parms, Character), METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_UDialogueManagerComponent_AddCharacterDialogue_Statics::NewProp_DialogueID = { "DialogueID", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(DialogueManagerComponent_eventAddCharacterDialogue_Parms, DialogueID), METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UDialogueManagerComponent_AddCharacterDialogue_Statics::PropPointers[] = {
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UDialogueManagerComponent_AddCharacterDialogue_Statics::NewProp_Character,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UDialogueManagerComponent_AddCharacterDialogue_Statics::NewProp_DialogueID,
-};
-static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UDialogueManagerComponent_AddCharacterDialogue_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UDialogueManagerComponent_AddCharacterDialogue_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UDialogueManagerComponent, nullptr, "AddCharacterDialogue", nullptr, nullptr, Z_Construct_UFunction_UDialogueManagerComponent_AddCharacterDialogue_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UDialogueManagerComponent_AddCharacterDialogue_Statics::PropPointers), sizeof(Z_Construct_UFunction_UDialogueManagerComponent_AddCharacterDialogue_Statics::DialogueManagerComponent_eventAddCharacterDialogue_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UDialogueManagerComponent_AddCharacterDialogue_Statics::Function_MetaDataParams), Z_Construct_UFunction_UDialogueManagerComponent_AddCharacterDialogue_Statics::Function_MetaDataParams) };
-static_assert(sizeof(Z_Construct_UFunction_UDialogueManagerComponent_AddCharacterDialogue_Statics::DialogueManagerComponent_eventAddCharacterDialogue_Parms) < MAX_uint16);
-UFunction* Z_Construct_UFunction_UDialogueManagerComponent_AddCharacterDialogue()
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UDialogueManagerComponent_ContinueDialogue_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UDialogueManagerComponent, nullptr, "ContinueDialogue", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00040401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UDialogueManagerComponent_ContinueDialogue_Statics::Function_MetaDataParams), Z_Construct_UFunction_UDialogueManagerComponent_ContinueDialogue_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_UDialogueManagerComponent_ContinueDialogue()
 {
 	static UFunction* ReturnFunction = nullptr;
 	if (!ReturnFunction)
 	{
-		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UDialogueManagerComponent_AddCharacterDialogue_Statics::FuncParams);
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UDialogueManagerComponent_ContinueDialogue_Statics::FuncParams);
 	}
 	return ReturnFunction;
 }
-DEFINE_FUNCTION(UDialogueManagerComponent::execAddCharacterDialogue)
+DEFINE_FUNCTION(UDialogueManagerComponent::execContinueDialogue)
 {
-	P_GET_PROPERTY(FNameProperty,Z_Param_Character);
-	P_GET_PROPERTY(FNameProperty,Z_Param_DialogueID);
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->AddCharacterDialogue(Z_Param_Character,Z_Param_DialogueID);
+	P_THIS->ContinueDialogue();
 	P_NATIVE_END;
 }
-// End Class UDialogueManagerComponent Function AddCharacterDialogue
+// End Class UDialogueManagerComponent Function ContinueDialogue
 
 // Begin Class UDialogueManagerComponent Function OnReplySelected
 struct Z_Construct_UFunction_UDialogueManagerComponent_OnReplySelected_Statics
@@ -113,20 +96,20 @@ struct Z_Construct_UFunction_UDialogueManagerComponent_StartDialogue_Statics
 {
 	struct DialogueManagerComponent_eventStartDialogue_Parms
 	{
-		FName Character;
+		AActor* DialogueActor;
 	};
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
 		{ "ModuleRelativePath", "Dialogue/DialogueManagerComponent.h" },
 	};
 #endif // WITH_METADATA
-	static const UECodeGen_Private::FNamePropertyParams NewProp_Character;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_DialogueActor;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_UDialogueManagerComponent_StartDialogue_Statics::NewProp_Character = { "Character", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(DialogueManagerComponent_eventStartDialogue_Parms, Character), METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UDialogueManagerComponent_StartDialogue_Statics::NewProp_DialogueActor = { "DialogueActor", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(DialogueManagerComponent_eventStartDialogue_Parms, DialogueActor), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UDialogueManagerComponent_StartDialogue_Statics::PropPointers[] = {
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UDialogueManagerComponent_StartDialogue_Statics::NewProp_Character,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UDialogueManagerComponent_StartDialogue_Statics::NewProp_DialogueActor,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UDialogueManagerComponent_StartDialogue_Statics::PropPointers) < 2048);
 const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UDialogueManagerComponent_StartDialogue_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UDialogueManagerComponent, nullptr, "StartDialogue", nullptr, nullptr, Z_Construct_UFunction_UDialogueManagerComponent_StartDialogue_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UDialogueManagerComponent_StartDialogue_Statics::PropPointers), sizeof(Z_Construct_UFunction_UDialogueManagerComponent_StartDialogue_Statics::DialogueManagerComponent_eventStartDialogue_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UDialogueManagerComponent_StartDialogue_Statics::Function_MetaDataParams), Z_Construct_UFunction_UDialogueManagerComponent_StartDialogue_Statics::Function_MetaDataParams) };
@@ -142,10 +125,10 @@ UFunction* Z_Construct_UFunction_UDialogueManagerComponent_StartDialogue()
 }
 DEFINE_FUNCTION(UDialogueManagerComponent::execStartDialogue)
 {
-	P_GET_PROPERTY(FNameProperty,Z_Param_Character);
+	P_GET_OBJECT(AActor,Z_Param_DialogueActor);
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->StartDialogue(Z_Param_Character);
+	P_THIS->StartDialogue(Z_Param_DialogueActor);
 	P_NATIVE_END;
 }
 // End Class UDialogueManagerComponent Function StartDialogue
@@ -155,7 +138,7 @@ void UDialogueManagerComponent::StaticRegisterNativesUDialogueManagerComponent()
 {
 	UClass* Class = UDialogueManagerComponent::StaticClass();
 	static const FNameNativePtrPair Funcs[] = {
-		{ "AddCharacterDialogue", &UDialogueManagerComponent::execAddCharacterDialogue },
+		{ "ContinueDialogue", &UDialogueManagerComponent::execContinueDialogue },
 		{ "OnReplySelected", &UDialogueManagerComponent::execOnReplySelected },
 		{ "StartDialogue", &UDialogueManagerComponent::execStartDialogue },
 	};
@@ -177,33 +160,19 @@ struct Z_Construct_UClass_UDialogueManagerComponent_Statics
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DialogueData_MetaData[] = {
 		{ "Category", "DialogueManagerComponent" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "//Data table of dialogue\n" },
-#endif
 		{ "ModuleRelativePath", "Dialogue/DialogueManagerComponent.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "Data table of dialogue" },
-#endif
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ReplyData_MetaData[] = {
 		{ "Category", "DialogueManagerComponent" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "//Data table of replies\n" },
-#endif
 		{ "ModuleRelativePath", "Dialogue/DialogueManagerComponent.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "Data table of replies" },
-#endif
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CurrDialogueActor_MetaData[] = {
+		{ "Category", "DialogueManagerComponent" },
+		{ "ModuleRelativePath", "Dialogue/DialogueManagerComponent.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DialogueWidgetClass_MetaData[] = {
 		{ "Category", "DialogueManagerComponent" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "//The widget we want to display this in\n" },
-#endif
 		{ "ModuleRelativePath", "Dialogue/DialogueManagerComponent.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "The widget we want to display this in" },
-#endif
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DialogueWidget_MetaData[] = {
 		{ "Category", "DialogueManagerComponent" },
@@ -213,14 +182,15 @@ struct Z_Construct_UClass_UDialogueManagerComponent_Statics
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_DialogueData;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_ReplyData;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_CurrDialogueActor;
 	static const UECodeGen_Private::FClassPropertyParams NewProp_DialogueWidgetClass;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_DialogueWidget;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_UDialogueManagerComponent_AddCharacterDialogue, "AddCharacterDialogue" }, // 2214392480
+		{ &Z_Construct_UFunction_UDialogueManagerComponent_ContinueDialogue, "ContinueDialogue" }, // 848372264
 		{ &Z_Construct_UFunction_UDialogueManagerComponent_OnReplySelected, "OnReplySelected" }, // 2559691754
-		{ &Z_Construct_UFunction_UDialogueManagerComponent_StartDialogue, "StartDialogue" }, // 226815915
+		{ &Z_Construct_UFunction_UDialogueManagerComponent_StartDialogue, "StartDialogue" }, // 3379748106
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -230,11 +200,13 @@ struct Z_Construct_UClass_UDialogueManagerComponent_Statics
 };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UDialogueManagerComponent_Statics::NewProp_DialogueData = { "DialogueData", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UDialogueManagerComponent, DialogueData), Z_Construct_UClass_UDataTable_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DialogueData_MetaData), NewProp_DialogueData_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UDialogueManagerComponent_Statics::NewProp_ReplyData = { "ReplyData", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UDialogueManagerComponent, ReplyData), Z_Construct_UClass_UDataTable_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ReplyData_MetaData), NewProp_ReplyData_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UDialogueManagerComponent_Statics::NewProp_CurrDialogueActor = { "CurrDialogueActor", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UDialogueManagerComponent, CurrDialogueActor), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CurrDialogueActor_MetaData), NewProp_CurrDialogueActor_MetaData) };
 const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_UDialogueManagerComponent_Statics::NewProp_DialogueWidgetClass = { "DialogueWidgetClass", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UDialogueManagerComponent, DialogueWidgetClass), Z_Construct_UClass_UClass, Z_Construct_UClass_UDialogueWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DialogueWidgetClass_MetaData), NewProp_DialogueWidgetClass_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UDialogueManagerComponent_Statics::NewProp_DialogueWidget = { "DialogueWidget", nullptr, (EPropertyFlags)0x001000000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UDialogueManagerComponent, DialogueWidget), Z_Construct_UClass_UDialogueWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DialogueWidget_MetaData), NewProp_DialogueWidget_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UDialogueManagerComponent_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDialogueManagerComponent_Statics::NewProp_DialogueData,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDialogueManagerComponent_Statics::NewProp_ReplyData,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDialogueManagerComponent_Statics::NewProp_CurrDialogueActor,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDialogueManagerComponent_Statics::NewProp_DialogueWidgetClass,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDialogueManagerComponent_Statics::NewProp_DialogueWidget,
 };
@@ -276,14 +248,14 @@ UDialogueManagerComponent::~UDialogueManagerComponent() {}
 // End Class UDialogueManagerComponent
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueManagerComponent_h_Statics
+struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueManagerComponent_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UDialogueManagerComponent, UDialogueManagerComponent::StaticClass, TEXT("UDialogueManagerComponent"), &Z_Registration_Info_UClass_UDialogueManagerComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UDialogueManagerComponent), 3456968514U) },
+		{ Z_Construct_UClass_UDialogueManagerComponent, UDialogueManagerComponent::StaticClass, TEXT("UDialogueManagerComponent"), &Z_Registration_Info_UClass_UDialogueManagerComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UDialogueManagerComponent), 2178193663U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueManagerComponent_h_2620195014(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueManagerComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueManagerComponent_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueManagerComponent_h_4146377778(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueManagerComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueManagerComponent_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration
