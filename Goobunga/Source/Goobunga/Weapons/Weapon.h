@@ -46,7 +46,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Context, meta = (AllowPrivateAccess = "true"))
 	AActor* WeaponOwner;
 
-	//Pose to use for ADS
+	//Pose to use for bADS
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UAnimationAsset* PoseAnim;
 	
@@ -56,9 +56,11 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = UserInterface, meta = (AllowPrivateAccess = "true"))
 	EWeaponUItype WeaponUIType = EWeaponUItype::Thin;
-	//ADS information
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
-	bool ADS = false;
+	bool bGrips = false;
+	//bADS information
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	bool bADS = false;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	float ADSTime = 2.f;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
@@ -163,7 +165,7 @@ protected:
 
 public:
 	
-	virtual UAnimInstance* PlayAnimationSimultaneous(FName AnimationName, FOnMontageEnded& EndDelegate);
+	virtual UAnimInstance* PlayAnimationSimultaneous(FName AnimationName, FOnMontageEnded& EndDelegate, float Speed);
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	
@@ -183,14 +185,13 @@ public:
 	virtual UTexture2D* GetIcon(FString IconName) override;
 	virtual FName GetAttachSocketName() override { return AttachSocketName; }
 	//Does this weapon allow ads
-	virtual bool CanADS() override {return ADS;}
+	virtual bool CanADS() override {return bADS;}
 	virtual float GetADSSpeed() override { return ADSTime * ADSSpeed;}
 	virtual void UpdateAccuracy(float NewAccuracy) override;
 	virtual void EquipEvent(AActor* EquippingInstigator) override;
 
 	//Self-explanatory
 	virtual void FireWeapon();
-	virtual void DealDamage(AActor* DamagedActor, float Damage);
 	//Sends recoil information to owner
 	virtual void ApplyRecoil();
 	//Tells owner to update UI elements related to this weapon

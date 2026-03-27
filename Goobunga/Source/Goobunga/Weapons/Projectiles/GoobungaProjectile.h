@@ -8,6 +8,9 @@
 #include "Goobunga/Combat/TeamInterface.h"
 #include "GoobungaProjectile.generated.h"
 
+class UNiagaraSystem;
+class UNiagaraComponent;
+
 UCLASS()
 class GOOBUNGA_API AGoobungaProjectile : public AActor
 {
@@ -15,6 +18,12 @@ class GOOBUNGA_API AGoobungaProjectile : public AActor
 
 public:
 	AGoobungaProjectile();
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UNiagaraComponent* TrailEffectComponent;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UNiagaraSystem* HitEffect;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UBoxComponent* BoxComponent;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -37,8 +46,9 @@ protected:
 	int32 OtherBodyIndex,
 	bool bFromSweep,
 	const FHitResult& SweepResult);
+	
+	virtual void PlayHitEffect();
 	bool DoesHaveTeam(AActor* OtherActor, EAllegiance& OutTeam);
-	void DealDamageAndNotify(int32 Damage, EDamageType Type, AActor* OtherActor);
 
 public:
 	virtual void Tick(float DeltaTime) override;

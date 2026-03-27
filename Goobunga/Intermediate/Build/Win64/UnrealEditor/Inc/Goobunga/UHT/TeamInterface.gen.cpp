@@ -41,9 +41,12 @@ struct Z_Construct_UEnum_Goobunga_EAllegiance_Statics
 		{ "Friendly.DisplayName", "Friendly" },
 		{ "Friendly.Name", "EAllegiance::Friendly" },
 		{ "ModuleRelativePath", "Combat/TeamInterface.h" },
+		{ "None.DisplayName", "None" },
+		{ "None.Name", "EAllegiance::None" },
 	};
 #endif // WITH_METADATA
 	static constexpr UECodeGen_Private::FEnumeratorParam Enumerators[] = {
+		{ "EAllegiance::None", (int64)EAllegiance::None },
 		{ "EAllegiance::Enemy", (int64)EAllegiance::Enemy },
 		{ "EAllegiance::Friendly", (int64)EAllegiance::Friendly },
 	};
@@ -89,7 +92,7 @@ struct Z_Construct_UFunction_UTeamInterface_GetAllegiance_Statics
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
 const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_UTeamInterface_GetAllegiance_Statics::NewProp_ReturnValue_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FEnumPropertyParams Z_Construct_UFunction_UTeamInterface_GetAllegiance_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TeamInterface_eventGetAllegiance_Parms, ReturnValue), Z_Construct_UEnum_Goobunga_EAllegiance, METADATA_PARAMS(0, nullptr) }; // 3680310722
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UFunction_UTeamInterface_GetAllegiance_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TeamInterface_eventGetAllegiance_Parms, ReturnValue), Z_Construct_UEnum_Goobunga_EAllegiance, METADATA_PARAMS(0, nullptr) }; // 3647989624
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UTeamInterface_GetAllegiance_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UTeamInterface_GetAllegiance_Statics::NewProp_ReturnValue_Underlying,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UTeamInterface_GetAllegiance_Statics::NewProp_ReturnValue,
@@ -139,7 +142,7 @@ struct Z_Construct_UClass_UTeamInterface_Statics
 #endif // WITH_METADATA
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_UTeamInterface_GetAllegiance, "GetAllegiance" }, // 4147302643
+		{ &Z_Construct_UFunction_UTeamInterface_GetAllegiance, "GetAllegiance" }, // 2818960505
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -185,18 +188,18 @@ UTeamInterface::~UTeamInterface() {}
 // End Interface UTeamInterface
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_TeamInterface_h_Statics
+struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_TeamInterface_h_Statics
 {
 	static constexpr FEnumRegisterCompiledInInfo EnumInfo[] = {
-		{ EAllegiance_StaticEnum, TEXT("EAllegiance"), &Z_Registration_Info_UEnum_EAllegiance, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3680310722U) },
+		{ EAllegiance_StaticEnum, TEXT("EAllegiance"), &Z_Registration_Info_UEnum_EAllegiance, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3647989624U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UTeamInterface, UTeamInterface::StaticClass, TEXT("UTeamInterface"), &Z_Registration_Info_UClass_UTeamInterface, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UTeamInterface), 1717596916U) },
+		{ Z_Construct_UClass_UTeamInterface, UTeamInterface::StaticClass, TEXT("UTeamInterface"), &Z_Registration_Info_UClass_UTeamInterface, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UTeamInterface), 2642082427U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_TeamInterface_h_2864111122(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_TeamInterface_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_TeamInterface_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_TeamInterface_h_805182170(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_TeamInterface_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_TeamInterface_h_Statics::ClassInfo),
 	nullptr, 0,
-	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_TeamInterface_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_TeamInterface_h_Statics::EnumInfo));
+	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_TeamInterface_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_TeamInterface_h_Statics::EnumInfo));
 // End Registration
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

@@ -196,16 +196,16 @@
     <Filter Include="Source\Goobunga\Dialogue">
       <UniqueIdentifier>{144B1FC5-B96C-3DB1-9C94-77D935400D77}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\Dialogue\DialogueInterface.cpp">
+      <Filter>Source\Goobunga\Dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Dialogue\DialogueInterface.h">
+      <Filter>Source\Goobunga\Dialogue</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Dialogue\DialogueManagerComponent.cpp">
       <Filter>Source\Goobunga\Dialogue</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Dialogue\DialogueManagerComponent.h">
-      <Filter>Source\Goobunga\Dialogue</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Dialogue\DialogueReplyWidget.cpp">
-      <Filter>Source\Goobunga\Dialogue</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Dialogue\DialogueReplyWidget.h">
       <Filter>Source\Goobunga\Dialogue</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Dialogue\DialogueStructs.cpp">
@@ -214,11 +214,26 @@
     <ClCompile Include="..\..\Source\Goobunga\Dialogue\DialogueStructs.h">
       <Filter>Source\Goobunga\Dialogue</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Dialogue\DialogueWidget.cpp">
-      <Filter>Source\Goobunga\Dialogue</Filter>
+    <Filter Include="Source\Goobunga\Dialogue\UI">
+      <UniqueIdentifier>{883E0C07-3344-3E2F-82E7-1D1E65DD3F9D}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\Dialogue\UI\BaseShopWidget.cpp">
+      <Filter>Source\Goobunga\Dialogue\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Dialogue\DialogueWidget.h">
-      <Filter>Source\Goobunga\Dialogue</Filter>
+    <ClCompile Include="..\..\Source\Goobunga\Dialogue\UI\BaseShopWidget.h">
+      <Filter>Source\Goobunga\Dialogue\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Dialogue\UI\DialogueReplyWidget.cpp">
+      <Filter>Source\Goobunga\Dialogue\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Dialogue\UI\DialogueReplyWidget.h">
+      <Filter>Source\Goobunga\Dialogue\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Dialogue\UI\DialogueWidget.cpp">
+      <Filter>Source\Goobunga\Dialogue\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Dialogue\UI\DialogueWidget.h">
+      <Filter>Source\Goobunga\Dialogue\UI</Filter>
     </ClCompile>
     <Filter Include="Source\Goobunga\Enemies">
       <UniqueIdentifier>{950A9B7A-B4A6-372F-AC67-98A81EBDADB6}</UniqueIdentifier>
@@ -342,6 +357,15 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTT\BTTask_SwerveWhileChasing.h">
       <Filter>Source\Goobunga\Enemies\AI\BTT</Filter>
+    </ClCompile>
+    <Filter Include="Source\Goobunga\Interaction">
+      <UniqueIdentifier>{D1103987-2F73-3C7D-93E2-504F493F2CD0}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\Interaction\InteractInterface.cpp">
+      <Filter>Source\Goobunga\Interaction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Interaction\InteractInterface.h">
+      <Filter>Source\Goobunga\Interaction</Filter>
     </ClCompile>
     <Filter Include="Source\Goobunga\PersistentData">
       <UniqueIdentifier>{A3E43F76-3FE5-3B19-A74E-2F39960A7A55}</UniqueIdentifier>

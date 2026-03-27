@@ -5,7 +5,7 @@
 ===========================================================================*/
 
 #include "UObject/GeneratedCppIncludes.h"
-#include "Goobunga/Dialogue/DialogueWidget.h"
+#include "Goobunga/Dialogue/UI/DialogueWidget.h"
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeDialogueWidget() {}
 
@@ -34,57 +34,57 @@ struct Z_Construct_UClass_UDialogueWidget_Statics
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
-		{ "IncludePath", "Dialogue/DialogueWidget.h" },
-		{ "ModuleRelativePath", "Dialogue/DialogueWidget.h" },
+		{ "IncludePath", "Dialogue/UI/DialogueWidget.h" },
+		{ "ModuleRelativePath", "Dialogue/UI/DialogueWidget.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DialogueText_MetaData[] = {
 		{ "BindWidget", "" },
 		{ "Category", "DialogueWidget" },
 		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "Dialogue/DialogueWidget.h" },
+		{ "ModuleRelativePath", "Dialogue/UI/DialogueWidget.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_SelectableStyle_MetaData[] = {
 		{ "Category", "DialogueWidget" },
-		{ "ModuleRelativePath", "Dialogue/DialogueWidget.h" },
+		{ "ModuleRelativePath", "Dialogue/UI/DialogueWidget.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_UnselectableStyle_MetaData[] = {
 		{ "Category", "DialogueWidget" },
-		{ "ModuleRelativePath", "Dialogue/DialogueWidget.h" },
+		{ "ModuleRelativePath", "Dialogue/UI/DialogueWidget.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ReplyWidget1_MetaData[] = {
 		{ "BindWidget", "" },
 		{ "Category", "DialogueWidget" },
 		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "Dialogue/DialogueWidget.h" },
+		{ "ModuleRelativePath", "Dialogue/UI/DialogueWidget.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ReplyWidget2_MetaData[] = {
 		{ "BindWidget", "" },
 		{ "Category", "DialogueWidget" },
 		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "Dialogue/DialogueWidget.h" },
+		{ "ModuleRelativePath", "Dialogue/UI/DialogueWidget.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ReplyWidget3_MetaData[] = {
 		{ "BindWidget", "" },
 		{ "Category", "DialogueWidget" },
 		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "Dialogue/DialogueWidget.h" },
+		{ "ModuleRelativePath", "Dialogue/UI/DialogueWidget.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ReplyWidget4_MetaData[] = {
 		{ "BindWidget", "" },
 		{ "Category", "DialogueWidget" },
 		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "Dialogue/DialogueWidget.h" },
+		{ "ModuleRelativePath", "Dialogue/UI/DialogueWidget.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ReplyWidgets_MetaData[] = {
 		{ "BindWidget", "" },
 		{ "Category", "DialogueWidget" },
 		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "Dialogue/DialogueWidget.h" },
+		{ "ModuleRelativePath", "Dialogue/UI/DialogueWidget.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DialogueManager_MetaData[] = {
 		{ "Category", "DialogueWidget" },
 		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "Dialogue/DialogueWidget.h" },
+		{ "ModuleRelativePath", "Dialogue/UI/DialogueWidget.h" },
 	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_DialogueText;
@@ -165,14 +165,14 @@ UDialogueWidget::~UDialogueWidget() {}
 // End Class UDialogueWidget
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueWidget_h_Statics
+struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_UI_DialogueWidget_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UDialogueWidget, UDialogueWidget::StaticClass, TEXT("UDialogueWidget"), &Z_Registration_Info_UClass_UDialogueWidget, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UDialogueWidget), 1661867833U) },
+		{ Z_Construct_UClass_UDialogueWidget, UDialogueWidget::StaticClass, TEXT("UDialogueWidget"), &Z_Registration_Info_UClass_UDialogueWidget, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UDialogueWidget), 1095642313U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueWidget_h_3803812816(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueWidget_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueWidget_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_UI_DialogueWidget_h_3153429953(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_UI_DialogueWidget_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_UI_DialogueWidget_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

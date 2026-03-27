@@ -38,6 +38,9 @@ public:
 	
 	UPROPERTY(EditAnywhere)
 	bool bUseDefaultWeapons = false;
+	
+	bool ShouldGrip();
+	
 	UPROPERTY(EditAnywhere)
 	TMap<EWeaponSlot, FWeaponSaveData> DefaultWeapons;
 	
@@ -69,7 +72,7 @@ public:
 	void SaveToSaveGame(UGoobungaSaveFile& SaveGame);
 	
 	
-	//ADS
+	//bADS
 	FTransform GetWeaponSightTransform();
 	void AltFireStart();
 	void AltFireStop(bool Cancelled);
@@ -81,6 +84,7 @@ public:
 	bool bAltFirePressed = false;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bAds = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bReady = false;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FTransform AimTestingTransform = FTransform::Identity;
@@ -98,6 +102,8 @@ public:
 	
 	UPROPERTY(EditAnywhere)
 	AGoobunga_Player* PlayerOwner = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float DrawSpeed = 2.f;
 	
 	
 	

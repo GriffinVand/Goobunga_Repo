@@ -7,6 +7,7 @@
 UENUM(BlueprintType)
 enum class EAllegiance : uint8
 {
+	None UMETA(DisplayName = "None"),
 	Enemy UMETA(DisplayName="Enemy"),
 	Friendly UMETA(DisplayName="Friendly"),
 };

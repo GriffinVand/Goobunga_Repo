@@ -82,7 +82,7 @@ void AWeapon::EquipEvent(AActor* EquippingInstigator)
 
 //Weapon can control playing animations on both itself and its owner
 //Keeps logic constrained here
-UAnimInstance* AWeapon::PlayAnimationSimultaneous(FName AnimationName, FOnMontageEnded& EndDelegate)
+UAnimInstance* AWeapon::PlayAnimationSimultaneous(FName AnimationName, FOnMontageEnded& EndDelegate, float Speed)
 {
 	UAnimInstance* ReturnIns = nullptr;
 	if (UAnimMontage** OwnerMontage = OwnerAnimations.Find(AnimationName))
@@ -91,7 +91,7 @@ UAnimInstance* AWeapon::PlayAnimationSimultaneous(FName AnimationName, FOnMontag
 		{
 			if (UAnimInstance* PlayerABP = Player->FPMesh->GetAnimInstance())
 			{
-				PlayerABP->Montage_Play(*OwnerMontage);
+				PlayerABP->Montage_Play(*OwnerMontage, Speed);
 				PlayerABP->Montage_SetEndDelegate(EndDelegate, *OwnerMontage);
 				ReturnIns = PlayerABP;
 			}
@@ -104,7 +104,7 @@ UAnimInstance* AWeapon::PlayAnimationSimultaneous(FName AnimationName, FOnMontag
 	{
 		if (UAnimInstance* WeaponABP = WeaponMesh->GetAnimInstance())
 		{
-			WeaponABP->Montage_Play(*WeaponMontage);
+			WeaponABP->Montage_Play(*WeaponMontage, Speed);
 		}
 		else { UE_LOG(LogTemp, Warning, TEXT("Anim instance of weapon not found")); }
 	}
@@ -166,19 +166,6 @@ UTexture2D* AWeapon::GetIcon(FString IconName)
 	return nullptr;
 }
 
-void AWeapon::DealDamage(AActor* DamagedActor, float Damage)
-{
-	if (!DamagedActor) { return; }
-	if (ICombatCallables* CombatCallablesInterface = Cast<ICombatCallables>(DamagedActor))
-	{
-		if (ITeamInterface* TI = Cast<ITeamInterface>(GetOwner()))
-		{
-			const EDamageResult Result = CombatCallablesInterface->CombatDamage(GetOwner(), Damage, EDamageType::Default, TI->GetAllegiance());
-			if (ICombatCallables* OwnerCC = Cast<ICombatCallables>(GetOwner())) { OwnerCC->OnDealtDamage(Result); }
-		}
-	}
-}
-
 void AWeapon::Reload()
 {
 	int Target = MaxMag - CurrentMag;
@@ -209,7 +196,7 @@ FRotator AWeapon::GetFireDirection(bool bTrue)
 
 	FVector TrueStart = OwnerStart;
 	FVector TrueDirection = OwnerDirection;
-	if (bTrue && ADS && GPlayer->AimAlpha >= 1.f)
+	if (bTrue && bADS && GPlayer->AimAlpha >= 1.f)
 	{
 		FTransform SightTransform = WeaponMesh->GetSocketTransform("Sight_Socket");
 		FVector SightLocation = SightTransform.GetLocation();

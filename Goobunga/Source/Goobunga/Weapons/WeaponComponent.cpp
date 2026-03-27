@@ -52,6 +52,11 @@ void UWeaponComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 
 }
 
+bool UWeaponComponent::ShouldGrip()
+{
+	return (bReady && GetEquippedWeapon() && GetEquippedWeapon()->bGrips);
+}
+
 AWeapon* UWeaponComponent::GetEquippedWeapon()
 {
 	switch (EquippedWeaponSlot)
@@ -129,7 +134,6 @@ void UWeaponComponent::HolsterWeapon(AWeapon* Weapon)
 	{
 		bReady = false;
 		Weapon->SetActorHiddenInGame(true);
-		PlayerOwner->GripAlpha = 0.f;
 		AdsAlpha = 0.f;
 		HandleNewAds();
 	}
@@ -140,23 +144,18 @@ void UWeaponComponent::DrawWeapon(AWeapon* Weapon)
 	if (Weapon)
 	{
 		Weapon->SetActorHiddenInGame(false);
-		PlayerOwner->GripAlpha = 0.f;
 		FOnMontageEnded OnMontageEndedDelegate;
 		OnMontageEndedDelegate.BindUObject(this, &UWeaponComponent::WeaponFullyDrawn);
 		bReady = false;
 		AdsAlpha = 0.f;
 		HandleNewAds();
-		Weapon->PlayAnimationSimultaneous(FName("Draw"), OnMontageEndedDelegate);
+		Weapon->PlayAnimationSimultaneous(FName("Draw"), OnMontageEndedDelegate, DrawSpeed);
 	}
 }
 
 void UWeaponComponent::WeaponFullyDrawn(UAnimMontage* Montage, bool bInterrupted)
 {
 	bReady = !bInterrupted;
-	if (AGoobunga_Player* Player = Cast<AGoobunga_Player>(GetOwner()))
-	{
-		Player->GripAlpha = bInterrupted ? 0.f : 1.f;
-	}
 }
 
 void UWeaponComponent::SwapWeapons()

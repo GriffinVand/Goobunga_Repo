@@ -112,7 +112,7 @@ const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_UCombatCalla
 const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_UCombatCallables_CombatDamage_Statics::NewProp_DamageType_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FEnumPropertyParams Z_Construct_UFunction_UCombatCallables_CombatDamage_Statics::NewProp_DamageType = { "DamageType", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CombatCallables_eventCombatDamage_Parms, DamageType), Z_Construct_UEnum_Goobunga_EDamageType, METADATA_PARAMS(0, nullptr) }; // 2919233219
 const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_UCombatCallables_CombatDamage_Statics::NewProp_Allegiance_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FEnumPropertyParams Z_Construct_UFunction_UCombatCallables_CombatDamage_Statics::NewProp_Allegiance = { "Allegiance", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CombatCallables_eventCombatDamage_Parms, Allegiance), Z_Construct_UEnum_Goobunga_EAllegiance, METADATA_PARAMS(0, nullptr) }; // 3680310722
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UFunction_UCombatCallables_CombatDamage_Statics::NewProp_Allegiance = { "Allegiance", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CombatCallables_eventCombatDamage_Parms, Allegiance), Z_Construct_UEnum_Goobunga_EAllegiance, METADATA_PARAMS(0, nullptr) }; // 3647989624
 const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_UCombatCallables_CombatDamage_Statics::NewProp_ReturnValue_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FEnumPropertyParams Z_Construct_UFunction_UCombatCallables_CombatDamage_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CombatCallables_eventCombatDamage_Parms, ReturnValue), Z_Construct_UEnum_Goobunga_EDamageResult, METADATA_PARAMS(0, nullptr) }; // 352128526
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UCombatCallables_CombatDamage_Statics::PropPointers[] = {
@@ -174,7 +174,7 @@ struct Z_Construct_UClass_UCombatCallables_Statics
 #endif // WITH_METADATA
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_UCombatCallables_CombatDamage, "CombatDamage" }, // 2726991629
+		{ &Z_Construct_UFunction_UCombatCallables_CombatDamage, "CombatDamage" }, // 3000627798
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -220,18 +220,18 @@ UCombatCallables::~UCombatCallables() {}
 // End Interface UCombatCallables
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_Statics
+struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_Statics
 {
 	static constexpr FEnumRegisterCompiledInInfo EnumInfo[] = {
 		{ EDamageResult_StaticEnum, TEXT("EDamageResult"), &Z_Registration_Info_UEnum_EDamageResult, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 352128526U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UCombatCallables, UCombatCallables::StaticClass, TEXT("UCombatCallables"), &Z_Registration_Info_UClass_UCombatCallables, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UCombatCallables), 838025782U) },
+		{ Z_Construct_UClass_UCombatCallables, UCombatCallables::StaticClass, TEXT("UCombatCallables"), &Z_Registration_Info_UClass_UCombatCallables, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UCombatCallables), 2659563511U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_2458123420(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_503320526(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_Statics::ClassInfo),
 	nullptr, 0,
-	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_Statics::EnumInfo));
+	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Combat_CombatCallables_h_Statics::EnumInfo));
 // End Registration
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

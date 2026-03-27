@@ -31,4 +31,17 @@ public:
 	UFUNCTION(BlueprintCallable)
 	virtual EDamageResult CombatDamage(AActor* DamageDealer, float Damage, EDamageType DamageType, EAllegiance Allegiance) = 0;
 	virtual void OnDealtDamage(EDamageResult DamageResult) {}
+	static void DealDamageAndNotify(int32 Damage, EDamageType Type, AActor* OtherActor, AActor* DealerActor)
+	{
+		if (!OtherActor || !DealerActor) { return; }
+		
+		ICombatCallables* CC = Cast<ICombatCallables>(OtherActor);
+		if (!CC) return;
+		ITeamInterface* TI = Cast<ITeamInterface>(DealerActor);
+		if (!TI) return;
+		EAllegiance DealerAllegiance = TI->GetAllegiance();
+		if (DealerAllegiance == EAllegiance::None) { UE_LOG(LogTemp, Error, TEXT("Tried to deal damage but allegiance is none")); return; }
+		const EDamageResult Result = CC->CombatDamage(DealerActor, Damage, Type, DealerAllegiance);
+		if (ICombatCallables* OwnerCC = Cast<ICombatCallables>(DealerActor)) { OwnerCC->OnDealtDamage(Result); }
+	}
 };

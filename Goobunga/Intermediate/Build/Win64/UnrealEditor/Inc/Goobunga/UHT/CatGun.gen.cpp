@@ -79,14 +79,14 @@ ACatGun::~ACatGun() {}
 // End Class ACatGun
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_CatGun_h_Statics
+struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_CatGun_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ACatGun, ACatGun::StaticClass, TEXT("ACatGun"), &Z_Registration_Info_UClass_ACatGun, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ACatGun), 4141579242U) },
+		{ Z_Construct_UClass_ACatGun, ACatGun::StaticClass, TEXT("ACatGun"), &Z_Registration_Info_UClass_ACatGun, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ACatGun), 2852290497U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_CatGun_h_787071986(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_CatGun_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_CatGun_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_CatGun_h_1551390878(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_CatGun_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_CatGun_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

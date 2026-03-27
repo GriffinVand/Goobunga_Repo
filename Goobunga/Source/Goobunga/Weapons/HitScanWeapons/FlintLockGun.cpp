@@ -2,5 +2,5 @@
 
 AFlintLockGun::AFlintLockGun()
 {
-	ADS = true;
+	bADS = true;
 }

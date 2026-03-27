@@ -5,5 +5,5 @@
 
 ACatGun::ACatGun()
 {
-	ADS = true;
+	bADS = true;
 }

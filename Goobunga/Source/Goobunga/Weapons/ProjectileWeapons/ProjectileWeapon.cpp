@@ -1,7 +1,5 @@
 #include "ProjectileWeapon.h"
-
 #include "Goobunga/Weapons/Projectiles/GoobungaProjectile.h"
-#include "Kismet/GameplayStatics.h"
 
 AProjectileWeapon::AProjectileWeapon()
 {
@@ -19,17 +17,14 @@ void AProjectileWeapon::FireWeapon()
 		
 		FActorSpawnParameters SpawnParameters;
 		SpawnParameters.Instigator = Cast<APawn>(GetOwner());
+		SpawnParameters.Owner = this;
 		SpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 		AGoobungaProjectile* NewProj = GetWorld()->SpawnActor<AGoobungaProjectile>(ProjectileClass, SpawnTransform.GetLocation(), SpawnRotation, SpawnParameters);
-		if (ITeamInterface* TI = Cast<ITeamInterface>(GetOwner()))
-		{
-			if (NewProj) { NewProj->InstigatorAllegiance = TI->GetAllegiance(); }
-		}
 		UE_LOG(LogTemp, Display, TEXT("Projectile created"));
 		
 		FireSoundComponent->Play();
 		FOnMontageEnded EndDelegate;
-		PlayAnimationSimultaneous("Fire", EndDelegate);
+		PlayAnimationSimultaneous("Fire", EndDelegate, 1.f);
 		ApplyRecoil();
 		UpdateOwnerUI();
 	}

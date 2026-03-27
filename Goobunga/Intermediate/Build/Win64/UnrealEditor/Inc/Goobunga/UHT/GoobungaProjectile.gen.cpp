@@ -22,6 +22,8 @@ GOOBUNGA_API UClass* Z_Construct_UClass_AGoobungaProjectile();
 GOOBUNGA_API UClass* Z_Construct_UClass_AGoobungaProjectile_NoRegister();
 GOOBUNGA_API UEnum* Z_Construct_UEnum_Goobunga_EAllegiance();
 GOOBUNGA_API UEnum* Z_Construct_UEnum_Goobunga_EDamageType();
+NIAGARA_API UClass* Z_Construct_UClass_UNiagaraComponent_NoRegister();
+NIAGARA_API UClass* Z_Construct_UClass_UNiagaraSystem_NoRegister();
 UPackage* Z_Construct_UPackage__Script_Goobunga();
 // End Cross Module References
 
@@ -127,6 +129,15 @@ struct Z_Construct_UClass_AGoobungaProjectile_Statics
 		{ "IncludePath", "Weapons/Projectiles/GoobungaProjectile.h" },
 		{ "ModuleRelativePath", "Weapons/Projectiles/GoobungaProjectile.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_TrailEffectComponent_MetaData[] = {
+		{ "Category", "GoobungaProjectile" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "Weapons/Projectiles/GoobungaProjectile.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_HitEffect_MetaData[] = {
+		{ "Category", "GoobungaProjectile" },
+		{ "ModuleRelativePath", "Weapons/Projectiles/GoobungaProjectile.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_BoxComponent_MetaData[] = {
 		{ "Category", "GoobungaProjectile" },
 		{ "EditInline", "true" },
@@ -155,6 +166,8 @@ struct Z_Construct_UClass_AGoobungaProjectile_Statics
 		{ "ModuleRelativePath", "Weapons/Projectiles/GoobungaProjectile.h" },
 	};
 #endif // WITH_METADATA
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_TrailEffectComponent;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_HitEffect;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_BoxComponent;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_ProjectileMesh;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_ProjectileMovement;
@@ -174,6 +187,8 @@ struct Z_Construct_UClass_AGoobungaProjectile_Statics
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGoobungaProjectile_Statics::NewProp_TrailEffectComponent = { "TrailEffectComponent", nullptr, (EPropertyFlags)0x001000000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobungaProjectile, TrailEffectComponent), Z_Construct_UClass_UNiagaraComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_TrailEffectComponent_MetaData), NewProp_TrailEffectComponent_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGoobungaProjectile_Statics::NewProp_HitEffect = { "HitEffect", nullptr, (EPropertyFlags)0x0010000000010015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobungaProjectile, HitEffect), Z_Construct_UClass_UNiagaraSystem_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_HitEffect_MetaData), NewProp_HitEffect_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGoobungaProjectile_Statics::NewProp_BoxComponent = { "BoxComponent", nullptr, (EPropertyFlags)0x001000000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobungaProjectile, BoxComponent), Z_Construct_UClass_UBoxComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_BoxComponent_MetaData), NewProp_BoxComponent_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGoobungaProjectile_Statics::NewProp_ProjectileMesh = { "ProjectileMesh", nullptr, (EPropertyFlags)0x001000000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobungaProjectile, ProjectileMesh), Z_Construct_UClass_UStaticMeshComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ProjectileMesh_MetaData), NewProp_ProjectileMesh_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGoobungaProjectile_Statics::NewProp_ProjectileMovement = { "ProjectileMovement", nullptr, (EPropertyFlags)0x001000000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobungaProjectile, ProjectileMovement), Z_Construct_UClass_UProjectileMovementComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ProjectileMovement_MetaData), NewProp_ProjectileMovement_MetaData) };
@@ -181,8 +196,10 @@ const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AGoobungaProjec
 const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_AGoobungaProjectile_Statics::NewProp_DamageType_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_AGoobungaProjectile_Statics::NewProp_DamageType = { "DamageType", nullptr, (EPropertyFlags)0x0010000000010015, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobungaProjectile, DamageType), Z_Construct_UEnum_Goobunga_EDamageType, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DamageType_MetaData), NewProp_DamageType_MetaData) }; // 2919233219
 const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_AGoobungaProjectile_Statics::NewProp_InstigatorAllegiance_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_AGoobungaProjectile_Statics::NewProp_InstigatorAllegiance = { "InstigatorAllegiance", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobungaProjectile, InstigatorAllegiance), Z_Construct_UEnum_Goobunga_EAllegiance, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_InstigatorAllegiance_MetaData), NewProp_InstigatorAllegiance_MetaData) }; // 3680310722
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_AGoobungaProjectile_Statics::NewProp_InstigatorAllegiance = { "InstigatorAllegiance", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobungaProjectile, InstigatorAllegiance), Z_Construct_UEnum_Goobunga_EAllegiance, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_InstigatorAllegiance_MetaData), NewProp_InstigatorAllegiance_MetaData) }; // 3647989624
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AGoobungaProjectile_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobungaProjectile_Statics::NewProp_TrailEffectComponent,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobungaProjectile_Statics::NewProp_HitEffect,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobungaProjectile_Statics::NewProp_BoxComponent,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobungaProjectile_Statics::NewProp_ProjectileMesh,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobungaProjectile_Statics::NewProp_ProjectileMovement,
@@ -230,14 +247,14 @@ AGoobungaProjectile::~AGoobungaProjectile() {}
 // End Class AGoobungaProjectile
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Projectiles_GoobungaProjectile_h_Statics
+struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Projectiles_GoobungaProjectile_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AGoobungaProjectile, AGoobungaProjectile::StaticClass, TEXT("AGoobungaProjectile"), &Z_Registration_Info_UClass_AGoobungaProjectile, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AGoobungaProjectile), 3645308940U) },
+		{ Z_Construct_UClass_AGoobungaProjectile, AGoobungaProjectile::StaticClass, TEXT("AGoobungaProjectile"), &Z_Registration_Info_UClass_AGoobungaProjectile, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AGoobungaProjectile), 1932563713U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Projectiles_GoobungaProjectile_h_2792852845(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Projectiles_GoobungaProjectile_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Projectiles_GoobungaProjectile_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Projectiles_GoobungaProjectile_h_961553473(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Projectiles_GoobungaProjectile_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_Projectiles_GoobungaProjectile_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

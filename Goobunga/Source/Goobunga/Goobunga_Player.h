@@ -53,6 +53,8 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 	
 	virtual EAllegiance GetAllegiance() const override { return PlayerAllegiance; }
+	UFUNCTION(BlueprintCallable)
+	bool ShouldGrip();
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EAllegiance PlayerAllegiance = EAllegiance::Friendly;
@@ -87,9 +89,6 @@ public:
 	void EquipWeapon(AWeapon* Weapon);
 	void UnequipWeapon(AWeapon* Weapon);
 	
-	UFUNCTION(BlueprintCallable)
-	FWeaponSwayData GetWeaponSwayData();
-	
 	virtual TArray<FVector> GetAimDirection() override;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -103,6 +102,13 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FVector TrueWeaponSwayData = FVector::ZeroVector;
+	//Used for weapon recoil visually in hand
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FVector CurrentWeaponKickDir;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FRotator CurrentWeaponKickRot;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FVector TrueWeaponKickDir = FVector::ZeroVector;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FVector CurrentAdsLoc;
@@ -170,11 +176,6 @@ protected:
 	//Used for actual controller look offset
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	FVector AimOffset = FVector::ZeroVector;
-	//Used for weapon recoil visually in hand
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	FVector CurrentWeaponKickDir;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	FRotator CurrentWeaponKickRot;
 	
 	
 	void UpdateFPAlign();

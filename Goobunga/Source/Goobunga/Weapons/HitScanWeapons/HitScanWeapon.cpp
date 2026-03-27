@@ -31,7 +31,7 @@ void AHitScanWeapon::FireWeapon()
 	FVector HitLocation = SpawnTransform.GetLocation() + FireDirection*10000;
 	FireSoundComponent->Play();
 	FOnMontageEnded EndDelegate;
-	PlayAnimationSimultaneous("Fire", EndDelegate);
+	PlayAnimationSimultaneous("Fire", EndDelegate, 1.f);
 	ApplyRecoil();
 	UpdateOwnerUI();
 	if (WeaponTrace)
@@ -40,8 +40,7 @@ void AHitScanWeapon::FireWeapon()
 		AActor* HitActor = HitResult.GetActor();
 		if (HitActor)
 		{
-			DealDamage(HitActor, BaseDamage);
-			UE_LOG(LogTemp, Display, TEXT("Apply Damage to Actor"));
+			ICombatCallables::DealDamageAndNotify(BaseDamage, DamageType, HitActor, GetOwner());
 		}
 	}
 	SpawnTrailSystem(HitLocation);

@@ -5,7 +5,7 @@
 ===========================================================================*/
 
 #include "UObject/GeneratedCppIncludes.h"
-#include "Goobunga/Dialogue/BaseShopWidget.h"
+#include "Goobunga/Dialogue/UI/BaseShopWidget.h"
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeBaseShopWidget() {}
 
@@ -23,7 +23,7 @@ struct Z_Construct_UDelegateFunction_Goobunga_OnShopCloseInput__DelegateSignatur
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
-		{ "ModuleRelativePath", "Dialogue/BaseShopWidget.h" },
+		{ "ModuleRelativePath", "Dialogue/UI/BaseShopWidget.h" },
 	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FFunctionParams FuncParams;
@@ -58,15 +58,15 @@ struct Z_Construct_UClass_UBaseShopWidget_Statics
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
 		{ "BlueprintType", "true" },
-		{ "IncludePath", "Dialogue/BaseShopWidget.h" },
+		{ "IncludePath", "Dialogue/UI/BaseShopWidget.h" },
 		{ "IsBlueprintBase", "true" },
-		{ "ModuleRelativePath", "Dialogue/BaseShopWidget.h" },
+		{ "ModuleRelativePath", "Dialogue/UI/BaseShopWidget.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CloseButton_MetaData[] = {
 		{ "BindWidget", "" },
 		{ "Category", "BaseShopWidget" },
 		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "Dialogue/BaseShopWidget.h" },
+		{ "ModuleRelativePath", "Dialogue/UI/BaseShopWidget.h" },
 	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_CloseButton;
@@ -120,14 +120,14 @@ UBaseShopWidget::~UBaseShopWidget() {}
 // End Class UBaseShopWidget
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_BaseShopWidget_h_Statics
+struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_UI_BaseShopWidget_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UBaseShopWidget, UBaseShopWidget::StaticClass, TEXT("UBaseShopWidget"), &Z_Registration_Info_UClass_UBaseShopWidget, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBaseShopWidget), 2814617419U) },
+		{ Z_Construct_UClass_UBaseShopWidget, UBaseShopWidget::StaticClass, TEXT("UBaseShopWidget"), &Z_Registration_Info_UClass_UBaseShopWidget, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBaseShopWidget), 1327581592U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_BaseShopWidget_h_3699986573(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_BaseShopWidget_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_BaseShopWidget_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_UI_BaseShopWidget_h_2488664946(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_UI_BaseShopWidget_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_UI_BaseShopWidget_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

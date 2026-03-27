@@ -3,9 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Goobunga/Combat/TeamInterface.h"
 #include "Goobunga/Weapons/Weapon.h"
 #include "HitScanWeapon.generated.h"
 
+enum class EAllegiance : uint8;
+enum class EDamageType : uint8;
 /**
  * 
  */
@@ -24,6 +27,8 @@ public:
 	TSubclassOf<AActor> TrailProjectileClass;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Visual", meta = (AllowPrivateAccess = "true"))
 	UNiagaraSystem* TrailSystem;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	EDamageType DamageType;
 
 	virtual void FireWeapon() override;
 	

@@ -2,7 +2,7 @@
 
 
 #include "DialogueWidget.h"
-#include "DialogueManagerComponent.h"
+#include "Goobunga/Dialogue/DialogueManagerComponent.h"
 #include "CommonButtonBase.h"
 #include "Components/TextBlock.h"
 #include "Kismet/KismetSystemLibrary.h"

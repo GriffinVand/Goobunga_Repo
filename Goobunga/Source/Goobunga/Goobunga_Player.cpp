@@ -213,7 +213,7 @@ void AGoobunga_Player::FireEnded(bool Cancelled)
 void AGoobunga_Player::AltFireInputStarted()
 {
 	if (!WeaponComponent) { return; }
-	WeaponComponent->GetEquippedWeapon()->ADS ? TryStartAction(ECombatAction::Aim) : TryStartAction(ECombatAction::SecFire);
+	WeaponComponent->GetEquippedWeapon()->bADS ? TryStartAction(ECombatAction::Aim) : TryStartAction(ECombatAction::SecFire);
 }
 
 void AGoobunga_Player::AltFireStarted()
@@ -263,12 +263,20 @@ void AGoobunga_Player::ApplyWeaponKick(FVector KickDirection, FRotator KickRotat
 	DirY = FMath::Clamp(DirY, -MaxDir.Y, MaxDir.Y);
 	DirZ = FMath::Clamp(DirZ, -MaxDir.Z, MaxDir.Z);
 	CurrentWeaponKickDir = FVector(DirX, DirY, DirZ);
+	UpdateWeaponKick();
 	
 }
 
 void AGoobunga_Player::UpdateWeaponKick()
 {
 	CurrentWeaponKickDir = FMath::VInterpTo(CurrentWeaponKickDir, FVector::ZeroVector, GetWorld()->GetDeltaSeconds(), 20.f);
+	if (!WeaponComponent->GetEquippedWeapon()) { TrueWeaponKickDir = FVector::ZeroVector; }
+	FTransform WeaponTransform = WeaponComponent->GetEquippedWeapon()->WeaponMesh->GetSocketTransform("Fire_Location");
+	FVector GunFwd = WeaponTransform.GetUnitAxis(EAxis::X);
+	FVector GunRight = WeaponTransform.GetUnitAxis(EAxis::Y);
+	FVector GunUp = WeaponTransform.GetUnitAxis(EAxis::Z);
+	FVector ModifiedOffset = GunFwd * CurrentWeaponKickDir.X;
+	TrueWeaponKickDir = FPMesh->GetComponentTransform().InverseTransformVector(ModifiedOffset);
 }
 
 void AGoobunga_Player::UpdateFPAlign()
@@ -332,10 +340,6 @@ void AGoobunga_Player::UpdateWeaponSwayData(float DeltaTime)
 	FVector CamForward = FPCamera->GetForwardVector();
 	FVector ModifiedOffset = CamRight * CurrentWeaponSwayData.Look.X + CamUp * CurrentWeaponSwayData.Look.Y + CamForward * CurrentWeaponSwayData.Movement.X;
 	TrueWeaponSwayData = FPMesh_Align->GetComponentTransform().InverseTransformVector(ModifiedOffset);
-}
-FWeaponSwayData AGoobunga_Player::GetWeaponSwayData()
-{
-	return CurrentWeaponSwayData;
 }
 #pragma endregion
 #pragma region SAVE/LOAD
@@ -437,6 +441,12 @@ void AGoobunga_Player::UnequipWeapon(AWeapon* Weapon)
 
 }
 
+bool AGoobunga_Player::ShouldGrip()
+{
+	if (!WeaponComponent || !AbilityComponent || !ReloadManagerComponent) { return false; }
+	return (!Reloading && WeaponComponent->ShouldGrip() && !AbilityComponent->IsFlagBlocked(EAbilityBlockFlag::Grip));
+}
+
 #pragma region ACTIONS
 void AGoobunga_Player::TryStartAction(ECombatAction Action)
 {
@@ -503,12 +513,14 @@ void AGoobunga_Player::ResolveActionConflicts(ECombatAction Action)
 	case ECombatAction::Sprint:
 		FireEnded(true);
 		AltFireEnded(true);
+		if (Reloading) { ReloadManagerComponent->StopReload(false); }
 		WeaponComponent->AdsAlpha = 0.f;
 		WeaponComponent->HandleNewAds();
 		break;
 	case ECombatAction::Swap:
 		FireEnded(true);
 		AltFireEnded(true);
+		if (Reloading) { ReloadManagerComponent->StopReload(false); }
 		if (Sprinting) { SprintEnded(); }
 		WeaponComponent->AdsAlpha = 0.f;
 		WeaponComponent->HandleNewAds();
@@ -518,7 +530,7 @@ void AGoobunga_Player::ResolveActionConflicts(ECombatAction Action)
 		if (UAbilityBase* Ability = AbilityComponent->GetAbility(EAbilityType::Small))
 		{
 			if (Ability->GetBlocksFire()) { FireEnded(true); AltFireEnded(true); }
-			if (Ability->GetBlocksADS() && WeaponComponent->GetEquippedWeapon() && WeaponComponent->GetEquippedWeapon()->ADS) { AltFireEnded(true); WeaponComponent->AdsAlpha = 0.f; WeaponComponent->HandleNewAds(); }
+			if (Ability->GetBlocksADS() && WeaponComponent->GetEquippedWeapon() && WeaponComponent->GetEquippedWeapon()->bADS) { AltFireEnded(true); WeaponComponent->AdsAlpha = 0.f; WeaponComponent->HandleNewAds(); }
 			if (Reloading) { ReloadManagerComponent->StopReload(false); }
 			if (Ability->GetDisablesGrip()) { GripAlpha = 0.f; }
 			if (Sprinting) { SprintEnded(); }
