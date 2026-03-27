@@ -1,7 +1,7 @@
 #include "DialogueManagerComponent.h"
 
 #include "DialogueInterface.h"
-#include "DialogueWidget.h"
+#include "./UI/DialogueWidget.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/TextBlock.h"
 #include "Goobunga/FacialAnimationComponent.h"
@@ -9,7 +9,7 @@
 #include "Goobunga/Goobunga_PlayerController.h"
 #include "Goobunga/PlayerCallables.h"
 #include "Kismet/GameplayStatics.h"
-#include "BaseShopWidget.h"
+#include "./UI/BaseShopWidget.h"
 #include "Kismet/KismetSystemLibrary.h"
 
 UDialogueManagerComponent::UDialogueManagerComponent()
