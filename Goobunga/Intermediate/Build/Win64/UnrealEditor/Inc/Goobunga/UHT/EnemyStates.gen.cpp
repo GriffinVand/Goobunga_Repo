@@ -37,6 +37,8 @@ struct Z_Construct_UEnum_Goobunga_EEnemyState_Statics
 		{ "BlueprintType", "true" },
 		{ "Busy.DisplayName", "Busy State" },
 		{ "Busy.Name", "Busy" },
+		{ "Chasing.DisplayName", "Chasing State" },
+		{ "Chasing.Name", "Chasing" },
 		{ "Death.DisplayName", "Death State" },
 		{ "Death.Name", "Death" },
 		{ "Default.DisplayName", "Default State" },
@@ -51,6 +53,7 @@ struct Z_Construct_UEnum_Goobunga_EEnemyState_Statics
 	static constexpr UECodeGen_Private::FEnumeratorParam Enumerators[] = {
 		{ "Default", (int64)Default },
 		{ "Walking", (int64)Walking },
+		{ "Chasing", (int64)Chasing },
 		{ "Attacking", (int64)Attacking },
 		{ "Launching", (int64)Launching },
 		{ "Busy", (int64)Busy },
@@ -84,10 +87,10 @@ UEnum* Z_Construct_UEnum_Goobunga_EEnemyState()
 struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyStates_h_Statics
 {
 	static constexpr FEnumRegisterCompiledInInfo EnumInfo[] = {
-		{ EEnemyState_StaticEnum, TEXT("EEnemyState"), &Z_Registration_Info_UEnum_EEnemyState, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 2100093602U) },
+		{ EEnemyState_StaticEnum, TEXT("EEnemyState"), &Z_Registration_Info_UEnum_EEnemyState, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 4281360844U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyStates_h_3769430326(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyStates_h_557328989(TEXT("/Script/Goobunga"),
 	nullptr, 0,
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyStates_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyStates_h_Statics::EnumInfo));

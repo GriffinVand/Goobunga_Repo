@@ -8,6 +8,8 @@
 #include "UserInterface/PlayerMainWidget.h"
 #include "Goobunga_PlayerController.generated.h"
 
+class UAbilityWidgetBase;
+class UAbilityBase;
 class UPlayerWeaponAmmoWidget;
 enum class EDamageType : uint8;
 /**
@@ -30,6 +32,7 @@ public:
 	void InitializeMasterWidget();
 	void InitializePlayerHUD();
 	void CreateWeaponUI(AWeapon* Weapon);
+	void CreateAbilityUI(UAbilityBase* Ability);
 	
 	virtual void BeginPlay() override;
 	virtual void OnPossess(APawn* Pawn) override;
@@ -38,6 +41,12 @@ public:
 	UPlayerMainWidget* MainHUD = nullptr;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UPlayerWeaponAmmoWidget* WeaponUI = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UAbilityWidgetBase* SmallAbilityUI = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UAbilityWidgetBase* LargeAbilityUI = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UAbilityWidgetBase* HealAbilityUI = nullptr;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UMasterWidget* MasterWidget = nullptr;
 protected:

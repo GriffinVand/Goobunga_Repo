@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "InputActionValue.h"
 #include "PlayerCallables.h"
 #include "Abilities/AbilityComponent.h"
 #include "Combat/CombatCallables.h"
@@ -35,6 +36,7 @@ enum class ECombatAction : uint8
 	Reload UMETA(DisplayName = "Reload"),
 	Swap UMETA(DisplayName = "Swap"),
 	Interact UMETA(DisplayName = "Interact"),
+	Dash UMETA(DisplayName = "Dash")
 };
 
 UCLASS()
@@ -121,6 +123,8 @@ public:
 	void HideWeaponForAbility();
 	void ShowWeaponAfterAbility();
 	void StopAbilityMontage(UAnimMontage* Montage);
+	//UI Related
+	void EquippedAbility(UAbilityBase* NewAbility);
 	UFUNCTION()
 	void OnMontageNotifyBegin(FName NotifyName, const FBranchingPointNotifyPayload& Payload);
 	
@@ -214,9 +218,13 @@ protected:
 	UInputAction* SmallAbilityAction;
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* LargeAbilityAction;
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* DashAction;
 	
 	void Move(const FInputActionValue& Value);
 	void EndMove(const FInputActionValue& Value);
+	
+	void DashInputStarted(const FInputActionValue& Value) { TryStartAction(ECombatAction::Dash); }
 	
 	void Look(const FInputActionValue& Value);
 	void EndLook(const FInputActionValue& Value);
@@ -263,6 +271,28 @@ protected:
 	void StartAction(ECombatAction Action);
 	
 #pragma endregion
+	
+#pragma region Dash
+	
+	void StartDash();
+	void EndDash();
+	void UpdateDash(float DeltaTime);
+	FVector2D LastMovementInputValue;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Dash")
+	UCurveFloat* DashCurve;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Dash")
+	float DashTotalTime = 0.35;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Dash")
+	float DashPeakSpeed = 2500.f;
+	float DashElapsedTime = 0.f;
+	FVector DashDirection = FVector::ZeroVector;
+	bool bDashing = false;
+	bool bCanDash = true;
+	FTimerHandle DashTimer;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Dash")
+	float DashCooldown = 1.5;
+	
+#pragma endregion Dash
 	
 	virtual void UpdateAds(float Alpha) override;
 	virtual void UpdateWeaponUI() override { return;}

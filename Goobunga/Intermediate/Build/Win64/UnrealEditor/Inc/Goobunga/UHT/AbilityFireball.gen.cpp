@@ -109,10 +109,10 @@ UAbilityFireball::~UAbilityFireball() {}
 struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_Instants_AbilityFireball_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UAbilityFireball, UAbilityFireball::StaticClass, TEXT("UAbilityFireball"), &Z_Registration_Info_UClass_UAbilityFireball, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAbilityFireball), 2268635076U) },
+		{ Z_Construct_UClass_UAbilityFireball, UAbilityFireball::StaticClass, TEXT("UAbilityFireball"), &Z_Registration_Info_UClass_UAbilityFireball, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAbilityFireball), 1547172493U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_Instants_AbilityFireball_h_2107871689(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_Instants_AbilityFireball_h_2202089721(TEXT("/Script/Goobunga"),
 	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_Instants_AbilityFireball_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_Instants_AbilityFireball_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

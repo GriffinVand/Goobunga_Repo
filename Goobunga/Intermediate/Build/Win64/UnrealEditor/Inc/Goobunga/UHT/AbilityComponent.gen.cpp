@@ -185,7 +185,6 @@ template<> GOOBUNGA_API UClass* StaticClass<UAbilityComponent>()
 {
 	return UAbilityComponent::StaticClass();
 }
-UAbilityComponent::UAbilityComponent(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 DEFINE_VTABLE_PTR_HELPER_CTOR(UAbilityComponent);
 UAbilityComponent::~UAbilityComponent() {}
 // End Class UAbilityComponent

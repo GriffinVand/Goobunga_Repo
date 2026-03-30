@@ -7,6 +7,8 @@ class GOOBUNGA_API UAbilityInstant : public UAbilityBase
 {
 	GENERATED_BODY()
 public:
+	virtual void UpdateSpell(float DeltaTime) override;
+	virtual void UpdateCooldown(float DeltaTime) override;
 	virtual void BeginDestroy() override;
 	virtual void StartSpell() override;
 	virtual void PerformSpell();
@@ -20,5 +22,6 @@ protected:
 	UAnimMontage* StartUpAnimation;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=Stats)
 	float CooldownTime = 5.f;
+	float CurrentCooldownTime = 0.f;
 	bool bCooldownExpired = true;
 };

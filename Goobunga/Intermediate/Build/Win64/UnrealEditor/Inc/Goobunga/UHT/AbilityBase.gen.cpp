@@ -10,14 +10,19 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeAbilityBase() {}
 
 // Begin Cross Module References
+COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 COREUOBJECT_API UClass* Z_Construct_UClass_UObject();
 ENGINE_API UClass* Z_Construct_UClass_UAnimMontage_NoRegister();
+ENGINE_API UClass* Z_Construct_UClass_UTexture2D_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_AGoobunga_Player_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_UAbilityBase();
 GOOBUNGA_API UClass* Z_Construct_UClass_UAbilityBase_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_UAbilityComponent_NoRegister();
+GOOBUNGA_API UClass* Z_Construct_UClass_UAbilityWidgetBase_NoRegister();
 GOOBUNGA_API UEnum* Z_Construct_UEnum_Goobunga_EAbilityState();
 GOOBUNGA_API UEnum* Z_Construct_UEnum_Goobunga_EAbilityType();
+GOOBUNGA_API UFunction* Z_Construct_UDelegateFunction_Goobunga_OnCooldownChanged__DelegateSignature();
+GOOBUNGA_API UFunction* Z_Construct_UDelegateFunction_Goobunga_OnStateChanged__DelegateSignature();
 UPackage* Z_Construct_UPackage__Script_Goobunga();
 // End Cross Module References
 
@@ -144,6 +149,97 @@ UEnum* Z_Construct_UEnum_Goobunga_EAbilityState()
 }
 // End Enum EAbilityState
 
+// Begin Delegate FOnCooldownChanged
+struct Z_Construct_UDelegateFunction_Goobunga_OnCooldownChanged__DelegateSignature_Statics
+{
+	struct _Script_Goobunga_eventOnCooldownChanged_Parms
+	{
+		float Percent;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Abilities/AbilityBase.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_Percent;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UDelegateFunction_Goobunga_OnCooldownChanged__DelegateSignature_Statics::NewProp_Percent = { "Percent", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(_Script_Goobunga_eventOnCooldownChanged_Parms, Percent), METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UDelegateFunction_Goobunga_OnCooldownChanged__DelegateSignature_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UDelegateFunction_Goobunga_OnCooldownChanged__DelegateSignature_Statics::NewProp_Percent,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UDelegateFunction_Goobunga_OnCooldownChanged__DelegateSignature_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UDelegateFunction_Goobunga_OnCooldownChanged__DelegateSignature_Statics::FuncParams = { (UObject*(*)())Z_Construct_UPackage__Script_Goobunga, nullptr, "OnCooldownChanged__DelegateSignature", nullptr, nullptr, Z_Construct_UDelegateFunction_Goobunga_OnCooldownChanged__DelegateSignature_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UDelegateFunction_Goobunga_OnCooldownChanged__DelegateSignature_Statics::PropPointers), sizeof(Z_Construct_UDelegateFunction_Goobunga_OnCooldownChanged__DelegateSignature_Statics::_Script_Goobunga_eventOnCooldownChanged_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00130000, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UDelegateFunction_Goobunga_OnCooldownChanged__DelegateSignature_Statics::Function_MetaDataParams), Z_Construct_UDelegateFunction_Goobunga_OnCooldownChanged__DelegateSignature_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Z_Construct_UDelegateFunction_Goobunga_OnCooldownChanged__DelegateSignature_Statics::_Script_Goobunga_eventOnCooldownChanged_Parms) < MAX_uint16);
+UFunction* Z_Construct_UDelegateFunction_Goobunga_OnCooldownChanged__DelegateSignature()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UDelegateFunction_Goobunga_OnCooldownChanged__DelegateSignature_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+void FOnCooldownChanged_DelegateWrapper(const FMulticastScriptDelegate& OnCooldownChanged, float Percent)
+{
+	struct _Script_Goobunga_eventOnCooldownChanged_Parms
+	{
+		float Percent;
+	};
+	_Script_Goobunga_eventOnCooldownChanged_Parms Parms;
+	Parms.Percent=Percent;
+	OnCooldownChanged.ProcessMulticastDelegate<UObject>(&Parms);
+}
+// End Delegate FOnCooldownChanged
+
+// Begin Delegate FOnStateChanged
+struct Z_Construct_UDelegateFunction_Goobunga_OnStateChanged__DelegateSignature_Statics
+{
+	struct _Script_Goobunga_eventOnStateChanged_Parms
+	{
+		EAbilityState State;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Abilities/AbilityBase.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FBytePropertyParams NewProp_State_Underlying;
+	static const UECodeGen_Private::FEnumPropertyParams NewProp_State;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FBytePropertyParams Z_Construct_UDelegateFunction_Goobunga_OnStateChanged__DelegateSignature_Statics::NewProp_State_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UDelegateFunction_Goobunga_OnStateChanged__DelegateSignature_Statics::NewProp_State = { "State", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(_Script_Goobunga_eventOnStateChanged_Parms, State), Z_Construct_UEnum_Goobunga_EAbilityState, METADATA_PARAMS(0, nullptr) }; // 3671422150
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UDelegateFunction_Goobunga_OnStateChanged__DelegateSignature_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UDelegateFunction_Goobunga_OnStateChanged__DelegateSignature_Statics::NewProp_State_Underlying,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UDelegateFunction_Goobunga_OnStateChanged__DelegateSignature_Statics::NewProp_State,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UDelegateFunction_Goobunga_OnStateChanged__DelegateSignature_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UDelegateFunction_Goobunga_OnStateChanged__DelegateSignature_Statics::FuncParams = { (UObject*(*)())Z_Construct_UPackage__Script_Goobunga, nullptr, "OnStateChanged__DelegateSignature", nullptr, nullptr, Z_Construct_UDelegateFunction_Goobunga_OnStateChanged__DelegateSignature_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UDelegateFunction_Goobunga_OnStateChanged__DelegateSignature_Statics::PropPointers), sizeof(Z_Construct_UDelegateFunction_Goobunga_OnStateChanged__DelegateSignature_Statics::_Script_Goobunga_eventOnStateChanged_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00130000, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UDelegateFunction_Goobunga_OnStateChanged__DelegateSignature_Statics::Function_MetaDataParams), Z_Construct_UDelegateFunction_Goobunga_OnStateChanged__DelegateSignature_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Z_Construct_UDelegateFunction_Goobunga_OnStateChanged__DelegateSignature_Statics::_Script_Goobunga_eventOnStateChanged_Parms) < MAX_uint16);
+UFunction* Z_Construct_UDelegateFunction_Goobunga_OnStateChanged__DelegateSignature()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UDelegateFunction_Goobunga_OnStateChanged__DelegateSignature_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+void FOnStateChanged_DelegateWrapper(const FMulticastScriptDelegate& OnStateChanged, EAbilityState State)
+{
+	struct _Script_Goobunga_eventOnStateChanged_Parms
+	{
+		EAbilityState State;
+	};
+	_Script_Goobunga_eventOnStateChanged_Parms Parms;
+	Parms.State=State;
+	OnStateChanged.ProcessMulticastDelegate<UObject>(&Parms);
+}
+// End Delegate FOnStateChanged
+
 // Begin Class UAbilityBase
 void UAbilityBase::StaticRegisterNativesUAbilityBase()
 {
@@ -167,6 +263,14 @@ struct Z_Construct_UClass_UAbilityBase_Statics
 		{ "ModuleRelativePath", "Abilities/AbilityBase.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_AbilityID_MetaData[] = {
+		{ "Category", "AbilityBase" },
+		{ "ModuleRelativePath", "Abilities/AbilityBase.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_AbilityIcon_MetaData[] = {
+		{ "Category", "AbilityBase" },
+		{ "ModuleRelativePath", "Abilities/AbilityBase.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_AbilityWidgetClass_MetaData[] = {
 		{ "Category", "AbilityBase" },
 		{ "ModuleRelativePath", "Abilities/AbilityBase.h" },
 	};
@@ -219,6 +323,8 @@ struct Z_Construct_UClass_UAbilityBase_Statics
 	static const UECodeGen_Private::FBytePropertyParams NewProp_AbilityType_Underlying;
 	static const UECodeGen_Private::FEnumPropertyParams NewProp_AbilityType;
 	static const UECodeGen_Private::FNamePropertyParams NewProp_AbilityID;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_AbilityIcon;
+	static const UECodeGen_Private::FClassPropertyParams NewProp_AbilityWidgetClass;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_AbilityCooldown;
 	static void NewProp_bBlocksADS_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_bBlocksADS;
@@ -245,8 +351,10 @@ struct Z_Construct_UClass_UAbilityBase_Statics
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
 const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_UAbilityBase_Statics::NewProp_AbilityType_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_UAbilityBase_Statics::NewProp_AbilityType = { "AbilityType", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAbilityBase, AbilityType), Z_Construct_UEnum_Goobunga_EAbilityType, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AbilityType_MetaData), NewProp_AbilityType_MetaData) }; // 2187558570
-const UECodeGen_Private::FNamePropertyParams Z_Construct_UClass_UAbilityBase_Statics::NewProp_AbilityID = { "AbilityID", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAbilityBase, AbilityID), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AbilityID_MetaData), NewProp_AbilityID_MetaData) };
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_UAbilityBase_Statics::NewProp_AbilityType = { "AbilityType", nullptr, (EPropertyFlags)0x0010000000010015, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAbilityBase, AbilityType), Z_Construct_UEnum_Goobunga_EAbilityType, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AbilityType_MetaData), NewProp_AbilityType_MetaData) }; // 2187558570
+const UECodeGen_Private::FNamePropertyParams Z_Construct_UClass_UAbilityBase_Statics::NewProp_AbilityID = { "AbilityID", nullptr, (EPropertyFlags)0x0010000000010015, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAbilityBase, AbilityID), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AbilityID_MetaData), NewProp_AbilityID_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAbilityBase_Statics::NewProp_AbilityIcon = { "AbilityIcon", nullptr, (EPropertyFlags)0x0010000000010015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAbilityBase, AbilityIcon), Z_Construct_UClass_UTexture2D_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AbilityIcon_MetaData), NewProp_AbilityIcon_MetaData) };
+const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_UAbilityBase_Statics::NewProp_AbilityWidgetClass = { "AbilityWidgetClass", nullptr, (EPropertyFlags)0x0014000000010015, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAbilityBase, AbilityWidgetClass), Z_Construct_UClass_UClass, Z_Construct_UClass_UAbilityWidgetBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AbilityWidgetClass_MetaData), NewProp_AbilityWidgetClass_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UAbilityBase_Statics::NewProp_AbilityCooldown = { "AbilityCooldown", nullptr, (EPropertyFlags)0x0020080000010015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAbilityBase, AbilityCooldown), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AbilityCooldown_MetaData), NewProp_AbilityCooldown_MetaData) };
 void Z_Construct_UClass_UAbilityBase_Statics::NewProp_bBlocksADS_SetBit(void* Obj)
 {
@@ -290,6 +398,8 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UAbilityB
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAbilityBase_Statics::NewProp_AbilityType_Underlying,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAbilityBase_Statics::NewProp_AbilityType,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAbilityBase_Statics::NewProp_AbilityID,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAbilityBase_Statics::NewProp_AbilityIcon,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAbilityBase_Statics::NewProp_AbilityWidgetClass,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAbilityBase_Statics::NewProp_AbilityCooldown,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAbilityBase_Statics::NewProp_bBlocksADS,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAbilityBase_Statics::NewProp_bBlocksFire,
@@ -348,10 +458,10 @@ struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilitie
 		{ EAbilityState_StaticEnum, TEXT("EAbilityState"), &Z_Registration_Info_UEnum_EAbilityState, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3671422150U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UAbilityBase, UAbilityBase::StaticClass, TEXT("UAbilityBase"), &Z_Registration_Info_UClass_UAbilityBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAbilityBase), 4210669246U) },
+		{ Z_Construct_UClass_UAbilityBase, UAbilityBase::StaticClass, TEXT("UAbilityBase"), &Z_Registration_Info_UClass_UAbilityBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAbilityBase), 3904458140U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_1666070761(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_2443032388(TEXT("/Script/Goobunga"),
 	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_Statics::ClassInfo),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_Statics::EnumInfo));

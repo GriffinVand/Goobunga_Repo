@@ -21,10 +21,14 @@ EBTNodeResult::Type UBTTask_LaunchInDirection::ExecuteTask(UBehaviorTreeComponen
 	
 	if (ILaunchInterface* LaunchInterface = Cast<ILaunchInterface>(SelfActor))
 	{
+		TWeakObjectPtr<UBehaviorTreeComponent> WeakOwner = &OwnerComp;
+		OwnerComp.GetBlackboardComponent()->SetValueAsBool(IsLaunchingKey.SelectedKeyName, true);
 		//UE_LOG(LogTemp, Warning, TEXT("Launch Begin"));
-		LaunchInterface->LaunchTowardsLocation(TargetActor, FOnLaunchFinished::CreateLambda([this, OwnerCompPtr = &OwnerComp]()
+		LaunchInterface->LaunchTowardsLocation(TargetActor, FOnLaunchFinished::CreateLambda([this, WeakBB = WeakOwner]()
 		{
-			FinishLatentTask(*OwnerCompPtr, EBTNodeResult::Succeeded);
+			if (!WeakBB.IsValid()) { return;}
+			WeakBB->GetBlackboardComponent()->SetValueAsBool(IsLaunchingKey.SelectedKeyName, false);
+			FinishLatentTask(*WeakBB, EBTNodeResult::Succeeded);
 		}));
 	}
 	
@@ -33,11 +37,12 @@ EBTNodeResult::Type UBTTask_LaunchInDirection::ExecuteTask(UBehaviorTreeComponen
 
 EBTNodeResult::Type UBTTask_LaunchInDirection::AbortTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
-	AJoshEnemy* SelfActor = Cast<AJoshEnemy>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(SelfActorKey.SelectedKeyName));
-	if (SelfActor)
+	ILaunchInterface* LI = Cast<ILaunchInterface>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(SelfActorKey.SelectedKeyName));
+	if (LI)
 	{
+		OwnerComp.GetBlackboardComponent()->SetValueAsBool(IsLaunchingKey.SelectedKeyName, false);
 		//UE_LOG(LogTemp, Warning, TEXT("Tell Actor end launch"));
-		SelfActor->EndLaunch();
+		LI->AbortLaunch();
 	}
 	//UE_LOG(LogTemp, Warning, TEXT("LaunchAborted"));
 	return EBTNodeResult::Aborted;

@@ -22,6 +22,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #define FOREACH_ENUM_EENEMYSTATE(op) \
 	op(Default) \
 	op(Walking) \
+	op(Chasing) \
 	op(Attacking) \
 	op(Launching) \
 	op(Busy) \

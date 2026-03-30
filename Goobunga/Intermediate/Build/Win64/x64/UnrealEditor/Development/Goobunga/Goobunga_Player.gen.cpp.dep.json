@@ -7,6 +7,8 @@
         "Includes": [
             "e:\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\goobunga\\definitions.goobunga.h",
             "e:\\goobunga_repo\\goobunga\\source\\goobunga\\goobunga_player.h",
+            "e:\\ue_5.5\\engine\\plugins\\enhancedinput\\source\\enhancedinput\\public\\inputactionvalue.h",
+            "e:\\ue_5.5\\engine\\plugins\\enhancedinput\\intermediate\\build\\win64\\unrealeditor\\inc\\enhancedinput\\uht\\inputactionvalue.generated.h",
             "e:\\goobunga_repo\\goobunga\\source\\goobunga\\playercallables.h",
             "e:\\ue_5.5\\engine\\source\\runtime\\gameplaytags\\classes\\gameplaytagcontainer.h",
             "e:\\ue_5.5\\engine\\source\\runtime\\core\\public\\misc\\comparisonutility.h",

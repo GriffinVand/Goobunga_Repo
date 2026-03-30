@@ -4,7 +4,9 @@
 #include "Goobunga_PlayerController.h"
 #include "Goobunga_Player.h"
 #include "UserInterface/PlayerWeaponAmmoWidget.h"
+#include "Goobunga/Abilities/AbilityBase.h"
 #include "Components/SizeBox.h"
+#include "UserInterface/Ability/AbilityWidgetBase.h"
 
 void AGoobunga_PlayerController::BeginPlay()
 {
@@ -50,4 +52,37 @@ void AGoobunga_PlayerController::CreateWeaponUI(AWeapon* Weapon)
 		return;
 	}
 	UE_LOG(LogTemp, Error, TEXT("No weapon ui container CreateWeaponUI"));
+}
+
+void AGoobunga_PlayerController::CreateAbilityUI(UAbilityBase* Ability)
+{
+	if (!Ability) { return; }
+	if (!MainHUD) { UE_LOG(LogTemp, Warning, TEXT("AGoobunga_PlayerController::CreateWeaponUI No MainHUD")); return; }
+	switch (Ability->AbilityType)
+	{
+	case EAbilityType::Small:
+		if (SmallAbilityUI) { SmallAbilityUI->RemoveFromParent(); }
+		SmallAbilityUI = CreateWidget<UAbilityWidgetBase>(this, Ability->AbilityWidgetClass);
+		if (!SmallAbilityUI) { UE_LOG(LogTemp, Error, TEXT("Failed to create ability")); return; }
+		SmallAbilityUI->BindToAbility(Ability);
+		MainHUD->SmallAbilityUIContainer->AddChild(SmallAbilityUI);
+		
+		break;
+	case EAbilityType::Large:
+		if (LargeAbilityUI) { LargeAbilityUI->RemoveFromParent(); }
+		LargeAbilityUI = CreateWidget<UAbilityWidgetBase>(this, Ability->AbilityWidgetClass);
+		if (!LargeAbilityUI) { UE_LOG(LogTemp, Error, TEXT("Failed to create ability")); return; }
+		LargeAbilityUI->BindToAbility(Ability);
+		MainHUD->LargeAbilityUIContainer->AddChild(LargeAbilityUI);
+		
+		break;
+	case EAbilityType::Heal:
+		if (HealAbilityUI) { HealAbilityUI->RemoveFromParent(); }
+		HealAbilityUI = CreateWidget<UAbilityWidgetBase>(this, Ability->AbilityWidgetClass);
+		if (!HealAbilityUI) { UE_LOG(LogTemp, Error, TEXT("Failed to create ability")); return; }
+		HealAbilityUI->BindToAbility(Ability);
+		MainHUD->HealAbilityUIContainer->AddChild(HealAbilityUI);
+		
+		break;
+	}
 }

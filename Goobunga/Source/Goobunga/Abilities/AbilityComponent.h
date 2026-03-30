@@ -22,6 +22,7 @@ class GOOBUNGA_API UAbilityComponent : public UActorComponent
 {
 	GENERATED_BODY()
 public:
+	UAbilityComponent();
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UAbilityBase* ActiveAbility;

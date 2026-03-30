@@ -14,7 +14,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define GOOBUNGA_PlayerMainWidget_generated_h
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_20_INCLASS_NO_PURE_DECLS \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_21_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUPlayerMainWidget(); \
 	friend struct Z_Construct_UClass_UPlayerMainWidget_Statics; \
@@ -23,7 +23,7 @@ public: \
 	DECLARE_SERIALIZER(UPlayerMainWidget)
 
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_20_ENHANCED_CONSTRUCTORS \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_21_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UPlayerMainWidget(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 private: \
@@ -37,12 +37,12 @@ public: \
 	NO_API virtual ~UPlayerMainWidget();
 
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_17_PROLOG
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_20_GENERATED_BODY \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_18_PROLOG
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_21_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_20_INCLASS_NO_PURE_DECLS \
-	FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_20_ENHANCED_CONSTRUCTORS \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_21_INCLASS_NO_PURE_DECLS \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_21_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

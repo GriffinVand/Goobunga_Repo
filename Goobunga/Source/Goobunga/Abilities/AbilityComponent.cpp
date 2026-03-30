@@ -1,11 +1,21 @@
 #include "AbilityComponent.h"
 #include "Goobunga/Goobunga_Player.h"
 
+UAbilityComponent::UAbilityComponent()
+{
+	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bStartWithTickEnabled = true;
+}
+
 void UAbilityComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
-	if (ActiveAbility)
+	TArray<UAbilityBase*> CurrentAbilities = { SmallAbility, LargeAbility, HealAbility};
+	for (auto& Ability : CurrentAbilities)
 	{
-		ActiveAbility->UpdateSpell(DeltaTime);
+		if (Ability)
+		{
+			Ability->UpdateSpell(DeltaTime);
+		}
 	}
 }
 
@@ -82,6 +92,7 @@ void UAbilityComponent::EquipAbility(EAbilityType Slot, TSubclassOf<UAbilityBase
 		if (!Owner) { UE_LOG(LogTemp, Error, TEXT("Owner invalid AbilityComponent::EquipAbility")); } else { UE_LOG(LogTemp, Error, TEXT("Owner IS VALID AbilityComponent::EquipAbility")); }
 		NewAbility->SetPlayerInstance(Owner);
 		NewAbility->SetAbilityCompInstance(this);
+		Owner->EquippedAbility(NewAbility);
 		*AbilitySlotPtr = NewAbility;
 	}
 	

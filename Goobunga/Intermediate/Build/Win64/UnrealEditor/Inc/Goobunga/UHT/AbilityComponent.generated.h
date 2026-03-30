@@ -24,8 +24,6 @@ public: \
 
 
 #define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_23_ENHANCED_CONSTRUCTORS \
-	/** Standard constructor, called after all reflected properties have been initialized */ \
-	NO_API UAbilityComponent(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	UAbilityComponent(UAbilityComponent&&); \
@@ -33,7 +31,7 @@ private: \
 public: \
 	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UAbilityComponent); \
 	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UAbilityComponent); \
-	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UAbilityComponent) \
+	DEFINE_DEFAULT_CONSTRUCTOR_CALL(UAbilityComponent) \
 	NO_API virtual ~UAbilityComponent();
 
 

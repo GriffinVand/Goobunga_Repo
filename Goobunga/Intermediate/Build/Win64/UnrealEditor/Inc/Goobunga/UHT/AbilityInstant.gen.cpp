@@ -101,10 +101,10 @@ UAbilityInstant::~UAbilityInstant() {}
 struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_Instants_AbilityInstant_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UAbilityInstant, UAbilityInstant::StaticClass, TEXT("UAbilityInstant"), &Z_Registration_Info_UClass_UAbilityInstant, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAbilityInstant), 4024025393U) },
+		{ Z_Construct_UClass_UAbilityInstant, UAbilityInstant::StaticClass, TEXT("UAbilityInstant"), &Z_Registration_Info_UClass_UAbilityInstant, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAbilityInstant), 1428685032U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_Instants_AbilityInstant_h_193563863(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_Instants_AbilityInstant_h_2403972904(TEXT("/Script/Goobunga"),
 	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_Instants_AbilityInstant_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_Instants_AbilityInstant_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

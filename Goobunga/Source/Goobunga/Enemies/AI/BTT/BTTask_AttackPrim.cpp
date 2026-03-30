@@ -9,7 +9,6 @@ UBTTask_AttackPrim::UBTTask_AttackPrim()
 	bCreateNodeInstance = true;
 }
 
-
 EBTNodeResult::Type UBTTask_AttackPrim::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	AActor* TargetActor = Cast<AActor>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(TargetActorKey.SelectedKeyName));

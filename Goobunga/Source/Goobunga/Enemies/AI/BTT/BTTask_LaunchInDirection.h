@@ -24,4 +24,6 @@ protected:
 	FBlackboardKeySelector TargetActorKey;
 	UPROPERTY(EditAnywhere, Category = Blackboard)
 	FBlackboardKeySelector SelfActorKey;
+	UPROPERTY(EditAnywhere, Category = Blackboard)
+	FBlackboardKeySelector IsLaunchingKey;
 };

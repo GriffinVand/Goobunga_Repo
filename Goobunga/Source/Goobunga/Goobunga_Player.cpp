@@ -72,10 +72,8 @@ void AGoobunga_Player::Tick(float DeltaTime)
 	UpdateWeaponKick();
 	UpdateFPAlign();
 	UpdateWeaponSwayData(DeltaTime);
-	if (Reloading)
-	{
-		ReloadManagerComponent->UpdatePhase(DeltaTime);
-	}
+	if (Reloading) { ReloadManagerComponent->UpdatePhase(DeltaTime); }
+	if (bDashing) { UpdateDash(DeltaTime); }
 }
 
 #pragma region INPUT FUNCTIONS
@@ -110,11 +108,14 @@ void AGoobunga_Player::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		EnhancedInputComponent->BindAction(LargeAbilityAction, ETriggerEvent::Completed, this, &AGoobunga_Player::LargeAbilityInputEnded);
 		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Started, this, &AGoobunga_Player::InteractInputStarted);
 		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Completed, this, &AGoobunga_Player::InteractInputEnded);
+		EnhancedInputComponent->BindAction(DashAction, ETriggerEvent::Started, this, &AGoobunga_Player::DashInputStarted);
 	}
 }
 void AGoobunga_Player::Move(const FInputActionValue& Value)
 {
+	if (bDashing) { return; }
 	const FVector2d MoveVector = Value.Get<FVector2d>();
+	LastMovementInputValue = MoveVector;
 	AddMovementInput(GetActorForwardVector() * MoveVector.Y);
 	AddMovementInput(GetActorRightVector() * MoveVector.X);
 	TargetWeaponSwayData.Movement = FVector2D(MoveVector.X, MoveVector.Y);
@@ -122,6 +123,36 @@ void AGoobunga_Player::Move(const FInputActionValue& Value)
 void AGoobunga_Player::EndMove(const FInputActionValue& Value)
 {
 	TargetWeaponSwayData.Movement = FVector2D::ZeroVector;
+	LastMovementInputValue = FVector2D::ZeroVector;
+}
+
+void AGoobunga_Player::StartDash()
+{
+	DashElapsedTime = 0.f;
+	DashDirection = GetActorForwardVector() * LastMovementInputValue.Y + GetActorRightVector() * LastMovementInputValue.X;
+	DashDirection.Normalize();
+	bDashing = true;
+	bCanDash = false;
+}
+
+void AGoobunga_Player::EndDash()
+{
+	bDashing = false;
+	GetWorld()->GetTimerManager().ClearTimer(DashTimer);
+	GetWorld()->GetTimerManager().SetTimer(DashTimer, [this]()
+	{
+		bCanDash = true;
+	}, DashCooldown, false);
+}
+
+void AGoobunga_Player::UpdateDash(float DeltaTime)
+{
+	DashElapsedTime = FMath::Min(DashElapsedTime + DeltaTime, DashTotalTime);
+	float Alpha = DashElapsedTime / DashTotalTime;
+	float Speed = DashCurve->GetFloatValue(Alpha);
+	
+	GetCharacterMovement()->Velocity = ((Speed * DashPeakSpeed) + GetCharacterMovement()->MaxWalkSpeed) * DashDirection;
+	if (Alpha >= 1.f) { EndDash(); }
 }
 
 bool AGoobunga_Player::CanInteract()
@@ -212,7 +243,7 @@ void AGoobunga_Player::FireEnded(bool Cancelled)
 
 void AGoobunga_Player::AltFireInputStarted()
 {
-	if (!WeaponComponent) { return; }
+	if (!WeaponComponent || !WeaponComponent->GetEquippedWeapon()) { return; }
 	WeaponComponent->GetEquippedWeapon()->bADS ? TryStartAction(ECombatAction::Aim) : TryStartAction(ECombatAction::SecFire);
 }
 
@@ -270,7 +301,8 @@ void AGoobunga_Player::ApplyWeaponKick(FVector KickDirection, FRotator KickRotat
 void AGoobunga_Player::UpdateWeaponKick()
 {
 	CurrentWeaponKickDir = FMath::VInterpTo(CurrentWeaponKickDir, FVector::ZeroVector, GetWorld()->GetDeltaSeconds(), 20.f);
-	if (!WeaponComponent->GetEquippedWeapon()) { TrueWeaponKickDir = FVector::ZeroVector; }
+	if (!WeaponComponent || !WeaponComponent->GetEquippedWeapon()) { TrueWeaponKickDir = FVector::ZeroVector; return; }
+	if (!WeaponComponent->GetEquippedWeapon()->WeaponMesh) { TrueWeaponKickDir = FVector::ZeroVector; return; }
 	FTransform WeaponTransform = WeaponComponent->GetEquippedWeapon()->WeaponMesh->GetSocketTransform("Fire_Location");
 	FVector GunFwd = WeaponTransform.GetUnitAxis(EAxis::X);
 	FVector GunRight = WeaponTransform.GetUnitAxis(EAxis::Y);
@@ -484,6 +516,8 @@ bool AGoobunga_Player::CanPerformAction(ECombatAction Action)
 		return (!AbilityComponent->IsFlagBlocked(EAbilityBlockFlag::Sprint) && !Sprinting && WeaponDrawn);
 	case ECombatAction::Interact:
 		return CanInteract();
+	case ECombatAction::Dash:
+		return !bDashing && bCanDash;
 	default:
 		return false;
 	}
@@ -530,7 +564,7 @@ void AGoobunga_Player::ResolveActionConflicts(ECombatAction Action)
 		if (UAbilityBase* Ability = AbilityComponent->GetAbility(EAbilityType::Small))
 		{
 			if (Ability->GetBlocksFire()) { FireEnded(true); AltFireEnded(true); }
-			if (Ability->GetBlocksADS() && WeaponComponent->GetEquippedWeapon() && WeaponComponent->GetEquippedWeapon()->bADS) { AltFireEnded(true); WeaponComponent->AdsAlpha = 0.f; WeaponComponent->HandleNewAds(); }
+			if (Ability->GetBlocksADS() && WeaponComponent->GetEquippedWeapon() && WeaponComponent->GetEquippedWeapon()->bADS) { AltFireEnded(true); }
 			if (Reloading) { ReloadManagerComponent->StopReload(false); }
 			if (Ability->GetDisablesGrip()) { GripAlpha = 0.f; }
 			if (Sprinting) { SprintEnded(); }
@@ -540,7 +574,7 @@ void AGoobunga_Player::ResolveActionConflicts(ECombatAction Action)
 		if (UAbilityBase* Ability = AbilityComponent->GetAbility(EAbilityType::Large))
 		{
 			if (Ability->GetBlocksFire()) { FireEnded(true); AltFireEnded(true); }
-			if (Ability->GetBlocksADS()) { WeaponComponent->AdsAlpha = 0.f; WeaponComponent->HandleNewAds(); }
+			if (Ability->GetBlocksADS() && WeaponComponent->GetEquippedWeapon() && WeaponComponent->GetEquippedWeapon()->bADS) { AltFireEnded(true); }
 			if (Reloading) { ReloadManagerComponent->StopReload(false); }
 			if (Ability->GetDisablesGrip()) { GripAlpha = 0.f; }
 			if (Sprinting) { SprintEnded(); }
@@ -550,13 +584,17 @@ void AGoobunga_Player::ResolveActionConflicts(ECombatAction Action)
 		if (UAbilityBase* Ability = AbilityComponent->GetAbility(EAbilityType::Heal))
 		{
 			if (Ability->GetBlocksFire()) { FireEnded(true); AltFireEnded(true); }
-			if (Ability->GetBlocksADS()) { WeaponComponent->AdsAlpha = 0.f; WeaponComponent->HandleNewAds(); }
+			if (Ability->GetBlocksADS() && WeaponComponent->GetEquippedWeapon() && WeaponComponent->GetEquippedWeapon()->bADS) { AltFireEnded(true); }
 			if (Reloading) { ReloadManagerComponent->StopReload(false); }
 			if (Ability->GetDisablesGrip()) { GripAlpha = 0.f; }
 			if (Sprinting) { SprintEnded(); }
 		}
 		break;
 	case ECombatAction::Interact:
+		break;
+	case ECombatAction::Dash:
+		if (Sprinting) { SprintEnded(); }
+		if (Reloading) { ReloadManagerComponent->StopReload(false); }
 		break;
 	default:
 		break;
@@ -598,6 +636,8 @@ void AGoobunga_Player::StartAction(ECombatAction Action)
 	case ECombatAction::Interact:
 		InteractStarted();
 		break;
+	case ECombatAction::Dash:
+		StartDash();
 	default:
 		break;
 	}
@@ -672,3 +712,15 @@ void AGoobunga_Player::NotifyAbilityMontageEnded(UAnimMontage* Montage, bool bIn
 }
 
 #pragma endregion Ability
+
+#pragma region UI
+
+void AGoobunga_Player::EquippedAbility(UAbilityBase* NewAbility)
+{
+	if (AGoobunga_PlayerController* PC = Cast<AGoobunga_PlayerController>(GetController()))
+	{
+		PC->CreateAbilityUI(NewAbility);
+	}
+}
+
+#pragma endregion

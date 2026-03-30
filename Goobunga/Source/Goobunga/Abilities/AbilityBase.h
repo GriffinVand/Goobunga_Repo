@@ -2,6 +2,7 @@
 #include "CoreMinimal.h"
 #include "AbilityBase.generated.h"
 
+class UAbilityWidgetBase;
 class UAbilityComponent;
 class AGoobunga_Player;
 
@@ -24,20 +25,32 @@ enum class EAbilityState : uint8
 	Recovering UMETA(DisplayName = "Recovering"),
 };
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCooldownChanged, float, Percent);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnStateChanged, EAbilityState, State);
+
 UCLASS(Blueprintable)
 class GOOBUNGA_API UAbilityBase : public UObject
 {
 	GENERATED_BODY()
 public:
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FOnCooldownChanged OnCooldownChanged;
+	FOnStateChanged OnStateChanged;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	EAbilityType AbilityType;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	FName AbilityID = "Ability";
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UTexture2D* AbilityIcon;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSubclassOf<UAbilityWidgetBase> AbilityWidgetClass;
 	virtual void StartSpell() {}
 	virtual void UpdateSpell(float DeltaTime) {}
 	virtual void EndSpell() {}
 	virtual void CancelSpell() {}
+	virtual void SetState(EAbilityState NewState) { AbilityState = NewState; OnStateChanged.Broadcast(AbilityState); }
+	virtual void UpdateCooldown(float DeltaTime) {}
 	
 	bool GetBlocksADS() const { return bBlocksADS; }
 	bool GetDisablesGrip() const { return bDisablesGrip; }

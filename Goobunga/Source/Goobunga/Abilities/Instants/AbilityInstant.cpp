@@ -2,12 +2,23 @@
 
 #include "Goobunga/Goobunga_Player.h"
 
+void UAbilityInstant::UpdateSpell(float DeltaTime)
+{
+	if (!bCooldownExpired) { UpdateCooldown(DeltaTime); }
+}
+
+void UAbilityInstant::UpdateCooldown(float DelaTime)
+{
+	CurrentCooldownTime = FMath::Max(0, CurrentCooldownTime -= DelaTime);
+	if (CurrentCooldownTime <= 0.f)
+	{
+		bCooldownExpired = true;
+	}
+	OnCooldownChanged.Broadcast(CurrentCooldownTime/CooldownTime);
+}
+
 void UAbilityInstant::BeginDestroy()
 {
-	if (UWorld* World = GetWorld())
-	{
-		World->GetTimerManager().ClearTimer(CooldownTimer);	
-	}
 	Super::BeginDestroy();
 }
 
@@ -32,8 +43,9 @@ void UAbilityInstant::StartSpell()
 
 void UAbilityInstant::PerformSpell()
 {
+	CurrentCooldownTime = CooldownTime;
+	OnCooldownChanged.Broadcast(CurrentCooldownTime/CooldownTime);
 	bCooldownExpired = false;
-	GetWorld()->GetTimerManager().SetTimer(CooldownTimer, [this](){ bCooldownExpired = true; }, CooldownTime, false);
 }
 
 void UAbilityInstant::CancelSpell()

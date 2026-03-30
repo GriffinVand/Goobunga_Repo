@@ -1,12 +1,12 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\source\\goobunga\\enemies\\enemystates.cpp",
+        "Source": "e:\\goobunga_repo\\goobunga\\source\\goobunga\\enemies\\enemystates.cpp",
         "ProvidedModule": "",
-        "PCH": "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\goobungaeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "PCH": "e:\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\goobungaeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
         "Includes": [
-            "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\goobunga\\definitions.goobunga.h",
-            "c:\\users\\griff\\desktop\\goobungababy\\goobunga_repo\\goobunga\\source\\goobunga\\enemies\\enemystates.h"
+            "e:\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\goobunga\\definitions.goobunga.h",
+            "e:\\goobunga_repo\\goobunga\\source\\goobunga\\enemies\\enemystates.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

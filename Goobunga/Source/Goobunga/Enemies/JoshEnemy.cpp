@@ -88,13 +88,14 @@ void AJoshEnemy::StartLaunch(AActor* TargetActor)
 		LaunchGoalLocation = TargetActor->GetActorLocation();
 		FVector PlayerVelocity = TargetActor->GetVelocity();
 		FVector DirTowardsLocation = LaunchGoalLocation - GetActorLocation();
+		float DistTo = FVector::Dist(LaunchGoalLocation, GetActorLocation());
+		NormalizedLaunchSplineTime = (DistTo / ExpectedLaunchRange) * (MaxLaunchSplineTime);
 		DirTowardsLocation.Normalize();
-		LaunchGoalLocation = LaunchGoalLocation + (DirTowardsLocation * 250.f) + (PlayerVelocity);
-		DrawDebugSphere(GetWorld(), LaunchGoalLocation, 100, 20, FColor::Green, true);
+		//DrawDebugSphere(GetWorld(), LaunchGoalLocation, 100, 20, FColor::Green, true);
 		LaunchSplineAlpha = 0;
 		LaunchCooldown = 0.f;
 		AAIController* AIController = Cast<AAIController>(GetController());
-		if (AIController) { AIController->ClearFocus(EAIFocusPriority::Gameplay);}
+		if (AIController) { AIController->ClearFocus(EAIFocusPriority::Gameplay); }
 		LaunchSpline->ClearSplinePoints(true);
 		LaunchSpline->AddSplinePoint(GetActorLocation(), ESplineCoordinateSpace::World, true);
 		FVector Midpoint = (LaunchGoalLocation + GetActorLocation()) / 2.f;
@@ -108,39 +109,54 @@ void AJoshEnemy::StartLaunch(AActor* TargetActor)
 		LaunchSplineAlpha = 0.f;
 		CurrentState = EEnemyState::Launching;
 		Jump();
+		GetCharacterMovement()->bOrientRotationToMovement = true;
+		GetCharacterMovement()->SetMovementMode(MOVE_Flying);
+		GetCharacterMovement()->GravityScale = 0.f;
 	}
 }
 
 void AJoshEnemy::UpdateLaunchProgress(float DeltaTime)
 {
-	LaunchSplineAlpha += DeltaTime / LaunchSplineTime;
+	LaunchSplineAlpha += DeltaTime / NormalizedLaunchSplineTime;
 	if (LaunchSplineAlpha >= 1) { EndLaunch(); return; }
 	
 	LaunchSplineAlpha = FMath::Clamp(LaunchSplineAlpha, 0, 1);
 	float TotalDist = LaunchSpline->GetSplineLength();
-	FVector NextPoint = LaunchSpline->GetLocationAtDistanceAlongSpline(LaunchSplineAlpha * TotalDist, ESplineCoordinateSpace::World);
-	DrawDebugSphere(GetWorld(), NextPoint, 10.f, 12, FColor::Red);
+	float DistAlongSpline = LaunchSplineAlpha * TotalDist;
 	
-	FVector Direction = NextPoint - GetActorLocation();
-	float Speed = FVector::Dist(GetActorLocation(), NextPoint) * 50.f;
-	FVector Velocity = Direction * 5.f;
-	GetCharacterMovement()->Velocity = Velocity;
-	AddMovementInput(Velocity, true);
+	FVector TargetLocation = LaunchSpline->GetLocationAtDistanceAlongSpline(DistAlongSpline, ESplineCoordinateSpace::World);
+	
+	FVector Tangent = LaunchSpline->GetTangentAtDistanceAlongSpline(DistAlongSpline, ESplineCoordinateSpace::World);
+	
+	float DesiredSpeed = TotalDist / NormalizedLaunchSplineTime;
+	GetCharacterMovement()->Velocity = Tangent.GetSafeNormal() * DesiredSpeed;
+	
+	FHitResult Hit;
+	SetActorLocation(TargetLocation, true, &Hit);
+	if (Hit.IsValidBlockingHit())
+	{
+		if (Hit.GetComponent()->GetCollisionObjectType() == ECC_WorldStatic)
+		{
+			EndLaunch();	
+		}
+	}
 }
 
 void AJoshEnemy::EndLaunch()
 {
 	//UE_LOG(LogTemp, Warning, TEXT("Ending Launch"));
+	GetCharacterMovement()->bOrientRotationToMovement = false;
 	AAIController* AIController = Cast<AAIController>(GetController());
 	if (AIController) AIController->SetFocus(UGameplayStatics::GetPlayerCharacter(this, 0), EAIFocusPriority::Gameplay);
 	LaunchCooldown = 0;
 	CurrentState = EEnemyState::Walking;
+	GetCharacterMovement()->GravityScale = 1.f;
+	GetCharacterMovement()->SetMovementMode(MOVE_Falling);
 	if (LaunchFinishedDelegate.IsBound()) LaunchFinishedDelegate.Execute();
 }
 
 void AJoshEnemy::AttackPrimary(AActor* Target)
 {
-	if (CurrentState == EEnemyState::Launching) { EndLaunch(); }
 	if (AttackCooldown >= AttackRate && CurrentState != EEnemyState::Attacking)
 	{
 		if (StabMontage != nullptr)
@@ -168,13 +184,41 @@ void AJoshEnemy::AttackPrimary(AActor* Target)
 	}
 }
 
+void AJoshEnemy::AttackSecondary(AActor* Target)
+{
+	UE_LOG(LogTemp, Error, TEXT("Try attack sec"));
+	if (FallingStabMontage != nullptr && CurrentState != EEnemyState::Attacking)
+	{
+		if (CurrentState == EEnemyState::Launching) { EndLaunch(); }
+		if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
+		{
+			CurrentState = EEnemyState::Attacking;
+			AnimInstance->Montage_Play(FallingStabMontage);
+			UE_LOG(LogTemp, Warning, TEXT("PLAY MONTAGE"));
+			FOnMontageEnded MontageEnded;
+			MontageEnded.BindLambda([this](UAnimMontage* Montage, bool bInteruppted)
+			{
+				AttackCooldown = 0;
+				CurrentState = EEnemyState::Walking;
+				OnAttackFinished.Broadcast();
+				UE_LOG(LogTemp, Warning, TEXT("MONTAGE ENDED"));
+			});
+			AnimInstance->Montage_SetEndDelegate(MontageEnded, FallingStabMontage);
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Anim instance not found: AttackGeneric()"));
+		}
+	}
+}
+
 void AJoshEnemy::OnMontageNotifyBegin(FName NotifyName, const FBranchingPointNotifyPayload& Payload)
 {
 	if (NotifyName == ExpectedStabNotifyName)
 	{
 		FVector TraceLoc = FVector::ZeroVector;
 		if (GetMesh()) { TraceLoc = GetMesh()->GetSocketLocation(AttackSocketName); }
-		DrawDebugSphere(GetWorld(), TraceLoc, 10.f, 12, FColor::Red, true, 3.f);
+		//DrawDebugSphere(GetWorld(), TraceLoc, 10.f, 12, FColor::Red, true, 3.f);
 		AttackDamageTrace(TraceLoc, AttackRadius, AttackDamage, EDamageType::Default);
 	}
 }

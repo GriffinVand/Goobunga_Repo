@@ -20,4 +20,5 @@ class GOOBUNGA_API ILaunchInterface
 public:
 	virtual void LaunchTowardsLocation(AActor* TargetActor, FOnLaunchFinished InOnFinished) = 0;
 	virtual bool GetCanLaunch() = 0;
+	virtual void AbortLaunch() = 0;
 };

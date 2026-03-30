@@ -16,6 +16,7 @@ EBTNodeResult::Type UBTTask_AttackSec::ExecuteTask(UBehaviorTreeComponent& Owner
 	StoredOwnerComp = &OwnerComp;
 	if (IEnemyCallables* EnemyInterface = Cast<IEnemyCallables>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(SelfActorKey.SelectedKeyName)))
 	{
+		EnemyInterface->GetAttackFinishedDelegate().RemoveDynamic(this, &UBTTask_AttackSec::OnAttackFinished);
 		EnemyInterface->GetAttackFinishedDelegate().AddUniqueDynamic(this, &UBTTask_AttackSec::OnAttackFinished);
 		EnemyInterface->AttackSecondary(TargetActor);
 		return EBTNodeResult::InProgress;

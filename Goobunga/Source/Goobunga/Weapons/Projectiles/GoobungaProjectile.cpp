@@ -61,7 +61,7 @@ void AGoobungaProjectile::OnOverlapBegin(UPrimitiveComponent* OverlappedComponen
 			PlayHitEffect();
 			Destroy();
 		}
-	}
+	} else { if (OtherComp->GetCollisionObjectType() == ECollisionChannel::ECC_WorldStatic) { PlayHitEffect(); Destroy(); }}
 }
 
 void AGoobungaProjectile::PlayHitEffect()

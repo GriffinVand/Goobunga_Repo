@@ -23,6 +23,8 @@ protected:
 	UAnimMontage* StabMontage = nullptr;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Jump)
 	UAnimMontage* WindUpMontage = nullptr;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Jump)
+	UAnimMontage* FallingStabMontage;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Attack)
 	FName ExpectedStabNotifyName;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Attack)
@@ -50,9 +52,13 @@ public:
 	USplineComponent* LaunchSpline;
 	float LaunchForce = 500.f;
 	float LaunchSplineAlpha = 0.f;
-	float LaunchSplineTime = 0.7f;
 	float LaunchRate = 12.f;
 	float LaunchCooldown = 12.f;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Launch)
+	float MaxLaunchSplineTime = 0.7f;
+	float NormalizedLaunchSplineTime = 0.7f;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Launch)
+	float ExpectedLaunchRange = 600.f;
 	FOnLaunchFinished LaunchFinishedDelegate;
 	
 	virtual void StartLaunch(AActor* TargetActor);
@@ -60,12 +66,15 @@ public:
 	virtual void EndLaunch();
 	virtual bool GetCanLaunch() override { return LaunchCooldown > LaunchRate; }
 	virtual void LaunchTowardsLocation(AActor* TargetActor, FOnLaunchFinished InOnLaunchFinished) override;
+	virtual void AbortLaunch() override { EndLaunch(); }
 	
 	virtual void UpdateCurrentState(float DeltaTime) override;
 	virtual bool GetCanAttackPrim() override { return AttackCooldown > AttackRate && CurrentState != EEnemyState::Attacking; }
+	virtual bool GetCanAttackSec() override { return CurrentState == EEnemyState::Launching && CurrentState != EEnemyState::Attacking;}
 	
 	UFUNCTION()
 	void OnMontageNotifyBegin(FName NotifyName, const FBranchingPointNotifyPayload& Payload);
 	virtual void AttackPrimary(AActor* Target) override;
+	virtual void AttackSecondary(AActor* Target) override;
 	
 };

@@ -52,6 +52,24 @@ struct Z_Construct_UClass_UPlayerMainWidget_Statics
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "UserInterface/PlayerMainWidget.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_SmallAbilityUIContainer_MetaData[] = {
+		{ "BindWidget", "" },
+		{ "Category", "PlayerMainWidget" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "UserInterface/PlayerMainWidget.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_LargeAbilityUIContainer_MetaData[] = {
+		{ "BindWidget", "" },
+		{ "Category", "PlayerMainWidget" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "UserInterface/PlayerMainWidget.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_HealAbilityUIContainer_MetaData[] = {
+		{ "BindWidget", "" },
+		{ "Category", "PlayerMainWidget" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "UserInterface/PlayerMainWidget.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_BloodScreen_MetaData[] = {
 		{ "BindWidget", "" },
 		{ "EditInline", "true" },
@@ -95,6 +113,9 @@ struct Z_Construct_UClass_UPlayerMainWidget_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_FaceCamWidget;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_PepperWidget;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_WeaponUIContainer;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_SmallAbilityUIContainer;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_LargeAbilityUIContainer;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_HealAbilityUIContainer;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_BloodScreen;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_GooScreen;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_BloodFade;
@@ -114,6 +135,9 @@ struct Z_Construct_UClass_UPlayerMainWidget_Statics
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_FaceCamWidget = { "FaceCamWidget", nullptr, (EPropertyFlags)0x0010000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerMainWidget, FaceCamWidget), Z_Construct_UClass_UUserWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FaceCamWidget_MetaData), NewProp_FaceCamWidget_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_PepperWidget = { "PepperWidget", nullptr, (EPropertyFlags)0x0010000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerMainWidget, PepperWidget), Z_Construct_UClass_UUserWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_PepperWidget_MetaData), NewProp_PepperWidget_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_WeaponUIContainer = { "WeaponUIContainer", nullptr, (EPropertyFlags)0x0010000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerMainWidget, WeaponUIContainer), Z_Construct_UClass_USizeBox_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WeaponUIContainer_MetaData), NewProp_WeaponUIContainer_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_SmallAbilityUIContainer = { "SmallAbilityUIContainer", nullptr, (EPropertyFlags)0x0010000000080009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerMainWidget, SmallAbilityUIContainer), Z_Construct_UClass_USizeBox_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SmallAbilityUIContainer_MetaData), NewProp_SmallAbilityUIContainer_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_LargeAbilityUIContainer = { "LargeAbilityUIContainer", nullptr, (EPropertyFlags)0x0010000000080009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerMainWidget, LargeAbilityUIContainer), Z_Construct_UClass_USizeBox_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_LargeAbilityUIContainer_MetaData), NewProp_LargeAbilityUIContainer_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_HealAbilityUIContainer = { "HealAbilityUIContainer", nullptr, (EPropertyFlags)0x0010000000080009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerMainWidget, HealAbilityUIContainer), Z_Construct_UClass_USizeBox_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_HealAbilityUIContainer_MetaData), NewProp_HealAbilityUIContainer_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_BloodScreen = { "BloodScreen", nullptr, (EPropertyFlags)0x0010000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerMainWidget, BloodScreen), Z_Construct_UClass_UImage_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_BloodScreen_MetaData), NewProp_BloodScreen_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_GooScreen = { "GooScreen", nullptr, (EPropertyFlags)0x0010000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerMainWidget, GooScreen), Z_Construct_UClass_UImage_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_GooScreen_MetaData), NewProp_GooScreen_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_BloodFade = { "BloodFade", nullptr, (EPropertyFlags)0x0010000000002000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerMainWidget, BloodFade), Z_Construct_UClass_UWidgetAnimation_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_BloodFade_MetaData), NewProp_BloodFade_MetaData) };
@@ -127,6 +151,9 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UPlayerMa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_FaceCamWidget,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_PepperWidget,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_WeaponUIContainer,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_SmallAbilityUIContainer,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_LargeAbilityUIContainer,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_HealAbilityUIContainer,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_BloodScreen,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_GooScreen,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_BloodFade,
@@ -179,10 +206,10 @@ UPlayerMainWidget::~UPlayerMainWidget() {}
 struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UPlayerMainWidget, UPlayerMainWidget::StaticClass, TEXT("UPlayerMainWidget"), &Z_Registration_Info_UClass_UPlayerMainWidget, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UPlayerMainWidget), 3976661335U) },
+		{ Z_Construct_UClass_UPlayerMainWidget, UPlayerMainWidget::StaticClass, TEXT("UPlayerMainWidget"), &Z_Registration_Info_UClass_UPlayerMainWidget, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UPlayerMainWidget), 418602169U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_2452542228(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_3399356249(TEXT("/Script/Goobunga"),
 	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

@@ -102,6 +102,10 @@ struct Z_Construct_UClass_AJoshEnemy_Statics
 		{ "Category", "Jump" },
 		{ "ModuleRelativePath", "Enemies/JoshEnemy.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_FallingStabMontage_MetaData[] = {
+		{ "Category", "Jump" },
+		{ "ModuleRelativePath", "Enemies/JoshEnemy.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ExpectedStabNotifyName_MetaData[] = {
 		{ "Category", "Attack" },
 		{ "ModuleRelativePath", "Enemies/JoshEnemy.h" },
@@ -146,9 +150,18 @@ struct Z_Construct_UClass_AJoshEnemy_Statics
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "Enemies/JoshEnemy.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_MaxLaunchSplineTime_MetaData[] = {
+		{ "Category", "Launch" },
+		{ "ModuleRelativePath", "Enemies/JoshEnemy.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ExpectedLaunchRange_MetaData[] = {
+		{ "Category", "Launch" },
+		{ "ModuleRelativePath", "Enemies/JoshEnemy.h" },
+	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_StabMontage;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_WindUpMontage;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_FallingStabMontage;
 	static const UECodeGen_Private::FNamePropertyParams NewProp_ExpectedStabNotifyName;
 	static const UECodeGen_Private::FNamePropertyParams NewProp_AttackSocketName;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_FacialAnimationComponent;
@@ -159,6 +172,8 @@ struct Z_Construct_UClass_AJoshEnemy_Statics
 	static void NewProp_Launching_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_Launching;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_LaunchSpline;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_MaxLaunchSplineTime;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_ExpectedLaunchRange;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
@@ -173,6 +188,7 @@ struct Z_Construct_UClass_AJoshEnemy_Statics
 };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AJoshEnemy_Statics::NewProp_StabMontage = { "StabMontage", nullptr, (EPropertyFlags)0x0020080000010015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AJoshEnemy, StabMontage), Z_Construct_UClass_UAnimMontage_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_StabMontage_MetaData), NewProp_StabMontage_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AJoshEnemy_Statics::NewProp_WindUpMontage = { "WindUpMontage", nullptr, (EPropertyFlags)0x0020080000010015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AJoshEnemy, WindUpMontage), Z_Construct_UClass_UAnimMontage_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WindUpMontage_MetaData), NewProp_WindUpMontage_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AJoshEnemy_Statics::NewProp_FallingStabMontage = { "FallingStabMontage", nullptr, (EPropertyFlags)0x0020080000010015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AJoshEnemy, FallingStabMontage), Z_Construct_UClass_UAnimMontage_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FallingStabMontage_MetaData), NewProp_FallingStabMontage_MetaData) };
 const UECodeGen_Private::FNamePropertyParams Z_Construct_UClass_AJoshEnemy_Statics::NewProp_ExpectedStabNotifyName = { "ExpectedStabNotifyName", nullptr, (EPropertyFlags)0x0020080000010015, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AJoshEnemy, ExpectedStabNotifyName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ExpectedStabNotifyName_MetaData), NewProp_ExpectedStabNotifyName_MetaData) };
 const UECodeGen_Private::FNamePropertyParams Z_Construct_UClass_AJoshEnemy_Statics::NewProp_AttackSocketName = { "AttackSocketName", nullptr, (EPropertyFlags)0x0020080000010015, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AJoshEnemy, AttackSocketName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AttackSocketName_MetaData), NewProp_AttackSocketName_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AJoshEnemy_Statics::NewProp_FacialAnimationComponent = { "FacialAnimationComponent", nullptr, (EPropertyFlags)0x001000000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AJoshEnemy, FacialAnimationComponent), Z_Construct_UClass_UFacialAnimationComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FacialAnimationComponent_MetaData), NewProp_FacialAnimationComponent_MetaData) };
@@ -186,9 +202,12 @@ void Z_Construct_UClass_AJoshEnemy_Statics::NewProp_Launching_SetBit(void* Obj)
 }
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AJoshEnemy_Statics::NewProp_Launching = { "Launching", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AJoshEnemy), &Z_Construct_UClass_AJoshEnemy_Statics::NewProp_Launching_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Launching_MetaData), NewProp_Launching_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AJoshEnemy_Statics::NewProp_LaunchSpline = { "LaunchSpline", nullptr, (EPropertyFlags)0x001000000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AJoshEnemy, LaunchSpline), Z_Construct_UClass_USplineComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_LaunchSpline_MetaData), NewProp_LaunchSpline_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AJoshEnemy_Statics::NewProp_MaxLaunchSplineTime = { "MaxLaunchSplineTime", nullptr, (EPropertyFlags)0x0010000000010015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AJoshEnemy, MaxLaunchSplineTime), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MaxLaunchSplineTime_MetaData), NewProp_MaxLaunchSplineTime_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AJoshEnemy_Statics::NewProp_ExpectedLaunchRange = { "ExpectedLaunchRange", nullptr, (EPropertyFlags)0x0010000000010015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AJoshEnemy, ExpectedLaunchRange), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ExpectedLaunchRange_MetaData), NewProp_ExpectedLaunchRange_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AJoshEnemy_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AJoshEnemy_Statics::NewProp_StabMontage,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AJoshEnemy_Statics::NewProp_WindUpMontage,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AJoshEnemy_Statics::NewProp_FallingStabMontage,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AJoshEnemy_Statics::NewProp_ExpectedStabNotifyName,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AJoshEnemy_Statics::NewProp_AttackSocketName,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AJoshEnemy_Statics::NewProp_FacialAnimationComponent,
@@ -198,6 +217,8 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AJoshEnem
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AJoshEnemy_Statics::NewProp_AttackRadius,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AJoshEnemy_Statics::NewProp_Launching,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AJoshEnemy_Statics::NewProp_LaunchSpline,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AJoshEnemy_Statics::NewProp_MaxLaunchSplineTime,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AJoshEnemy_Statics::NewProp_ExpectedLaunchRange,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AJoshEnemy_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_AJoshEnemy_Statics::DependentSingletons[])() = {
@@ -243,10 +264,10 @@ AJoshEnemy::~AJoshEnemy() {}
 struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_JoshEnemy_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AJoshEnemy, AJoshEnemy::StaticClass, TEXT("AJoshEnemy"), &Z_Registration_Info_UClass_AJoshEnemy, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AJoshEnemy), 1308017659U) },
+		{ Z_Construct_UClass_AJoshEnemy, AJoshEnemy::StaticClass, TEXT("AJoshEnemy"), &Z_Registration_Info_UClass_AJoshEnemy, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AJoshEnemy), 965486448U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_JoshEnemy_h_690887309(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_JoshEnemy_h_648287004(TEXT("/Script/Goobunga"),
 	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_JoshEnemy_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_JoshEnemy_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

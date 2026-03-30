@@ -45,9 +45,14 @@ struct Z_Construct_UClass_UBTTask_LaunchInDirection_Statics
 		{ "Category", "Blackboard" },
 		{ "ModuleRelativePath", "Enemies/AI/BTT/BTTask_LaunchInDirection.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_IsLaunchingKey_MetaData[] = {
+		{ "Category", "Blackboard" },
+		{ "ModuleRelativePath", "Enemies/AI/BTT/BTTask_LaunchInDirection.h" },
+	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FStructPropertyParams NewProp_TargetActorKey;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_SelfActorKey;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_IsLaunchingKey;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -57,9 +62,11 @@ struct Z_Construct_UClass_UBTTask_LaunchInDirection_Statics
 };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UBTTask_LaunchInDirection_Statics::NewProp_TargetActorKey = { "TargetActorKey", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UBTTask_LaunchInDirection, TargetActorKey), Z_Construct_UScriptStruct_FBlackboardKeySelector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_TargetActorKey_MetaData), NewProp_TargetActorKey_MetaData) }; // 3940742986
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UBTTask_LaunchInDirection_Statics::NewProp_SelfActorKey = { "SelfActorKey", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UBTTask_LaunchInDirection, SelfActorKey), Z_Construct_UScriptStruct_FBlackboardKeySelector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SelfActorKey_MetaData), NewProp_SelfActorKey_MetaData) }; // 3940742986
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UBTTask_LaunchInDirection_Statics::NewProp_IsLaunchingKey = { "IsLaunchingKey", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UBTTask_LaunchInDirection, IsLaunchingKey), Z_Construct_UScriptStruct_FBlackboardKeySelector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_IsLaunchingKey_MetaData), NewProp_IsLaunchingKey_MetaData) }; // 3940742986
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UBTTask_LaunchInDirection_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UBTTask_LaunchInDirection_Statics::NewProp_TargetActorKey,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UBTTask_LaunchInDirection_Statics::NewProp_SelfActorKey,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UBTTask_LaunchInDirection_Statics::NewProp_IsLaunchingKey,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UBTTask_LaunchInDirection_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_UBTTask_LaunchInDirection_Statics::DependentSingletons[])() = {
@@ -102,10 +109,10 @@ UBTTask_LaunchInDirection::~UBTTask_LaunchInDirection() {}
 struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTT_BTTask_LaunchInDirection_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UBTTask_LaunchInDirection, UBTTask_LaunchInDirection::StaticClass, TEXT("UBTTask_LaunchInDirection"), &Z_Registration_Info_UClass_UBTTask_LaunchInDirection, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBTTask_LaunchInDirection), 1506598740U) },
+		{ Z_Construct_UClass_UBTTask_LaunchInDirection, UBTTask_LaunchInDirection::StaticClass, TEXT("UBTTask_LaunchInDirection"), &Z_Registration_Info_UClass_UBTTask_LaunchInDirection, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBTTask_LaunchInDirection), 1800880189U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTT_BTTask_LaunchInDirection_h_1545056113(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTT_BTTask_LaunchInDirection_h_1973563484(TEXT("/Script/Goobunga"),
 	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTT_BTTask_LaunchInDirection_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTT_BTTask_LaunchInDirection_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
