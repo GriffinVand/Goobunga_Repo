@@ -5,6 +5,7 @@
 #include "PersistentData/GoobungaSaveFile.h"
 #include "GoobungaGameInstance.generated.h"
 
+class UMissionData;
 class UGoobungaSaveFile;
 
 UCLASS()
@@ -23,6 +24,9 @@ public:
 	FAbilitySaveData DefSmallAbility;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FAbilitySaveData DefLargeAbility;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UMissionData* SelectedMission = nullptr;
 	
 	
 	void SetDefaultSaveFile(UGoobungaSaveFile& SaveFile);

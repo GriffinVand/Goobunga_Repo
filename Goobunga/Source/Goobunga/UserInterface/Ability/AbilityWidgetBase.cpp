@@ -1,6 +1,7 @@
 #include "AbilityWidgetBase.h"
 
 #include "CommonLazyImage.h"
+#include "CommonTextBlock.h"
 #include "Components/ProgressBar.h"
 #include "Goobunga/Abilities/AbilityBase.h"
 #include "Goobunga/Abilities/AbilityBase.h"
@@ -23,6 +24,19 @@ void UAbilityWidgetBase::InitializeUI()
 	if (OwnerAbility->AbilityIcon == nullptr) { UE_LOG(LogTemp, Error, TEXT("Owner ability icon null AbilityWidgetBase")); return; }
 	UE_LOG(LogTemp, Error, TEXT("Set brush"));
 	AbilityIcon->SetBrushFromTexture(OwnerAbility->AbilityIcon);
+	FText AbilityText = FText::FromString("F");
+	switch (OwnerAbility->AbilityType)
+	{
+	case EAbilityType::Large:
+		AbilityText = FText::FromString("G");
+		break;
+	case EAbilityType::Heal:
+		AbilityText = FText::FromString("H");
+		break;
+	default:
+		break;
+	}
+	if (AbilityTextBlock) { AbilityTextBlock->SetText(AbilityText); }
 	UpdateProgress(0.f);
 }
 

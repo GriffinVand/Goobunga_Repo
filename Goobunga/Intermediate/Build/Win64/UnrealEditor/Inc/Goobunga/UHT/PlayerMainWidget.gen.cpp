@@ -12,6 +12,7 @@ void EmptyLinkFunctionForGeneratedCodePlayerMainWidget() {}
 // Begin Cross Module References
 COMMONUI_API UClass* Z_Construct_UClass_UCommonActivatableWidget();
 ENGINE_API UClass* Z_Construct_UClass_UTexture2D_NoRegister();
+GOOBUNGA_API UClass* Z_Construct_UClass_UObjectiveWidgetBase_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_UPlayerMainWidget();
 GOOBUNGA_API UClass* Z_Construct_UClass_UPlayerMainWidget_NoRegister();
 UMG_API UClass* Z_Construct_UClass_UImage_NoRegister();
@@ -42,7 +43,7 @@ struct Z_Construct_UClass_UPlayerMainWidget_Statics
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "UserInterface/PlayerMainWidget.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_PepperWidget_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_MainObjectiveWidget_MetaData[] = {
 		{ "BindWidget", "" },
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "UserInterface/PlayerMainWidget.h" },
@@ -111,7 +112,7 @@ struct Z_Construct_UClass_UPlayerMainWidget_Statics
 	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_FaceCamWidget;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_PepperWidget;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_MainObjectiveWidget;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_WeaponUIContainer;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_SmallAbilityUIContainer;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_LargeAbilityUIContainer;
@@ -133,7 +134,7 @@ struct Z_Construct_UClass_UPlayerMainWidget_Statics
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_FaceCamWidget = { "FaceCamWidget", nullptr, (EPropertyFlags)0x0010000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerMainWidget, FaceCamWidget), Z_Construct_UClass_UUserWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FaceCamWidget_MetaData), NewProp_FaceCamWidget_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_PepperWidget = { "PepperWidget", nullptr, (EPropertyFlags)0x0010000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerMainWidget, PepperWidget), Z_Construct_UClass_UUserWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_PepperWidget_MetaData), NewProp_PepperWidget_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_MainObjectiveWidget = { "MainObjectiveWidget", nullptr, (EPropertyFlags)0x0010000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerMainWidget, MainObjectiveWidget), Z_Construct_UClass_UObjectiveWidgetBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MainObjectiveWidget_MetaData), NewProp_MainObjectiveWidget_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_WeaponUIContainer = { "WeaponUIContainer", nullptr, (EPropertyFlags)0x0010000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerMainWidget, WeaponUIContainer), Z_Construct_UClass_USizeBox_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WeaponUIContainer_MetaData), NewProp_WeaponUIContainer_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_SmallAbilityUIContainer = { "SmallAbilityUIContainer", nullptr, (EPropertyFlags)0x0010000000080009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerMainWidget, SmallAbilityUIContainer), Z_Construct_UClass_USizeBox_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SmallAbilityUIContainer_MetaData), NewProp_SmallAbilityUIContainer_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_LargeAbilityUIContainer = { "LargeAbilityUIContainer", nullptr, (EPropertyFlags)0x0010000000080009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerMainWidget, LargeAbilityUIContainer), Z_Construct_UClass_USizeBox_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_LargeAbilityUIContainer_MetaData), NewProp_LargeAbilityUIContainer_MetaData) };
@@ -149,7 +150,7 @@ const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWid
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_HitAnimation = { "HitAnimation", nullptr, (EPropertyFlags)0x0010000000002000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerMainWidget, HitAnimation), Z_Construct_UClass_UWidgetAnimation_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_HitAnimation_MetaData), NewProp_HitAnimation_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UPlayerMainWidget_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_FaceCamWidget,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_PepperWidget,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_MainObjectiveWidget,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_WeaponUIContainer,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_SmallAbilityUIContainer,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_LargeAbilityUIContainer,
@@ -203,14 +204,14 @@ UPlayerMainWidget::~UPlayerMainWidget() {}
 // End Class UPlayerMainWidget
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_Statics
+struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UPlayerMainWidget, UPlayerMainWidget::StaticClass, TEXT("UPlayerMainWidget"), &Z_Registration_Info_UClass_UPlayerMainWidget, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UPlayerMainWidget), 418602169U) },
+		{ Z_Construct_UClass_UPlayerMainWidget, UPlayerMainWidget::StaticClass, TEXT("UPlayerMainWidget"), &Z_Registration_Info_UClass_UPlayerMainWidget, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UPlayerMainWidget), 29518060U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_3399356249(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_1334978337(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

@@ -313,10 +313,10 @@
     <Filter Include="Source\Goobunga\Enemies\AI\BTS">
       <UniqueIdentifier>{240350A7-64FD-38D2-B464-7C6DF4F3BA9A}</UniqueIdentifier>
     </Filter>
-    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTS\BTS_CanPlayerSeeThis.cpp">
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTS\BTS_CanTargetSeeThis.cpp">
       <Filter>Source\Goobunga\Enemies\AI\BTS</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTS\BTS_CanPlayerSeeThis.h">
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTS\BTS_CanTargetSeeThis.h">
       <Filter>Source\Goobunga\Enemies\AI\BTS</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTS\BTS_UpdateDistanceToTarget.cpp">
@@ -478,6 +478,15 @@
     <ClCompile Include="..\..\Source\Goobunga\UserInterface\PlayerWeaponAmmoWidget.h">
       <Filter>Source\Goobunga\UserInterface</Filter>
     </ClCompile>
+    <Filter Include="Source\Goobunga\UserInterface\Ability">
+      <UniqueIdentifier>{698116BA-92E7-38FE-9761-28C4D498D9F9}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\UserInterface\Ability\AbilityWidgetBase.cpp">
+      <Filter>Source\Goobunga\UserInterface\Ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\UserInterface\Ability\AbilityWidgetBase.h">
+      <Filter>Source\Goobunga\UserInterface\Ability</Filter>
+    </ClCompile>
     <Filter Include="Source\Goobunga\Weapons">
       <UniqueIdentifier>{CC097E68-C714-3FBB-8CA8-77CF4B425530}</UniqueIdentifier>
     </Filter>
@@ -532,6 +541,12 @@
     <Filter Include="Source\Goobunga\Weapons\Projectiles">
       <UniqueIdentifier>{C57DB2E3-67BF-351F-BEE2-79DC460727A1}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\Weapons\Projectiles\FireballProjectile.cpp">
+      <Filter>Source\Goobunga\Weapons\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Weapons\Projectiles\FireballProjectile.h">
+      <Filter>Source\Goobunga\Weapons\Projectiles</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Weapons\Projectiles\GoobungaProjectile.cpp">
       <Filter>Source\Goobunga\Weapons\Projectiles</Filter>
     </ClCompile>

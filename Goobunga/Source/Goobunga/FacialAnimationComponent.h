@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -33,7 +31,6 @@ public:
 	UMaterialInstanceDynamic* Material = nullptr;
 
 protected:
-	// Called when the game starts
 	virtual void BeginPlay() override;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TMap<FName, FFacialAnimationStruct> Animations;
@@ -43,12 +40,13 @@ protected:
 	FName DefaultAnimation = "Idle";
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool Looping = false;
+	
 
 public:	
-	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	void UpdateCurrentAnimation(float DeltaTime);
+	void AnimationFinished();
 	UFUNCTION(BlueprintCallable)
 	void PlayAnimation(FName AnimationName, bool CanLoop);
 		

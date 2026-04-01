@@ -15,8 +15,8 @@ class AActor;
 #endif
 #define GOOBUNGA_InteractInterface_generated_h
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h_10_CALLBACK_WRAPPERS
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h_10_ENHANCED_CONSTRUCTORS \
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h_10_CALLBACK_WRAPPERS
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h_10_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UInteractInterface(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 private: \
@@ -30,7 +30,7 @@ public: \
 	NO_API virtual ~UInteractInterface();
 
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h_10_GENERATED_UINTERFACE_BODY() \
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h_10_GENERATED_UINTERFACE_BODY() \
 private: \
 	static void StaticRegisterNativesUInteractInterface(); \
 	friend struct Z_Construct_UClass_UInteractInterface_Statics; \
@@ -39,15 +39,15 @@ public: \
 	DECLARE_SERIALIZER(UInteractInterface)
 
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h_10_GENERATED_BODY \
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h_10_GENERATED_BODY \
 	PRAGMA_DISABLE_DEPRECATION_WARNINGS \
-	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h_10_GENERATED_UINTERFACE_BODY() \
-	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h_10_ENHANCED_CONSTRUCTORS \
+	FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h_10_GENERATED_UINTERFACE_BODY() \
+	FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h_10_ENHANCED_CONSTRUCTORS \
 private: \
 	PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h_10_INCLASS_IINTERFACE_NO_PURE_DECLS \
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h_10_INCLASS_IINTERFACE_NO_PURE_DECLS \
 protected: \
 	virtual ~IInteractInterface() {} \
 public: \
@@ -57,12 +57,12 @@ public: \
 	virtual UObject* _getUObject() const { return nullptr; }
 
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h_7_PROLOG
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h_15_GENERATED_BODY \
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h_7_PROLOG
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h_15_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h_10_CALLBACK_WRAPPERS \
-	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h_10_INCLASS_IINTERFACE_NO_PURE_DECLS \
+	FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h_10_CALLBACK_WRAPPERS \
+	FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h_10_INCLASS_IINTERFACE_NO_PURE_DECLS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -70,7 +70,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> GOOBUNGA_API UClass* StaticClass<class UInteractInterface>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h
+#define CURRENT_FILE_ID FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

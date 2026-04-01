@@ -4,6 +4,7 @@
 #include "CommonUserWidget.h"
 #include "AbilityWidgetBase.generated.h"
 
+class UCommonTextBlock;
 enum class EAbilityState : uint8;
 class UAbilityBase;
 class UProgressBar;
@@ -19,6 +20,8 @@ public:
 	UCommonLazyImage* AbilityIcon;
 	UPROPERTY(EditAnywhere, meta=(BindWidget))
 	UProgressBar* AbilityProgressBar;
+	UPROPERTY(EditAnywhere, meta=(BindWidget))
+	UCommonTextBlock* AbilityTextBlock;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	UAbilityBase* OwnerAbility;

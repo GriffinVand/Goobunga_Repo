@@ -1,17 +1,17 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "e:\\goobunga_repo\\goobunga\\source\\goobunga\\goobungagameinstance.cpp",
+        "Source": "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\source\\goobunga\\goobungagameinstance.cpp",
         "ProvidedModule": "",
-        "PCH": "e:\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\goobungaeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "PCH": "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\goobungaeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
         "Includes": [
-            "e:\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\goobunga\\definitions.goobunga.h",
-            "e:\\goobunga_repo\\goobunga\\source\\goobunga\\goobungagameinstance.h",
-            "e:\\goobunga_repo\\goobunga\\source\\goobunga\\persistentdata\\goobungasavefile.h",
-            "e:\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\gameframework\\savegame.h",
-            "e:\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\savegame.generated.h",
-            "e:\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\goobungasavefile.generated.h",
-            "e:\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\goobungagameinstance.generated.h"
+            "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\goobunga\\definitions.goobunga.h",
+            "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\source\\goobunga\\goobungagameinstance.h",
+            "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\source\\goobunga\\persistentdata\\goobungasavefile.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\gameframework\\savegame.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\savegame.generated.h",
+            "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\goobungasavefile.generated.h",
+            "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\goobungagameinstance.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

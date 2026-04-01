@@ -6,11 +6,17 @@
 #include "UserInterface/PlayerWeaponAmmoWidget.h"
 #include "Goobunga/Abilities/AbilityBase.h"
 #include "Components/SizeBox.h"
+#include "Missions/MissionSubsystem.h"
 #include "UserInterface/Ability/AbilityWidgetBase.h"
+#include "UserInterface/Objective/ObjectiveWidgetBase.h"
 
 void AGoobunga_PlayerController::BeginPlay()
 {
 	Super::BeginPlay();
+	if (UMissionSubsystem* MS = GetWorld()->GetSubsystem<UMissionSubsystem>())
+	{
+		MS->OnObjectiveUpdate.AddUniqueDynamic(this, &AGoobunga_PlayerController::CreateObjectiveUI);
+	} else { UE_LOG(LogTemp, Error, TEXT("NO MissionSubsystem PC::BeginPlay")); }
 }
 
 void AGoobunga_PlayerController::InitializeMasterWidget()
@@ -85,4 +91,13 @@ void AGoobunga_PlayerController::CreateAbilityUI(UAbilityBase* Ability)
 		
 		break;
 	}
+}
+
+void AGoobunga_PlayerController::CreateObjectiveUI(const FMissionObjective& Objective, const bool bUpdate)
+{
+	if (!MainHUD) { UE_LOG(LogTemp, Error, TEXT("No MainHUD PC::CreateObjectiveUI")); return; }
+	if (!MainHUD->MainObjectiveWidget) { UE_LOG(LogTemp, Error, TEXT("No MainObjectiveWidget PC::CreateObjectiveUI")); return; }
+	
+	if (bUpdate) { MainHUD->MainObjectiveWidget->UpdateUI(Objective); }
+	else { MainHUD->MainObjectiveWidget->InitializeUI(Objective); }
 }

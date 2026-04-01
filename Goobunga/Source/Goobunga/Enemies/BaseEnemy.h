@@ -63,6 +63,10 @@ public:
 	UFUNCTION()
 	virtual void Ragdoll();
 	bool Dead = false;
+	
+	void SetDeathTag(FName Tag) { DeathTag = Tag; }
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FName DeathTag = FName("Bawls");
 
 	
 	virtual bool GetCanAttackPrim() override { return false; }

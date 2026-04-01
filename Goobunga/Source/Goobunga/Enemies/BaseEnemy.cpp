@@ -4,6 +4,7 @@
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Goobunga/Goobunga_Player.h"
+#include "Goobunga/Missions/MissionSubsystem.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values
@@ -67,6 +68,11 @@ EDamageResult ABaseEnemy::CombatDamage(AActor* DamageDealer, float Damage, EDama
 
 void ABaseEnemy::Death(FVector LastMovementSpeed, EDeathType DeathType)
 {
+	if (UMissionSubsystem* MS = GetWorld()->GetSubsystem<UMissionSubsystem>())
+	{
+		UE_LOG(LogTemp, Error, TEXT("Broadcast Death"));
+		MS->HandleDeath(DeathTag);
+	}
 	CurrentState = EEnemyState::Death;
 	ABaseEnemyAIController* AIController = Cast<ABaseEnemyAIController>(Controller);
 	if (AIController)

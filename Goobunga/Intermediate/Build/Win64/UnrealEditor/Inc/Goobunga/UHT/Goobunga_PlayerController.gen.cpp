@@ -6,6 +6,7 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "Goobunga/Goobunga_PlayerController.h"
+#include "Goobunga/Missions/MissionData.h"
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeGoobunga_PlayerController() {}
 
@@ -19,6 +20,7 @@ GOOBUNGA_API UClass* Z_Construct_UClass_UMasterWidget_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_UPlayerMainWidget_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_UPlayerWeaponAmmoWidget_NoRegister();
 GOOBUNGA_API UFunction* Z_Construct_UDelegateFunction_Goobunga_OnMasterWidgetCreated__DelegateSignature();
+GOOBUNGA_API UScriptStruct* Z_Construct_UScriptStruct_FMissionObjective();
 UPackage* Z_Construct_UPackage__Script_Goobunga();
 // End Cross Module References
 
@@ -48,9 +50,72 @@ void FOnMasterWidgetCreated_DelegateWrapper(const FMulticastScriptDelegate& OnMa
 }
 // End Delegate FOnMasterWidgetCreated
 
+// Begin Class AGoobunga_PlayerController Function CreateObjectiveUI
+struct Z_Construct_UFunction_AGoobunga_PlayerController_CreateObjectiveUI_Statics
+{
+	struct Goobunga_PlayerController_eventCreateObjectiveUI_Parms
+	{
+		FMissionObjective Objective;
+		bool bUpdate;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Goobunga_PlayerController.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Objective_MetaData[] = {
+		{ "NativeConst", "" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_bUpdate_MetaData[] = {
+		{ "NativeConst", "" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FStructPropertyParams NewProp_Objective;
+	static void NewProp_bUpdate_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_bUpdate;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_AGoobunga_PlayerController_CreateObjectiveUI_Statics::NewProp_Objective = { "Objective", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Goobunga_PlayerController_eventCreateObjectiveUI_Parms, Objective), Z_Construct_UScriptStruct_FMissionObjective, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Objective_MetaData), NewProp_Objective_MetaData) }; // 168318422
+void Z_Construct_UFunction_AGoobunga_PlayerController_CreateObjectiveUI_Statics::NewProp_bUpdate_SetBit(void* Obj)
+{
+	((Goobunga_PlayerController_eventCreateObjectiveUI_Parms*)Obj)->bUpdate = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_AGoobunga_PlayerController_CreateObjectiveUI_Statics::NewProp_bUpdate = { "bUpdate", nullptr, (EPropertyFlags)0x0010000000000082, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(Goobunga_PlayerController_eventCreateObjectiveUI_Parms), &Z_Construct_UFunction_AGoobunga_PlayerController_CreateObjectiveUI_Statics::NewProp_bUpdate_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bUpdate_MetaData), NewProp_bUpdate_MetaData) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AGoobunga_PlayerController_CreateObjectiveUI_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AGoobunga_PlayerController_CreateObjectiveUI_Statics::NewProp_Objective,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AGoobunga_PlayerController_CreateObjectiveUI_Statics::NewProp_bUpdate,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_AGoobunga_PlayerController_CreateObjectiveUI_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AGoobunga_PlayerController_CreateObjectiveUI_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AGoobunga_PlayerController, nullptr, "CreateObjectiveUI", nullptr, nullptr, Z_Construct_UFunction_AGoobunga_PlayerController_CreateObjectiveUI_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_AGoobunga_PlayerController_CreateObjectiveUI_Statics::PropPointers), sizeof(Z_Construct_UFunction_AGoobunga_PlayerController_CreateObjectiveUI_Statics::Goobunga_PlayerController_eventCreateObjectiveUI_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00420401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AGoobunga_PlayerController_CreateObjectiveUI_Statics::Function_MetaDataParams), Z_Construct_UFunction_AGoobunga_PlayerController_CreateObjectiveUI_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Z_Construct_UFunction_AGoobunga_PlayerController_CreateObjectiveUI_Statics::Goobunga_PlayerController_eventCreateObjectiveUI_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_AGoobunga_PlayerController_CreateObjectiveUI()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AGoobunga_PlayerController_CreateObjectiveUI_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AGoobunga_PlayerController::execCreateObjectiveUI)
+{
+	P_GET_STRUCT_REF(FMissionObjective,Z_Param_Out_Objective);
+	P_GET_UBOOL(Z_Param_bUpdate);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->CreateObjectiveUI(Z_Param_Out_Objective,Z_Param_bUpdate);
+	P_NATIVE_END;
+}
+// End Class AGoobunga_PlayerController Function CreateObjectiveUI
+
 // Begin Class AGoobunga_PlayerController
 void AGoobunga_PlayerController::StaticRegisterNativesAGoobunga_PlayerController()
 {
+	UClass* Class = AGoobunga_PlayerController::StaticClass();
+	static const FNameNativePtrPair Funcs[] = {
+		{ "CreateObjectiveUI", &AGoobunga_PlayerController::execCreateObjectiveUI },
+	};
+	FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
 }
 IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(AGoobunga_PlayerController);
 UClass* Z_Construct_UClass_AGoobunga_PlayerController_NoRegister()
@@ -123,6 +188,10 @@ struct Z_Construct_UClass_AGoobunga_PlayerController_Statics
 	static const UECodeGen_Private::FClassPropertyParams NewProp_WeaponUIClass;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
+	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
+		{ &Z_Construct_UFunction_AGoobunga_PlayerController_CreateObjectiveUI, "CreateObjectiveUI" }, // 3538836238
+	};
+	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<AGoobunga_PlayerController>::IsAbstract,
 	};
@@ -161,11 +230,11 @@ const UECodeGen_Private::FClassParams Z_Construct_UClass_AGoobunga_PlayerControl
 	"Game",
 	&StaticCppClassTypeInfo,
 	DependentSingletons,
-	nullptr,
+	FuncInfo,
 	Z_Construct_UClass_AGoobunga_PlayerController_Statics::PropPointers,
 	nullptr,
 	UE_ARRAY_COUNT(DependentSingletons),
-	0,
+	UE_ARRAY_COUNT(FuncInfo),
 	UE_ARRAY_COUNT(Z_Construct_UClass_AGoobunga_PlayerController_Statics::PropPointers),
 	0,
 	0x009002A4u,
@@ -189,14 +258,14 @@ AGoobunga_PlayerController::~AGoobunga_PlayerController() {}
 // End Class AGoobunga_PlayerController
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_PlayerController_h_Statics
+struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_PlayerController_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AGoobunga_PlayerController, AGoobunga_PlayerController::StaticClass, TEXT("AGoobunga_PlayerController"), &Z_Registration_Info_UClass_AGoobunga_PlayerController, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AGoobunga_PlayerController), 2973246796U) },
+		{ Z_Construct_UClass_AGoobunga_PlayerController, AGoobunga_PlayerController::StaticClass, TEXT("AGoobunga_PlayerController"), &Z_Registration_Info_UClass_AGoobunga_PlayerController, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AGoobunga_PlayerController), 2971703284U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_PlayerController_h_3948800953(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_PlayerController_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_PlayerController_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_PlayerController_h_1882547255(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_PlayerController_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_PlayerController_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

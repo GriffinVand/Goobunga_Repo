@@ -10,10 +10,12 @@ void EmptyLinkFunctionForGeneratedCodeGoobunga_init() {}
 	GOOBUNGA_API UFunction* Z_Construct_UDelegateFunction_AWeapon_OnAmmoChanged__DelegateSignature();
 	GOOBUNGA_API UFunction* Z_Construct_UDelegateFunction_Goobunga_OnAttackFinished__DelegateSignature();
 	GOOBUNGA_API UFunction* Z_Construct_UDelegateFunction_Goobunga_OnCooldownChanged__DelegateSignature();
+	GOOBUNGA_API UFunction* Z_Construct_UDelegateFunction_Goobunga_OnEventBase__DelegateSignature();
 	GOOBUNGA_API UFunction* Z_Construct_UDelegateFunction_Goobunga_OnFirstPatternCalled__DelegateSignature();
 	GOOBUNGA_API UFunction* Z_Construct_UDelegateFunction_Goobunga_OnMasterWidgetCreated__DelegateSignature();
 	GOOBUNGA_API UFunction* Z_Construct_UDelegateFunction_Goobunga_OnNextPatternCalled__DelegateSignature();
 	GOOBUNGA_API UFunction* Z_Construct_UDelegateFunction_Goobunga_OnObjectiveEvent__DelegateSignature();
+	GOOBUNGA_API UFunction* Z_Construct_UDelegateFunction_Goobunga_OnObjectiveUpdate__DelegateSignature();
 	GOOBUNGA_API UFunction* Z_Construct_UDelegateFunction_Goobunga_OnPatternFinished__DelegateSignature();
 	GOOBUNGA_API UFunction* Z_Construct_UDelegateFunction_Goobunga_OnReloadCompleted__DelegateSignature();
 	GOOBUNGA_API UFunction* Z_Construct_UDelegateFunction_Goobunga_OnReplySelected__DelegateSignature();
@@ -28,10 +30,12 @@ void EmptyLinkFunctionForGeneratedCodeGoobunga_init() {}
 				(UObject* (*)())Z_Construct_UDelegateFunction_AWeapon_OnAmmoChanged__DelegateSignature,
 				(UObject* (*)())Z_Construct_UDelegateFunction_Goobunga_OnAttackFinished__DelegateSignature,
 				(UObject* (*)())Z_Construct_UDelegateFunction_Goobunga_OnCooldownChanged__DelegateSignature,
+				(UObject* (*)())Z_Construct_UDelegateFunction_Goobunga_OnEventBase__DelegateSignature,
 				(UObject* (*)())Z_Construct_UDelegateFunction_Goobunga_OnFirstPatternCalled__DelegateSignature,
 				(UObject* (*)())Z_Construct_UDelegateFunction_Goobunga_OnMasterWidgetCreated__DelegateSignature,
 				(UObject* (*)())Z_Construct_UDelegateFunction_Goobunga_OnNextPatternCalled__DelegateSignature,
 				(UObject* (*)())Z_Construct_UDelegateFunction_Goobunga_OnObjectiveEvent__DelegateSignature,
+				(UObject* (*)())Z_Construct_UDelegateFunction_Goobunga_OnObjectiveUpdate__DelegateSignature,
 				(UObject* (*)())Z_Construct_UDelegateFunction_Goobunga_OnPatternFinished__DelegateSignature,
 				(UObject* (*)())Z_Construct_UDelegateFunction_Goobunga_OnReloadCompleted__DelegateSignature,
 				(UObject* (*)())Z_Construct_UDelegateFunction_Goobunga_OnReplySelected__DelegateSignature,
@@ -43,13 +47,13 @@ void EmptyLinkFunctionForGeneratedCodeGoobunga_init() {}
 				SingletonFuncArray,
 				UE_ARRAY_COUNT(SingletonFuncArray),
 				PKG_CompiledIn | 0x00000000,
-				0x886E6F5B,
-				0xF18F34C9,
+				0x7D19842A,
+				0xCC524D15,
 				METADATA_PARAMS(0, nullptr)
 			};
 			UECodeGen_Private::ConstructUPackage(Z_Registration_Info_UPackage__Script_Goobunga.OuterSingleton, PackageParams);
 		}
 		return Z_Registration_Info_UPackage__Script_Goobunga.OuterSingleton;
 	}
-	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_Goobunga(Z_Construct_UPackage__Script_Goobunga, TEXT("/Script/Goobunga"), Z_Registration_Info_UPackage__Script_Goobunga, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x886E6F5B, 0xF18F34C9));
+	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_Goobunga(Z_Construct_UPackage__Script_Goobunga, TEXT("/Script/Goobunga"), Z_Registration_Info_UPackage__Script_Goobunga, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x7D19842A, 0xCC524D15));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

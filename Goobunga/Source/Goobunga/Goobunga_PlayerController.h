@@ -8,6 +8,7 @@
 #include "UserInterface/PlayerMainWidget.h"
 #include "Goobunga_PlayerController.generated.h"
 
+struct FMissionObjective;
 class UAbilityWidgetBase;
 class UAbilityBase;
 class UPlayerWeaponAmmoWidget;
@@ -33,6 +34,8 @@ public:
 	void InitializePlayerHUD();
 	void CreateWeaponUI(AWeapon* Weapon);
 	void CreateAbilityUI(UAbilityBase* Ability);
+	UFUNCTION()
+	void CreateObjectiveUI(const FMissionObjective& Objective, const bool bUpdate);
 	
 	virtual void BeginPlay() override;
 	virtual void OnPossess(APawn* Pawn) override;
