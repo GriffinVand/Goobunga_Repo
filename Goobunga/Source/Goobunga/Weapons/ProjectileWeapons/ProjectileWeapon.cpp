@@ -1,4 +1,6 @@
 #include "ProjectileWeapon.h"
+
+#include "FMODBlueprintStatics.h"
 #include "Goobunga/Weapons/Projectiles/GoobungaProjectile.h"
 
 AProjectileWeapon::AProjectileWeapon()
@@ -22,7 +24,9 @@ void AProjectileWeapon::FireWeapon()
 		AGoobungaProjectile* NewProj = GetWorld()->SpawnActor<AGoobungaProjectile>(ProjectileClass, SpawnTransform.GetLocation(), SpawnRotation, SpawnParameters);
 		UE_LOG(LogTemp, Display, TEXT("Projectile created"));
 		
-		FireSoundComponent->Play();
+		PlayFireSound();
+		PlayFireEffect();
+		
 		FOnMontageEnded EndDelegate;
 		PlayAnimationSimultaneous("Fire", EndDelegate, 1.f);
 		ApplyRecoil();

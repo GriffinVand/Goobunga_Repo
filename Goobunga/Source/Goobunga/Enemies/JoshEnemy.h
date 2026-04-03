@@ -8,6 +8,8 @@
 #include "Goobunga/FacialAnimationComponent.h"
 #include "JoshEnemy.generated.h"
 
+class UFMODEvent;
+
 UCLASS()
 class GOOBUNGA_API AJoshEnemy : public ABaseEnemy, public ILaunchInterface
 {
@@ -76,5 +78,6 @@ public:
 	void OnMontageNotifyBegin(FName NotifyName, const FBranchingPointNotifyPayload& Payload);
 	virtual void AttackPrimary(AActor* Target) override;
 	virtual void AttackSecondary(AActor* Target) override;
+	
 	
 };

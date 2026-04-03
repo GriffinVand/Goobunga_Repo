@@ -6,14 +6,16 @@
 
 void UObjectiveWidgetBase::NativeConstruct()
 {
-	ObjectiveContainer->SetVisibility(ESlateVisibility::Hidden);
+	SetVisibility(ESlateVisibility::Hidden);
 }
 
 void UObjectiveWidgetBase::InitializeUI(const FMissionObjective& Objective)
 {
 	if (Objective.ObjectiveIcon) { ObjectiveImage->SetBrushFromTexture(Objective.ObjectiveIcon); }
+	SetVisibility(ESlateVisibility::HitTestInvisible);
 	ObjectiveGoalText->SetText(Objective.ObjectiveDescription);
-	ObjectiveProgressText->SetText(FText::FromString(FString::FromInt(Objective.CurrProgress) + FString(" / ") + FString::FromInt(Objective.ReqProgress)));
+	if (Objective.bIsProgressive) { ObjectiveProgressText->SetVisibility(ESlateVisibility::HitTestInvisible); ObjectiveProgressText->SetText(FText::FromString(FString::FromInt(Objective.CurrProgress) + FString(" / ") + FString::FromInt(Objective.ReqProgress))); }
+	else { ObjectiveProgressText->SetVisibility(ESlateVisibility::Hidden); }
 }
 
 void UObjectiveWidgetBase::UpdateUI(const FMissionObjective& Objective)

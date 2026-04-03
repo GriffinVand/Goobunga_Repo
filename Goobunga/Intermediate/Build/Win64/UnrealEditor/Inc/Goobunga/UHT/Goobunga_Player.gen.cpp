@@ -30,6 +30,7 @@ ENGINE_API UClass* Z_Construct_UClass_USoundBase_NoRegister();
 ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FBranchingPointNotifyPayload();
 ENHANCEDINPUT_API UClass* Z_Construct_UClass_UInputAction_NoRegister();
 ENHANCEDINPUT_API UClass* Z_Construct_UClass_UInputMappingContext_NoRegister();
+FMODSTUDIO_API UClass* Z_Construct_UClass_UFMODEvent_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_AGoobunga_Player();
 GOOBUNGA_API UClass* Z_Construct_UClass_AGoobunga_Player_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_AWeapon_NoRegister();
@@ -176,6 +177,36 @@ DEFINE_FUNCTION(AGoobunga_Player::execEquipWeapon)
 }
 // End Class AGoobunga_Player Function EquipWeapon
 
+// Begin Class AGoobunga_Player Function FootStep
+struct Z_Construct_UFunction_AGoobunga_Player_FootStep_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "Audio" },
+		{ "ModuleRelativePath", "Goobunga_Player.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AGoobunga_Player_FootStep_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AGoobunga_Player, nullptr, "FootStep", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04080401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AGoobunga_Player_FootStep_Statics::Function_MetaDataParams), Z_Construct_UFunction_AGoobunga_Player_FootStep_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_AGoobunga_Player_FootStep()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AGoobunga_Player_FootStep_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AGoobunga_Player::execFootStep)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->FootStep();
+	P_NATIVE_END;
+}
+// End Class AGoobunga_Player Function FootStep
+
 // Begin Class AGoobunga_Player Function OnMontageEndedGeneric
 struct Z_Construct_UFunction_AGoobunga_Player_OnMontageEndedGeneric_Statics
 {
@@ -303,7 +334,7 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AGoobu
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AGoobunga_Player_PickUpWeapon_Statics::NewProp_WeaponData,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_AGoobunga_Player_PickUpWeapon_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AGoobunga_Player_PickUpWeapon_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AGoobunga_Player, nullptr, "PickUpWeapon", nullptr, nullptr, Z_Construct_UFunction_AGoobunga_Player_PickUpWeapon_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_AGoobunga_Player_PickUpWeapon_Statics::PropPointers), sizeof(Z_Construct_UFunction_AGoobunga_Player_PickUpWeapon_Statics::Goobunga_Player_eventPickUpWeapon_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04480401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AGoobunga_Player_PickUpWeapon_Statics::Function_MetaDataParams), Z_Construct_UFunction_AGoobunga_Player_PickUpWeapon_Statics::Function_MetaDataParams) };
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AGoobunga_Player_PickUpWeapon_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AGoobunga_Player, nullptr, "PickUpWeapon", nullptr, nullptr, Z_Construct_UFunction_AGoobunga_Player_PickUpWeapon_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_AGoobunga_Player_PickUpWeapon_Statics::PropPointers), sizeof(Z_Construct_UFunction_AGoobunga_Player_PickUpWeapon_Statics::Goobunga_Player_eventPickUpWeapon_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04420401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AGoobunga_Player_PickUpWeapon_Statics::Function_MetaDataParams), Z_Construct_UFunction_AGoobunga_Player_PickUpWeapon_Statics::Function_MetaDataParams) };
 static_assert(sizeof(Z_Construct_UFunction_AGoobunga_Player_PickUpWeapon_Statics::Goobunga_Player_eventPickUpWeapon_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_AGoobunga_Player_PickUpWeapon()
 {
@@ -376,6 +407,7 @@ void AGoobunga_Player::StaticRegisterNativesAGoobunga_Player()
 	UClass* Class = AGoobunga_Player::StaticClass();
 	static const FNameNativePtrPair Funcs[] = {
 		{ "EquipWeapon", &AGoobunga_Player::execEquipWeapon },
+		{ "FootStep", &AGoobunga_Player::execFootStep },
 		{ "OnMontageEndedGeneric", &AGoobunga_Player::execOnMontageEndedGeneric },
 		{ "OnMontageNotifyBegin", &AGoobunga_Player::execOnMontageNotifyBegin },
 		{ "PickUpWeapon", &AGoobunga_Player::execPickUpWeapon },
@@ -695,8 +727,24 @@ struct Z_Construct_UClass_AGoobunga_Player_Statics
 		{ "Category", "Dash" },
 		{ "ModuleRelativePath", "Goobunga_Player.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DashElapsed_MetaData[] = {
+		{ "Category", "Dash" },
+		{ "ModuleRelativePath", "Goobunga_Player.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DashCooldown_MetaData[] = {
 		{ "Category", "Dash" },
+		{ "ModuleRelativePath", "Goobunga_Player.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_HurtEventSound_MetaData[] = {
+		{ "Category", "Audio" },
+		{ "ModuleRelativePath", "Goobunga_Player.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_WalkEventSound_MetaData[] = {
+		{ "Category", "Audio" },
+		{ "ModuleRelativePath", "Goobunga_Player.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_WalkEventFrequency_MetaData[] = {
+		{ "Category", "Audio" },
 		{ "ModuleRelativePath", "Goobunga_Player.h" },
 	};
 #endif // WITH_METADATA
@@ -760,14 +808,19 @@ struct Z_Construct_UClass_AGoobunga_Player_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_DashCurve;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_DashTotalTime;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_DashPeakSpeed;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_DashElapsed;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_DashCooldown;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_HurtEventSound;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_WalkEventSound;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_WalkEventFrequency;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
 		{ &Z_Construct_UFunction_AGoobunga_Player_EquipWeapon, "EquipWeapon" }, // 3884177173
+		{ &Z_Construct_UFunction_AGoobunga_Player_FootStep, "FootStep" }, // 2879176970
 		{ &Z_Construct_UFunction_AGoobunga_Player_OnMontageEndedGeneric, "OnMontageEndedGeneric" }, // 1054157487
 		{ &Z_Construct_UFunction_AGoobunga_Player_OnMontageNotifyBegin, "OnMontageNotifyBegin" }, // 344017325
-		{ &Z_Construct_UFunction_AGoobunga_Player_PickUpWeapon, "PickUpWeapon" }, // 2100224078
+		{ &Z_Construct_UFunction_AGoobunga_Player_PickUpWeapon, "PickUpWeapon" }, // 2429691650
 		{ &Z_Construct_UFunction_AGoobunga_Player_ShouldGrip, "ShouldGrip" }, // 1242178523
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
@@ -843,7 +896,11 @@ const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AGoobunga_Playe
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_DashCurve = { "DashCurve", nullptr, (EPropertyFlags)0x0020080000010015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, DashCurve), Z_Construct_UClass_UCurveFloat_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DashCurve_MetaData), NewProp_DashCurve_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_DashTotalTime = { "DashTotalTime", nullptr, (EPropertyFlags)0x0020080000010015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, DashTotalTime), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DashTotalTime_MetaData), NewProp_DashTotalTime_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_DashPeakSpeed = { "DashPeakSpeed", nullptr, (EPropertyFlags)0x0020080000010015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, DashPeakSpeed), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DashPeakSpeed_MetaData), NewProp_DashPeakSpeed_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_DashElapsed = { "DashElapsed", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, DashElapsed), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DashElapsed_MetaData), NewProp_DashElapsed_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_DashCooldown = { "DashCooldown", nullptr, (EPropertyFlags)0x0020080000010015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, DashCooldown), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DashCooldown_MetaData), NewProp_DashCooldown_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_HurtEventSound = { "HurtEventSound", nullptr, (EPropertyFlags)0x0020080000010015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, HurtEventSound), Z_Construct_UClass_UFMODEvent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_HurtEventSound_MetaData), NewProp_HurtEventSound_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_WalkEventSound = { "WalkEventSound", nullptr, (EPropertyFlags)0x0020080000010015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, WalkEventSound), Z_Construct_UClass_UFMODEvent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WalkEventSound_MetaData), NewProp_WalkEventSound_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_WalkEventFrequency = { "WalkEventFrequency", nullptr, (EPropertyFlags)0x0020080000010015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGoobunga_Player, WalkEventFrequency), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WalkEventFrequency_MetaData), NewProp_WalkEventFrequency_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AGoobunga_Player_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_PlayerAllegiance_Underlying,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_PlayerAllegiance,
@@ -903,7 +960,11 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AGoobunga
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_DashCurve,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_DashTotalTime,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_DashPeakSpeed,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_DashElapsed,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_DashCooldown,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_HurtEventSound,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_WalkEventSound,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGoobunga_Player_Statics::NewProp_WalkEventFrequency,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AGoobunga_Player_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_AGoobunga_Player_Statics::DependentSingletons[])() = {
@@ -949,18 +1010,18 @@ AGoobunga_Player::~AGoobunga_Player() {}
 // End Class AGoobunga_Player
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_Statics
+struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_Statics
 {
 	static constexpr FEnumRegisterCompiledInInfo EnumInfo[] = {
 		{ ECombatAction_StaticEnum, TEXT("ECombatAction"), &Z_Registration_Info_UEnum_ECombatAction, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 2580619046U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AGoobunga_Player, AGoobunga_Player::StaticClass, TEXT("AGoobunga_Player"), &Z_Registration_Info_UClass_AGoobunga_Player, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AGoobunga_Player), 34148656U) },
+		{ Z_Construct_UClass_AGoobunga_Player, AGoobunga_Player::StaticClass, TEXT("AGoobunga_Player"), &Z_Registration_Info_UClass_AGoobunga_Player, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AGoobunga_Player), 1248451211U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_601293803(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_3574431326(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_Statics::ClassInfo),
 	nullptr, 0,
-	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_Statics::EnumInfo));
+	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_Player_h_Statics::EnumInfo));
 // End Registration
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

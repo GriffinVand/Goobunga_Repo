@@ -4,6 +4,7 @@
 #include "GameplayTagContainer.h"
 #include "MissionData.generated.h"
 
+class UFMODEvent;
 class ABaseEnemy;
 
 USTRUCT(BlueprintType)
@@ -48,6 +49,9 @@ struct FEncounter
 	GENERATED_BODY()
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UFMODEvent* EncounterMusic = nullptr;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FName EncounterName;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FGameplayTag TriggerEvent;
@@ -69,6 +73,8 @@ struct FMissionObjective
 {
 	GENERATED_BODY()
 	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	bool bIsProgressive = false;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FGameplayTag RequiredTag;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)

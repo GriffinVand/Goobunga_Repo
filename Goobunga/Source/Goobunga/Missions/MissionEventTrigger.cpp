@@ -27,17 +27,27 @@ void AMissionEventTrigger::Tick(float DeltaTime)
 void AMissionEventTrigger::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (!bIsEnterTrigger) return;
+	if (bHasEnterTriggered && bTriggerOnce) { return; }
 	if (bPlayerOnly && Cast<AGoobunga_Player>(OtherActor))
 	{
-		if (UMissionSubsystem* MS = GetWorld()->GetSubsystem<UMissionSubsystem>()) { MS->ReceiveEvent(EnterEvent); }
+		if (UMissionSubsystem* MS = GetWorld()->GetSubsystem<UMissionSubsystem>())
+		{
+			for (auto& Event : EnterEvents) { MS->ReceiveEvent(Event); }
+			bHasEnterTriggered = true;
+		}
 	}
 }
 
 void AMissionEventTrigger::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (!bIsExitTrigger) return;
+	if (bHasExitTriggered && bTriggerOnce) { return; }
 	if (bPlayerOnly && Cast<AGoobunga_Player>(OtherActor))
 	{
-		if (UMissionSubsystem* MS = GetWorld()->GetSubsystem<UMissionSubsystem>()) { MS->ReceiveEvent(EnterEvent); }
+		if (UMissionSubsystem* MS = GetWorld()->GetSubsystem<UMissionSubsystem>())
+		{
+			for (auto& Event : ExitEvents) { MS->ReceiveEvent(Event); }
+			bHasExitTriggered = true;
+		}
 	}
 }

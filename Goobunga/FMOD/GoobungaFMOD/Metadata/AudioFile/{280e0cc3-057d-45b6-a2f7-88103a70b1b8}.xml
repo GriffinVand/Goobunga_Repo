@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{280e0cc3-057d-45b6-a2f7-88103a70b1b8}">
+		<property name="assetPath">
+			<value>GoopSound3.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.3395918367346939</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c072503a-ea4e-471a-a030-76a086148c96}</destination>
+		</relationship>
+	</object>
+</objects>

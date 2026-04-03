@@ -14,18 +14,18 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define GOOBUNGA_FacialAnimationComponent_generated_h
 
-#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_FacialAnimationComponent_h_10_GENERATED_BODY \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_FacialAnimationComponent_h_10_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FFacialAnimationStruct_Statics; \
 	GOOBUNGA_API static class UScriptStruct* StaticStruct();
 
 
 template<> GOOBUNGA_API UScriptStruct* StaticStruct<struct FFacialAnimationStruct>();
 
-#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_FacialAnimationComponent_h_26_RPC_WRAPPERS_NO_PURE_DECLS \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_FacialAnimationComponent_h_26_RPC_WRAPPERS_NO_PURE_DECLS \
 	DECLARE_FUNCTION(execPlayAnimation);
 
 
-#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_FacialAnimationComponent_h_26_INCLASS_NO_PURE_DECLS \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_FacialAnimationComponent_h_26_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUFacialAnimationComponent(); \
 	friend struct Z_Construct_UClass_UFacialAnimationComponent_Statics; \
@@ -34,7 +34,7 @@ public: \
 	DECLARE_SERIALIZER(UFacialAnimationComponent)
 
 
-#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_FacialAnimationComponent_h_26_ENHANCED_CONSTRUCTORS \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_FacialAnimationComponent_h_26_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	UFacialAnimationComponent(UFacialAnimationComponent&&); \
@@ -46,13 +46,13 @@ public: \
 	NO_API virtual ~UFacialAnimationComponent();
 
 
-#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_FacialAnimationComponent_h_23_PROLOG
-#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_FacialAnimationComponent_h_26_GENERATED_BODY \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_FacialAnimationComponent_h_23_PROLOG
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_FacialAnimationComponent_h_26_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_FacialAnimationComponent_h_26_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_FacialAnimationComponent_h_26_INCLASS_NO_PURE_DECLS \
-	FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_FacialAnimationComponent_h_26_ENHANCED_CONSTRUCTORS \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_FacialAnimationComponent_h_26_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_FacialAnimationComponent_h_26_INCLASS_NO_PURE_DECLS \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_FacialAnimationComponent_h_26_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -60,7 +60,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> GOOBUNGA_API UClass* StaticClass<class UFacialAnimationComponent>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_FacialAnimationComponent_h
+#define CURRENT_FILE_ID FID_Goobunga_Repo_Goobunga_Source_Goobunga_FacialAnimationComponent_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

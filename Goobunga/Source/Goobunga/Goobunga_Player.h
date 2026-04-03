@@ -48,6 +48,7 @@ class GOOBUNGA_API AGoobunga_Player : public ACharacter, public IPlayerCallables
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 public:
 	
@@ -117,6 +118,9 @@ public:
 	FVector CurrentAdsLoc;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FQuat CurrentAdsRot;
+	
+	UFUNCTION(BlueprintCallable, Category="Interact")
+	void PickUpWeapon(const FWeaponSaveData& WeaponData);
 	
 	void PlayAbilityMontage(UAnimMontage* Montage);
 	void PlayAbilityMontageLoop(UAnimMontage* Montage, FName StartSection);
@@ -230,9 +234,6 @@ protected:
 	void Look(const FInputActionValue& Value);
 	void EndLook(const FInputActionValue& Value);
 	
-	UFUNCTION(BlueprintCallable, Category="Interact")
-	void PickUpWeapon(const FWeaponSaveData& WeaponData);
-	
 	void InteractInputStarted(const FInputActionValue& Value) { TryStartAction(ECombatAction::Interact); }
 	void InteractInputEnded(const FInputActionValue& Value) { InteractEnded(false); }
 	void InteractStarted();
@@ -303,12 +304,25 @@ protected:
 	float DashElapsedTime = 0.f;
 	FVector DashDirection = FVector::ZeroVector;
 	bool bDashing = false;
-	bool bCanDash = true;
-	FTimerHandle DashTimer;
+	bool bCanDash = false;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Dash")
+	float DashElapsed = 0.f;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Dash")
 	float DashCooldown = 1.5;
 	
 #pragma endregion Dash
+	
+#pragma region Audio
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Audio")
+	UFMODEvent* HurtEventSound;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Audio")
+	UFMODEvent* WalkEventSound;
+	FTimerHandle WalkTimer;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Audio")
+	float WalkEventFrequency = 0.3;
+	UFUNCTION(BlueprintCallable, Category="Audio")
+	void FootStep();
+#pragma endregion Audio
 	
 	virtual void UpdateAds(float Alpha) override;
 	virtual void UpdateWeaponUI() override { return;}

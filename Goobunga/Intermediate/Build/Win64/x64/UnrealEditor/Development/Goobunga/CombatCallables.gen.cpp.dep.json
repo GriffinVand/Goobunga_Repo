@@ -1,16 +1,16 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\combatcallables.gen.cpp",
+        "Source": "e:\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\combatcallables.gen.cpp",
         "ProvidedModule": "",
-        "PCH": "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\goobungaeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "PCH": "e:\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\goobungaeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
         "Includes": [
-            "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\goobunga\\definitions.goobunga.h",
-            "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\source\\goobunga\\combat\\combatcallables.h",
-            "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\source\\goobunga\\combat\\damagetypes.h",
-            "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\source\\goobunga\\combat\\teaminterface.h",
-            "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\teaminterface.generated.h",
-            "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\combatcallables.generated.h"
+            "e:\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\goobunga\\definitions.goobunga.h",
+            "e:\\goobunga_repo\\goobunga\\source\\goobunga\\combat\\combatcallables.h",
+            "e:\\goobunga_repo\\goobunga\\source\\goobunga\\combat\\damagetypes.h",
+            "e:\\goobunga_repo\\goobunga\\source\\goobunga\\combat\\teaminterface.h",
+            "e:\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\teaminterface.generated.h",
+            "e:\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\combatcallables.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

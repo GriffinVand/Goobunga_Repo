@@ -75,7 +75,7 @@ struct Z_Construct_UFunction_AGoobunga_PlayerController_CreateObjectiveUI_Static
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_AGoobunga_PlayerController_CreateObjectiveUI_Statics::NewProp_Objective = { "Objective", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Goobunga_PlayerController_eventCreateObjectiveUI_Parms, Objective), Z_Construct_UScriptStruct_FMissionObjective, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Objective_MetaData), NewProp_Objective_MetaData) }; // 168318422
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_AGoobunga_PlayerController_CreateObjectiveUI_Statics::NewProp_Objective = { "Objective", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Goobunga_PlayerController_eventCreateObjectiveUI_Parms, Objective), Z_Construct_UScriptStruct_FMissionObjective, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Objective_MetaData), NewProp_Objective_MetaData) }; // 1604715176
 void Z_Construct_UFunction_AGoobunga_PlayerController_CreateObjectiveUI_Statics::NewProp_bUpdate_SetBit(void* Obj)
 {
 	((Goobunga_PlayerController_eventCreateObjectiveUI_Parms*)Obj)->bUpdate = 1;
@@ -189,7 +189,7 @@ struct Z_Construct_UClass_AGoobunga_PlayerController_Statics
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_AGoobunga_PlayerController_CreateObjectiveUI, "CreateObjectiveUI" }, // 3538836238
+		{ &Z_Construct_UFunction_AGoobunga_PlayerController_CreateObjectiveUI, "CreateObjectiveUI" }, // 3476959238
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -258,14 +258,14 @@ AGoobunga_PlayerController::~AGoobunga_PlayerController() {}
 // End Class AGoobunga_PlayerController
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_PlayerController_h_Statics
+struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_PlayerController_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AGoobunga_PlayerController, AGoobunga_PlayerController::StaticClass, TEXT("AGoobunga_PlayerController"), &Z_Registration_Info_UClass_AGoobunga_PlayerController, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AGoobunga_PlayerController), 2971703284U) },
+		{ Z_Construct_UClass_AGoobunga_PlayerController, AGoobunga_PlayerController::StaticClass, TEXT("AGoobunga_PlayerController"), &Z_Registration_Info_UClass_AGoobunga_PlayerController, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AGoobunga_PlayerController), 1976933617U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_PlayerController_h_1882547255(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_PlayerController_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_PlayerController_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_PlayerController_h_1847711432(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_PlayerController_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Goobunga_PlayerController_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

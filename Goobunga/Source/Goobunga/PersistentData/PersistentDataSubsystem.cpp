@@ -9,9 +9,9 @@
 void UPersistentDataSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
 	Super::Initialize(Collection);
-	//UGameplayStatics::DeleteGameInSlot("1", 0);
-	//UGameplayStatics::DeleteGameInSlot("2", 0);
-	//UGameplayStatics::DeleteGameInSlot("3", 0);
+	UGameplayStatics::DeleteGameInSlot("1", 0);
+	UGameplayStatics::DeleteGameInSlot("2", 0);
+	UGameplayStatics::DeleteGameInSlot("3", 0);
 }
 
 void UPersistentDataSubsystem::NewSaveGame(FString FileName)
@@ -22,8 +22,7 @@ void UPersistentDataSubsystem::NewSaveGame(FString FileName)
 		SetDefaultSaveGame(*NewSaveFile);
 		UGameplayStatics::SaveGameToSlot(NewSaveFile, FileName, 0);
 		TSubclassOf<AWeapon> Subclass = NewSaveFile->PlayerPrimaryWeapon.WeaponClass;
-		if (!Subclass) { UE_LOG(LogTemp, Error, TEXT("Weapon class is null after new save creation PDS::NewSavwGame")); return;}
-		UE_LOG(LogTemp, Error, TEXT("Weapon subclass: %s"), *Subclass->GetName());
+		if (!Subclass) { UE_LOG(LogTemp, Error, TEXT("Weapon class is null after new save creation PDS::NewSavwGame")); }
 	}
 	LoadGame(FileName);
 }
@@ -40,6 +39,7 @@ void UPersistentDataSubsystem::LoadGame(FString FileName)
 {
 	if (UGoobungaSaveFile* LoadedGameFile = Cast<UGoobungaSaveFile>(UGameplayStatics::LoadGameFromSlot(FileName, 0)))
 	{
+		ActiveSaveFileName = FileName;
 		CurrentSaveFile = LoadedGameFile;
 	}
 	UGameplayStatics::OpenLevel(this, CurrentSaveFile->CurrentHub);

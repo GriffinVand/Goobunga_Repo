@@ -1,0 +1,11 @@
+{6f3bb5b4-1f91-4c83-a540-65184bd506ad} bank:/FX
+{e73b78fc-802a-4245-8682-71430b3f4195} bank:/Master
+{7f265828-f151-0e07-00cb-fbbdfacc470d} bank:/Master.strings
+{e8c649da-05b9-4c75-ad74-e95c677c75bf} bank:/Music
+{096758ee-91ac-49af-8705-b2dc2ed02948} bus:/
+{aa433ae1-6a4e-42ef-814d-5fe1058b5a3b} bus:/Reverb
+{f93be0fb-8ddd-4366-9735-da9e4a30ede2} event:/FXEvents/CatShoot
+{791c9a90-17f0-4dca-a9d6-f5f7fe04d7b4} event:/FXEvents/GooGunShoot
+{f76c06c8-19b1-4b9e-8e9f-27cdb94c0159} event:/MusicEvents/Bazaar
+{134e6aca-1236-4349-bdb3-c3115619f290} event:/MusicEvents/Disturbed
+{4b0c402f-e132-4acd-b60e-9da718403752} event:/MusicEvents/DisturbedCombat

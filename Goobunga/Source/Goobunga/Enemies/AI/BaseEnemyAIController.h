@@ -15,5 +15,6 @@ class GOOBUNGA_API ABaseEnemyAIController : public AAIController
 	GENERATED_BODY()
 public:
 	virtual void BeginPlay() override;
+	virtual void OnPossess(APawn* NewPawn) override;
 	
 };

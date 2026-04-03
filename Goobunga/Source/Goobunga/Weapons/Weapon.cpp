@@ -1,6 +1,8 @@
 
 #include "Weapon.h"
 
+#include "FMODAudioComponent.h"
+#include "FMODBlueprintStatics.h"
 #include "NiagaraFunctionLibrary.h"
 #include "Goobunga/PlayerCallables.h"
 #include "Goobunga/Goobunga_Player.h"
@@ -11,7 +13,7 @@ AWeapon::AWeapon()
 	//Create components
 	WeaponMesh = CreateDefaultSubobject<USkeletalMeshComponent>("WeaponMesh");
 	RootComponent = WeaponMesh;
-	FireSoundComponent = CreateDefaultSubobject<UAudioComponent>("FireSoundComponent");
+	FireSoundComponent = CreateDefaultSubobject<UFMODAudioComponent>("FireSoundComponent");
 	FireSoundComponent->SetupAttachment(RootComponent);
 	FireSoundComponent->SetAutoActivate(false);
 }
@@ -145,7 +147,21 @@ void AWeapon::UpdateAccuracy(float NewAccuracy)
 //
 void AWeapon::PlayFireEffect()
 {
-	UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, FireEffect, FVector(0, 0, 0));
+	if (!WeaponMesh || !WeaponMesh->DoesSocketExist("FireEffect_Socket")) { return;} 
+	UNiagaraFunctionLibrary::SpawnSystemAttached(FireEffect, WeaponMesh, "FireEffect_Socket", FVector::ZeroVector, FRotator::ZeroRotator, EAttachLocation::Type::SnapToTarget, true);
+}
+
+void AWeapon::PlayFireSound()
+{
+	if (WeaponMesh && FireEventSound && WeaponMesh->DoesSocketExist("Fire_Location"))
+	{
+		FTransform Trans = WeaponMesh->GetSocketTransform("Fire_Location");
+		if (AGoobunga_Player* GPlayer = Cast<AGoobunga_Player>(GetOwner()))
+		{
+			Trans.SetRotation(GPlayer->FPCamera->GetForwardVector().ToOrientationQuat());
+		}
+		UFMODBlueprintStatics::PlayEventAtLocation(this, FireEventSound, Trans, true);
+	}
 }
 
 void AWeapon::UpdateOwnerUI()

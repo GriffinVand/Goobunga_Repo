@@ -11,6 +11,8 @@
 
 #include "Weapon.generated.h"
 
+class UFMODEvent;
+class UFMODAudioComponent;
 class UNiagaraSystem;
 class UCameraComponent;
 
@@ -146,7 +148,9 @@ public:
 	UNiagaraSystem* FireEffect;
 	//Sound to play when fired
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Audio)
-	UAudioComponent* FireSoundComponent;
+	UFMODAudioComponent* FireSoundComponent;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Audio)
+	UFMODEvent* FireEventSound;
 
 	//Animations are stored in two maps. Uses names to find corresponding animations
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animation, meta = (AllowPrivateAccess = "true"))
@@ -198,6 +202,7 @@ public:
 	virtual void UpdateOwnerUI();
 	virtual void UpdateWeapon();
 	virtual void PlayFireEffect();
+	virtual void PlayFireSound();
 	virtual void Reload();
 	virtual FRotator GetFireDirection(bool bTrue = false);
 	

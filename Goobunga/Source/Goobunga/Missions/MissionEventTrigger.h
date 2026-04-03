@@ -21,15 +21,19 @@ public:
 	UPROPERTY(EditAnywhere,  BlueprintReadWrite)
 	bool bIsEnterTrigger = false;
 	UPROPERTY(EditAnywhere,  BlueprintReadWrite, meta=(EditCondition="bIsEnterTrigger"))
-	FGameplayTag EnterEvent;
+	TArray<FGameplayTag> EnterEvents;
 	
 	UPROPERTY(EditAnywhere,  BlueprintReadWrite)
 	bool bIsExitTrigger = false;
 	UPROPERTY(EditAnywhere,  BlueprintReadWrite, meta=(EditCondition="bIsExitTrigger"))
-	FGameplayTag ExitEvent;
+	TArray<FGameplayTag> ExitEvents;
 	
 	UPROPERTY(EditAnywhere,  BlueprintReadWrite)
 	bool bPlayerOnly = true;
+	UPROPERTY(EditAnywhere,  BlueprintReadWrite)
+	bool bTriggerOnce = true;
+	bool bHasEnterTriggered = false;
+	bool bHasExitTriggered = false;
 
 protected:
 	virtual void BeginPlay() override;

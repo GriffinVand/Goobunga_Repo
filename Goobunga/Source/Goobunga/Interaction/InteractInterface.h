@@ -19,7 +19,8 @@ public:
 	void Interact(AActor* Interactor);
 	virtual void Interact_Implementation(AActor* Interactor) { }
 	
-	bool PlayAnim() { return true; }
+	virtual bool PlayAnim() { return true; }
+	virtual bool CanInteract() { return true;}
 	
-	FText GetInteractText(AActor* Interactor) { return FText::FromString("Press 'E' to interact"); }
+	virtual FText GetInteractText(AActor* Interactor) { return FText::FromString("Press 'E' to interact"); }
 };

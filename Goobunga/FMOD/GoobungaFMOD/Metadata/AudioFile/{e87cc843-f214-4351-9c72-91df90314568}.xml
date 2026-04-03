@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{e87cc843-f214-4351-9c72-91df90314568}">
+		<property name="assetPath">
+			<value>DefWalk4.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>32</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>0.45671875000000001</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c072503a-ea4e-471a-a030-76a086148c96}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -4,6 +4,7 @@
 #include "JoshEnemy.h"
 
 #include "AIController.h"
+#include "FMODBlueprintStatics.h"
 #include "Components/SplineComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Goobunga/Goobunga_Player.h"
@@ -165,14 +166,14 @@ void AJoshEnemy::AttackPrimary(AActor* Target)
 			{
 				CurrentState = EEnemyState::Attacking;
 				AnimInstance->Montage_Play(StabMontage);
-				UE_LOG(LogTemp, Warning, TEXT("PLAY MONTAGE"));
+				//UE_LOG(LogTemp, Warning, TEXT("PLAY MONTAGE"));
 				FOnMontageEnded MontageEnded;
 				MontageEnded.BindLambda([this](UAnimMontage* Montage, bool bInteruppted)
 				{
 					AttackCooldown = 0;
 					CurrentState = EEnemyState::Walking;
 					OnAttackFinished.Broadcast();
-					UE_LOG(LogTemp, Warning, TEXT("MONTAGE ENDED"));
+					//UE_LOG(LogTemp, Warning, TEXT("MONTAGE ENDED"));
 				});
 				AnimInstance->Montage_SetEndDelegate(MontageEnded, StabMontage);
 			}
@@ -186,7 +187,7 @@ void AJoshEnemy::AttackPrimary(AActor* Target)
 
 void AJoshEnemy::AttackSecondary(AActor* Target)
 {
-	UE_LOG(LogTemp, Error, TEXT("Try attack sec"));
+	//UE_LOG(LogTemp, Error, TEXT("Try attack sec"));
 	if (FallingStabMontage != nullptr && CurrentState != EEnemyState::Attacking)
 	{
 		if (CurrentState == EEnemyState::Launching) { EndLaunch(); }
@@ -194,14 +195,14 @@ void AJoshEnemy::AttackSecondary(AActor* Target)
 		{
 			CurrentState = EEnemyState::Attacking;
 			AnimInstance->Montage_Play(FallingStabMontage);
-			UE_LOG(LogTemp, Warning, TEXT("PLAY MONTAGE"));
+			//UE_LOG(LogTemp, Warning, TEXT("PLAY MONTAGE"));
 			FOnMontageEnded MontageEnded;
 			MontageEnded.BindLambda([this](UAnimMontage* Montage, bool bInteruppted)
 			{
 				AttackCooldown = 0;
 				CurrentState = EEnemyState::Walking;
 				OnAttackFinished.Broadcast();
-				UE_LOG(LogTemp, Warning, TEXT("MONTAGE ENDED"));
+				//UE_LOG(LogTemp, Warning, TEXT("MONTAGE ENDED"));
 			});
 			AnimInstance->Montage_SetEndDelegate(MontageEnded, FallingStabMontage);
 		}

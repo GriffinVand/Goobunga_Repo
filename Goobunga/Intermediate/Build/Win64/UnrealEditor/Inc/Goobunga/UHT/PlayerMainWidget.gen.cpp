@@ -12,6 +12,7 @@ void EmptyLinkFunctionForGeneratedCodePlayerMainWidget() {}
 // Begin Cross Module References
 COMMONUI_API UClass* Z_Construct_UClass_UCommonActivatableWidget();
 ENGINE_API UClass* Z_Construct_UClass_UTexture2D_NoRegister();
+GOOBUNGA_API UClass* Z_Construct_UClass_UDodgeWidgetBase_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_UInteractWidget_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_UObjectiveWidgetBase_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_UPlayerMainWidget();
@@ -56,6 +57,18 @@ struct Z_Construct_UClass_UPlayerMainWidget_Statics
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_WeaponUIContainer_MetaData[] = {
 		{ "BindWidget", "" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "UserInterface/PlayerMainWidget.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DodgeAbilityUIContainer_MetaData[] = {
+		{ "BindWidget", "" },
+		{ "Category", "PlayerMainWidget" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "UserInterface/PlayerMainWidget.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DodgeWidget_MetaData[] = {
+		{ "BindWidget", "" },
+		{ "Category", "PlayerMainWidget" },
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "UserInterface/PlayerMainWidget.h" },
 	};
@@ -121,6 +134,8 @@ struct Z_Construct_UClass_UPlayerMainWidget_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_MainObjectiveWidget;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_InteractWidget;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_WeaponUIContainer;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_DodgeAbilityUIContainer;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_DodgeWidget;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_SmallAbilityUIContainer;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_LargeAbilityUIContainer;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_HealAbilityUIContainer;
@@ -144,6 +159,8 @@ const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWid
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_MainObjectiveWidget = { "MainObjectiveWidget", nullptr, (EPropertyFlags)0x0010000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerMainWidget, MainObjectiveWidget), Z_Construct_UClass_UObjectiveWidgetBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MainObjectiveWidget_MetaData), NewProp_MainObjectiveWidget_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_InteractWidget = { "InteractWidget", nullptr, (EPropertyFlags)0x0010000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerMainWidget, InteractWidget), Z_Construct_UClass_UInteractWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_InteractWidget_MetaData), NewProp_InteractWidget_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_WeaponUIContainer = { "WeaponUIContainer", nullptr, (EPropertyFlags)0x0010000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerMainWidget, WeaponUIContainer), Z_Construct_UClass_USizeBox_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WeaponUIContainer_MetaData), NewProp_WeaponUIContainer_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_DodgeAbilityUIContainer = { "DodgeAbilityUIContainer", nullptr, (EPropertyFlags)0x0010000000080009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerMainWidget, DodgeAbilityUIContainer), Z_Construct_UClass_USizeBox_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DodgeAbilityUIContainer_MetaData), NewProp_DodgeAbilityUIContainer_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_DodgeWidget = { "DodgeWidget", nullptr, (EPropertyFlags)0x0010000000080009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerMainWidget, DodgeWidget), Z_Construct_UClass_UDodgeWidgetBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DodgeWidget_MetaData), NewProp_DodgeWidget_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_SmallAbilityUIContainer = { "SmallAbilityUIContainer", nullptr, (EPropertyFlags)0x0010000000080009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerMainWidget, SmallAbilityUIContainer), Z_Construct_UClass_USizeBox_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SmallAbilityUIContainer_MetaData), NewProp_SmallAbilityUIContainer_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_LargeAbilityUIContainer = { "LargeAbilityUIContainer", nullptr, (EPropertyFlags)0x0010000000080009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerMainWidget, LargeAbilityUIContainer), Z_Construct_UClass_USizeBox_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_LargeAbilityUIContainer_MetaData), NewProp_LargeAbilityUIContainer_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_HealAbilityUIContainer = { "HealAbilityUIContainer", nullptr, (EPropertyFlags)0x0010000000080009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPlayerMainWidget, HealAbilityUIContainer), Z_Construct_UClass_USizeBox_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_HealAbilityUIContainer_MetaData), NewProp_HealAbilityUIContainer_MetaData) };
@@ -161,6 +178,8 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UPlayerMa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_MainObjectiveWidget,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_InteractWidget,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_WeaponUIContainer,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_DodgeAbilityUIContainer,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_DodgeWidget,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_SmallAbilityUIContainer,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_LargeAbilityUIContainer,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPlayerMainWidget_Statics::NewProp_HealAbilityUIContainer,
@@ -213,14 +232,14 @@ UPlayerMainWidget::~UPlayerMainWidget() {}
 // End Class UPlayerMainWidget
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_Statics
+struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UPlayerMainWidget, UPlayerMainWidget::StaticClass, TEXT("UPlayerMainWidget"), &Z_Registration_Info_UClass_UPlayerMainWidget, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UPlayerMainWidget), 707975992U) },
+		{ Z_Construct_UClass_UPlayerMainWidget, UPlayerMainWidget::StaticClass, TEXT("UPlayerMainWidget"), &Z_Registration_Info_UClass_UPlayerMainWidget, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UPlayerMainWidget), 1112636764U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_3640591948(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_1181456008(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_UserInterface_PlayerMainWidget_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

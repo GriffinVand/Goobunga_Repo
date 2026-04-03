@@ -25,10 +25,13 @@ public:
 	FGameplayTag ObjectiveTag;
 	FGameplayTag EncounterTag;
 	FGameplayTag EventTag;
+	FGameplayTag CompleteTag;
 	
 	FOnEventBase OnEventBase;
 	
 	virtual void OnWorldBeginPlay(UWorld& InWorld) override;
+	
+	void OnPlayerReady();
 	
 	void StartMission();
 	void EndMission(bool bSuccess);
@@ -42,6 +45,7 @@ public:
 	void RegisterSpawner(AMissionSpawnHandler* Spawner) { SpawnHandler = Spawner;}
 	void HandleDeath(FName DeathName);
 	
+	UFUNCTION(BlueprintCallable)
 	void ReceiveEvent(const FGameplayTag Tag);
 	UFUNCTION(BlueprintCallable)
 	void BroadCastEvent(FGameplayTag Tag) { OnEventBase.Broadcast(Tag); }

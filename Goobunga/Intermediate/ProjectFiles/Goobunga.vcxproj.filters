@@ -25,6 +25,9 @@
     <None Include="..\..\Config\DefaultGame.ini">
       <Filter>Config</Filter>
     </None>
+    <None Include="..\..\Config\DefaultGameplayTags.ini">
+      <Filter>Config</Filter>
+    </None>
     <None Include="..\..\Config\DefaultInput.ini">
       <Filter>Config</Filter>
     </None>
@@ -80,12 +83,6 @@
       <Filter>Source\Goobunga</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\PlayerCallables.h">
-      <Filter>Source\Goobunga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\PlayerStates.cpp">
-      <Filter>Source\Goobunga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Goobunga\PlayerStates.h">
       <Filter>Source\Goobunga</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\ReloadManagerComponent.cpp">
@@ -367,6 +364,42 @@
     <ClCompile Include="..\..\Source\Goobunga\Interaction\InteractInterface.h">
       <Filter>Source\Goobunga\Interaction</Filter>
     </ClCompile>
+    <Filter Include="Source\Goobunga\Missions">
+      <UniqueIdentifier>{B683A345-7881-3EEB-B98C-DC0428F8D95D}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\Missions\EventInterface.cpp">
+      <Filter>Source\Goobunga\Missions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Missions\EventInterface.h">
+      <Filter>Source\Goobunga\Missions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Missions\MissionData.h">
+      <Filter>Source\Goobunga\Missions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Missions\MissionEventTrigger.cpp">
+      <Filter>Source\Goobunga\Missions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Missions\MissionEventTrigger.h">
+      <Filter>Source\Goobunga\Missions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Missions\MissionGameMode.cpp">
+      <Filter>Source\Goobunga\Missions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Missions\MissionGameMode.h">
+      <Filter>Source\Goobunga\Missions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Missions\MissionSpawnHandler.cpp">
+      <Filter>Source\Goobunga\Missions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Missions\MissionSpawnHandler.h">
+      <Filter>Source\Goobunga\Missions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Missions\MissionSubsystem.cpp">
+      <Filter>Source\Goobunga\Missions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Missions\MissionSubsystem.h">
+      <Filter>Source\Goobunga\Missions</Filter>
+    </ClCompile>
     <Filter Include="Source\Goobunga\PersistentData">
       <UniqueIdentifier>{A3E43F76-3FE5-3B19-A74E-2F39960A7A55}</UniqueIdentifier>
     </Filter>
@@ -486,6 +519,24 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\UserInterface\Ability\AbilityWidgetBase.h">
       <Filter>Source\Goobunga\UserInterface\Ability</Filter>
+    </ClCompile>
+    <Filter Include="Source\Goobunga\UserInterface\HUD">
+      <UniqueIdentifier>{C534A5D9-AE62-38C2-B61B-BE2139E405DC}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\UserInterface\HUD\InteractWidget.cpp">
+      <Filter>Source\Goobunga\UserInterface\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\UserInterface\HUD\InteractWidget.h">
+      <Filter>Source\Goobunga\UserInterface\HUD</Filter>
+    </ClCompile>
+    <Filter Include="Source\Goobunga\UserInterface\Objective">
+      <UniqueIdentifier>{C9A787E2-BD11-39DE-8CE3-DE2BA437460C}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\UserInterface\Objective\ObjectiveWidgetBase.cpp">
+      <Filter>Source\Goobunga\UserInterface\Objective</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\UserInterface\Objective\ObjectiveWidgetBase.h">
+      <Filter>Source\Goobunga\UserInterface\Objective</Filter>
     </ClCompile>
     <Filter Include="Source\Goobunga\Weapons">
       <UniqueIdentifier>{CC097E68-C714-3FBB-8CA8-77CF4B425530}</UniqueIdentifier>

@@ -10,6 +10,7 @@
 #include "Components/SizeBox.h"
 #include "Missions/MissionSubsystem.h"
 #include "UserInterface/Ability/AbilityWidgetBase.h"
+#include "UserInterface/HUD/DodgeWidgetBase.h"
 #include "UserInterface/HUD/InteractWidget.h"
 #include "UserInterface/Objective/ObjectiveWidgetBase.h"
 
@@ -19,7 +20,9 @@ void AGoobunga_PlayerController::BeginPlay()
 	if (UMissionSubsystem* MS = GetWorld()->GetSubsystem<UMissionSubsystem>())
 	{
 		MS->OnObjectiveUpdate.AddUniqueDynamic(this, &AGoobunga_PlayerController::CreateObjectiveUI);
+		MS->OnPlayerReady();
 	} else { UE_LOG(LogTemp, Error, TEXT("NO MissionSubsystem PC::BeginPlay")); }
+	UE_LOG(LogTemp, Error, TEXT("PC::BeginPlay"));
 }
 
 void AGoobunga_PlayerController::InitializeMasterWidget()
@@ -53,8 +56,14 @@ void AGoobunga_PlayerController::CreateInteractUI(const FText& InteractText, boo
 	if (!MainHUD->InteractWidget) { UE_LOG(LogTemp, Warning, TEXT("AGoobunga_PlayerController::CreateInteractUI No Interact widget")); return; }
 	if (bHide) { MainHUD->InteractWidget->SetVisibility(ESlateVisibility::Hidden); return; }
 	MainHUD->InteractWidget->InteractText->SetText(InteractText);
-	MainHUD->InteractWidget->InteractText->SetVisibility(ESlateVisibility::HitTestInvisible);
+	MainHUD->InteractWidget->SetVisibility(ESlateVisibility::HitTestInvisible);
 	
+}
+
+void AGoobunga_PlayerController::UpdateDodgeUI(float Percent)
+{
+	if (!MainHUD) { UE_LOG(LogTemp, Warning, TEXT("AGoobunga_PlayerController::UpdateDodgeUI No MainHUD")); return; }
+	MainHUD->DodgeWidget->UpdateUI(Percent);
 }
 
 void AGoobunga_PlayerController::CreateWeaponUI(AWeapon* Weapon)

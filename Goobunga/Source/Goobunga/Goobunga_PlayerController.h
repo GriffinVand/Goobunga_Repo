@@ -30,6 +30,7 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FOnMasterWidgetCreated OnMasterWidgetCreated;
 	
+	void UpdateDodgeUI(float Percent);
 	void CreateInteractUI(const FText& InteractText, bool bHide);
 	void InitializeMasterWidget();
 	void InitializePlayerHUD();

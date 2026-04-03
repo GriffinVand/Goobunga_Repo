@@ -29,7 +29,8 @@ void AHitScanWeapon::FireWeapon()
 	FVector FireDirection = SpawnRotation.Vector();
 	bool WeaponTrace = GetWorld()->LineTraceSingleByChannel(HitResult, SpawnTransform.GetLocation(), SpawnTransform.GetLocation() + FireDirection*10000, ECollisionChannel::ECC_Visibility, QueryParams);
 	FVector HitLocation = SpawnTransform.GetLocation() + FireDirection*10000;
-	FireSoundComponent->Play();
+	PlayFireSound();
+	PlayFireEffect();
 	FOnMontageEnded EndDelegate;
 	PlayAnimationSimultaneous("Fire", EndDelegate, 1.f);
 	ApplyRecoil();

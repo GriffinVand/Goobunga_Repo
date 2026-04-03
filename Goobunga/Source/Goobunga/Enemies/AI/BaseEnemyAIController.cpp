@@ -10,13 +10,19 @@
 void ABaseEnemyAIController::BeginPlay()
 {
 	Super::BeginPlay();
+	
+}
 
-	ABaseEnemy* Enemy = Cast<ABaseEnemy>(GetPawn());
+void ABaseEnemyAIController::OnPossess(APawn* NewPawn)
+{
+	Super::OnPossess(NewPawn);
+	
+	ABaseEnemy* Enemy = Cast<ABaseEnemy>(NewPawn);
 	if (Enemy && Enemy->BehaviorTree)
 	{
 		RunBehaviorTree(Enemy->BehaviorTree);
 		GetBlackboardComponent()->SetValueAsObject("Player", UGameplayStatics::GetPlayerCharacter(this, 0));
-		GetBlackboardComponent()->SetValueAsObject("SelfActor", GetPawn());
+		GetBlackboardComponent()->SetValueAsObject("SelfActor", NewPawn);
 		SetFocus(UGameplayStatics::GetPlayerCharacter(this, 0), EAIFocusPriority::Gameplay);
 	}
 }

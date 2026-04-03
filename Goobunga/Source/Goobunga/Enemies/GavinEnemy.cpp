@@ -73,7 +73,7 @@ void AGavinEnemy::OnMontageNotifyBegin(FName NotifyName, const FBranchingPointNo
 	
 	if (NotifyName == ExpectedSpitNotifyName)
 	{
-		UE_LOG(LogTemp, Error, TEXT("Gavin Spit"));
+		//UE_LOG(LogTemp, Error, TEXT("Gavin Spit"));
 		LaunchSpit();
 	}
 }

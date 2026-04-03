@@ -2,6 +2,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "FacialAnimationComponent.h"
+#include "FMODBlueprintStatics.h"
 #include "InputAction.h"
 #include "InputActionValue.h"
 #include "Camera/CameraComponent.h"
@@ -63,7 +64,29 @@ void AGoobunga_Player::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+	
+	GetWorld()->GetTimerManager().SetTimer(WalkTimer, [this]()
+	{
+		FootStep();
+	}, WalkEventFrequency, true, 0.5);
 }
+
+void AGoobunga_Player::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	Super::EndPlay(EndPlayReason);
+	GetWorld()->GetTimerManager().ClearTimer(WalkTimer);
+}
+
+void AGoobunga_Player::FootStep()
+{
+	if (!WalkEventSound) { return; }
+	UCharacterMovementComponent* MovComp = GetCharacterMovement();
+	if (!MovComp || !IsValid(MovComp)) { return; }
+	bool bMoving = MovComp->Velocity.Length() > 0.f;
+	bool bGrounded = MovComp->IsMovingOnGround();
+	if (bMoving && bGrounded && !bDashing) { UFMODBlueprintStatics::PlayEvent2D(this, WalkEventSound, true); }
+}
+
 void AGoobunga_Player::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -71,8 +94,20 @@ void AGoobunga_Player::Tick(float DeltaTime)
 	UpdateWeaponKick();
 	UpdateFPAlign();
 	UpdateWeaponSwayData(DeltaTime);
+	UpdateInteract();
 	if (Reloading) { ReloadManagerComponent->UpdatePhase(DeltaTime); }
 	if (bDashing) { UpdateDash(DeltaTime); }
+	else if (!bCanDash)
+	{
+		DashElapsed = FMath::Min(DashCooldown, DashElapsed + DeltaTime);  
+		if (DashElapsed >= DashCooldown) { bCanDash = true; }
+		if (AGoobunga_PlayerController* PC = Cast<AGoobunga_PlayerController>(GetController()))
+		{
+			float Percent = DashElapsed == 0 ? 0 : DashElapsed/DashCooldown;
+			Percent = 1 - Percent;
+			PC->UpdateDodgeUI(Percent);
+		}
+	}
 }
 
 
@@ -130,6 +165,7 @@ void AGoobunga_Player::EndMove(const FInputActionValue& Value)
 void AGoobunga_Player::StartDash()
 {
 	DashElapsedTime = 0.f;
+	DashElapsed = 0.f;
 	DashDirection = GetActorForwardVector() * LastMovementInputValue.Y + GetActorRightVector() * LastMovementInputValue.X;
 	DashDirection.Normalize();
 	bDashing = true;
@@ -139,11 +175,6 @@ void AGoobunga_Player::StartDash()
 void AGoobunga_Player::EndDash()
 {
 	bDashing = false;
-	GetWorld()->GetTimerManager().ClearTimer(DashTimer);
-	GetWorld()->GetTimerManager().SetTimer(DashTimer, [this]()
-	{
-		bCanDash = true;
-	}, DashCooldown, false);
 }
 
 void AGoobunga_Player::UpdateDash(float DeltaTime)
@@ -164,15 +195,18 @@ void AGoobunga_Player::UpdateInteract()
 	FHitResult Hit;
 	FVector Start = FPCamera->GetComponentLocation();
 	FVector End = Start + (FPCamera->GetForwardVector() * InteractRange);
-	if (bool bHit = GetWorld()->LineTraceSingleByChannel(Hit, Start, End, ECollisionChannel::ECC_GameTraceChannel2))
+	if (bool bHit = GetWorld()->LineTraceSingleByChannel(Hit, Start, End, ECollisionChannel::ECC_Visibility))
 	{
 		if (Hit.GetActor())
 		{
 			if (IInteractInterface* II = Cast<IInteractInterface>(Hit.GetActor()))
 			{
-				PC->CreateInteractUI(II->GetInteractText(this), false);
-				InteractActor = Hit.GetActor();
-				return;
+				if (II->CanInteract())
+				{
+					PC->CreateInteractUI(II->GetInteractText(this), false);
+					InteractActor = Hit.GetActor();
+					return;
+				}
 			}
 		}
 	}
@@ -197,7 +231,7 @@ void AGoobunga_Player::InteractStarted()
 			FPMesh->GetAnimInstance()->OnMontageEnded.AddDynamic(this, &AGoobunga_Player::OnMontageEndedGeneric);
 			FPMesh->GetAnimInstance()->Montage_Play(InteractMontage);
 		}
-		II->Interact(this);
+		IInteractInterface::Execute_Interact(InteractActor, this);
 	}
 }
 
@@ -426,6 +460,7 @@ void AGoobunga_Player::PerformAction(const FString& Action)
 {
 	
 }
+
 void AGoobunga_Player::UpdateAds(float Alpha)
 {
 	AimAlpha = Alpha;
@@ -440,6 +475,7 @@ EDamageResult AGoobunga_Player::CombatDamage(AActor* DamageCauser, float Damage,
 {
 	if (Allegiance == PlayerAllegiance) { return EDamageResult::None; }
 	CurrHealth -= Damage;
+	if (HurtEventSound) { UFMODBlueprintStatics::PlayEvent2D(this, HurtEventSound, true); }
 	HandleDamageEffect(DamageType);
 	UE_LOG(LogTemp, Error, TEXT("PLAYER WAS HURT"))
 	if (CurrHealth <= 0) { DeathSequence(); return EDamageResult::Kill; }
@@ -551,13 +587,13 @@ bool AGoobunga_Player::CanPerformAction(ECombatAction Action)
 	case ECombatAction::HealAbility:
 		return (AbilityComponent->CanUseAbility(EAbilityType::Heal) && WeaponComponent->bReady);
 	case ECombatAction::Swap:
-		return (!AbilityComponent->IsFlagBlocked(EAbilityBlockFlag::Swap));
+		return (!AbilityComponent->IsFlagBlocked(EAbilityBlockFlag::Swap)) && (WeaponComponent->PrimaryWeaponInstance && WeaponComponent->SecondaryWeaponInstance);
 	case ECombatAction::Sprint:
 		return (!AbilityComponent->IsFlagBlocked(EAbilityBlockFlag::Sprint) && !Sprinting && WeaponDrawn);
 	case ECombatAction::Interact:
 		return CanInteract() && (!AbilityComponent->ActiveAbility);
 	case ECombatAction::Dash:
-		return !bDashing && bCanDash && WeaponDrawn;
+		return !bDashing && bCanDash && (WeaponDrawn || !WeaponComponent->GetEquippedWeapon());
 	case ECombatAction::Pickup:
 		return (!AbilityComponent->IsFlagBlocked(EAbilityBlockFlag::Swap));
 	default:

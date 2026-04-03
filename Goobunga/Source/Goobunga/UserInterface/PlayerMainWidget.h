@@ -8,6 +8,7 @@
 #include "Goobunga/Combat/DamageTypes.h"
 #include "PlayerMainWidget.generated.h"
 
+class UDodgeWidgetBase;
 class UInteractWidget;
 class UObjectiveWidgetBase;
 class UHorizontalBox;
@@ -40,6 +41,10 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	USizeBox* WeaponUIContainer;
 	
+	UPROPERTY(EditAnywhere, meta = (BindWidget))
+	USizeBox* DodgeAbilityUIContainer;
+	UPROPERTY(EditAnywhere, meta = (BindWidget))
+	UDodgeWidgetBase* DodgeWidget;
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
 	USizeBox* SmallAbilityUIContainer;
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
