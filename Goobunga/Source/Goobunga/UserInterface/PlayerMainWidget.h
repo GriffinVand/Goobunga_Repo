@@ -8,6 +8,7 @@
 #include "Goobunga/Combat/DamageTypes.h"
 #include "PlayerMainWidget.generated.h"
 
+class UInteractWidget;
 class UObjectiveWidgetBase;
 class UHorizontalBox;
 enum class EDamageResult : uint8;
@@ -31,6 +32,9 @@ public:
 	
 	UPROPERTY(meta = (BindWidget))
 	UObjectiveWidgetBase* MainObjectiveWidget;
+	
+	UPROPERTY(meta = (BindWidget))
+	UInteractWidget* InteractWidget;
 
 	
 	UPROPERTY(meta = (BindWidget))

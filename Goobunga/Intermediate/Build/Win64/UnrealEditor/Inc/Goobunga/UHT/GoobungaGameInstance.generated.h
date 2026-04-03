@@ -9,10 +9,15 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+class UMissionData;
 #ifdef GOOBUNGA_GoobungaGameInstance_generated_h
 #error "GoobungaGameInstance.generated.h already included, missing '#pragma once' in GoobungaGameInstance.h"
 #endif
 #define GOOBUNGA_GoobungaGameInstance_generated_h
+
+#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_GoobungaGameInstance_h_14_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execSelectMission);
+
 
 #define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_GoobungaGameInstance_h_14_INCLASS_NO_PURE_DECLS \
 private: \
@@ -41,6 +46,7 @@ public: \
 #define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_GoobungaGameInstance_h_14_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
+	FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_GoobungaGameInstance_h_14_RPC_WRAPPERS_NO_PURE_DECLS \
 	FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_GoobungaGameInstance_h_14_INCLASS_NO_PURE_DECLS \
 	FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_GoobungaGameInstance_h_14_ENHANCED_CONSTRUCTORS \
 private: \

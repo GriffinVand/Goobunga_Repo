@@ -30,4 +30,7 @@ public:
 	
 	
 	void SetDefaultSaveFile(UGoobungaSaveFile& SaveFile);
+	void ClearMission() { SelectedMission = nullptr; }
+	UFUNCTION(BlueprintCallable)
+	void SelectMission(UMissionData* MissionData) { SelectedMission = MissionData; }
 };

@@ -75,6 +75,8 @@ void AGoobunga_Player::Tick(float DeltaTime)
 	if (bDashing) { UpdateDash(DeltaTime); }
 }
 
+
+
 #pragma region INPUT FUNCTIONS
 void AGoobunga_Player::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -154,25 +156,55 @@ void AGoobunga_Player::UpdateDash(float DeltaTime)
 	if (Alpha >= 1.f) { EndDash(); }
 }
 
+void AGoobunga_Player::UpdateInteract()
+{
+	AGoobunga_PlayerController* PC = Cast<AGoobunga_PlayerController>(GetController());
+	if (!PC) { return; }
+	if (bInteracting) { PC->CreateInteractUI(FText::FromString(""), true); InteractActor = nullptr; }
+	FHitResult Hit;
+	FVector Start = FPCamera->GetComponentLocation();
+	FVector End = Start + (FPCamera->GetForwardVector() * InteractRange);
+	if (bool bHit = GetWorld()->LineTraceSingleByChannel(Hit, Start, End, ECollisionChannel::ECC_GameTraceChannel2))
+	{
+		if (Hit.GetActor())
+		{
+			if (IInteractInterface* II = Cast<IInteractInterface>(Hit.GetActor()))
+			{
+				PC->CreateInteractUI(II->GetInteractText(this), false);
+				InteractActor = Hit.GetActor();
+				return;
+			}
+		}
+	}
+	PC->CreateInteractUI(FText::FromString(""), true);
+	InteractActor = nullptr;
+}
+
 bool AGoobunga_Player::CanInteract()
 {
-	return true;
+	return InteractActor != nullptr && !bInteracting;
 }
 
 void AGoobunga_Player::InteractStarted()
 {
-	FHitResult Hit;
-	FCollisionQueryParams CollisionParams;
-	CollisionParams.AddIgnoredActor(this);
-	FVector Start = FPCamera->GetComponentLocation();
-	FVector End = Start + (FPCamera->GetForwardVector() * 300);
-	if (GetWorld()->LineTraceSingleByChannel(Hit, Start, End, ECollisionChannel::ECC_Visibility, CollisionParams))
+	if (!InteractActor) { UE_LOG(LogTemp, Error, TEXT("No interact actor GB::InteractStarted")); return; }
+	if (IInteractInterface* II = Cast<IInteractInterface>(InteractActor))
 	{
-		if (IInteractInterface* II = Cast<IInteractInterface>(Hit.GetActor()))
+		if (II->PlayAnim() && InteractMontage)
 		{
-			II->Interact(this);
+			HideWeaponForAbility();
+			FPMesh->GetAnimInstance()->OnMontageEnded.Clear();
+			FPMesh->GetAnimInstance()->OnMontageEnded.AddDynamic(this, &AGoobunga_Player::OnMontageEndedGeneric);
+			FPMesh->GetAnimInstance()->Montage_Play(InteractMontage);
 		}
+		II->Interact(this);
 	}
+}
+
+void AGoobunga_Player::InteractFinished()
+{
+	bInteracting = false;
+	ShowWeaponAfterAbility();
 }
 
 void AGoobunga_Player::InteractEnded(bool Cancelled)
@@ -454,6 +486,13 @@ void AGoobunga_Player::DeathSequence()
 {
 	UKismetSystemLibrary::QuitGame(this, nullptr, EQuitPreference::Quit, true);
 }
+
+void AGoobunga_Player::PickUpWeapon(const FWeaponSaveData& WeaponData)
+{
+	if (!WeaponComponent) { return; }
+	if (TryStartAction(ECombatAction::Pickup)) { WeaponComponent->PickupWeapon(WeaponData); }
+}
+
 void AGoobunga_Player::EquipWeapon(AWeapon* Weapon)
 {
 	if (!Weapon) { UE_LOG(LogTemp, Error, TEXT("Weapon is null Goobunga_Player::EquipWeapon")); return;}
@@ -479,13 +518,15 @@ bool AGoobunga_Player::ShouldGrip()
 }
 
 #pragma region ACTIONS
-void AGoobunga_Player::TryStartAction(ECombatAction Action)
+bool AGoobunga_Player::TryStartAction(ECombatAction Action)
 {
 	if (CanPerformAction(Action))
 	{
 		ResolveActionConflicts(Action);
 		StartAction(Action);
+		return true;
 	}
+	return false;
 }
 
 bool AGoobunga_Player::CanPerformAction(ECombatAction Action)
@@ -514,9 +555,11 @@ bool AGoobunga_Player::CanPerformAction(ECombatAction Action)
 	case ECombatAction::Sprint:
 		return (!AbilityComponent->IsFlagBlocked(EAbilityBlockFlag::Sprint) && !Sprinting && WeaponDrawn);
 	case ECombatAction::Interact:
-		return CanInteract();
+		return CanInteract() && (!AbilityComponent->ActiveAbility);
 	case ECombatAction::Dash:
-		return !bDashing && bCanDash;
+		return !bDashing && bCanDash && WeaponDrawn;
+	case ECombatAction::Pickup:
+		return (!AbilityComponent->IsFlagBlocked(EAbilityBlockFlag::Swap));
 	default:
 		return false;
 	}
@@ -590,10 +633,20 @@ void AGoobunga_Player::ResolveActionConflicts(ECombatAction Action)
 		}
 		break;
 	case ECombatAction::Interact:
+		if (Sprinting) { SprintEnded(); }
+		if (Reloading) { ReloadManagerComponent->StopReload(false); }
+		FireEnded(true);
+		AltFireEnded(true);
 		break;
 	case ECombatAction::Dash:
 		if (Sprinting) { SprintEnded(); }
 		if (Reloading) { ReloadManagerComponent->StopReload(false); }
+		break;
+	case ECombatAction::Pickup:
+		if (Sprinting) { SprintEnded(); }
+		if (Reloading) { ReloadManagerComponent->StopReload(false); }
+		FireEnded(true);
+		AltFireEnded(true);
 		break;
 	default:
 		break;
@@ -659,7 +712,7 @@ void AGoobunga_Player::ShowWeaponAfterAbility()
 	if (!WeaponComponent) return;
 	if (AWeapon* Weapon = WeaponComponent->GetEquippedWeapon())
 	{
-		WeaponComponent->DrawWeapon(Weapon);
+		WeaponComponent->UnholsterWeapon(Weapon);
 	}
 }
 
@@ -698,6 +751,15 @@ void AGoobunga_Player::PlayAbilityMontageLoop(UAnimMontage* Montage, FName Start
 	{
 		AnimInst->Montage_Play(Montage);
 		AnimInst->Montage_JumpToSection(StartSection);
+	}
+}
+
+void AGoobunga_Player::OnMontageEndedGeneric(UAnimMontage* Montage, bool bInterrupted)
+{
+	if (Montage == InteractMontage)
+	{
+		InteractFinished();
+		return;
 	}
 }
 

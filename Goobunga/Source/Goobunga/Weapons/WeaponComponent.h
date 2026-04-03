@@ -23,6 +23,7 @@ enum class EWeaponSlot : uint8
 	None UMETA(DisplayName = "None"),
 	Primary UMETA(DisplayName = "Primary"),
 	Secondary UMETA(DisplayName = "Secondary"),
+	Fill UMETA(DisplayName = "Fill"),
 };
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
@@ -60,8 +61,10 @@ public:
 	void WeaponFullyDrawn(UAnimMontage* Montage, bool bInterrupted);
 	void DrawWeapon(AWeapon* Weapon);
 	void HolsterWeapon(AWeapon* Weapon);
+	void UnholsterWeapon(AWeapon* Weapon);
 	AWeapon* GetWeaponInSlot(EWeaponSlot Slot);
 	void SetWeapon(const FWeaponSaveData& Weapon, EWeaponSlot Slot);
+	void PickupWeapon(const FWeaponSaveData& Weapon);
 	
 	UPROPERTY(EditAnywhere)
 	TArray<FWeaponSaveData> OwnedWeapons;

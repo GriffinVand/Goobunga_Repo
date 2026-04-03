@@ -38,6 +38,10 @@ void IInteractInterface::Execute_Interact(UObject* O, AActor* Interactor)
 		Parms.Interactor=Interactor;
 		O->ProcessEvent(Func, &Parms);
 	}
+	else if (auto I = (IInteractInterface*)(O->GetNativeInterfaceAddress(UInteractInterface::StaticClass())))
+	{
+		I->Interact_Implementation(Interactor);
+	}
 }
 struct Z_Construct_UFunction_UInteractInterface_Interact_Statics
 {
@@ -55,7 +59,7 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UInter
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UInteractInterface_Interact_Statics::NewProp_Interactor,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractInterface_Interact_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UInteractInterface_Interact_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UInteractInterface, nullptr, "Interact", nullptr, nullptr, Z_Construct_UFunction_UInteractInterface_Interact_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractInterface_Interact_Statics::PropPointers), sizeof(InteractInterface_eventInteract_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x0C020800, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractInterface_Interact_Statics::Function_MetaDataParams), Z_Construct_UFunction_UInteractInterface_Interact_Statics::Function_MetaDataParams) };
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UInteractInterface_Interact_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UInteractInterface, nullptr, "Interact", nullptr, nullptr, Z_Construct_UFunction_UInteractInterface_Interact_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractInterface_Interact_Statics::PropPointers), sizeof(InteractInterface_eventInteract_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x08020C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractInterface_Interact_Statics::Function_MetaDataParams), Z_Construct_UFunction_UInteractInterface_Interact_Statics::Function_MetaDataParams) };
 static_assert(sizeof(InteractInterface_eventInteract_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UInteractInterface_Interact()
 {
@@ -66,11 +70,24 @@ UFunction* Z_Construct_UFunction_UInteractInterface_Interact()
 	}
 	return ReturnFunction;
 }
+DEFINE_FUNCTION(IInteractInterface::execInteract)
+{
+	P_GET_OBJECT(AActor,Z_Param_Interactor);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->Interact_Implementation(Z_Param_Interactor);
+	P_NATIVE_END;
+}
 // End Interface UInteractInterface Function Interact
 
 // Begin Interface UInteractInterface
 void UInteractInterface::StaticRegisterNativesUInteractInterface()
 {
+	UClass* Class = UInteractInterface::StaticClass();
+	static const FNameNativePtrPair Funcs[] = {
+		{ "Interact", &IInteractInterface::execInteract },
+	};
+	FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
 }
 IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(UInteractInterface);
 UClass* Z_Construct_UClass_UInteractInterface_NoRegister()
@@ -87,7 +104,7 @@ struct Z_Construct_UClass_UInteractInterface_Statics
 #endif // WITH_METADATA
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_UInteractInterface_Interact, "Interact" }, // 344850672
+		{ &Z_Construct_UFunction_UInteractInterface_Interact, "Interact" }, // 3532350079
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -136,10 +153,10 @@ UInteractInterface::~UInteractInterface() {}
 struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UInteractInterface, UInteractInterface::StaticClass, TEXT("UInteractInterface"), &Z_Registration_Info_UClass_UInteractInterface, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UInteractInterface), 1504368985U) },
+		{ Z_Construct_UClass_UInteractInterface, UInteractInterface::StaticClass, TEXT("UInteractInterface"), &Z_Registration_Info_UClass_UInteractInterface, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UInteractInterface), 3901237598U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h_2877519034(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h_348297265(TEXT("/Script/Goobunga"),
 	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

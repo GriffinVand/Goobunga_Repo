@@ -104,6 +104,14 @@ void UWeaponComponent::SetWeapon(const FWeaponSaveData& Weapon, EWeaponSlot Slot
 		EquipWeapon(Slot);
 	}
 }
+
+void UWeaponComponent::PickupWeapon(const FWeaponSaveData& Weapon)
+{
+	if (!PrimaryWeaponInstance) { SetWeapon(Weapon, EWeaponSlot::Primary); EquipWeapon(EWeaponSlot::Primary); }
+	else if (!SecondaryWeaponInstance) { SetWeapon(Weapon, EWeaponSlot::Secondary); EquipWeapon(EWeaponSlot::Secondary); }
+	else { SetWeapon(Weapon, EquippedWeaponSlot); }
+}
+
 void UWeaponComponent::EquipWeapon(EWeaponSlot Slot)
 {
 	PlayerOwner = Cast<AGoobunga_Player>(GetOwner());
@@ -134,6 +142,17 @@ void UWeaponComponent::HolsterWeapon(AWeapon* Weapon)
 	{
 		bReady = false;
 		Weapon->SetActorHiddenInGame(true);
+		AdsAlpha = 0.f;
+		HandleNewAds();
+	}
+}
+
+void UWeaponComponent::UnholsterWeapon(AWeapon* Weapon)
+{
+	if (Weapon)
+	{
+		bReady = true;
+		Weapon->SetActorHiddenInGame(false);
 		AdsAlpha = 0.f;
 		HandleNewAds();
 	}

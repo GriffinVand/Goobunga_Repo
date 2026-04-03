@@ -195,6 +195,8 @@ bool UAbilityComponent::IsFlagBlocked(EAbilityBlockFlag Flag)
 			return true;
 		case EAbilityBlockFlag::Swap:
 			return true;
+		case EAbilityBlockFlag::Pickup:
+			return true;
 		}
 	}
 	return false;

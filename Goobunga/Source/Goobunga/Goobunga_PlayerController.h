@@ -30,6 +30,7 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FOnMasterWidgetCreated OnMasterWidgetCreated;
 	
+	void CreateInteractUI(const FText& InteractText, bool bHide);
 	void InitializeMasterWidget();
 	void InitializePlayerHUD();
 	void CreateWeaponUI(AWeapon* Weapon);

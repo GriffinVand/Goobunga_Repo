@@ -13,6 +13,7 @@ enum class EAbilityBlockFlag : uint8
 	Reload UMETA(DisplayName = "Reload"),
 	Sprint UMETA(DisplayName = "Sprint"),
 	Swap UMETA(DisplayName = "Swap"),
+	Pickup UMETA(DisplayName = "Pickup"),
 };
 
 class UGoobungaSaveFile;

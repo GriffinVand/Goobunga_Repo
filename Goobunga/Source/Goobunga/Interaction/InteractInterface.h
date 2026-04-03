@@ -15,6 +15,11 @@ class GOOBUNGA_API IInteractInterface
 	GENERATED_BODY()
 public:
 	
-	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	UFUNCTION(BlueprintNativeEvent)
 	void Interact(AActor* Interactor);
+	virtual void Interact_Implementation(AActor* Interactor) { }
+	
+	bool PlayAnim() { return true; }
+	
+	FText GetInteractText(AActor* Interactor) { return FText::FromString("Press 'E' to interact"); }
 };

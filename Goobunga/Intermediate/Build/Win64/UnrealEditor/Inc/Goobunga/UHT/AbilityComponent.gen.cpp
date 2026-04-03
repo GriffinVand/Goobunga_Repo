@@ -46,6 +46,8 @@ struct Z_Construct_UEnum_Goobunga_EAbilityBlockFlag_Statics
 		{ "Grip.DisplayName", "Grip" },
 		{ "Grip.Name", "EAbilityBlockFlag::Grip" },
 		{ "ModuleRelativePath", "Abilities/AbilityComponent.h" },
+		{ "Pickup.DisplayName", "Pickup" },
+		{ "Pickup.Name", "EAbilityBlockFlag::Pickup" },
 		{ "Reload.DisplayName", "Reload" },
 		{ "Reload.Name", "EAbilityBlockFlag::Reload" },
 		{ "Sprint.DisplayName", "Sprint" },
@@ -61,6 +63,7 @@ struct Z_Construct_UEnum_Goobunga_EAbilityBlockFlag_Statics
 		{ "EAbilityBlockFlag::Reload", (int64)EAbilityBlockFlag::Reload },
 		{ "EAbilityBlockFlag::Sprint", (int64)EAbilityBlockFlag::Sprint },
 		{ "EAbilityBlockFlag::Swap", (int64)EAbilityBlockFlag::Swap },
+		{ "EAbilityBlockFlag::Pickup", (int64)EAbilityBlockFlag::Pickup },
 	};
 	static const UECodeGen_Private::FEnumParams EnumParams;
 };
@@ -193,13 +196,13 @@ UAbilityComponent::~UAbilityComponent() {}
 struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_Statics
 {
 	static constexpr FEnumRegisterCompiledInInfo EnumInfo[] = {
-		{ EAbilityBlockFlag_StaticEnum, TEXT("EAbilityBlockFlag"), &Z_Registration_Info_UEnum_EAbilityBlockFlag, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 443050785U) },
+		{ EAbilityBlockFlag_StaticEnum, TEXT("EAbilityBlockFlag"), &Z_Registration_Info_UEnum_EAbilityBlockFlag, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 2902879663U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
 		{ Z_Construct_UClass_UAbilityComponent, UAbilityComponent::StaticClass, TEXT("UAbilityComponent"), &Z_Registration_Info_UClass_UAbilityComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAbilityComponent), 1819749232U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_2853154432(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_2555913407(TEXT("/Script/Goobunga"),
 	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_Statics::ClassInfo),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityComponent_h_Statics::EnumInfo));

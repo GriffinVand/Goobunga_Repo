@@ -2,12 +2,15 @@
 
 
 #include "Goobunga_PlayerController.h"
+
+#include "CommonTextBlock.h"
 #include "Goobunga_Player.h"
 #include "UserInterface/PlayerWeaponAmmoWidget.h"
 #include "Goobunga/Abilities/AbilityBase.h"
 #include "Components/SizeBox.h"
 #include "Missions/MissionSubsystem.h"
 #include "UserInterface/Ability/AbilityWidgetBase.h"
+#include "UserInterface/HUD/InteractWidget.h"
 #include "UserInterface/Objective/ObjectiveWidgetBase.h"
 
 void AGoobunga_PlayerController::BeginPlay()
@@ -42,6 +45,16 @@ void AGoobunga_PlayerController::InitializePlayerHUD()
 	if (!MasterWidget) { UE_LOG(LogTemp, Error, TEXT("Null Masterwidget")); return; }
 	MainHUD = Cast<UPlayerMainWidget>(MasterWidget->PushWidget(MainHUDClass, ELayerType::Game));
 	if (!MainHUD) { UE_LOG(LogTemp, Error, TEXT("Failed to create MainHUD")); return;  }
+}
+
+void AGoobunga_PlayerController::CreateInteractUI(const FText& InteractText, bool bHide)
+{
+	if (!MainHUD) { UE_LOG(LogTemp, Warning, TEXT("AGoobunga_PlayerController::CreateInteractUI No MainHUD")); return; }
+	if (!MainHUD->InteractWidget) { UE_LOG(LogTemp, Warning, TEXT("AGoobunga_PlayerController::CreateInteractUI No Interact widget")); return; }
+	if (bHide) { MainHUD->InteractWidget->SetVisibility(ESlateVisibility::Hidden); return; }
+	MainHUD->InteractWidget->InteractText->SetText(InteractText);
+	MainHUD->InteractWidget->InteractText->SetVisibility(ESlateVisibility::HitTestInvisible);
+	
 }
 
 void AGoobunga_PlayerController::CreateWeaponUI(AWeapon* Weapon)

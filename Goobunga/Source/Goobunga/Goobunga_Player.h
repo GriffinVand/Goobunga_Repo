@@ -36,7 +36,8 @@ enum class ECombatAction : uint8
 	Reload UMETA(DisplayName = "Reload"),
 	Swap UMETA(DisplayName = "Swap"),
 	Interact UMETA(DisplayName = "Interact"),
-	Dash UMETA(DisplayName = "Dash")
+	Dash UMETA(DisplayName = "Dash"),
+	Pickup UMETA(DisplayName = "Pickup"),
 };
 
 UCLASS()
@@ -229,12 +230,27 @@ protected:
 	void Look(const FInputActionValue& Value);
 	void EndLook(const FInputActionValue& Value);
 	
+	UFUNCTION(BlueprintCallable, Category="Interact")
+	void PickUpWeapon(const FWeaponSaveData& WeaponData);
+	
 	void InteractInputStarted(const FInputActionValue& Value) { TryStartAction(ECombatAction::Interact); }
 	void InteractInputEnded(const FInputActionValue& Value) { InteractEnded(false); }
 	void InteractStarted();
+	void InteractFinished();
+	
 	void InteractEnded(bool Cancelled);
+	void UpdateInteract();
 	bool CanInteract();
+	
+	UFUNCTION()
+	void OnMontageEndedGeneric(UAnimMontage* Montage, bool bInterrupted);
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Interact")
+	UAnimMontage* InteractMontage;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Interact")
+	AActor* InteractActor;
 	bool bInteracting = false;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Interact")
+	float InteractRange = 400.f;
 	
 	void ReloadInputStarted() { TryStartAction(ECombatAction::Reload); }
 	void StartReload();
@@ -265,7 +281,7 @@ protected:
 	void HealAbilityInputStarted() { TryStartAction(ECombatAction::HealAbility); }
 	void HealAbilityInputEnded() { AbilityComponent->AbilityFinish(EAbilityType::Heal); }
 	
-	void TryStartAction(ECombatAction Action);
+	bool TryStartAction(ECombatAction Action);
 	bool CanPerformAction(ECombatAction Action);
 	void ResolveActionConflicts(ECombatAction Action);
 	void StartAction(ECombatAction Action);
