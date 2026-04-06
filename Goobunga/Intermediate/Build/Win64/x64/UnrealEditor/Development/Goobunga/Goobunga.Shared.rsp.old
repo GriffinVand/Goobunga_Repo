@@ -319,6 +319,13 @@
 /I "..\Plugins\FX\Niagara\Source\NiagaraShader\Public"
 /I "..\Plugins\FX\Niagara\Source\NiagaraShader\Internal"
 /I "..\Plugins\FX\Niagara\Source\NiagaraVertexFactories\Public"
+/I "E:\Goobunga_Repo\Goobunga\Plugins\FMODStudio\Intermediate\Build\Win64\UnrealEditor\Inc\FMODStudio\UHT"
+/I "E:\Goobunga_Repo\Goobunga\Plugins\FMODStudio\Source\FMODStudio\Public\FMOD"
+/I "E:\Goobunga_Repo\Goobunga\Plugins\FMODStudio\Source\FMODAudioLink\Public"
+/I "E:\Goobunga_Repo\Goobunga\Plugins\FMODStudio\Source"
+/I "E:\Goobunga_Repo\Goobunga\Plugins\FMODStudio\Source\FMODStudio\Classes"
+/I "E:\Goobunga_Repo\Goobunga\Plugins\FMODStudio\Source\FMODStudio\Public"
+/I "E:\Goobunga_Repo\Goobunga\Plugins\FMODStudio\Source\FMODAudioLinkEditor\Public"
 /external:W0
 /external:I "ThirdParty\GuidelinesSupportLibrary\GSL-1144\include"
 /external:I "ThirdParty\RapidJSON\1.1.0"
