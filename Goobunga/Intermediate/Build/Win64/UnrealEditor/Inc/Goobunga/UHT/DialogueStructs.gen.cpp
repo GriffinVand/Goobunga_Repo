@@ -11,6 +11,7 @@ void EmptyLinkFunctionForGeneratedCodeDialogueStructs() {}
 
 // Begin Cross Module References
 ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FTableRowBase();
+FMODSTUDIO_API UClass* Z_Construct_UClass_UFMODEvent_NoRegister();
 GOOBUNGA_API UEnum* Z_Construct_UEnum_Goobunga_EDialogueActionType();
 GOOBUNGA_API UScriptStruct* Z_Construct_UScriptStruct_FDialogueActionStruct();
 GOOBUNGA_API UScriptStruct* Z_Construct_UScriptStruct_FDialogueLine();
@@ -41,6 +42,8 @@ struct Z_Construct_UEnum_Goobunga_EDialogueActionType_Statics
 		{ "BlueprintType", "true" },
 		{ "COMPLETE_QUEST.DisplayName", "COMPLETE_QUEST" },
 		{ "COMPLETE_QUEST.Name", "EDialogueActionType::COMPLETE_QUEST" },
+		{ "END_DIALOGUE.DisplayName", "END_DIALOGUE" },
+		{ "END_DIALOGUE.Name", "EDialogueActionType::END_DIALOGUE" },
 		{ "GIVE_REWARD.DisplayName", "GIVE_REWARD" },
 		{ "GIVE_REWARD.Name", "EDialogueActionType::GIVE_REWARD" },
 		{ "ModuleRelativePath", "Dialogue/DialogueStructs.h" },
@@ -65,6 +68,7 @@ struct Z_Construct_UEnum_Goobunga_EDialogueActionType_Statics
 		{ "EDialogueActionType::REMOVE_QUEST", (int64)EDialogueActionType::REMOVE_QUEST },
 		{ "EDialogueActionType::GIVE_REWARD", (int64)EDialogueActionType::GIVE_REWARD },
 		{ "EDialogueActionType::SET_DIALOGUE", (int64)EDialogueActionType::SET_DIALOGUE },
+		{ "EDialogueActionType::END_DIALOGUE", (int64)EDialogueActionType::END_DIALOGUE },
 	};
 	static const UECodeGen_Private::FEnumParams EnumParams;
 };
@@ -131,7 +135,7 @@ struct Z_Construct_UScriptStruct_FDialogueActionStruct_Statics
 	static const UECodeGen_Private::FStructParams StructParams;
 };
 const UECodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FDialogueActionStruct_Statics::NewProp_ActionType_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FDialogueActionStruct_Statics::NewProp_ActionType = { "ActionType", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FDialogueActionStruct, ActionType), Z_Construct_UEnum_Goobunga_EDialogueActionType, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ActionType_MetaData), NewProp_ActionType_MetaData) }; // 3875579058
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FDialogueActionStruct_Statics::NewProp_ActionType = { "ActionType", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FDialogueActionStruct, ActionType), Z_Construct_UEnum_Goobunga_EDialogueActionType, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ActionType_MetaData), NewProp_ActionType_MetaData) }; // 2954173498
 const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FDialogueActionStruct_Statics::NewProp_ActionTarget = { "ActionTarget", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FDialogueActionStruct, ActionTarget), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ActionTarget_MetaData), NewProp_ActionTarget_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FDialogueActionStruct_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FDialogueActionStruct_Statics::NewProp_ActionType_Underlying,
@@ -236,7 +240,7 @@ struct Z_Construct_UScriptStruct_FDialogueLine_Statics
 	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FTextPropertyParams NewProp_Text;
-	static const UECodeGen_Private::FStrPropertyParams NewProp_Audio;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_Audio;
 	static const UECodeGen_Private::FNamePropertyParams NewProp_NextID;
 	static const UECodeGen_Private::FNamePropertyParams NewProp_Expression;
 	static const UECodeGen_Private::FNamePropertyParams NewProp_ReplyIDs_Inner;
@@ -249,7 +253,7 @@ struct Z_Construct_UScriptStruct_FDialogueLine_Statics
 	static const UECodeGen_Private::FStructParams StructParams;
 };
 const UECodeGen_Private::FTextPropertyParams Z_Construct_UScriptStruct_FDialogueLine_Statics::NewProp_Text = { "Text", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Text, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FDialogueLine, Text), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Text_MetaData), NewProp_Text_MetaData) };
-const UECodeGen_Private::FStrPropertyParams Z_Construct_UScriptStruct_FDialogueLine_Statics::NewProp_Audio = { "Audio", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FDialogueLine, Audio), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Audio_MetaData), NewProp_Audio_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UScriptStruct_FDialogueLine_Statics::NewProp_Audio = { "Audio", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FDialogueLine, Audio), Z_Construct_UClass_UFMODEvent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Audio_MetaData), NewProp_Audio_MetaData) };
 const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FDialogueLine_Statics::NewProp_NextID = { "NextID", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FDialogueLine, NextID), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_NextID_MetaData), NewProp_NextID_MetaData) };
 const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FDialogueLine_Statics::NewProp_Expression = { "Expression", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FDialogueLine, Expression), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Expression_MetaData), NewProp_Expression_MetaData) };
 const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FDialogueLine_Statics::NewProp_ReplyIDs_Inner = { "ReplyIDs", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, METADATA_PARAMS(0, nullptr) };
@@ -339,8 +343,8 @@ struct Z_Construct_UScriptStruct_FDialogueReply_Statics
 };
 const UECodeGen_Private::FTextPropertyParams Z_Construct_UScriptStruct_FDialogueReply_Statics::NewProp_Text = { "Text", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Text, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FDialogueReply, Text), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Text_MetaData), NewProp_Text_MetaData) };
 const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FDialogueReply_Statics::NewProp_NextID = { "NextID", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FDialogueReply, NextID), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_NextID_MetaData), NewProp_NextID_MetaData) };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FDialogueReply_Statics::NewProp_Actions_Inner = { "Actions", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FDialogueActionStruct, METADATA_PARAMS(0, nullptr) }; // 3309096510
-const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FDialogueReply_Statics::NewProp_Actions = { "Actions", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FDialogueReply, Actions), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Actions_MetaData), NewProp_Actions_MetaData) }; // 3309096510
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FDialogueReply_Statics::NewProp_Actions_Inner = { "Actions", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FDialogueActionStruct, METADATA_PARAMS(0, nullptr) }; // 2070898983
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FDialogueReply_Statics::NewProp_Actions = { "Actions", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FDialogueReply, Actions), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Actions_MetaData), NewProp_Actions_MetaData) }; // 2070898983
 const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FDialogueReply_Statics::NewProp_QuestRequirement = { "QuestRequirement", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FDialogueReply, QuestRequirement), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_QuestRequirement_MetaData), NewProp_QuestRequirement_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FDialogueReply_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FDialogueReply_Statics::NewProp_Text,
@@ -377,15 +381,15 @@ UScriptStruct* Z_Construct_UScriptStruct_FDialogueReply()
 struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueStructs_h_Statics
 {
 	static constexpr FEnumRegisterCompiledInInfo EnumInfo[] = {
-		{ EDialogueActionType_StaticEnum, TEXT("EDialogueActionType"), &Z_Registration_Info_UEnum_EDialogueActionType, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3875579058U) },
+		{ EDialogueActionType_StaticEnum, TEXT("EDialogueActionType"), &Z_Registration_Info_UEnum_EDialogueActionType, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 2954173498U) },
 	};
 	static constexpr FStructRegisterCompiledInInfo ScriptStructInfo[] = {
-		{ FDialogueActionStruct::StaticStruct, Z_Construct_UScriptStruct_FDialogueActionStruct_Statics::NewStructOps, TEXT("DialogueActionStruct"), &Z_Registration_Info_UScriptStruct_DialogueActionStruct, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FDialogueActionStruct), 3309096510U) },
-		{ FDialogueLine::StaticStruct, Z_Construct_UScriptStruct_FDialogueLine_Statics::NewStructOps, TEXT("DialogueLine"), &Z_Registration_Info_UScriptStruct_DialogueLine, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FDialogueLine), 738123302U) },
-		{ FDialogueReply::StaticStruct, Z_Construct_UScriptStruct_FDialogueReply_Statics::NewStructOps, TEXT("DialogueReply"), &Z_Registration_Info_UScriptStruct_DialogueReply, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FDialogueReply), 673452381U) },
+		{ FDialogueActionStruct::StaticStruct, Z_Construct_UScriptStruct_FDialogueActionStruct_Statics::NewStructOps, TEXT("DialogueActionStruct"), &Z_Registration_Info_UScriptStruct_DialogueActionStruct, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FDialogueActionStruct), 2070898983U) },
+		{ FDialogueLine::StaticStruct, Z_Construct_UScriptStruct_FDialogueLine_Statics::NewStructOps, TEXT("DialogueLine"), &Z_Registration_Info_UScriptStruct_DialogueLine, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FDialogueLine), 1971035487U) },
+		{ FDialogueReply::StaticStruct, Z_Construct_UScriptStruct_FDialogueReply_Statics::NewStructOps, TEXT("DialogueReply"), &Z_Registration_Info_UScriptStruct_DialogueReply, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FDialogueReply), 219020052U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueStructs_h_1835202940(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueStructs_h_2204307385(TEXT("/Script/Goobunga"),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueStructs_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueStructs_h_Statics::ScriptStructInfo),
 	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueStructs_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueStructs_h_Statics::EnumInfo));

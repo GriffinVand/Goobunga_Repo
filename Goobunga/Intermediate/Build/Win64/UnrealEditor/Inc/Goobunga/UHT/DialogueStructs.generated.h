@@ -14,14 +14,14 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define GOOBUNGA_DialogueStructs_generated_h
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueStructs_h_22_GENERATED_BODY \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueStructs_h_24_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FDialogueActionStruct_Statics; \
 	GOOBUNGA_API static class UScriptStruct* StaticStruct();
 
 
 template<> GOOBUNGA_API UScriptStruct* StaticStruct<struct FDialogueActionStruct>();
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueStructs_h_32_GENERATED_BODY \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueStructs_h_34_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FDialogueLine_Statics; \
 	GOOBUNGA_API static class UScriptStruct* StaticStruct(); \
 	typedef FTableRowBase Super;
@@ -29,7 +29,7 @@ template<> GOOBUNGA_API UScriptStruct* StaticStruct<struct FDialogueActionStruct
 
 template<> GOOBUNGA_API UScriptStruct* StaticStruct<struct FDialogueLine>();
 
-#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueStructs_h_59_GENERATED_BODY \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueStructs_h_61_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FDialogueReply_Statics; \
 	GOOBUNGA_API static class UScriptStruct* StaticStruct(); \
 	typedef FTableRowBase Super;
@@ -49,7 +49,8 @@ template<> GOOBUNGA_API UScriptStruct* StaticStruct<struct FDialogueReply>();
 	op(EDialogueActionType::COMPLETE_QUEST) \
 	op(EDialogueActionType::REMOVE_QUEST) \
 	op(EDialogueActionType::GIVE_REWARD) \
-	op(EDialogueActionType::SET_DIALOGUE) 
+	op(EDialogueActionType::SET_DIALOGUE) \
+	op(EDialogueActionType::END_DIALOGUE) 
 
 enum class EDialogueActionType : uint8;
 template<> struct TIsUEnumClass<EDialogueActionType> { enum { Value = true }; };

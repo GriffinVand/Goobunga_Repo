@@ -313,6 +313,8 @@ protected:
 #pragma endregion Dash
 	
 #pragma region Audio
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Audio")
+	UFMODEvent* DashEventSound;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Audio")
 	UFMODEvent* HurtEventSound;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Audio")

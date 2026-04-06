@@ -9,6 +9,7 @@
 #include "Goobunga/Quests/QuestManagerComponent.h"
 #include "DialogueManagerComponent.generated.h"
 
+class UFMODAudioComponent;
 class UDialogueWidget;
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class GOOBUNGA_API UDialogueManagerComponent : public UActorComponent
@@ -24,6 +25,12 @@ protected:
 public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float MinAttenuation = 1.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float MaxAttenuation = 10.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Transient)
+	UFMODAudioComponent* DialogueAudioComp;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UDataTable* DialogueData;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

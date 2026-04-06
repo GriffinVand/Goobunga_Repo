@@ -16,5 +16,5 @@ class GOOBUNGA_API ABaseEnemyAIController : public AAIController
 public:
 	virtual void BeginPlay() override;
 	virtual void OnPossess(APawn* NewPawn) override;
-	
+	void InitializeAIBehavior();
 };

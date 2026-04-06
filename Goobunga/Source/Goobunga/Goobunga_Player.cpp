@@ -55,6 +55,14 @@ void AGoobunga_Player::BeginPlay()
 		FPMeshInst->OnPlayMontageNotifyBegin.AddUniqueDynamic(this, &AGoobunga_Player::OnMontageNotifyBegin);
 	}
 	
+	if (UMaterialInstanceDynamic* FaceMat = UMaterialInstanceDynamic::Create(GetMesh()->GetMaterial(1), this))
+	{
+		FacialAnimationComponent->Material = FaceMat;
+		GetMesh()->SetMaterial(1, FaceMat);
+		FacialAnimationComponent->DefaultAnimation = "Idle";
+		FacialAnimationComponent->PlayAnimation("Idle", true);
+	}
+	
 	APlayerController* PlayerController = Cast<APlayerController>(GetController());
 	if (PlayerController)
 	{
@@ -170,6 +178,7 @@ void AGoobunga_Player::StartDash()
 	DashDirection.Normalize();
 	bDashing = true;
 	bCanDash = false;
+	if (DashEventSound) { UFMODBlueprintStatics::PlayEvent2D(this, DashEventSound, true); }
 }
 
 void AGoobunga_Player::EndDash()
@@ -199,11 +208,11 @@ void AGoobunga_Player::UpdateInteract()
 	{
 		if (Hit.GetActor())
 		{
-			if (IInteractInterface* II = Cast<IInteractInterface>(Hit.GetActor()))
+			if (Hit.GetActor()->Implements<UInteractInterface>())
 			{
-				if (II->CanInteract())
+				if (IInteractInterface::Execute_CanInteract(Hit.GetActor()))
 				{
-					PC->CreateInteractUI(II->GetInteractText(this), false);
+					PC->CreateInteractUI(IInteractInterface::Execute_GetInteractText(Hit.GetActor(), this), false);
 					InteractActor = Hit.GetActor();
 					return;
 				}
@@ -222,17 +231,14 @@ bool AGoobunga_Player::CanInteract()
 void AGoobunga_Player::InteractStarted()
 {
 	if (!InteractActor) { UE_LOG(LogTemp, Error, TEXT("No interact actor GB::InteractStarted")); return; }
-	if (IInteractInterface* II = Cast<IInteractInterface>(InteractActor))
+	if (IInteractInterface::Execute_PlayAnim(InteractActor) && InteractMontage)
 	{
-		if (II->PlayAnim() && InteractMontage)
-		{
-			HideWeaponForAbility();
-			FPMesh->GetAnimInstance()->OnMontageEnded.Clear();
-			FPMesh->GetAnimInstance()->OnMontageEnded.AddDynamic(this, &AGoobunga_Player::OnMontageEndedGeneric);
-			FPMesh->GetAnimInstance()->Montage_Play(InteractMontage);
-		}
-		IInteractInterface::Execute_Interact(InteractActor, this);
+		HideWeaponForAbility();
+		FPMesh->GetAnimInstance()->OnMontageEnded.Clear();
+		FPMesh->GetAnimInstance()->OnMontageEnded.AddDynamic(this, &AGoobunga_Player::OnMontageEndedGeneric);
+		FPMesh->GetAnimInstance()->Montage_Play(InteractMontage);
 	}
+	IInteractInterface::Execute_Interact(InteractActor, this);
 }
 
 void AGoobunga_Player::InteractFinished()
@@ -475,6 +481,7 @@ EDamageResult AGoobunga_Player::CombatDamage(AActor* DamageCauser, float Damage,
 {
 	if (Allegiance == PlayerAllegiance) { return EDamageResult::None; }
 	CurrHealth -= Damage;
+	FacialAnimationComponent->PlayAnimation("Hurt1", false);
 	if (HurtEventSound) { UFMODBlueprintStatics::PlayEvent2D(this, HurtEventSound, true); }
 	HandleDamageEffect(DamageType);
 	UE_LOG(LogTemp, Error, TEXT("PLAYER WAS HURT"))

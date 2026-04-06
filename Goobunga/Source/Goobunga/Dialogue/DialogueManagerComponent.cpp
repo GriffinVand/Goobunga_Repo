@@ -1,6 +1,7 @@
 #include "DialogueManagerComponent.h"
 
 #include "DialogueInterface.h"
+#include "FMODAudioComponent.h"
 #include "./UI/DialogueWidget.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/TextBlock.h"
@@ -29,19 +30,33 @@ void UDialogueManagerComponent::TickComponent(float DeltaTime, ELevelTick TickTy
 
 void UDialogueManagerComponent::StartDialogue(AActor* DialogueActor)
 {
-	IDialogueInterface* DI = Cast<IDialogueInterface>(DialogueActor);
-	if (!DI) { UE_LOG(LogTemp, Error, TEXT("Other actor does not have dialogue interface")); return; }
+	if (!DialogueActor) { return; }
+	bool bImplementInterface = DialogueActor->Implements<UDialogueInterface>();
+	if (!bImplementInterface) { UE_LOG(LogTemp, Error, TEXT("Other actor does not have dialogue interface")); return; }
 	CurrDialogueActor = DialogueActor;
+	
+	if (DialogueAudioComp) { DialogueAudioComp->DestroyComponent(false); }
+	DialogueAudioComp = NewObject<UFMODAudioComponent>(CurrDialogueActor);
+	if (DialogueAudioComp)
+	{
+		DialogueAudioComp->RegisterComponent();
+		DialogueAudioComp->AttachToComponent(CurrDialogueActor->GetRootComponent(), FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+		DialogueAudioComp->AttenuationDetails.MinimumDistance = MinAttenuation;
+		DialogueAudioComp->AttenuationDetails.MaximumDistance = MaxAttenuation;
+	}
 	if (AGoobunga_PlayerController* PC = Cast<AGoobunga_PlayerController>(Cast<APawn>(GetOwner())->GetController()))
 	{
 		UE_LOG(LogTemp, Display, TEXT("Create Widget"));
 		DialogueWidget = Cast<UDialogueWidget>(PC->MasterWidget->PushWidget(DialogueWidgetClass, ELayerType::Menu));
 		if (DialogueWidget)
 		{
+			DialogueWidget->ActivateWidget();
+			PC->SetInputMode(FInputModeUIOnly());
+			PC->bShowMouseCursor = true;
 			UE_LOG(LogTemp, Display, TEXT("Widget exists"));
 			DialogueWidget->DialogueManager = this;
 			DialogueWidget->BindReplyWidgets();
-			UpdateDialogue(DI->GetCurrentDialogue());
+			UpdateDialogue(IDialogueInterface::Execute_GetCurrentDialogue(DialogueActor));
 			UE_LOG(LogTemp, Display, TEXT("Dialogue found"));
 			
 			if (AGoobunga_Player* Goobunga_Player = Cast<AGoobunga_Player>(GetOwner()))
@@ -60,7 +75,7 @@ void UDialogueManagerComponent::UpdateDialogue(FName DialogueID)
 {
 	CurrentDialogueReplies.Empty();
 	CurrentDialogueRepliesAvailable.Empty();
-	
+	if (DialogueID.IsNone()) { EndDialogue(); return; }
 	if (DialogueWidget)
 	{
 		CurrentDialogueLine = LoadDialogue(DialogueID);
@@ -124,7 +139,6 @@ FDialogueReply UDialogueManagerComponent::LoadDialogueReply(FName ReplyID)
 	else
 	{
 		UE_LOG(LogTemp, Error, TEXT("Reply ID not recognized"));
-		UKismetSystemLibrary::QuitEditor();
 		return FDialogueReply();
 	}
 }
@@ -135,6 +149,7 @@ void UDialogueManagerComponent::DisplayDialogue()
 	{
 		UE_LOG(LogTemp, Display, TEXT("Display dialogue"));
 		DialogueWidget->DialogueText->SetText(CurrentDialogueLine.Text);
+		if (DialogueAudioComp && CurrentDialogueLine.Audio) { DialogueAudioComp->Stop(); DialogueAudioComp->SetEvent(CurrentDialogueLine.Audio); DialogueAudioComp->Play(); }
 	}
 	else
 	{
@@ -159,13 +174,16 @@ void UDialogueManagerComponent::DisplayDialogueReply(const TArray<FText>& ReplyT
 
 void UDialogueManagerComponent::OnReplySelected(int ReplyIndex)
 {
+	UE_LOG(LogTemp, Display, TEXT("ReplySelected"));
 	if (CurrentDialogueReplies.Num() > ReplyIndex)
 	{
 		UE_LOG(LogTemp, Display, TEXT("Reply index found"));
 		FDialogueReply SelectedReply = CurrentDialogueReplies[ReplyIndex];
 		
 		ReplyActions = SelectedReply.Actions;
-		ReplyNextID = SelectedReply.NextID;
+		ReplyNextID = SelectedReply.NextID == NAME_None || SelectedReply.NextID.IsNone() ? CurrentDialogueLine.NextID : SelectedReply.NextID;
+		if (ReplyNextID.IsNone()) { UE_LOG(LogTemp, Error, TEXT("No reply found")); EndDialogue(); return; }
+		UE_LOG(LogTemp, Error, TEXT("Next ID %s"), *ReplyNextID.ToString());
 		ProcessActions();
 	}
 	else
@@ -179,14 +197,14 @@ void UDialogueManagerComponent::ProcessActions()
 {
 	while (ReplyActions.Num() > 0)
 	{
-		const FDialogueActionStruct& Action = ReplyActions[0];
+		UE_LOG(LogTemp, Error, TEXT("Handle reply action"));
+		const FDialogueActionStruct Action = ReplyActions[0];
+		ReplyActions.RemoveAt(0);
 
 		if (!HandleReplyAction(Action))
 		{
 			return;
 		}
-
-		ReplyActions.RemoveAt(0);
 	}
 	UpdateDialogue(ReplyNextID);
 }
@@ -198,12 +216,28 @@ void UDialogueManagerComponent::ContinueDialogue()
 
 void UDialogueManagerComponent::EndDialogue()
 {
+	UE_LOG(LogTemp, Error, TEXT("End Dialogue started"));
+	if (DialogueAudioComp)
+	{
+		DialogueAudioComp->Stop();
+		DialogueAudioComp->DestroyComponent(false);
+	}
 	if (AGoobunga_Player* Goobunga_Player = Cast<AGoobunga_Player>(GetOwner()))
 	{
 		Goobunga_Player->FacialAnimationComponent->PlayAnimation("Idle", true);
+		if (AGoobunga_PlayerController* PC = Cast<AGoobunga_PlayerController>(Goobunga_Player->GetController()))
+		{
+			PC->SetInputMode(FInputModeGameOnly());
+			PC->bShowMouseCursor = false;
+		}
 	}
-	if (DialogueWidget) { DialogueWidget->RemoveFromParent(); }
+	
+	if (DialogueWidget) { DialogueWidget->DeactivateWidget(); DialogueWidget = nullptr; }
+	if (!CurrDialogueActor) { return; }
+	if (CurrDialogueActor->Implements<UDialogueInterface>()) { IDialogueInterface::Execute_DialogueEnded(CurrDialogueActor); }
+	else if (IDialogueInterface* DI = Cast<IDialogueInterface>(CurrDialogueActor)) { DI->DialogueEnded(); }
 	CurrDialogueActor = nullptr;
+	UE_LOG(LogTemp, Error, TEXT("End Dialogue finished"));
 }
 
 bool UDialogueManagerComponent::HandleReplyAction(const FDialogueActionStruct& Action)
@@ -227,6 +261,9 @@ bool UDialogueManagerComponent::HandleReplyAction(const FDialogueActionStruct& A
 		}
 		return true;
 	}
+	case EDialogueActionType::END_DIALOGUE:
+		EndDialogue();
+		return false;
 	case EDialogueActionType::GIVE_REWARD:
 		return true;
 	case EDialogueActionType::ADD_QUEST:

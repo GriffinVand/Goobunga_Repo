@@ -19,8 +19,15 @@ public:
 	void Interact(AActor* Interactor);
 	virtual void Interact_Implementation(AActor* Interactor) { }
 	
-	virtual bool PlayAnim() { return true; }
-	virtual bool CanInteract() { return true;}
+	UFUNCTION(BlueprintNativeEvent)
+	bool PlayAnim();
+	virtual bool PlayAnim_Implementation() { return true; }
 	
-	virtual FText GetInteractText(AActor* Interactor) { return FText::FromString("Press 'E' to interact"); }
+	UFUNCTION(BlueprintNativeEvent)
+	bool CanInteract();
+	virtual bool CanInteract_Implementation() { return true;}
+	
+	UFUNCTION(BlueprintNativeEvent)
+	FText GetInteractText(AActor* Interactor);
+	virtual FText GetInteractText_Implementation(AActor* Interactor) { return FText::FromString("Press 'E' to interact"); }
 };

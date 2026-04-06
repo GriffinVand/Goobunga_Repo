@@ -44,6 +44,17 @@ struct FWave
 };
 
 USTRUCT(BlueprintType)
+struct FTimedEvent
+{
+	GENERATED_BODY()
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FGameplayTag EventTag;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float EventDelay = 0.f;
+};
+
+USTRUCT(BlueprintType)
 struct FEncounter
 {
 	GENERATED_BODY()
@@ -62,9 +73,11 @@ struct FEncounter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int32 EnemiesKilled = 0;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TArray<FTimedEvent> TimedEvents;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	FGameplayTag CompleteEvent;
+	TArray<FGameplayTag> CompleteEvents;
 	
 };
 

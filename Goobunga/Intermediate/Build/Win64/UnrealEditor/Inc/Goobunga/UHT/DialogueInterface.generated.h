@@ -14,6 +14,13 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define GOOBUNGA_DialogueInterface_generated_h
 
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueInterface_h_12_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execDialogueEnded); \
+	DECLARE_FUNCTION(execSetCurrentDialogue); \
+	DECLARE_FUNCTION(execGetCurrentDialogue);
+
+
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueInterface_h_12_CALLBACK_WRAPPERS
 #define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueInterface_h_12_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UDialogueInterface(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
@@ -51,6 +58,9 @@ protected: \
 public: \
 	typedef UDialogueInterface UClassType; \
 	typedef IDialogueInterface ThisClass; \
+	static void Execute_DialogueEnded(UObject* O); \
+	static FName Execute_GetCurrentDialogue(UObject* O); \
+	static void Execute_SetCurrentDialogue(UObject* O, FName CurrentDialogue); \
 	virtual UObject* _getUObject() const { return nullptr; }
 
 
@@ -58,6 +68,8 @@ public: \
 #define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueInterface_h_17_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueInterface_h_12_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueInterface_h_12_CALLBACK_WRAPPERS \
 	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueInterface_h_12_INCLASS_IINTERFACE_NO_PURE_DECLS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

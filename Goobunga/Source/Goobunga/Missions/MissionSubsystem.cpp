@@ -64,6 +64,14 @@ void UMissionSubsystem::StartEncounter(const FEncounter& NewEncounter)
 			if (SpawnHandler) { SpawnHandler->SpawnWave(SetEncounter.EncounterName, SetEncounter.Waves[i]); }
 		}, SetEncounter.Waves[i].WaveDelay, false);
 	}
+	for (int i = 0; i < SetEncounter.TimedEvents.Num(); i++)
+	{
+		FTimerHandle Handle;
+		GetWorld()->GetTimerManager().SetTimer(Handle, [this, SetEncounter, i]()
+		{
+			ReceiveEvent(SetEncounter.TimedEvents[i].EventTag);
+		}, SetEncounter.TimedEvents[i].EventDelay, false);
+	}
 	if (NewEncounter.EncounterMusic)
 	{
 		if (UMusicSubsystem* MS = GetWorld()->GetGameInstance()->GetSubsystem<UMusicSubsystem>())
@@ -75,10 +83,10 @@ void UMissionSubsystem::StartEncounter(const FEncounter& NewEncounter)
 
 void UMissionSubsystem::HandleEncounterComplete(const FEncounter& Encounter)
 {
-	FGameplayTag CompleteEvent = Encounter.CompleteEvent;
+	TArray<FGameplayTag> CompleteEvents = Encounter.CompleteEvents;
 	ActiveEncounters.RemoveAll([&](const FEncounter& E){
 	return E.EncounterName == Encounter.EncounterName; });
-	ReceiveEvent(CompleteEvent);
+	for (auto& Event : CompleteEvents) { ReceiveEvent(Event); }
 }
 
 void UMissionSubsystem::StartObjective(const FMissionObjective& Obj)
@@ -170,11 +178,13 @@ void UMissionSubsystem::ReceiveEvent(const FGameplayTag Tag)
 
 void UMissionSubsystem::HandleDeath(FName DeathName)
 {
+	//UE_LOG(LogTemp, Error, TEXT("Handle Death %s"), *DeathName.ToString());
 	if (FEncounter* E = ActiveEncounters.FindByPredicate([&](const FEncounter& Encounter)
 	{
 		return Encounter.EncounterName == DeathName; 
 	}))
 	{
+		//UE_LOG(LogTemp, Error, TEXT("Valid Death for encounter"));
 		E->EnemiesKilled += 1;
 		if (E->EnemiesKilled >= E->EnemiesToKill) { HandleEncounterComplete(*E); }
 	}

@@ -37,6 +37,14 @@ struct Z_Construct_UClass_UBTTask_SwerveWhileChasing_Statics
 		{ "IncludePath", "Enemies/AI/BTT/BTTask_SwerveWhileChasing.h" },
 		{ "ModuleRelativePath", "Enemies/AI/BTT/BTTask_SwerveWhileChasing.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_MinDist_MetaData[] = {
+		{ "Category", "BTTask_SwerveWhileChasing" },
+		{ "ModuleRelativePath", "Enemies/AI/BTT/BTTask_SwerveWhileChasing.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_MaxDist_MetaData[] = {
+		{ "Category", "BTTask_SwerveWhileChasing" },
+		{ "ModuleRelativePath", "Enemies/AI/BTT/BTTask_SwerveWhileChasing.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_SelfActorKey_MetaData[] = {
 		{ "Category", "Blackboard" },
 		{ "ModuleRelativePath", "Enemies/AI/BTT/BTTask_SwerveWhileChasing.h" },
@@ -50,6 +58,8 @@ struct Z_Construct_UClass_UBTTask_SwerveWhileChasing_Statics
 		{ "ModuleRelativePath", "Enemies/AI/BTT/BTTask_SwerveWhileChasing.h" },
 	};
 #endif // WITH_METADATA
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_MinDist;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_MaxDist;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_SelfActorKey;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_TargetActorKey;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_TargetLocation;
@@ -60,10 +70,14 @@ struct Z_Construct_UClass_UBTTask_SwerveWhileChasing_Statics
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UBTTask_SwerveWhileChasing_Statics::NewProp_MinDist = { "MinDist", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UBTTask_SwerveWhileChasing, MinDist), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MinDist_MetaData), NewProp_MinDist_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UBTTask_SwerveWhileChasing_Statics::NewProp_MaxDist = { "MaxDist", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UBTTask_SwerveWhileChasing, MaxDist), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MaxDist_MetaData), NewProp_MaxDist_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UBTTask_SwerveWhileChasing_Statics::NewProp_SelfActorKey = { "SelfActorKey", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UBTTask_SwerveWhileChasing, SelfActorKey), Z_Construct_UScriptStruct_FBlackboardKeySelector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SelfActorKey_MetaData), NewProp_SelfActorKey_MetaData) }; // 3940742986
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UBTTask_SwerveWhileChasing_Statics::NewProp_TargetActorKey = { "TargetActorKey", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UBTTask_SwerveWhileChasing, TargetActorKey), Z_Construct_UScriptStruct_FBlackboardKeySelector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_TargetActorKey_MetaData), NewProp_TargetActorKey_MetaData) }; // 3940742986
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UBTTask_SwerveWhileChasing_Statics::NewProp_TargetLocation = { "TargetLocation", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UBTTask_SwerveWhileChasing, TargetLocation), Z_Construct_UScriptStruct_FBlackboardKeySelector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_TargetLocation_MetaData), NewProp_TargetLocation_MetaData) }; // 3940742986
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UBTTask_SwerveWhileChasing_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UBTTask_SwerveWhileChasing_Statics::NewProp_MinDist,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UBTTask_SwerveWhileChasing_Statics::NewProp_MaxDist,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UBTTask_SwerveWhileChasing_Statics::NewProp_SelfActorKey,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UBTTask_SwerveWhileChasing_Statics::NewProp_TargetActorKey,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UBTTask_SwerveWhileChasing_Statics::NewProp_TargetLocation,
@@ -109,10 +123,10 @@ UBTTask_SwerveWhileChasing::~UBTTask_SwerveWhileChasing() {}
 struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTT_BTTask_SwerveWhileChasing_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UBTTask_SwerveWhileChasing, UBTTask_SwerveWhileChasing::StaticClass, TEXT("UBTTask_SwerveWhileChasing"), &Z_Registration_Info_UClass_UBTTask_SwerveWhileChasing, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBTTask_SwerveWhileChasing), 3930752633U) },
+		{ Z_Construct_UClass_UBTTask_SwerveWhileChasing, UBTTask_SwerveWhileChasing::StaticClass, TEXT("UBTTask_SwerveWhileChasing"), &Z_Registration_Info_UClass_UBTTask_SwerveWhileChasing, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBTTask_SwerveWhileChasing), 1943537608U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTT_BTTask_SwerveWhileChasing_h_2799542050(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTT_BTTask_SwerveWhileChasing_h_3405142790(TEXT("/Script/Goobunga"),
 	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTT_BTTask_SwerveWhileChasing_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTT_BTTask_SwerveWhileChasing_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

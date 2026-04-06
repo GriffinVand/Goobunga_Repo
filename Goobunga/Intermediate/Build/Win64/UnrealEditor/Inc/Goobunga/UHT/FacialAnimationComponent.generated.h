@@ -22,6 +22,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 template<> GOOBUNGA_API UScriptStruct* StaticStruct<struct FFacialAnimationStruct>();
 
 #define FID_Goobunga_Repo_Goobunga_Source_Goobunga_FacialAnimationComponent_h_26_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execStopAnimation); \
 	DECLARE_FUNCTION(execPlayAnimation);
 
 

@@ -15,7 +15,7 @@ void UObjectiveWidgetBase::InitializeUI(const FMissionObjective& Objective)
 	SetVisibility(ESlateVisibility::HitTestInvisible);
 	ObjectiveGoalText->SetText(Objective.ObjectiveDescription);
 	if (Objective.bIsProgressive) { ObjectiveProgressText->SetVisibility(ESlateVisibility::HitTestInvisible); ObjectiveProgressText->SetText(FText::FromString(FString::FromInt(Objective.CurrProgress) + FString(" / ") + FString::FromInt(Objective.ReqProgress))); }
-	else { ObjectiveProgressText->SetVisibility(ESlateVisibility::Hidden); }
+	else { ObjectiveProgressText->SetVisibility(ESlateVisibility::Collapsed); }
 }
 
 void UObjectiveWidgetBase::UpdateUI(const FMissionObjective& Objective)

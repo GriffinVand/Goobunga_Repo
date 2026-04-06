@@ -17,6 +17,9 @@ protected:
 	virtual void OnAttackFinished();
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	bool bWaitForFinish = true;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	UBehaviorTreeComponent* StoredOwnerComp;
 	UPROPERTY(EditAnywhere, Category = Blackboard)
 	FBlackboardKeySelector SelfActorKey;

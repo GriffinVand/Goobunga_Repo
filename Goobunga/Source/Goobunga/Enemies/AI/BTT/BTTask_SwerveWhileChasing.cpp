@@ -20,21 +20,18 @@ EBTNodeResult::Type UBTTask_SwerveWhileChasing::ExecuteTask(UBehaviorTreeCompone
 	{
 		FVector EnemyLocation = SelfActor->GetActorLocation();
 		FVector PlayerLocation = TargetActor->GetActorLocation();
-		FVector DirectionToPlayer = PlayerLocation - EnemyLocation;
-		DirectionToPlayer.Normalize();
-		FVector RightDir = FVector::CrossProduct(DirectionToPlayer, FVector::UpVector);
-		RightDir = FMath::RandBool() ? RightDir : -RightDir;
-		FVector SwerveDir = (((RightDir + DirectionToPlayer) / 2) + DirectionToPlayer) / 2;
+		FVector RightDir = SelfActor->GetActorRightVector();
+		FVector SwerveDir = FMath::RandBool() ? RightDir : -RightDir;
+		
 		SwerveDir.Normalize();
-		float SwerveDistance = FMath::RandRange(400.f, 700.f);
+		float SwerveDistance = FMath::RandRange(MinDist, MaxDist);
 		FVector NewLocation = EnemyLocation + SwerveDir * SwerveDistance;
 		//UKismetSystemLibrary::DrawDebugLine(SelfActor, EnemyLocation, NewLocation, FColor::Red, 3);
 		UNavigationSystemV1* NavSys = FNavigationSystem::GetCurrent<UNavigationSystemV1>(SelfActor->GetWorld());
 		if (NavSys)
 		{
 			FVector Result;
-			bool bSuccess = NavSys->K2_GetRandomReachablePointInRadius(SelfActor, NewLocation, Result, 300.f);
-			if (bSuccess)
+			if (NavSys->K2_GetRandomReachablePointInRadius(SelfActor, NewLocation, Result, 300.f))
 			{
 				OwnerComp.GetBlackboardComponent()->SetValueAsVector(TargetLocation.SelectedKeyName, Result);
 				return EBTNodeResult::Succeeded;

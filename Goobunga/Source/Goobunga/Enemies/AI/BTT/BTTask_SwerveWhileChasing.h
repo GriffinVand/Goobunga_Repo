@@ -20,6 +20,11 @@ public:
 protected:
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float MinDist = 500.f;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float MaxDist = 1300.f;
+	
 	UPROPERTY(EditAnywhere, Category = Blackboard)
 	FBlackboardKeySelector SelfActorKey;
 	UPROPERTY(EditAnywhere, Category = Blackboard)

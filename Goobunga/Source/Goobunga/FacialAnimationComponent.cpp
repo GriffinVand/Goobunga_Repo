@@ -15,11 +15,12 @@ void UFacialAnimationComponent::BeginPlay()
 void UFacialAnimationComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-	UpdateCurrentAnimation(DeltaTime);
+	if (bPlaying) { UpdateCurrentAnimation(DeltaTime); }
 }
 
 void UFacialAnimationComponent::UpdateCurrentAnimation(float DeltaTime)
 {
+	if (!Animations.Contains(CurrentAnimation)) { return; }
 	Animations[CurrentAnimation].FrameBuffer += DeltaTime;
 	if (Animations[CurrentAnimation].FrameBuffer > 1.f / Animations[CurrentAnimation].FrameRate)
 	{
@@ -57,8 +58,15 @@ void UFacialAnimationComponent::PlayAnimation(FName AnimationName, bool CanLoop)
 			DefaultAnimation = CurrentAnimation;
 		}
 		else { Looping = false; }
+		bPlaying = true;
 		return;
 	}
+	bPlaying = false;
 	UE_LOG(LogTemp, Error, TEXT("Can't find animation %s"), *AnimationName.ToString());
+}
+
+void UFacialAnimationComponent::StopAnimation()
+{
+	bPlaying = false;
 }
 

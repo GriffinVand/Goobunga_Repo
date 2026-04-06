@@ -31,8 +31,8 @@ public:
 	FWeaponSaveData WeaponData;
 	
 	virtual void Tick(float DeltaTime) override;
-	virtual FText GetInteractText(AActor* Actor) override { return FText::FromString("Press 'E' to pick up"); }
-	virtual bool CanInteract() override { return !bInteracted; }
-	virtual bool PlayAnim() override { return false; }
+	virtual FText GetInteractText_Implementation(AActor* Actor) override { return FText::FromString("Press 'E' to pick up"); }
+	virtual bool CanInteract_Implementation() override { return !bInteracted; }
+	virtual bool PlayAnim_Implementation() override { return false; }
 	virtual void Interact_Implementation(AActor* Actor) override;
 };

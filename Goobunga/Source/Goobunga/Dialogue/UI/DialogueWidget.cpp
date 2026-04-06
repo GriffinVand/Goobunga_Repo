@@ -25,6 +25,7 @@ void UDialogueWidget::BindReplyWidgets()
 	{
 		UE_LOG(LogTemp, Display, TEXT("Bound widget"));
 		ReplyWidgets[i]->ReplyIndex = i;
+		ReplyWidgets[i]->OnReplySelected.RemoveAll(DialogueManager);
 		ReplyWidgets[i]->OnReplySelected.AddDynamic(DialogueManager, &UDialogueManagerComponent::OnReplySelected);
 	}
 }

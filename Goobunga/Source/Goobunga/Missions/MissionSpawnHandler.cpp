@@ -36,8 +36,8 @@ void AMissionSpawnHandler::SpawnWave(const FName EncounterName, const FWave Wave
 			{
 				FActorSpawnParameters SpawnParams;
 				SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
-				AActor* NewActor = GetWorld()->SpawnActor<ABaseEnemy>(Spawn.EnemyClass, SpawnActor->GetActorLocation(), SpawnActor->GetActorRotation(), SpawnParams);
-				if (NewActor) { ValidSpawns++; }
+				ABaseEnemy* NewActor = GetWorld()->SpawnActor<ABaseEnemy>(Spawn.EnemyClass, SpawnActor->GetActorLocation(), SpawnActor->GetActorRotation(), SpawnParams);
+				if (NewActor) { NewActor->SetDeathTag(EncounterName) ;ValidSpawns++; }
 			}
 		}
 	}

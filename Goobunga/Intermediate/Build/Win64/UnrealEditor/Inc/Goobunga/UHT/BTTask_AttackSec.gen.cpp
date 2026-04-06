@@ -69,6 +69,10 @@ struct Z_Construct_UClass_UBTTask_AttackSec_Statics
 		{ "IncludePath", "Enemies/AI/BTT/BTTask_AttackSec.h" },
 		{ "ModuleRelativePath", "Enemies/AI/BTT/BTTask_AttackSec.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_bWaitForFinish_MetaData[] = {
+		{ "Category", "BTTask_AttackSec" },
+		{ "ModuleRelativePath", "Enemies/AI/BTT/BTTask_AttackSec.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_StoredOwnerComp_MetaData[] = {
 		{ "Category", "BTTask_AttackSec" },
 		{ "EditInline", "true" },
@@ -83,6 +87,8 @@ struct Z_Construct_UClass_UBTTask_AttackSec_Statics
 		{ "ModuleRelativePath", "Enemies/AI/BTT/BTTask_AttackSec.h" },
 	};
 #endif // WITH_METADATA
+	static void NewProp_bWaitForFinish_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_bWaitForFinish;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_StoredOwnerComp;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_SelfActorKey;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_TargetActorKey;
@@ -97,10 +103,16 @@ struct Z_Construct_UClass_UBTTask_AttackSec_Statics
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
+void Z_Construct_UClass_UBTTask_AttackSec_Statics::NewProp_bWaitForFinish_SetBit(void* Obj)
+{
+	((UBTTask_AttackSec*)Obj)->bWaitForFinish = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UBTTask_AttackSec_Statics::NewProp_bWaitForFinish = { "bWaitForFinish", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UBTTask_AttackSec), &Z_Construct_UClass_UBTTask_AttackSec_Statics::NewProp_bWaitForFinish_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bWaitForFinish_MetaData), NewProp_bWaitForFinish_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UBTTask_AttackSec_Statics::NewProp_StoredOwnerComp = { "StoredOwnerComp", nullptr, (EPropertyFlags)0x002008000008001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UBTTask_AttackSec, StoredOwnerComp), Z_Construct_UClass_UBehaviorTreeComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_StoredOwnerComp_MetaData), NewProp_StoredOwnerComp_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UBTTask_AttackSec_Statics::NewProp_SelfActorKey = { "SelfActorKey", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UBTTask_AttackSec, SelfActorKey), Z_Construct_UScriptStruct_FBlackboardKeySelector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SelfActorKey_MetaData), NewProp_SelfActorKey_MetaData) }; // 3940742986
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UBTTask_AttackSec_Statics::NewProp_TargetActorKey = { "TargetActorKey", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UBTTask_AttackSec, TargetActorKey), Z_Construct_UScriptStruct_FBlackboardKeySelector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_TargetActorKey_MetaData), NewProp_TargetActorKey_MetaData) }; // 3940742986
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UBTTask_AttackSec_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UBTTask_AttackSec_Statics::NewProp_bWaitForFinish,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UBTTask_AttackSec_Statics::NewProp_StoredOwnerComp,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UBTTask_AttackSec_Statics::NewProp_SelfActorKey,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UBTTask_AttackSec_Statics::NewProp_TargetActorKey,
@@ -146,10 +158,10 @@ UBTTask_AttackSec::~UBTTask_AttackSec() {}
 struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTT_BTTask_AttackSec_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UBTTask_AttackSec, UBTTask_AttackSec::StaticClass, TEXT("UBTTask_AttackSec"), &Z_Registration_Info_UClass_UBTTask_AttackSec, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBTTask_AttackSec), 1926196090U) },
+		{ Z_Construct_UClass_UBTTask_AttackSec, UBTTask_AttackSec::StaticClass, TEXT("UBTTask_AttackSec"), &Z_Registration_Info_UClass_UBTTask_AttackSec, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBTTask_AttackSec), 1738300592U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTT_BTTask_AttackSec_h_2941599873(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTT_BTTask_AttackSec_h_2366980481(TEXT("/Script/Goobunga"),
 	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTT_BTTask_AttackSec_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_AI_BTT_BTTask_AttackSec_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

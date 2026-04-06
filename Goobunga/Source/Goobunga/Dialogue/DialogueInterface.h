@@ -17,8 +17,18 @@ class GOOBUNGA_API IDialogueInterface
 	GENERATED_BODY()
 
 public:
-	virtual FName GetCurrentDialogue() { return FName(""); }
+	UFUNCTION(BlueprintNativeEvent)
+	FName GetCurrentDialogue();
+	virtual FName GetCurrentDialogue_Implementation() { return FName(""); }
+	
 	virtual FName GetSpecializedDialogue(FName SpecialContext) { return FName(""); }
 	virtual TSubclassOf<UBaseShopWidget> GetShopWidgetClass() { return nullptr; }
-	virtual void SetCurrentDialogue(FName CurrentDialogue) {}
+	
+	UFUNCTION(BlueprintNativeEvent)
+	void SetCurrentDialogue(FName CurrentDialogue);
+	virtual void SetCurrentDialogue_Implementation(FName CurrentDialogue) {}
+	
+	UFUNCTION(BlueprintNativeEvent)
+	void DialogueEnded();
+	virtual void DialogueEnded_Implementation() {}
 };

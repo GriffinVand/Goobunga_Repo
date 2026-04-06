@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "FMODEvent.h"
 #include "DialogueStructs.generated.h"
 
 UENUM(BlueprintType)
@@ -14,6 +15,7 @@ enum class EDialogueActionType : uint8
 	REMOVE_QUEST UMETA(DisplayName = "REMOVE_QUEST"),
 	GIVE_REWARD UMETA(DisplayName = "GIVE_REWARD"),
 	SET_DIALOGUE UMETA(DisplayName = "SET_DIALOGUE"),
+	END_DIALOGUE UMETA(DisplayName = "END_DIALOGUE"),
 };
 
 USTRUCT(BlueprintType)
@@ -37,7 +39,7 @@ struct FDialogueLine: public FTableRowBase
 
 	//Audio to pair with this dialogue line
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FString Audio;
+	UFMODEvent* Audio;
 	
 	//ID of next dialogue->if there aren't any replies
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

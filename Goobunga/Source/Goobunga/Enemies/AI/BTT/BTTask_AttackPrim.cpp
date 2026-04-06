@@ -21,7 +21,7 @@ EBTNodeResult::Type UBTTask_AttackPrim::ExecuteTask(UBehaviorTreeComponent& Owne
 			EnemyCallableInterface->GetAttackFinishedDelegate().RemoveDynamic(this, &UBTTask_AttackPrim::OnAttackFinished);
 			EnemyCallableInterface->GetAttackFinishedDelegate().AddUniqueDynamic(this, &UBTTask_AttackPrim::OnAttackFinished);
 			EnemyCallableInterface->AttackPrimary(TargetActor);
-			return EBTNodeResult::InProgress;
+			if (bWaitForFinish) { return EBTNodeResult::InProgress; } else { return EBTNodeResult::Succeeded; } 
 		}
 	}
 	return EBTNodeResult::Failed;

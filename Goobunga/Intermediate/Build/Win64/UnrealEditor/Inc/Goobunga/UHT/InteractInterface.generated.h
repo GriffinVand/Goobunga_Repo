@@ -16,6 +16,9 @@ class AActor;
 #define GOOBUNGA_InteractInterface_generated_h
 
 #define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Interaction_InteractInterface_h_10_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execGetInteractText); \
+	DECLARE_FUNCTION(execCanInteract); \
+	DECLARE_FUNCTION(execPlayAnim); \
 	DECLARE_FUNCTION(execInteract);
 
 
@@ -57,7 +60,10 @@ protected: \
 public: \
 	typedef UInteractInterface UClassType; \
 	typedef IInteractInterface ThisClass; \
+	static bool Execute_CanInteract(UObject* O); \
+	static FText Execute_GetInteractText(UObject* O, AActor* Interactor); \
 	static void Execute_Interact(UObject* O, AActor* Interactor); \
+	static bool Execute_PlayAnim(UObject* O); \
 	virtual UObject* _getUObject() const { return nullptr; }
 
 

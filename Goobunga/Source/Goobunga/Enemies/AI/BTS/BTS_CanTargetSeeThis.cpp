@@ -3,6 +3,7 @@
 #include "BTS_CanTargetSeeThis.h"
 
 #include "BehaviorTree/BlackboardComponent.h"
+#include "Goobunga/Goobunga_Player.h"
 #include "Goobunga/PlayerCallables.h"
 
 UBTS_CanTargetSeeThis::UBTS_CanTargetSeeThis()
@@ -14,20 +15,17 @@ void UBTS_CanTargetSeeThis::TickNode(UBehaviorTreeComponent& Comp, uint8* NodeMe
 {
 	AActor* SelfActor = Cast<AActor>(Comp.GetBlackboardComponent()->GetValueAsObject(SelfActorKey.SelectedKeyName));
 	AActor* TargetActor = Cast<AActor>(Comp.GetBlackboardComponent()->GetValueAsObject(TargetActorKey.SelectedKeyName));
-
-	IPlayerCallables* PlayerCallablesInterface = Cast<IPlayerCallables>(TargetActor);
-	if (PlayerCallablesInterface)
+	
+	if (!SelfActor || !TargetActor) { Comp.GetBlackboardComponent()->SetValueAsBool(LookedAt.SelectedKeyName, false); return; }
+	
+	bool bLookedAt = false;
+	
+	if (AGoobunga_Player* GP = Cast<AGoobunga_Player>(TargetActor))
 	{
-		FVector PlayerLocation = PlayerCallablesInterface->GetAimDirection()[0];
-		FVector PlayerForwardVector = PlayerCallablesInterface->GetAimDirection()[1];
-
-		FHitResult HitResult;
-		bool bHit = TargetActor->GetWorld()->LineTraceSingleByChannel(HitResult, PlayerLocation, PlayerLocation + PlayerForwardVector*5000, ECC_Visibility);
-		//DrawDebugLine(PlayerActor->GetWorld(), PlayerLocation, PlayerLocation + PlayerForwardVector*2000, FColor::Red);
-		if (bHit)
-		{
-			if (HitResult.GetActor() == SelfActor) { Comp.GetBlackboardComponent()->SetValueAsBool(LookedAt.SelectedKeyName, true); return;}
-		}
+		FVector ToSelf = SelfActor->GetActorLocation() - GP->FPCamera->GetComponentLocation();
+		ToSelf = ToSelf.GetSafeNormal();
+		FVector TargetForward = GP->FPCamera->GetForwardVector();
+		bLookedAt = FVector::DotProduct(ToSelf, TargetForward)  >= 0.9;
 	}
-	Comp.GetBlackboardComponent()->SetValueAsBool(LookedAt.SelectedKeyName, false);
+	Comp.GetBlackboardComponent()->SetValueAsBool(LookedAt.SelectedKeyName, bLookedAt);
 }

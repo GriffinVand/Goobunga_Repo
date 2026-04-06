@@ -30,6 +30,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UMaterialInstanceDynamic* Material = nullptr;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FName DefaultAnimation = "Idle";
 protected:
 	virtual void BeginPlay() override;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -37,10 +39,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FName CurrentAnimation = "Idle";
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FName DefaultAnimation = "Idle";
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool Looping = false;
 	
+	bool bPlaying = true;
 
 public:	
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
@@ -49,5 +50,7 @@ public:
 	void AnimationFinished();
 	UFUNCTION(BlueprintCallable)
 	void PlayAnimation(FName AnimationName, bool CanLoop);
+	UFUNCTION(BlueprintCallable)
+	void StopAnimation();
 		
 };

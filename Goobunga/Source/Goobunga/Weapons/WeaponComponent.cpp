@@ -107,8 +107,8 @@ void UWeaponComponent::SetWeapon(const FWeaponSaveData& Weapon, EWeaponSlot Slot
 
 void UWeaponComponent::PickupWeapon(const FWeaponSaveData& Weapon)
 {
-	if (!PrimaryWeaponInstance) { SetWeapon(Weapon, EWeaponSlot::Primary); EquipWeapon(EWeaponSlot::Primary); }
-	else if (!SecondaryWeaponInstance) { SetWeapon(Weapon, EWeaponSlot::Secondary); EquipWeapon(EWeaponSlot::Secondary); }
+	if (!PrimaryWeaponInstance) { SetWeapon(Weapon, EWeaponSlot::Primary); UnEquipWeapon(EWeaponSlot::Secondary); EquipWeapon(EWeaponSlot::Primary); }
+	else if (!SecondaryWeaponInstance) { SetWeapon(Weapon, EWeaponSlot::Secondary); UnEquipWeapon(EWeaponSlot::Primary); EquipWeapon(EWeaponSlot::Secondary); }
 	else { SetWeapon(Weapon, EquippedWeaponSlot); }
 }
 
