@@ -2,6 +2,7 @@
 
 #include "FMODAudioComponent.h"
 #include "NiagaraComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Goobunga/Missions/MissionSubsystem.h"
 
@@ -22,10 +23,25 @@ void AWizardFall::BeginPlay()
 	SetActorEnableCollision(false);
 	SetActorHiddenInGame(true);
 	SetActorTickEnabled(false);
+	DisableMovement();
 	if (UMissionSubsystem* MS = GetWorld()->GetSubsystem<UMissionSubsystem>())
 	{
 		MS->RegisterForEvent(this, ActivateEvent);
 	}
+}
+
+void AWizardFall::DisableMovement()
+{
+	if (!GetCharacterMovement())
+	{
+		GetWorld()->GetTimerManager().SetTimerForNextTick([this]()
+		{
+			DisableMovement();
+		});
+		return;
+	}
+	GetCharacterMovement()->DisableMovement();
+	GetCharacterMovement()->SetComponentTickEnabled(false);
 }
 
 void AWizardFall::Tick(float DeltaTime)
@@ -45,10 +61,11 @@ void AWizardFall::ReceiveEvent_Implementation(const FGameplayTag Tag)
 
 void AWizardFall::StartFall()
 {
+	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 	SetActorEnableCollision(true);
 	SetActorHiddenInGame(false);
 	SetActorTickEnabled(true);
-	WizardMesh->SetHiddenInGame(true);
+	WizardMesh->SetHiddenInGame(false);
 	WizardMesh->SetVisibility(true, true);
 	if (!GetCharacterMovement())
 	{
@@ -59,6 +76,7 @@ void AWizardFall::StartFall()
 	UCharacterMovementComponent* MovComp = GetCharacterMovement();
 	MovComp->SetMovementMode(MOVE_Falling);
 	MovComp->GravityScale = FallGravity;
+	MovComp->SetComponentTickEnabled(true);
 	
 }
 

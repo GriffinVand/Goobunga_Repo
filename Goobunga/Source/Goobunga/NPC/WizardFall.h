@@ -50,4 +50,5 @@ protected:
 public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void ReceiveEvent_Implementation(const FGameplayTag Tag) override;
+	void DisableMovement();
 };

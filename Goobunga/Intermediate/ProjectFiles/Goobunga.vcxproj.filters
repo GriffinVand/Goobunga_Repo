@@ -847,6 +847,12 @@
     <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTT\BTTask_SetFocus.h">
       <Filter>Source\Goobunga\Enemies\AI\BTT</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTT\BTTask_SetState.cpp">
+      <Filter>Source\Goobunga\Enemies\AI\BTT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTT\BTTask_SetState.h">
+      <Filter>Source\Goobunga\Enemies\AI\BTT</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Goobunga\Enemies\AI\BTT\BTTask_SwerveWhileChasing.cpp">
       <Filter>Source\Goobunga\Enemies\AI\BTT</Filter>
     </ClCompile>

@@ -5,7 +5,7 @@
 			<value>GateClose</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{8463c4c3-1bb1-446f-ac2a-c6787210e446}</destination>
@@ -136,9 +136,11 @@
 	<object class="MixerBusEffectChain" id="{b1337a39-47d9-4a84-9d6e-57ec4426ef5f}">
 		<relationship name="effects">
 			<destination>{42a0a5e9-b3aa-420e-8175-fd410265e01a}</destination>
+			<destination>{3741b963-b81d-4db3-bd67-4af4d905bffd}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{aa8a1d97-38b2-48c6-922e-fd8fbdee1c8b}" />
 	<object class="MixerBusFader" id="{ef8a8b93-24fb-4b18-b733-82d02c9b2c87}" />
 	<object class="MixerBusFader" id="{42a0a5e9-b3aa-420e-8175-fd410265e01a}" />
+	<object class="SpatialiserEffect" id="{3741b963-b81d-4db3-bd67-4af4d905bffd}" />
 </objects>

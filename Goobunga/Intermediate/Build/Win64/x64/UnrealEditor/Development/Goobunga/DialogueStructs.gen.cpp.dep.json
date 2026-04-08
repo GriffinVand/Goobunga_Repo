@@ -1,19 +1,19 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "e:\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\dialoguestructs.gen.cpp",
+        "Source": "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\dialoguestructs.gen.cpp",
         "ProvidedModule": "",
-        "PCH": "e:\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\goobungaeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "PCH": "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\goobungaeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
         "Includes": [
-            "e:\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\goobunga\\definitions.goobunga.h",
-            "e:\\goobunga_repo\\goobunga\\source\\goobunga\\dialogue\\dialoguestructs.h",
-            "e:\\goobunga_repo\\goobunga\\plugins\\fmodstudio\\source\\fmodstudio\\classes\\fmodevent.h",
-            "e:\\goobunga_repo\\goobunga\\plugins\\fmodstudio\\source\\fmodstudio\\classes\\fmodasset.h",
-            "e:\\ue_5.5\\engine\\source\\runtime\\coreuobject\\public\\uobject\\assetregistrytagscontext.h",
-            "e:\\ue_5.5\\engine\\source\\runtime\\coreuobject\\public\\uobject\\cookenums.h",
-            "e:\\goobunga_repo\\goobunga\\plugins\\fmodstudio\\intermediate\\build\\win64\\unrealeditor\\inc\\fmodstudio\\uht\\fmodasset.generated.h",
-            "e:\\goobunga_repo\\goobunga\\plugins\\fmodstudio\\intermediate\\build\\win64\\unrealeditor\\inc\\fmodstudio\\uht\\fmodevent.generated.h",
-            "e:\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\dialoguestructs.generated.h"
+            "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\goobunga\\definitions.goobunga.h",
+            "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\source\\goobunga\\dialogue\\dialoguestructs.h",
+            "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\plugins\\fmodstudio\\source\\fmodstudio\\classes\\fmodevent.h",
+            "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\plugins\\fmodstudio\\source\\fmodstudio\\classes\\fmodasset.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\coreuobject\\public\\uobject\\assetregistrytagscontext.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\coreuobject\\public\\uobject\\cookenums.h",
+            "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\plugins\\fmodstudio\\intermediate\\build\\win64\\unrealeditor\\inc\\fmodstudio\\uht\\fmodasset.generated.h",
+            "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\plugins\\fmodstudio\\intermediate\\build\\win64\\unrealeditor\\inc\\fmodstudio\\uht\\fmodevent.generated.h",
+            "c:\\users\\griff\\documents\\github\\goobunga_repo\\goobunga\\intermediate\\build\\win64\\unrealeditor\\inc\\goobunga\\uht\\dialoguestructs.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

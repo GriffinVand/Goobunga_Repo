@@ -5,7 +5,7 @@
 			<value>GateOpen</value>
 		</property>
 		<property name="outputFormat">
-			<value>0</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{8463c4c3-1bb1-446f-ac2a-c6787210e446}</destination>
@@ -123,9 +123,15 @@
 	<object class="MixerBusEffectChain" id="{4b0a5cdc-b38f-4fae-b663-3abff44c8150}">
 		<relationship name="effects">
 			<destination>{3abd69c5-a34a-41e5-ad2e-72f9cb67771b}</destination>
+			<destination>{04a471c1-b335-429f-93db-7fdf96190408}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{da088951-10ad-4519-8201-097b5ffdb256}" />
 	<object class="MixerBusFader" id="{d38a0210-4a99-4321-a56c-916083fa5424}" />
 	<object class="MixerBusFader" id="{3abd69c5-a34a-41e5-ad2e-72f9cb67771b}" />
+	<object class="SpatialiserEffect" id="{04a471c1-b335-429f-93db-7fdf96190408}">
+		<property name="soundSize">
+			<value>17</value>
+		</property>
+	</object>
 </objects>
