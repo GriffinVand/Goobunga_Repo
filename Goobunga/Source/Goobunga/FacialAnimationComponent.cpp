@@ -27,17 +27,22 @@ void UFacialAnimationComponent::UpdateCurrentAnimation(float DeltaTime)
 		Animations[CurrentAnimation].FrameBuffer = 0;
 		Animations[CurrentAnimation].CurrentFrame++;
 		if (Animations[CurrentAnimation].CurrentFrame >= Animations[CurrentAnimation].Textures.Num()) { AnimationFinished(); return; }
-		if (Animations[CurrentAnimation].CurrentFrame < Animations[CurrentAnimation].Textures.Num())
-		{
-			Material->SetTextureParameterValue("Param", Animations[CurrentAnimation].Textures[Animations[CurrentAnimation].CurrentFrame]);
-		}
+		UpdateMaterial();
 	}
 }
 
 void UFacialAnimationComponent::AnimationFinished()
 {
-	if (Looping) { Animations[CurrentAnimation].CurrentFrame = 0; return; }
+	if (Looping) { Animations[CurrentAnimation].CurrentFrame = 0; UpdateMaterial(); return; }
 	PlayAnimation(DefaultAnimation, true);
+}
+
+void UFacialAnimationComponent::UpdateMaterial()
+{
+	if (Animations[CurrentAnimation].CurrentFrame < Animations[CurrentAnimation].Textures.Num())
+	{
+		Material->SetTextureParameterValue("Param", Animations[CurrentAnimation].Textures[Animations[CurrentAnimation].CurrentFrame]);
+	}
 }
 
 void UFacialAnimationComponent::PlayAnimation(FName AnimationName, bool CanLoop)
@@ -52,12 +57,8 @@ void UFacialAnimationComponent::PlayAnimation(FName AnimationName, bool CanLoop)
 		CurrentAnimation = AnimationName;
 		Animations[CurrentAnimation].CurrentFrame = 0;
 		Animations[CurrentAnimation].FrameBuffer = 0;
-		if (CanLoop)
-		{
-			Looping = true;
-			DefaultAnimation = CurrentAnimation;
-		}
-		else { Looping = false; }
+		UpdateMaterial();
+		Looping = CanLoop;
 		bPlaying = true;
 		return;
 	}

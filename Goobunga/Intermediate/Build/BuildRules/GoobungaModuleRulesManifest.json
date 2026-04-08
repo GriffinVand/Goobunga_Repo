@@ -1,13 +1,13 @@
 {
 	"SourceFiles": [
-		"C:\\Users\\griff\\Documents\\GitHub\\Goobunga_Repo\\Goobunga\\Source\\Goobunga\\Goobunga.Build.cs",
-		"C:\\Users\\griff\\Documents\\GitHub\\Goobunga_Repo\\Goobunga\\Plugins\\FMODStudioNiagara\\Source\\FMODStudioNiagara\\FMODStudioNiagara.Build.cs",
-		"C:\\Users\\griff\\Documents\\GitHub\\Goobunga_Repo\\Goobunga\\Plugins\\FMODStudio\\Source\\FMODAudioLinkEditor\\FMODAudioLinkEditor.Build.cs",
-		"C:\\Users\\griff\\Documents\\GitHub\\Goobunga_Repo\\Goobunga\\Plugins\\FMODStudio\\Source\\FMODAudioLink\\FMODAudioLink.Build.cs",
-		"C:\\Users\\griff\\Documents\\GitHub\\Goobunga_Repo\\Goobunga\\Plugins\\FMODStudio\\Source\\FMODStudioEditor\\FMODStudioEditor.Build.cs",
-		"C:\\Users\\griff\\Documents\\GitHub\\Goobunga_Repo\\Goobunga\\Plugins\\FMODStudio\\Source\\FMODStudio\\FMODStudio.Build.cs",
-		"C:\\Users\\griff\\Documents\\GitHub\\Goobunga_Repo\\Goobunga\\Source\\Goobunga.Target.cs",
-		"C:\\Users\\griff\\Documents\\GitHub\\Goobunga_Repo\\Goobunga\\Source\\GoobungaEditor.Target.cs"
+		"E:\\Goobunga_Repo\\Goobunga\\Source\\Goobunga\\Goobunga.Build.cs",
+		"E:\\Goobunga_Repo\\Goobunga\\Plugins\\FMODStudioNiagara\\Source\\FMODStudioNiagara\\FMODStudioNiagara.Build.cs",
+		"E:\\Goobunga_Repo\\Goobunga\\Plugins\\FMODStudio\\Source\\FMODAudioLinkEditor\\FMODAudioLinkEditor.Build.cs",
+		"E:\\Goobunga_Repo\\Goobunga\\Plugins\\FMODStudio\\Source\\FMODAudioLink\\FMODAudioLink.Build.cs",
+		"E:\\Goobunga_Repo\\Goobunga\\Plugins\\FMODStudio\\Source\\FMODStudioEditor\\FMODStudioEditor.Build.cs",
+		"E:\\Goobunga_Repo\\Goobunga\\Plugins\\FMODStudio\\Source\\FMODStudio\\FMODStudio.Build.cs",
+		"E:\\Goobunga_Repo\\Goobunga\\Source\\Goobunga.Target.cs",
+		"E:\\Goobunga_Repo\\Goobunga\\Source\\GoobungaEditor.Target.cs"
 	],
 	"EngineVersion": "5.5.4"
 }

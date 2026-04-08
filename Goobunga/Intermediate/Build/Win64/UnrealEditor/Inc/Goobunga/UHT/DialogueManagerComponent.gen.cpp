@@ -159,6 +159,10 @@ struct Z_Construct_UClass_UDialogueManagerComponent_Statics
 		{ "IncludePath", "Dialogue/DialogueManagerComponent.h" },
 		{ "ModuleRelativePath", "Dialogue/DialogueManagerComponent.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ViewBlendTime_MetaData[] = {
+		{ "Category", "DialogueManagerComponent" },
+		{ "ModuleRelativePath", "Dialogue/DialogueManagerComponent.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_MinAttenuation_MetaData[] = {
 		{ "Category", "DialogueManagerComponent" },
 		{ "ModuleRelativePath", "Dialogue/DialogueManagerComponent.h" },
@@ -194,6 +198,7 @@ struct Z_Construct_UClass_UDialogueManagerComponent_Statics
 		{ "ModuleRelativePath", "Dialogue/DialogueManagerComponent.h" },
 	};
 #endif // WITH_METADATA
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_ViewBlendTime;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_MinAttenuation;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_MaxAttenuation;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_DialogueAudioComp;
@@ -215,6 +220,7 @@ struct Z_Construct_UClass_UDialogueManagerComponent_Statics
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UDialogueManagerComponent_Statics::NewProp_ViewBlendTime = { "ViewBlendTime", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UDialogueManagerComponent, ViewBlendTime), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ViewBlendTime_MetaData), NewProp_ViewBlendTime_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UDialogueManagerComponent_Statics::NewProp_MinAttenuation = { "MinAttenuation", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UDialogueManagerComponent, MinAttenuation), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MinAttenuation_MetaData), NewProp_MinAttenuation_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UDialogueManagerComponent_Statics::NewProp_MaxAttenuation = { "MaxAttenuation", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UDialogueManagerComponent, MaxAttenuation), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MaxAttenuation_MetaData), NewProp_MaxAttenuation_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UDialogueManagerComponent_Statics::NewProp_DialogueAudioComp = { "DialogueAudioComp", nullptr, (EPropertyFlags)0x001000000008200d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UDialogueManagerComponent, DialogueAudioComp), Z_Construct_UClass_UFMODAudioComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DialogueAudioComp_MetaData), NewProp_DialogueAudioComp_MetaData) };
@@ -224,6 +230,7 @@ const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UDialogueManag
 const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_UDialogueManagerComponent_Statics::NewProp_DialogueWidgetClass = { "DialogueWidgetClass", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UDialogueManagerComponent, DialogueWidgetClass), Z_Construct_UClass_UClass, Z_Construct_UClass_UDialogueWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DialogueWidgetClass_MetaData), NewProp_DialogueWidgetClass_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UDialogueManagerComponent_Statics::NewProp_DialogueWidget = { "DialogueWidget", nullptr, (EPropertyFlags)0x001000000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UDialogueManagerComponent, DialogueWidget), Z_Construct_UClass_UDialogueWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DialogueWidget_MetaData), NewProp_DialogueWidget_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UDialogueManagerComponent_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDialogueManagerComponent_Statics::NewProp_ViewBlendTime,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDialogueManagerComponent_Statics::NewProp_MinAttenuation,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDialogueManagerComponent_Statics::NewProp_MaxAttenuation,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDialogueManagerComponent_Statics::NewProp_DialogueAudioComp,
@@ -271,14 +278,14 @@ UDialogueManagerComponent::~UDialogueManagerComponent() {}
 // End Class UDialogueManagerComponent
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueManagerComponent_h_Statics
+struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueManagerComponent_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UDialogueManagerComponent, UDialogueManagerComponent::StaticClass, TEXT("UDialogueManagerComponent"), &Z_Registration_Info_UClass_UDialogueManagerComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UDialogueManagerComponent), 1436254040U) },
+		{ Z_Construct_UClass_UDialogueManagerComponent, UDialogueManagerComponent::StaticClass, TEXT("UDialogueManagerComponent"), &Z_Registration_Info_UClass_UDialogueManagerComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UDialogueManagerComponent), 2351426386U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueManagerComponent_h_4262543884(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueManagerComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueManagerComponent_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueManagerComponent_h_2632636388(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueManagerComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueManagerComponent_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

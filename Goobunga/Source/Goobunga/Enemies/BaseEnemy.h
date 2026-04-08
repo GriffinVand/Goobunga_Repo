@@ -5,8 +5,11 @@
 #include "GameFramework/Character.h"
 #include "Goobunga/Combat/CombatCallables.h"
 #include "EnemyStates.h"
+#include "GameplayTagContainer.h"
 #include "Goobunga/Combat/TeamInterface.h"
 #include "BaseEnemy.generated.h"
+
+class UFMODEvent;
 
 UENUM(BlueprintType)
 enum class EDeathType : uint8
@@ -27,6 +30,9 @@ class GOOBUNGA_API ABaseEnemy : public ACharacter, public ICombatCallables, publ
 public:
 	ABaseEnemy();
 	FOnAttackFinished OnAttackFinished;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UFMODEvent* CallEvent;
 
 protected:
 	virtual void BeginPlay() override;
@@ -54,7 +60,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Dismember, meta = (AllowPrivateAccess = "true"))
 	TArray<UStaticMeshComponent*> DismemberPartComponents;
 
-	EEnemyState CurrentState = Walking;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	ENPCState StartState = ENPCState::Walking;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	ENPCState CurrentState = ENPCState::Walking;
 	
 	UFUNCTION()
 	virtual void Death(FVector LastMovementSpeed, EDeathType DeathType);
@@ -62,17 +71,19 @@ public:
 	virtual void Dismember(FVector LastMovementSpeed);
 	UFUNCTION()
 	virtual void Ragdoll();
-	bool Dead = false;
 	
 	void SetDeathTag(FName Tag) { DeathTag = Tag; }
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Events)
 	FName DeathTag = FName("Bawls");
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Events)
+	FGameplayTag EnterCombatEvent;
 
 	
 	virtual bool GetCanAttackPrim() override { return false; }
 	virtual bool GetCanAttackSec() override { return false; }
 	virtual FOnAttackFinished& GetAttackFinishedDelegate() override { return OnAttackFinished; }
-	virtual EEnemyState GetCurrentState() override { return CurrentState; }
+	virtual ENPCState GetCurrentState() override { return CurrentState; }
+	virtual void SetCurrentState(const ENPCState NewState) override { if (CurrentState != ENPCState::Death) CurrentState = NewState; }
 	
 	virtual EDamageResult CombatDamage(AActor* DamageDealer, float Damage, EDamageType DamageType, EAllegiance Allegiance) override;
 	

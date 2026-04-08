@@ -15,15 +15,15 @@ enum class EAbilityState : uint8;
 #endif
 #define GOOBUNGA_AbilityBase_generated_h
 
-#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_28_DELEGATE \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_28_DELEGATE \
 GOOBUNGA_API void FOnCooldownChanged_DelegateWrapper(const FMulticastScriptDelegate& OnCooldownChanged, float Percent);
 
 
-#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_29_DELEGATE \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_29_DELEGATE \
 GOOBUNGA_API void FOnStateChanged_DelegateWrapper(const FMulticastScriptDelegate& OnStateChanged, EAbilityState State);
 
 
-#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_34_INCLASS_NO_PURE_DECLS \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_34_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUAbilityBase(); \
 	friend struct Z_Construct_UClass_UAbilityBase_Statics; \
@@ -32,7 +32,7 @@ public: \
 	DECLARE_SERIALIZER(UAbilityBase)
 
 
-#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_34_ENHANCED_CONSTRUCTORS \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_34_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UAbilityBase(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 private: \
@@ -46,12 +46,12 @@ public: \
 	NO_API virtual ~UAbilityBase();
 
 
-#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_31_PROLOG
-#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_34_GENERATED_BODY \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_31_PROLOG
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_34_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_34_INCLASS_NO_PURE_DECLS \
-	FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_34_ENHANCED_CONSTRUCTORS \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_34_INCLASS_NO_PURE_DECLS \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h_34_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -59,7 +59,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> GOOBUNGA_API UClass* StaticClass<class UAbilityBase>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h
+#define CURRENT_FILE_ID FID_Goobunga_Repo_Goobunga_Source_Goobunga_Abilities_AbilityBase_h
 
 
 #define FOREACH_ENUM_EABILITYTYPE(op) \

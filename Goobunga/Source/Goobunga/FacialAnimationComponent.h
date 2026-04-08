@@ -45,7 +45,7 @@ protected:
 
 public:	
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
+	void UpdateMaterial();
 	void UpdateCurrentAnimation(float DeltaTime);
 	void AnimationFinished();
 	UFUNCTION(BlueprintCallable)

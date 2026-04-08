@@ -11,6 +11,7 @@ void EmptyLinkFunctionForGeneratedCodeDialogueInterface() {}
 
 // Begin Cross Module References
 COREUOBJECT_API UClass* Z_Construct_UClass_UInterface();
+ENGINE_API UClass* Z_Construct_UClass_UCameraComponent_NoRegister();
 GOOBUNGA_API UClass* Z_Construct_UClass_UDialogueInterface();
 GOOBUNGA_API UClass* Z_Construct_UClass_UDialogueInterface_NoRegister();
 UPackage* Z_Construct_UPackage__Script_Goobunga();
@@ -128,6 +129,79 @@ DEFINE_FUNCTION(IDialogueInterface::execGetCurrentDialogue)
 }
 // End Interface UDialogueInterface Function GetCurrentDialogue
 
+// Begin Interface UDialogueInterface Function GetDialogueView
+struct DialogueInterface_eventGetDialogueView_Parms
+{
+	UCameraComponent* ReturnValue;
+
+	/** Constructor, initializes return property only **/
+	DialogueInterface_eventGetDialogueView_Parms()
+		: ReturnValue(NULL)
+	{
+	}
+};
+UCameraComponent* IDialogueInterface::GetDialogueView()
+{
+	check(0 && "Do not directly call Event functions in Interfaces. Call Execute_GetDialogueView instead.");
+	DialogueInterface_eventGetDialogueView_Parms Parms;
+	return Parms.ReturnValue;
+}
+static FName NAME_UDialogueInterface_GetDialogueView = FName(TEXT("GetDialogueView"));
+UCameraComponent* IDialogueInterface::Execute_GetDialogueView(UObject* O)
+{
+	check(O != NULL);
+	check(O->GetClass()->ImplementsInterface(UDialogueInterface::StaticClass()));
+	DialogueInterface_eventGetDialogueView_Parms Parms;
+	UFunction* const Func = O->FindFunction(NAME_UDialogueInterface_GetDialogueView);
+	if (Func)
+	{
+		O->ProcessEvent(Func, &Parms);
+	}
+	else if (auto I = (IDialogueInterface*)(O->GetNativeInterfaceAddress(UDialogueInterface::StaticClass())))
+	{
+		Parms.ReturnValue = I->GetDialogueView_Implementation();
+	}
+	return Parms.ReturnValue;
+}
+struct Z_Construct_UFunction_UDialogueInterface_GetDialogueView_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Dialogue/DialogueInterface.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ReturnValue_MetaData[] = {
+		{ "EditInline", "true" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_ReturnValue;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UDialogueInterface_GetDialogueView_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000080588, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(DialogueInterface_eventGetDialogueView_Parms, ReturnValue), Z_Construct_UClass_UCameraComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ReturnValue_MetaData), NewProp_ReturnValue_MetaData) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UDialogueInterface_GetDialogueView_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UDialogueInterface_GetDialogueView_Statics::NewProp_ReturnValue,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UDialogueInterface_GetDialogueView_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UDialogueInterface_GetDialogueView_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UDialogueInterface, nullptr, "GetDialogueView", nullptr, nullptr, Z_Construct_UFunction_UDialogueInterface_GetDialogueView_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UDialogueInterface_GetDialogueView_Statics::PropPointers), sizeof(DialogueInterface_eventGetDialogueView_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x08020C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UDialogueInterface_GetDialogueView_Statics::Function_MetaDataParams), Z_Construct_UFunction_UDialogueInterface_GetDialogueView_Statics::Function_MetaDataParams) };
+static_assert(sizeof(DialogueInterface_eventGetDialogueView_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_UDialogueInterface_GetDialogueView()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UDialogueInterface_GetDialogueView_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(IDialogueInterface::execGetDialogueView)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	*(UCameraComponent**)Z_Param__Result=P_THIS->GetDialogueView_Implementation();
+	P_NATIVE_END;
+}
+// End Interface UDialogueInterface Function GetDialogueView
+
 // Begin Interface UDialogueInterface Function SetCurrentDialogue
 struct DialogueInterface_eventSetCurrentDialogue_Parms
 {
@@ -198,6 +272,7 @@ void UDialogueInterface::StaticRegisterNativesUDialogueInterface()
 	static const FNameNativePtrPair Funcs[] = {
 		{ "DialogueEnded", &IDialogueInterface::execDialogueEnded },
 		{ "GetCurrentDialogue", &IDialogueInterface::execGetCurrentDialogue },
+		{ "GetDialogueView", &IDialogueInterface::execGetDialogueView },
 		{ "SetCurrentDialogue", &IDialogueInterface::execSetCurrentDialogue },
 	};
 	FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
@@ -218,6 +293,7 @@ struct Z_Construct_UClass_UDialogueInterface_Statics
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
 		{ &Z_Construct_UFunction_UDialogueInterface_DialogueEnded, "DialogueEnded" }, // 3937520303
 		{ &Z_Construct_UFunction_UDialogueInterface_GetCurrentDialogue, "GetCurrentDialogue" }, // 100760806
+		{ &Z_Construct_UFunction_UDialogueInterface_GetDialogueView, "GetDialogueView" }, // 455547437
 		{ &Z_Construct_UFunction_UDialogueInterface_SetCurrentDialogue, "SetCurrentDialogue" }, // 2352437
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
@@ -264,14 +340,14 @@ UDialogueInterface::~UDialogueInterface() {}
 // End Interface UDialogueInterface
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueInterface_h_Statics
+struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueInterface_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UDialogueInterface, UDialogueInterface::StaticClass, TEXT("UDialogueInterface"), &Z_Registration_Info_UClass_UDialogueInterface, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UDialogueInterface), 1899970405U) },
+		{ Z_Construct_UClass_UDialogueInterface, UDialogueInterface::StaticClass, TEXT("UDialogueInterface"), &Z_Registration_Info_UClass_UDialogueInterface, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UDialogueInterface), 2886054047U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueInterface_h_189986111(TEXT("/Script/Goobunga"),
-	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueInterface_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueInterface_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueInterface_h_4002647447(TEXT("/Script/Goobunga"),
+	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueInterface_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Dialogue_DialogueInterface_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

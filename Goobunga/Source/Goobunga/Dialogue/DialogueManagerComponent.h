@@ -26,6 +26,8 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float ViewBlendTime = 0.8;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MinAttenuation = 1.f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MaxAttenuation = 10.f;

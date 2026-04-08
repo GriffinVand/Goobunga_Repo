@@ -4,6 +4,7 @@
 #include "UObject/Interface.h"
 #include "DialogueInterface.generated.h"
 
+class UCameraComponent;
 class UBaseShopWidget;
 
 UINTERFACE()
@@ -31,4 +32,8 @@ public:
 	UFUNCTION(BlueprintNativeEvent)
 	void DialogueEnded();
 	virtual void DialogueEnded_Implementation() {}
+	
+	UFUNCTION(BlueprintNativeEvent)
+	UCameraComponent* GetDialogueView();
+	virtual UCameraComponent* GetDialogueView_Implementation();
 };

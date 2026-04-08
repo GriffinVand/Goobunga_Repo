@@ -129,8 +129,7 @@ void UMissionSubsystem::ReceiveEvent(const FGameplayTag Tag)
 			for (auto Actor : *RegisteredActors)
 			{
 				if (!IsValid(Actor)) { continue; }
-				if (IEventInterface* EI = Cast<IEventInterface>(Actor)) { EI->ReceiveEvent(Tag); }
-				else if (Actor->Implements<UEventInterface>()) { IEventInterface::Execute_ReceiveEvent(Actor, Tag); }
+				if (Actor->Implements<UEventInterface>()) { IEventInterface::Execute_ReceiveEvent(Actor, Tag); }
 			}
 		}
 		return;

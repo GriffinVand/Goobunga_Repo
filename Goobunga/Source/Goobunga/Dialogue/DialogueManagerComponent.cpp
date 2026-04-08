@@ -44,8 +44,14 @@ void UDialogueManagerComponent::StartDialogue(AActor* DialogueActor)
 		DialogueAudioComp->AttenuationDetails.MinimumDistance = MinAttenuation;
 		DialogueAudioComp->AttenuationDetails.MaximumDistance = MaxAttenuation;
 	}
+	
 	if (AGoobunga_PlayerController* PC = Cast<AGoobunga_PlayerController>(Cast<APawn>(GetOwner())->GetController()))
 	{
+		
+		if (IDialogueInterface::Execute_GetDialogueView(CurrDialogueActor))
+		{
+			PC->SetViewTargetWithBlend(CurrDialogueActor, ViewBlendTime);
+		}
 		UE_LOG(LogTemp, Display, TEXT("Create Widget"));
 		DialogueWidget = Cast<UDialogueWidget>(PC->MasterWidget->PushWidget(DialogueWidgetClass, ELayerType::Menu));
 		if (DialogueWidget)
@@ -53,6 +59,7 @@ void UDialogueManagerComponent::StartDialogue(AActor* DialogueActor)
 			DialogueWidget->ActivateWidget();
 			PC->SetInputMode(FInputModeUIOnly());
 			PC->bShowMouseCursor = true;
+			PC->FlushPressedKeys();
 			UE_LOG(LogTemp, Display, TEXT("Widget exists"));
 			DialogueWidget->DialogueManager = this;
 			DialogueWidget->BindReplyWidgets();
@@ -227,8 +234,13 @@ void UDialogueManagerComponent::EndDialogue()
 		Goobunga_Player->FacialAnimationComponent->PlayAnimation("Idle", true);
 		if (AGoobunga_PlayerController* PC = Cast<AGoobunga_PlayerController>(Goobunga_Player->GetController()))
 		{
-			PC->SetInputMode(FInputModeGameOnly());
-			PC->bShowMouseCursor = false;
+			PC->SetViewTargetWithBlend(GetOwner(), ViewBlendTime);
+			FTimerHandle TimerHandle;
+			GetWorld()->GetTimerManager().SetTimer(TimerHandle, [this, PC]()
+			{
+				PC->SetInputMode(FInputModeGameOnly());
+				PC->bShowMouseCursor = false;
+			}, ViewBlendTime + 0.1, false);
 		}
 	}
 	

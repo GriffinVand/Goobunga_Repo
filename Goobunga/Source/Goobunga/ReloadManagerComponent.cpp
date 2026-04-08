@@ -25,10 +25,7 @@ UReloadManagerComponent::UReloadManagerComponent()
 void UReloadManagerComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
-
-
 
 void UReloadManagerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {

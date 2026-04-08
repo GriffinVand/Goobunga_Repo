@@ -898,6 +898,15 @@
     <ClCompile Include="..\..\Source\Goobunga\Missions\MissionSubsystem.h">
       <Filter>Source\Goobunga\Missions</Filter>
     </ClCompile>
+    <Filter Include="Source\Goobunga\NPC">
+      <UniqueIdentifier>{C8A99BD5-4079-334A-9F6F-0D1D6C4D5ECB}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Goobunga\NPC\WizardFall.cpp">
+      <Filter>Source\Goobunga\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Goobunga\NPC\WizardFall.h">
+      <Filter>Source\Goobunga\NPC</Filter>
+    </ClCompile>
     <Filter Include="Source\Goobunga\PersistentData">
       <UniqueIdentifier>{A3E43F76-3FE5-3B19-A74E-2F39960A7A55}</UniqueIdentifier>
     </Filter>

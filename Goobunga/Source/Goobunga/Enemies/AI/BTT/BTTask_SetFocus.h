@@ -11,6 +11,7 @@ class GOOBUNGA_API UBTTask_SetFocus : public UBTTaskNode
 	
 public:
 	UBTTask_SetFocus();
+	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 protected:
 	
 	UPROPERTY(editAnywhere, BlueprintReadOnly)
@@ -20,6 +21,4 @@ protected:
 	FBlackboardKeySelector SelfActorKey;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (EditCondition = "!bClearFocus"))
 	FBlackboardKeySelector TargetActorKey;
-	
-	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 };

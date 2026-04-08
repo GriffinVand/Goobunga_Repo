@@ -10,89 +10,92 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeEnemyStates() {}
 
 // Begin Cross Module References
-GOOBUNGA_API UEnum* Z_Construct_UEnum_Goobunga_EEnemyState();
+GOOBUNGA_API UEnum* Z_Construct_UEnum_Goobunga_ENPCState();
 UPackage* Z_Construct_UPackage__Script_Goobunga();
 // End Cross Module References
 
-// Begin Enum EEnemyState
-static FEnumRegistrationInfo Z_Registration_Info_UEnum_EEnemyState;
-static UEnum* EEnemyState_StaticEnum()
+// Begin Enum ENPCState
+static FEnumRegistrationInfo Z_Registration_Info_UEnum_ENPCState;
+static UEnum* ENPCState_StaticEnum()
 {
-	if (!Z_Registration_Info_UEnum_EEnemyState.OuterSingleton)
+	if (!Z_Registration_Info_UEnum_ENPCState.OuterSingleton)
 	{
-		Z_Registration_Info_UEnum_EEnemyState.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_Goobunga_EEnemyState, (UObject*)Z_Construct_UPackage__Script_Goobunga(), TEXT("EEnemyState"));
+		Z_Registration_Info_UEnum_ENPCState.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_Goobunga_ENPCState, (UObject*)Z_Construct_UPackage__Script_Goobunga(), TEXT("ENPCState"));
 	}
-	return Z_Registration_Info_UEnum_EEnemyState.OuterSingleton;
+	return Z_Registration_Info_UEnum_ENPCState.OuterSingleton;
 }
-template<> GOOBUNGA_API UEnum* StaticEnum<EEnemyState>()
+template<> GOOBUNGA_API UEnum* StaticEnum<ENPCState>()
 {
-	return EEnemyState_StaticEnum();
+	return ENPCState_StaticEnum();
 }
-struct Z_Construct_UEnum_Goobunga_EEnemyState_Statics
+struct Z_Construct_UEnum_Goobunga_ENPCState_Statics
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[] = {
 		{ "Attacking.DisplayName", "Attacking State" },
-		{ "Attacking.Name", "Attacking" },
+		{ "Attacking.Name", "ENPCState::Attacking" },
 		{ "BlueprintType", "true" },
-		{ "Busy.DisplayName", "Busy State" },
-		{ "Busy.Name", "Busy" },
-		{ "Chasing.DisplayName", "Chasing State" },
-		{ "Chasing.Name", "Chasing" },
+		{ "Busy.DisplayName", "Busy" },
+		{ "Busy.Name", "ENPCState::Busy" },
+		{ "Calling.DisplayName", "Calling State" },
+		{ "Calling.Name", "ENPCState::Calling" },
 		{ "Death.DisplayName", "Death State" },
-		{ "Death.Name", "Death" },
+		{ "Death.Name", "ENPCState::Death" },
 		{ "Default.DisplayName", "Default State" },
-		{ "Default.Name", "Default" },
+		{ "Default.Name", "ENPCState::Default" },
 		{ "Launching.DisplayName", "Launching State" },
-		{ "Launching.Name", "Launching" },
+		{ "Launching.Name", "ENPCState::Launching" },
 		{ "ModuleRelativePath", "Enemies/EnemyStates.h" },
+		{ "Passive.DisplayName", "Passive" },
+		{ "Passive.Name", "ENPCState::Passive" },
 		{ "Walking.DisplayName", "Walking State" },
-		{ "Walking.Name", "Walking" },
+		{ "Walking.Name", "ENPCState::Walking" },
 	};
 #endif // WITH_METADATA
 	static constexpr UECodeGen_Private::FEnumeratorParam Enumerators[] = {
-		{ "Default", (int64)Default },
-		{ "Walking", (int64)Walking },
-		{ "Chasing", (int64)Chasing },
-		{ "Attacking", (int64)Attacking },
-		{ "Launching", (int64)Launching },
-		{ "Busy", (int64)Busy },
-		{ "Death", (int64)Death },
+		{ "ENPCState::Default", (int64)ENPCState::Default },
+		{ "ENPCState::Passive", (int64)ENPCState::Passive },
+		{ "ENPCState::Busy", (int64)ENPCState::Busy },
+		{ "ENPCState::Calling", (int64)ENPCState::Calling },
+		{ "ENPCState::Walking", (int64)ENPCState::Walking },
+		{ "ENPCState::Attacking", (int64)ENPCState::Attacking },
+		{ "ENPCState::Launching", (int64)ENPCState::Launching },
+		{ "ENPCState::Death", (int64)ENPCState::Death },
 	};
 	static const UECodeGen_Private::FEnumParams EnumParams;
 };
-const UECodeGen_Private::FEnumParams Z_Construct_UEnum_Goobunga_EEnemyState_Statics::EnumParams = {
+const UECodeGen_Private::FEnumParams Z_Construct_UEnum_Goobunga_ENPCState_Statics::EnumParams = {
 	(UObject*(*)())Z_Construct_UPackage__Script_Goobunga,
 	nullptr,
-	"EEnemyState",
-	"EEnemyState",
-	Z_Construct_UEnum_Goobunga_EEnemyState_Statics::Enumerators,
+	"ENPCState",
+	"ENPCState",
+	Z_Construct_UEnum_Goobunga_ENPCState_Statics::Enumerators,
 	RF_Public|RF_Transient|RF_MarkAsNative,
-	UE_ARRAY_COUNT(Z_Construct_UEnum_Goobunga_EEnemyState_Statics::Enumerators),
+	UE_ARRAY_COUNT(Z_Construct_UEnum_Goobunga_ENPCState_Statics::Enumerators),
 	EEnumFlags::None,
-	(uint8)UEnum::ECppForm::Regular,
-	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UEnum_Goobunga_EEnemyState_Statics::Enum_MetaDataParams), Z_Construct_UEnum_Goobunga_EEnemyState_Statics::Enum_MetaDataParams)
+	(uint8)UEnum::ECppForm::EnumClass,
+	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UEnum_Goobunga_ENPCState_Statics::Enum_MetaDataParams), Z_Construct_UEnum_Goobunga_ENPCState_Statics::Enum_MetaDataParams)
 };
-UEnum* Z_Construct_UEnum_Goobunga_EEnemyState()
+UEnum* Z_Construct_UEnum_Goobunga_ENPCState()
 {
-	if (!Z_Registration_Info_UEnum_EEnemyState.InnerSingleton)
+	if (!Z_Registration_Info_UEnum_ENPCState.InnerSingleton)
 	{
-		UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_EEnemyState.InnerSingleton, Z_Construct_UEnum_Goobunga_EEnemyState_Statics::EnumParams);
+		UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_ENPCState.InnerSingleton, Z_Construct_UEnum_Goobunga_ENPCState_Statics::EnumParams);
 	}
-	return Z_Registration_Info_UEnum_EEnemyState.InnerSingleton;
+	return Z_Registration_Info_UEnum_ENPCState.InnerSingleton;
 }
-// End Enum EEnemyState
+// End Enum ENPCState
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyStates_h_Statics
+struct Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyStates_h_Statics
 {
 	static constexpr FEnumRegisterCompiledInInfo EnumInfo[] = {
-		{ EEnemyState_StaticEnum, TEXT("EEnemyState"), &Z_Registration_Info_UEnum_EEnemyState, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 4281360844U) },
+		{ ENPCState_StaticEnum, TEXT("ENPCState"), &Z_Registration_Info_UEnum_ENPCState, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3004927669U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyStates_h_557328989(TEXT("/Script/Goobunga"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyStates_h_231032750(TEXT("/Script/Goobunga"),
 	nullptr, 0,
 	nullptr, 0,
-	Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyStates_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyStates_h_Statics::EnumInfo));
+	Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyStates_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyStates_h_Statics::EnumInfo));
 // End Registration
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

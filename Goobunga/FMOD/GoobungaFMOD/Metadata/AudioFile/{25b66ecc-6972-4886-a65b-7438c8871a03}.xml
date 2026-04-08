@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{25b66ecc-6972-4886-a65b-7438c8871a03}">
+		<property name="assetPath">
+			<value>Fiend_Call.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>32</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>3.4765000000000001</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c072503a-ea4e-471a-a030-76a086148c96}</destination>
+		</relationship>
+	</object>
+</objects>

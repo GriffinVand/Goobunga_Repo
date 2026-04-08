@@ -16,19 +16,21 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #define GOOBUNGA_EnemyStates_generated_h
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyStates_h
+#define CURRENT_FILE_ID FID_Goobunga_Repo_Goobunga_Source_Goobunga_Enemies_EnemyStates_h
 
 
-#define FOREACH_ENUM_EENEMYSTATE(op) \
-	op(Default) \
-	op(Walking) \
-	op(Chasing) \
-	op(Attacking) \
-	op(Launching) \
-	op(Busy) \
-	op(Death) 
+#define FOREACH_ENUM_ENPCSTATE(op) \
+	op(ENPCState::Default) \
+	op(ENPCState::Passive) \
+	op(ENPCState::Busy) \
+	op(ENPCState::Calling) \
+	op(ENPCState::Walking) \
+	op(ENPCState::Attacking) \
+	op(ENPCState::Launching) \
+	op(ENPCState::Death) 
 
-enum EEnemyState : uint8;
-template<> GOOBUNGA_API UEnum* StaticEnum<EEnemyState>();
+enum class ENPCState : uint8;
+template<> struct TIsUEnumClass<ENPCState> { enum { Value = true }; };
+template<> GOOBUNGA_API UEnum* StaticEnum<ENPCState>();
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

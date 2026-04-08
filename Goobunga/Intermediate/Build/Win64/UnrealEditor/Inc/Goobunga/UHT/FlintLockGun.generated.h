@@ -14,7 +14,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define GOOBUNGA_FlintLockGun_generated_h
 
-#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_FlintLockGun_h_9_INCLASS_NO_PURE_DECLS \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_FlintLockGun_h_9_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAFlintLockGun(); \
 	friend struct Z_Construct_UClass_AFlintLockGun_Statics; \
@@ -23,7 +23,7 @@ public: \
 	DECLARE_SERIALIZER(AFlintLockGun)
 
 
-#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_FlintLockGun_h_9_ENHANCED_CONSTRUCTORS \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_FlintLockGun_h_9_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	AFlintLockGun(AFlintLockGun&&); \
@@ -35,12 +35,12 @@ public: \
 	NO_API virtual ~AFlintLockGun();
 
 
-#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_FlintLockGun_h_6_PROLOG
-#define FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_FlintLockGun_h_9_GENERATED_BODY \
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_FlintLockGun_h_6_PROLOG
+#define FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_FlintLockGun_h_9_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_FlintLockGun_h_9_INCLASS_NO_PURE_DECLS \
-	FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_FlintLockGun_h_9_ENHANCED_CONSTRUCTORS \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_FlintLockGun_h_9_INCLASS_NO_PURE_DECLS \
+	FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_FlintLockGun_h_9_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -48,7 +48,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> GOOBUNGA_API UClass* StaticClass<class AFlintLockGun>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Users_griff_Documents_GitHub_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_FlintLockGun_h
+#define CURRENT_FILE_ID FID_Goobunga_Repo_Goobunga_Source_Goobunga_Weapons_HitScanWeapons_FlintLockGun_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

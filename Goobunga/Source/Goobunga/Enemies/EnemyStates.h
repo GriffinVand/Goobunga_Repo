@@ -4,13 +4,14 @@
 #include "UObject/ObjectMacros.h"
 
 UENUM(BlueprintType)
-enum EEnemyState : uint8
+enum class ENPCState : uint8
 {
 	Default UMETA(DisplayName = "Default State"),
+	Passive UMETA(DisplayName = "Passive"),
+	Busy UMETA(DisplayName = "Busy"),
+	Calling UMETA(DisplayName = "Calling State"),
 	Walking UMETA(DisplayName = "Walking State"),
-	Chasing UMETA(DisplayName = "Chasing State"),
 	Attacking UMETA(DisplayName = "Attacking State"),
 	Launching UMETA(DisplayName = "Launching State"),
-	Busy UMETA(DisplayName = "Busy State"),
 	Death UMETA(DisplayName = "Death State"),
 };

@@ -1,6 +1,7 @@
 #include "BaseEnemy.h"
 #include "Goobunga/Enemies/AI/BaseEnemyAIController.h"
 #include "BrainComponent.h"
+#include "FMODBlueprintStatics.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Goobunga/Goobunga_Player.h"
@@ -20,7 +21,9 @@ ABaseEnemy::ABaseEnemy()
 void ABaseEnemy::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
+	CurrentState = StartState;
+	
 	if (DismemberPartClasses.Num() > 0)
 	{
 		for (UStaticMesh* ComponentType : DismemberPartClasses)
@@ -53,12 +56,20 @@ void ABaseEnemy::UpdateCurrentState(float DeltaTime)
 
 EDamageResult ABaseEnemy::CombatDamage(AActor* DamageDealer, float Damage, EDamageType DamageType, EAllegiance Allegiance)
 {
-	if (Allegiance == EnemyAllegiance || Dead) { return EDamageResult::None; }
+	if (Allegiance == EnemyAllegiance || CurrentState == ENPCState::Death) { return EDamageResult::None; }
 	Health -= Damage;
+	if (CurrentState == ENPCState::Passive)
+	{
+		CurrentState = ENPCState::Calling;
+		UFMODBlueprintStatics::PlayEventAtLocation(this, CallEvent, GetActorTransform(), true);
+		if (UMissionSubsystem* MS = GetWorld()->GetSubsystem<UMissionSubsystem>())
+		{
+			MS->ReceiveEvent(EnterCombatEvent);
+		}
+	}
 	if (Health <= 0)
 	{
-		Dead = true;
-		CurrentState = EEnemyState::Death;
+		CurrentState = ENPCState::Death;
 		FVector LastMovementSpeed = GetCharacterMovement()->GetLastUpdateVelocity();
 		Death(LastMovementSpeed, EDeathType::Default);
 		return EDamageResult::Kill;
@@ -73,7 +84,7 @@ void ABaseEnemy::Death(FVector LastMovementSpeed, EDeathType DeathType)
 		UE_LOG(LogTemp, Error, TEXT("Broadcast Death"));
 		MS->HandleDeath(DeathTag);
 	}
-	CurrentState = EEnemyState::Death;
+	CurrentState = ENPCState::Death;
 	ABaseEnemyAIController* AIController = Cast<ABaseEnemyAIController>(Controller);
 	if (AIController)
 	{

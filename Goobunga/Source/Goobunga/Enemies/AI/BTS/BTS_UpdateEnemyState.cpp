@@ -18,7 +18,7 @@ void UBTS_UpdateEnemyState::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* N
 	{
 		if (IEnemyCallables* EnemyCallablesInterface = Cast<IEnemyCallables>(SelfActor))
 		{
-			OwnerComp.GetBlackboardComponent()->SetValueAsEnum(SelfActorStateKey.SelectedKeyName, EnemyCallablesInterface->GetCurrentState());
+			OwnerComp.GetBlackboardComponent()->SetValueAsEnum(SelfActorStateKey.SelectedKeyName, static_cast<uint8>(EnemyCallablesInterface->GetCurrentState()));
 		}
 	}
 }

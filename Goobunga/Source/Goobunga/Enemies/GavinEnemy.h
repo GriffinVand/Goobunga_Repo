@@ -14,8 +14,8 @@ public:
 	
 	AGavinEnemy();
 
-	virtual bool GetCanAttackPrim() override { return bCanSpitAttack && CurrentState != EEnemyState::Attacking; }
-	virtual bool GetCanAttackSec() override { return bCanExplodeAttack && CurrentState != EEnemyState::Attacking; }
+	virtual bool GetCanAttackPrim() override { return bCanSpitAttack && CurrentState != ENPCState::Attacking; }
+	virtual bool GetCanAttackSec() override { return bCanExplodeAttack && CurrentState != ENPCState::Attacking; }
 	virtual void AttackPrimary(AActor* Target) override;
 	virtual void AttackSecondary(AActor* Target) override;
 	
