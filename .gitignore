@@ -1,37 +1,113 @@
 # Ignore directories related to binaries, intermediate builds, and caches
-Binaries
-Build
-DerivedDataCache
-Intermediate
-Saved
-Script
-enc_temp_folder
+Binaries/
+Build/
+DerivedDataCache/
+Intermediate/
+Saved/
+Script/
+enc_temp_folder/
 
 # IDE-related files and directories
-.idea
-.vscode
-.vs
+.idea/
+.vscode/
+.vs/
 
 # Files that should be ignored in general
 .ignore
 *.VC.db
+*.VC.VC.opendb
 *.opensdf
 *.opendb
 *.sdf
 *.sln
 *.suo
 *.code-workspace
-*.xcodeproj
-*.xcworkspace
+*.xcodeproj/
+*.xcworkspace/
 
+# ============================================================
 # FMOD Studio Project Files
+# ============================================================
+
+# User-specific and session files
 **/FMODStudioProject/.user/
+**/FMODStudioProject/**/*.user
+**/FMODStudioProject/**/User.xml
+**/FMODStudioProject/**/workspace.xml
+**/FMODStudioProject/**/.idea/
+**/FMODStudioProject/**/*.userprefs
+
+# Cache and temp files
 **/FMODStudioProject/.cache/
 **/FMODStudioProject/.unsaved/
+**/FMODStudioProject/**/*.cache
+**/FMODStudioProject/**/Fingerprints.xml
 
-# Exclude FMOD Studio Project build and assets directories
+# Build output and baked assets
 **/FMODStudioProject/Build/
 **/FMODStudioProject/Assets/
 
-# Explicitly include FMOD Studio plugin binaries (if necessary)
+# Metadata files FMOD regenerates
+**/FMODStudioProject/**/*.bank.cache
+**/FMODStudioProject/**/ProfilerSessions/
+
+# Explicitly include FMOD Studio plugin binaries
 !Plugins/FMODStudio/Binaries/
+
+# ============================================================
+# Unreal Engine specifics
+# ============================================================
+*.uasset linguist-generated
+*.umap linguist-generated
+Saved/
+.unrealengine/
+
+# ============================================================
+# OS-generated junk
+# ============================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~
+.directory
+
+# ============================================================
+# Misc dev tools
+# ============================================================
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+
+# Crash dumps and logs
+*.dmp
+*.log
+*.crash
+
+# Compiled object/binary artifacts
+*.o
+*.obj
+*.pdb
+*.ilk
+*.exp
+*.lib
+*.dll
+*.exe
+*.so
+*.dylib
