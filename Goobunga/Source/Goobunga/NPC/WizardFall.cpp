@@ -72,12 +72,18 @@ void AWizardFall::StartFall()
 		GetWorld()->GetTimerManager().SetTimerForNextTick(this, &AWizardFall::StartFall);
 		return;
 	}
+	float GravZ = GetCharacterMovement()->GetGravityZ();
+	FVector CurrLoc = GetActorLocation();
+	float DesiredHeight = FallGravity * FMath::Abs(GravZ) * FallTime;
+	FVector NewLoc = CurrLoc + FVector(0, 0, DesiredHeight);
+	SetActorLocation(NewLoc);
 	bFalling = true;	
 	UCharacterMovementComponent* MovComp = GetCharacterMovement();
 	MovComp->SetMovementMode(MOVE_Falling);
 	MovComp->GravityScale = FallGravity;
 	MovComp->SetComponentTickEnabled(true);
-	
+	AudioComponent->SetEvent(FallingEvent);
+	AudioComponent->Play();
 }
 
 void AWizardFall::UpdateFall(float DeltaTime)
@@ -92,6 +98,9 @@ void AWizardFall::UpdateFall(float DeltaTime)
 
 void AWizardFall::Land()
 {
+	AudioComponent->Stop();
+	AudioComponent->SetEvent(LandEvent);
+	AudioComponent->Play();
 	UE_LOG(LogTemp, Error, TEXT("Landed"));
 }
 

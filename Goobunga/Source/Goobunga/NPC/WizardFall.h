@@ -35,6 +35,8 @@ protected:
 	UFMODEvent* LandEvent;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UFMODEvent* FallingEvent;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	float FallTime = 9.5;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TSubclassOf<AActor> ExplosionClass;
