@@ -56,11 +56,12 @@ void ABaseEnemy::UpdateCurrentState(float DeltaTime)
 
 EDamageResult ABaseEnemy::CombatDamage(AActor* DamageDealer, float Damage, EDamageType DamageType, EAllegiance Allegiance)
 {
-	if (Allegiance == EnemyAllegiance || CurrentState == ENPCState::Death) { return EDamageResult::None; }
+	if (CurrentState == ECombatantState::Death) { return EDamageResult::None; }
+	if (Allegiance == EnemyAllegiance || CurrentState == ECombatantState::Death) { return EDamageResult::None; }
 	Health -= Damage;
-	if (CurrentState == ENPCState::Passive)
+	if (CurrentState == ECombatantState::Passive)
 	{
-		CurrentState = ENPCState::Calling;
+		CurrentState = ECombatantState::Calling;
 		UFMODBlueprintStatics::PlayEventAtLocation(this, CallEvent, GetActorTransform(), true);
 		if (UMissionSubsystem* MS = GetWorld()->GetSubsystem<UMissionSubsystem>())
 		{
@@ -69,9 +70,17 @@ EDamageResult ABaseEnemy::CombatDamage(AActor* DamageDealer, float Damage, EDama
 	}
 	if (Health <= 0)
 	{
-		CurrentState = ENPCState::Death;
+		CurrentState = ECombatantState::Death;
 		FVector LastMovementSpeed = GetCharacterMovement()->GetLastUpdateVelocity();
-		Death(LastMovementSpeed, EDeathType::Default);
+		switch (DamageType)
+		{
+		case EDamageType::Explosion:
+			Death(LastMovementSpeed, EDeathType::Explosion);
+			break;
+		default:
+			Death(LastMovementSpeed, EDeathType::Default);
+			break;
+		}
 		return EDamageResult::Kill;
 	}
 	return EDamageResult::Default;
@@ -84,7 +93,7 @@ void ABaseEnemy::Death(FVector LastMovementSpeed, EDeathType DeathType)
 		UE_LOG(LogTemp, Error, TEXT("Broadcast Death"));
 		MS->HandleDeath(DeathTag);
 	}
-	CurrentState = ENPCState::Death;
+	CurrentState = ECombatantState::Death;
 	ABaseEnemyAIController* AIController = Cast<ABaseEnemyAIController>(Controller);
 	if (AIController)
 	{

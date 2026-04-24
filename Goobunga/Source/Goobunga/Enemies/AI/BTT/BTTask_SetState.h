@@ -4,7 +4,7 @@
 #include "BehaviorTree/BTTaskNode.h"
 #include "BTTask_SetState.generated.h"
 
-enum class ENPCState : uint8;
+enum class ECombatantState : uint8;
 
 UCLASS()
 class GOOBUNGA_API UBTTask_SetState : public UBTTaskNode
@@ -19,6 +19,6 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FBlackboardKeySelector SelfActorKey;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	ENPCState NewState;
+	ECombatantState NewState;
 	
 };

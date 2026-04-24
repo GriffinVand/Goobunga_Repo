@@ -4,6 +4,7 @@
 #include "DialogueWidget.h"
 #include "Goobunga/Dialogue/DialogueManagerComponent.h"
 #include "CommonButtonBase.h"
+#include "Components/RichTextBlock.h"
 #include "Components/TextBlock.h"
 #include "Kismet/KismetSystemLibrary.h"
 
@@ -15,6 +16,15 @@ void UDialogueWidget::NativeConstruct()
 	ReplyWidgets.Add(ReplyWidget2);
 	ReplyWidgets.Add(ReplyWidget3);
 	ReplyWidgets.Add(ReplyWidget4);
+}
+
+void UDialogueWidget::NativeOnActivated()
+{
+	Super::NativeOnActivated();
+	if (APlayerController* PC = GetOwningPlayer())
+	{
+		PC->FlushPressedKeys();
+	}
 }
 
 void UDialogueWidget::BindReplyWidgets()
@@ -36,7 +46,7 @@ void UDialogueWidget::DisplayDialogue(const FText& Text)
 	if (DialogueText)
 	{
 		UE_LOG(LogTemp, Display, TEXT("Set text kein problem"));
-		DialogueText->SetText(Text);
+		DialogueText->SetText(FText::FromString(DialogueStyle + Text.ToString() + DialogueStyleTail));
 	}
 	else
 	{
@@ -63,7 +73,7 @@ void UDialogueWidget::DisplayReplies(TArray<FText> Texts, TArray<bool> Selectabl
 		if (ReplyWidgets[i])
 		{
 			ReplyWidgets[i]->SetVisibility(ESlateVisibility::Visible);
-			ReplyWidgets[i]->ReplyText->SetText(Texts[i]);
+			ReplyWidgets[i]->ReplyText->SetText(FText::FromString(DialogueStyle + Texts[i].ToString() + DialogueStyleTail));
 			ReplyWidgets[i]->ReplyButton->SetIsEnabled(Selectable[i]);
 		}
 		else

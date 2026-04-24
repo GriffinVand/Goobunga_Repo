@@ -24,7 +24,7 @@ class GOOBUNGA_API UPlayerMainWidget : public UCommonActivatableWidget
 	GENERATED_BODY()
 
 public:
-	
+	virtual TOptional<FUIInputConfig> GetDesiredInputConfig() const override;
 	void HandleDamageEffect(EDamageType DamageType);
 	void HandleHitEffect(EDamageResult DamageResult);
 	

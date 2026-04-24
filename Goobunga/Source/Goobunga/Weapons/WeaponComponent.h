@@ -108,6 +108,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float DrawSpeed = 2.f;
 	
+	bool CanAltFire();
+	
 	
 	
 	

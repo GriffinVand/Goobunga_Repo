@@ -18,5 +18,6 @@ public:
 	
 	void SetMusicActor(AMusicActor* MusicActor) { CurrMusicActor = MusicActor; }
 	void PlayMusic(UFMODEvent* Event, int32 Priority);
+	void PlayDefault();
 	void StopMusic();
 };

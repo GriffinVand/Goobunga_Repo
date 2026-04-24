@@ -1,10 +1,17 @@
 #include "WizardFall.h"
 
+#include "AIController.h"
 #include "FMODAudioComponent.h"
+#include "FMODBlueprintStatics.h"
 #include "NiagaraComponent.h"
+#include "NiagaraFunctionLibrary.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Goobunga/Audio/MusicActor.h"
+#include "Goobunga/Audio/MusicSubsystem.h"
 #include "Goobunga/Missions/MissionSubsystem.h"
+#include "Goobunga/Weapons/Special/SeismicExplosion.h"
+#include "Navigation/PathFollowingComponent.h"
 
 AWizardFall::AWizardFall()
 {
@@ -24,6 +31,7 @@ void AWizardFall::BeginPlay()
 	SetActorHiddenInGame(true);
 	SetActorTickEnabled(false);
 	DisableMovement();
+	CurrentState = ENonCombatantState::Busy;
 	if (UMissionSubsystem* MS = GetWorld()->GetSubsystem<UMissionSubsystem>())
 	{
 		MS->RegisterForEvent(this, ActivateEvent);
@@ -101,6 +109,48 @@ void AWizardFall::Land()
 	AudioComponent->Stop();
 	AudioComponent->SetEvent(LandEvent);
 	AudioComponent->Play();
+	if (ExplosionClass)
+	{
+		FActorSpawnParameters SpawnInfo;
+		SpawnInfo.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+		ASeismicExplosion* NewExplosion = GetWorld()->SpawnActor<ASeismicExplosion>(ExplosionClass, GetActorLocation(), GetActorRotation(), SpawnInfo);
+		if (NewExplosion)
+		{
+			NewExplosion->Activate(EAllegiance::Friendly);
+		}
+	}
+	if (UMusicSubsystem* MS = GetGameInstance()->GetSubsystem<UMusicSubsystem>())
+	{
+		MS->PlayDefault();
+	}
+	FTimerHandle TimerHandle;
+	GetWorld()->GetTimerManager().SetTimer(TimerHandle, [this]()
+	{
+		OpenPortal();
+	}, TimeToOpenPortal, false);
 	UE_LOG(LogTemp, Error, TEXT("Landed"));
+}
+
+void AWizardFall::OpenPortal()
+{
+	CurrentState = ENonCombatantState::Idle;
+	if (!PortalLocation) { return; }
+	if (UMissionSubsystem* MS = GetWorld()->GetSubsystem<UMissionSubsystem>())
+	{
+		MS->ReceiveEvent(PortalEvent);
+	}
+	if (AAIController* AIController = Cast<AAIController>(GetController()))
+	{
+		AIController->GetPathFollowingComponent()->OnRequestFinished.AddUObject(this, &AWizardFall::EnterPortal);
+		AIController->MoveToLocation(PortalLocation->GetActorLocation(), 50.f);
+	}
+	if (FollowEvent) { AudioComponent->SetEvent(FollowEvent); AudioComponent->Play(); }
+}
+
+void AWizardFall::EnterPortal(FAIRequestID RequestID, const FPathFollowingResult& Result)
+{
+	if (EnterPortalEvent) { UFMODBlueprintStatics::PlayEventAtLocation(this, EnterPortalEvent, GetActorTransform(), true); }
+	if (EnterPortalSystem) { UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, EnterPortalSystem, GetActorLocation(), GetActorRotation()); }
+	Destroy();
 }
 

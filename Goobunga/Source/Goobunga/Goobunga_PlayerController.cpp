@@ -47,6 +47,9 @@ void AGoobunga_PlayerController::InitializePlayerHUD()
 	if (!MainHUDClass) { UE_LOG(LogTemp, Error, TEXT("Null MainHUDClass")); return; }
 	if (!MasterWidget) { UE_LOG(LogTemp, Error, TEXT("Null Masterwidget")); return; }
 	MainHUD = Cast<UPlayerMainWidget>(MasterWidget->PushWidget(MainHUDClass, ELayerType::Game));
+	SetInputMode(FInputModeGameOnly());
+	SetShowMouseCursor(false);
+	MainHUD->ActivateWidget();
 	if (!MainHUD) { UE_LOG(LogTemp, Error, TEXT("Failed to create MainHUD")); return;  }
 }
 
@@ -58,6 +61,12 @@ void AGoobunga_PlayerController::CreateInteractUI(const FText& InteractText, boo
 	MainHUD->InteractWidget->InteractText->SetText(InteractText);
 	MainHUD->InteractWidget->SetVisibility(ESlateVisibility::HitTestInvisible);
 	
+}
+
+void AGoobunga_PlayerController::CreateDashUI()
+{
+	if (!MainHUD) { UE_LOG(LogTemp, Warning, TEXT("AGoobunga_PlayerController::CreateDashUI No MainHUD")); return; }
+	MainHUD->DodgeWidget->SetVisibility(ESlateVisibility::HitTestInvisible);
 }
 
 void AGoobunga_PlayerController::UpdateDodgeUI(float Percent)
@@ -122,4 +131,12 @@ void AGoobunga_PlayerController::CreateObjectiveUI(const FMissionObjective& Obje
 	
 	if (bUpdate) { MainHUD->MainObjectiveWidget->UpdateUI(Objective); }
 	else { MainHUD->MainObjectiveWidget->InitializeUI(Objective); }
+}
+
+void AGoobunga_PlayerController::RemoveWidgetFromMaster(UCommonActivatableWidget* Widget)
+{
+	if (Widget && MasterWidget)
+	{
+		
+	}
 }

@@ -4,6 +4,7 @@
 #include "UObject/Interface.h"
 #include "DialogueInterface.generated.h"
 
+class UItemData;
 class UCameraComponent;
 class UBaseShopWidget;
 
@@ -24,6 +25,7 @@ public:
 	
 	virtual FName GetSpecializedDialogue(FName SpecialContext) { return FName(""); }
 	virtual TSubclassOf<UBaseShopWidget> GetShopWidgetClass() { return nullptr; }
+	virtual TArray<TObjectPtr<UItemData>> GetShopItems() { return TArray<TObjectPtr<UItemData>>(); }
 	
 	UFUNCTION(BlueprintNativeEvent)
 	void SetCurrentDialogue(FName CurrentDialogue);

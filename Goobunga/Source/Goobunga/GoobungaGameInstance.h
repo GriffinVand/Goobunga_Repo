@@ -14,19 +14,22 @@ class GOOBUNGA_API UGoobungaGameInstance : public UGameInstance
 	GENERATED_BODY()
 public:
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Defaults)
 	FWeaponSaveData DefPrimaryWeapon = FWeaponSaveData();
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Defaults)
 	FWeaponSaveData DefSecondaryWeapon = FWeaponSaveData();
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Defaults)
 	FAbilitySaveData DefHealAbility;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Defaults)
 	FAbilitySaveData DefSmallAbility;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Defaults)
 	FAbilitySaveData DefLargeAbility;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	UMissionData* SelectedMission = nullptr;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Inventory)
+	int32 CurrentMoney = 0;
 	
 	
 	void SetDefaultSaveFile(UGoobungaSaveFile& SaveFile);

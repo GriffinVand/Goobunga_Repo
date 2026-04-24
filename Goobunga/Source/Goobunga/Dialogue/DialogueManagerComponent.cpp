@@ -11,6 +11,7 @@
 #include "Goobunga/PlayerCallables.h"
 #include "Kismet/GameplayStatics.h"
 #include "./UI/BaseShopWidget.h"
+#include "Components/RichTextBlock.h"
 #include "Kismet/KismetSystemLibrary.h"
 
 UDialogueManagerComponent::UDialogueManagerComponent()
@@ -57,9 +58,6 @@ void UDialogueManagerComponent::StartDialogue(AActor* DialogueActor)
 		if (DialogueWidget)
 		{
 			DialogueWidget->ActivateWidget();
-			PC->SetInputMode(FInputModeUIOnly());
-			PC->bShowMouseCursor = true;
-			PC->FlushPressedKeys();
 			UE_LOG(LogTemp, Display, TEXT("Widget exists"));
 			DialogueWidget->DialogueManager = this;
 			DialogueWidget->BindReplyWidgets();
@@ -155,7 +153,7 @@ void UDialogueManagerComponent::DisplayDialogue()
 	if (DialogueWidget)
 	{
 		UE_LOG(LogTemp, Display, TEXT("Display dialogue"));
-		DialogueWidget->DialogueText->SetText(CurrentDialogueLine.Text);
+		DialogueWidget->DisplayDialogue(CurrentDialogueLine.Text);
 		if (DialogueAudioComp && CurrentDialogueLine.Audio) { DialogueAudioComp->Stop(); DialogueAudioComp->SetEvent(CurrentDialogueLine.Audio); DialogueAudioComp->Play(); }
 	}
 	else
@@ -229,6 +227,8 @@ void UDialogueManagerComponent::EndDialogue()
 		DialogueAudioComp->Stop();
 		DialogueAudioComp->DestroyComponent(false);
 	}
+	if (DialogueWidget) { DialogueWidget->SetVisibility(ESlateVisibility::Hidden); }
+	
 	if (AGoobunga_Player* Goobunga_Player = Cast<AGoobunga_Player>(GetOwner()))
 	{
 		Goobunga_Player->FacialAnimationComponent->PlayAnimation("Idle", true);
@@ -238,16 +238,15 @@ void UDialogueManagerComponent::EndDialogue()
 			FTimerHandle TimerHandle;
 			GetWorld()->GetTimerManager().SetTimer(TimerHandle, [this, PC]()
 			{
-				PC->SetInputMode(FInputModeGameOnly());
-				PC->bShowMouseCursor = false;
+				if (!DialogueWidget) { return; }
+				DialogueWidget->DeactivateWidget(); 
+				DialogueWidget = nullptr;
 			}, ViewBlendTime + 0.1, false);
 		}
 	}
 	
-	if (DialogueWidget) { DialogueWidget->DeactivateWidget(); DialogueWidget = nullptr; }
 	if (!CurrDialogueActor) { return; }
 	if (CurrDialogueActor->Implements<UDialogueInterface>()) { IDialogueInterface::Execute_DialogueEnded(CurrDialogueActor); }
-	else if (IDialogueInterface* DI = Cast<IDialogueInterface>(CurrDialogueActor)) { DI->DialogueEnded(); }
 	CurrDialogueActor = nullptr;
 	UE_LOG(LogTemp, Error, TEXT("End Dialogue finished"));
 }
@@ -269,7 +268,13 @@ bool UDialogueManagerComponent::HandleReplyAction(const FDialogueActionStruct& A
 		if (ShopWidgetClass)
 		{
 			UBaseShopWidget* ShopUI = Cast<UBaseShopWidget>(PC->MasterWidget->PushWidget(ShopWidgetClass, ELayerType::Menu));
-			if (ShopUI) { ShopUI->OnShopCloseInput.AddUniqueDynamic(this, &UDialogueManagerComponent::ContinueDialogue); return false;}
+			if (ShopUI)
+			{
+				ShopUI->OnShopCloseInput.AddUniqueDynamic(this, &UDialogueManagerComponent::ContinueDialogue);
+				ShopUI->PopulateShop(DI->GetShopItems(), GetOwner());
+				return false;
+			}
+			
 		}
 		return true;
 	}

@@ -34,6 +34,7 @@ void UReloadManagerComponent::TickComponent(float DeltaTime, ELevelTick TickType
 
 void UReloadManagerComponent::StartReload(TArray<FReloadPhase>& NewReloadSequence)
 {
+	if (NewReloadSequence.Num() == 0) { StopReload(true); return;}
 	ReloadSequence = NewReloadSequence;
 	CurrentReloadPhase = -1;
 	

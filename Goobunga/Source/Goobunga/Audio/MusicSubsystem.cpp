@@ -11,3 +11,8 @@ void UMusicSubsystem::StopMusic()
 {
 	if (CurrMusicActor != nullptr) { CurrMusicActor->StopMusic(); }
 }
+
+void UMusicSubsystem::PlayDefault()
+{
+	if (CurrMusicActor != nullptr) { CurrMusicActor->PlayMusic(CurrMusicActor->DefaultWorldMusic, 0); }
+}

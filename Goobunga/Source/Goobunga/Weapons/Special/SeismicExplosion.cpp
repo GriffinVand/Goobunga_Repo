@@ -2,6 +2,8 @@
 
 #include "NiagaraComponent.h"
 #include "Components/SphereComponent.h"
+#include "Goobunga/Enemies/BaseEnemy.h"
+#include "Kismet/GameplayStatics.h"
 
 ASeismicExplosion::ASeismicExplosion()
 {
@@ -19,6 +21,7 @@ void ASeismicExplosion::BeginPlay()
 	SetActorTickEnabled(false);
 	ExplosionCollider->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	ExplosionCollider->OnComponentBeginOverlap.AddDynamic(this, &ASeismicExplosion::OnOverlapBegin);
+	SetLifeSpan(5.f);
 	
 }
 
@@ -31,6 +34,12 @@ void ASeismicExplosion::Activate(EAllegiance Allegiance)
 	EffectSystem->SetFloatParameter("Extent", MinExtent);
 	CurrentTime = 0.f;
 	SetActorTickEnabled(true);
+	TArray<AActor*> Combatants;
+	UGameplayStatics::GetAllActorsWithInterface(this, UCombatCallables::StaticClass(), Combatants);
+	for (auto Combatant : Combatants)
+	{
+		ICombatCallables::DealDamageAndNotify(9999.f, EDamageType::Explosion, Combatant, this);
+	}
 	
 }
 
@@ -50,7 +59,8 @@ void ASeismicExplosion::UpdateActivate(float DeltaTime)
 	CurrentTime += DeltaTime;
 	float NewExtent = FMath::Lerp(MinExtent, MaxExtent, CurrentTime/TimeToMax);
 	ExplosionCollider->SetSphereRadius(NewExtent);
-	EffectSystem->SetFloatParameter("Extent", NewExtent);
+	float NewDomeScale = NewExtent / MinExtent;
+	EffectSystem->SetVectorParameter("User.DomeScale", FVector(NewDomeScale, NewDomeScale, NewDomeScale));
 	
 	if (CurrentTime >= TimeToMax) { Destroy(); }
 }

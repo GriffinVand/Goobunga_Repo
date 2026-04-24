@@ -23,9 +23,9 @@ struct FDialogueActionStruct
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	EDialogueActionType ActionType;
+	EDialogueActionType ActionType = EDialogueActionType::None;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FName ActionTarget;
+	FName ActionTarget = NAME_None;
 };
 
 USTRUCT(BlueprintType)
@@ -35,19 +35,19 @@ struct FDialogueLine: public FTableRowBase
 
 	//Actual text to be shown
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FText Text;
+	FText Text = FText::GetEmpty();
 
 	//Audio to pair with this dialogue line
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UFMODEvent* Audio;
+	UFMODEvent* Audio = nullptr;
 	
 	//ID of next dialogue->if there aren't any replies
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FName NextID;
+	FName NextID = NAME_None;
 	
 	//Expression for the NPC to have during this line
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FName Expression;
+	FName Expression = NAME_None; 
 
 	//IDs of all possible replies
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

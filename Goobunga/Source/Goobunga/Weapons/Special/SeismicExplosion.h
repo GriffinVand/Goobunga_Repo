@@ -10,12 +10,15 @@ class USphereComponent;
 class UNiagaraComponent;
 
 UCLASS()
-class GOOBUNGA_API ASeismicExplosion : public AActor
+class GOOBUNGA_API ASeismicExplosion : public AActor, public ITeamInterface
 {
 	GENERATED_BODY()
 
 public:
 	ASeismicExplosion();
+	
+	UFUNCTION(BlueprintCallable)
+	void Activate(EAllegiance Allegiance);
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UNiagaraComponent* EffectSystem;
@@ -34,8 +37,6 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
-	UFUNCTION(BlueprintCallable)
-	void Activate(EAllegiance Allegiance);
 	void UpdateActivate(float DeltaTime);
 	UFUNCTION()
 	virtual void OnOverlapBegin(UPrimitiveComponent* OverlappedComponent,
@@ -49,4 +50,5 @@ protected:
 
 public:
 	virtual void Tick(float DeltaTime) override;
+	virtual EAllegiance GetAllegiance() const override { return ExplosionAllegiance; }
 };

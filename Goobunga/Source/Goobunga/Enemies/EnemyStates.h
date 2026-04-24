@@ -4,7 +4,7 @@
 #include "UObject/ObjectMacros.h"
 
 UENUM(BlueprintType)
-enum class ENPCState : uint8
+enum class ECombatantState : uint8
 {
 	Default UMETA(DisplayName = "Default State"),
 	Passive UMETA(DisplayName = "Passive"),

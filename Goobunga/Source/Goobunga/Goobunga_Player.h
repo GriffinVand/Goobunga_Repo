@@ -13,6 +13,7 @@
 #include "Weapons/WeaponSwayData.h"
 #include "Goobunga_Player.generated.h"
 
+class UInventoryComponent;
 class UAbilityComponent;
 class UQuestManagerComponent;
 struct FInputActionValue;
@@ -64,6 +65,8 @@ public:
 	EAllegiance PlayerAllegiance = EAllegiance::Friendly;
 
 #pragma region Components
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	USceneCaptureComponent2D* FacialCaptureComponent;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
 	USkeletalMeshComponent* FPMesh;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
@@ -75,6 +78,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
 	USceneComponent* FPMesh_Align;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TSubclassOf<AActor> FacialAnimationActorClass;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	AActor* FacialAnimationActor;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	UFacialAnimationComponent* FacialAnimationComponent;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = true))
@@ -87,6 +94,8 @@ public:
 	UWeaponComponent* WeaponComponent;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UAbilityComponent* AbilityComponent;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UInventoryComponent* InventoryComponent;
 #pragma endregion
 
 	UFUNCTION()
@@ -130,6 +139,7 @@ public:
 	void StopAbilityMontage(UAnimMontage* Montage);
 	//UI Related
 	void EquippedAbility(UAbilityBase* NewAbility);
+	void EquippedDash();
 	UFUNCTION()
 	void OnMontageNotifyBegin(FName NotifyName, const FBranchingPointNotifyPayload& Payload);
 	
@@ -303,6 +313,7 @@ protected:
 	float DashPeakSpeed = 2500.f;
 	float DashElapsedTime = 0.f;
 	FVector DashDirection = FVector::ZeroVector;
+	bool bDashUnlocked = false;
 	bool bDashing = false;
 	bool bCanDash = false;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Dash")
@@ -326,6 +337,7 @@ protected:
 	void FootStep();
 #pragma endregion Audio
 	
+public:
 	virtual void UpdateAds(float Alpha) override;
 	virtual void UpdateWeaponUI() override { return;}
 	void UpdateWeaponSwayData(float DeltaTime);
@@ -333,6 +345,9 @@ protected:
 	void UpdateAimOffset();
 	virtual void ApplyWeaponKick(FVector KickDirection, FRotator KickRotation, FVector MaxDir, FRotator MaxRot) override;
 	void UpdateWeaponKick();
+	virtual TArray<FName> GetOwnedItemIDs() override;
+	virtual void RecieveItem(EItemDataType Type, TObjectPtr<UItemData> ItemData, bool bEquip = false) override;
+	virtual UInventoryComponent* GetInventory() override { return InventoryComponent; }
 	//
 	//combat function. Should probably be moved to a component
 	//

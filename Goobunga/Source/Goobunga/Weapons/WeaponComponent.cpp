@@ -97,6 +97,7 @@ void UWeaponComponent::SetWeapon(const FWeaponSaveData& Weapon, EWeaponSlot Slot
 	if (!NewWeapon) { UE_LOG(LogTemp, Error, TEXT("Tried to create new weapon but null WeaponComponent::SetWeapon")); return; }
 	if (AWeapon* ExWeapon = GetWeaponInSlot(Slot)) { ExWeapon->Destroy(); }
 	*SelectedWeaponPtr = NewWeapon;
+	if (!Weapon.bFillAmmo) { NewWeapon->SetAmmo(Weapon.CurrAmmo, Weapon.CurrMag, Weapon.CurrAltAmmo, Weapon.CurrAltMag); }
 	UE_LOG(LogTemp, Error, TEXT("Set weapon in slot %s to %s"), *UEnum::GetValueAsString(Slot), *NewWeapon->GetName());
 	NewWeapon->SetActorHiddenInGame(true);
 	if (EquippedWeaponSlot == Slot)
@@ -253,6 +254,12 @@ void UWeaponComponent::AltFireStop(bool Cancelled)
 	bAltFirePressed=false;
 	bAds=false;
 }
+
+bool UWeaponComponent::CanAltFire()
+{
+	if (!GetEquippedWeapon()) return false;
+	return (GetEquippedWeapon()->bHasAlt);
+}
 #pragma endregion
 #pragma region ADS
 FTransform UWeaponComponent::GetWeaponSightTransform()
@@ -330,7 +337,6 @@ void UWeaponComponent::UpdateAdsTransform(float Alpha)
 #pragma region SAVE/LOAD
 void UWeaponComponent::InitializeFromSave(const UGoobungaSaveFile& SaveGame)
 {
-	OwnedWeapons = SaveGame.PlayerOwnedWeapons;
 	SetWeapon(SaveGame.PlayerPrimaryWeapon, EWeaponSlot::Primary);
 	SetWeapon(SaveGame.PlayerSecondaryWeapon, EWeaponSlot::Secondary);
 }
@@ -349,11 +355,5 @@ void UWeaponComponent::SaveToSaveGame(UGoobungaSaveFile& SaveGame)
 		SecondaryWeaponData.WeaponClass = SecondaryWeaponInstance->GetClass();
 	}
 	SaveGame.PlayerSecondaryWeapon = SecondaryWeaponData;
-	TArray<FWeaponSaveData> Weapons;
-	for (auto& Weapon : OwnedWeapons)
-	{
-		Weapons.Add(Weapon);
-	}
-	SaveGame.PlayerOwnedWeapons = Weapons;
 }
 #pragma endregion

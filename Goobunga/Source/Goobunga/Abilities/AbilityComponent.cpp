@@ -21,7 +21,6 @@ void UAbilityComponent::TickComponent(float DeltaTime, enum ELevelTick TickType,
 
 void UAbilityComponent::InitializeFromSave(const UGoobungaSaveFile& SaveGame)
 {
-	OwnedAbilities = SaveGame.PlayerOwnedAbilities;
 	TSubclassOf<UAbilityBase> AbilityClass = SaveGame.PlayerSmallAbility.AbilityClass;
 	if (AbilityClass)
 	{
@@ -59,8 +58,6 @@ void UAbilityComponent::SaveToSaveGame(UGoobungaSaveFile& SaveGame)
 		HealAbilityData.AbilityClass = HealAbility->GetClass();
 	}
 	SaveGame.PlayerHealAbility = HealAbilityData;
-	
-	SaveGame.PlayerOwnedAbilities = OwnedAbilities;
 }
 
 void UAbilityComponent::EquipAbility(EAbilityType Slot, TSubclassOf<UAbilityBase> AbilityClass)

@@ -24,7 +24,6 @@ public:
 	UFMODEvent* DefaultWorldMusic;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	UFMODAudioComponent* AudioComp;
-	
 	void PlayMusic(UFMODEvent* Event, int32 Priority);
 	void StopMusic();
 	UFUNCTION()

@@ -7,6 +7,7 @@
 #include "DialogueReplyWidget.h"
 #include "DialogueWidget.generated.h"
 
+class URichTextBlock;
 class UCommonButtonStyle;
 /**
  * 
@@ -20,7 +21,10 @@ class GOOBUNGA_API UDialogueWidget : public UCommonActivatableWidget
 public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	UTextBlock* DialogueText;
+	URichTextBlock* DialogueText;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString DialogueStyle = "<Wiggle>";
+	FString DialogueStyleTail = "</>";
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<UCommonButtonStyle> SelectableStyle;
@@ -42,9 +46,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, BlueprintReadWrite)
 	UDialogueManagerComponent* DialogueManager;
 	
-	virtual void NativeConstruct() override;
 	void SetDialogueManager(UDialogueManagerComponent* NewManager) { DialogueManager = NewManager; };
 	void BindReplyWidgets();
 	void DisplayDialogue(const FText& Text);
 	void DisplayReplies(TArray<FText> Texts, TArray<bool> Selectable);
+	
+protected:
+	virtual void NativeConstruct() override;
+	virtual void NativeOnActivated() override;
 };

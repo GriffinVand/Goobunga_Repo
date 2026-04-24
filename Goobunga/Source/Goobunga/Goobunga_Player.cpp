@@ -15,7 +15,9 @@
 #include "Quests/QuestManagerComponent.h"
 #include "Weapons/Weapon.h"
 #include "Abilities/AbilityComponent.h"
+#include "Components/SceneCaptureComponent2D.h"
 #include "Interaction/InteractInterface.h"
+#include "Inventory/InventoryComponent.h"
 #include "Kismet/GameplayStatics.h"
 
 AGoobunga_Player::AGoobunga_Player()
@@ -39,12 +41,14 @@ AGoobunga_Player::AGoobunga_Player()
 	HitSoundComponent->SetAutoActivate(false);
 	
 	//Base components
+	FacialCaptureComponent = CreateDefaultSubobject<USceneCaptureComponent2D>(TEXT("FacialCaptureComponent"));
 	FacialAnimationComponent = CreateDefaultSubobject<UFacialAnimationComponent>(TEXT("FacialAnimationComponent"));
 	ReloadManagerComponent = CreateDefaultSubobject<UReloadManagerComponent>(TEXT("ReloadManagerComponent"));
 	QuestManagerComponent = CreateDefaultSubobject<UQuestManagerComponent>(TEXT("QuestManagerComponent"));
 	DialogueManagerComponent = CreateDefaultSubobject<UDialogueManagerComponent>(TEXT("DialogueManagerComponent"));
 	WeaponComponent = CreateDefaultSubobject<UWeaponComponent>(TEXT("WeaponComponent"));
 	AbilityComponent = CreateDefaultSubobject<UAbilityComponent>(TEXT("AbilityComponent"));
+	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
 }
 void AGoobunga_Player::BeginPlay()
 {
@@ -55,12 +59,19 @@ void AGoobunga_Player::BeginPlay()
 		FPMeshInst->OnPlayMontageNotifyBegin.AddUniqueDynamic(this, &AGoobunga_Player::OnMontageNotifyBegin);
 	}
 	
-	if (UMaterialInstanceDynamic* FaceMat = UMaterialInstanceDynamic::Create(GetMesh()->GetMaterial(1), this))
+	if (AActor* NewActor = GetWorld()->SpawnActor(FacialAnimationActorClass))
 	{
-		FacialAnimationComponent->Material = FaceMat;
-		GetMesh()->SetMaterial(1, FaceMat);
-		FacialAnimationComponent->DefaultAnimation = "Idle";
-		FacialAnimationComponent->PlayAnimation("Idle", true);
+		FacialAnimationActor = NewActor;
+		if (USkeletalMeshComponent* SKM = Cast<USkeletalMeshComponent>(FacialAnimationActor->GetComponentByClass(USkeletalMeshComponent::StaticClass())))
+		{
+			if (UMaterialInstanceDynamic* FaceMat = UMaterialInstanceDynamic::Create(SKM->GetMaterial(1), this))
+			{
+				FacialAnimationComponent->Material = FaceMat;
+				SKM->SetMaterial(1, FaceMat);
+				FacialAnimationComponent->DefaultAnimation = "Idle";
+				FacialAnimationComponent->PlayAnimation("Idle", true);
+			}
+		}
 	}
 	
 	APlayerController* PlayerController = Cast<APlayerController>(GetController());
@@ -83,16 +94,6 @@ void AGoobunga_Player::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	Super::EndPlay(EndPlayReason);
 	GetWorld()->GetTimerManager().ClearTimer(WalkTimer);
-}
-
-void AGoobunga_Player::FootStep()
-{
-	if (!WalkEventSound) { return; }
-	UCharacterMovementComponent* MovComp = GetCharacterMovement();
-	if (!MovComp || !IsValid(MovComp)) { return; }
-	bool bMoving = MovComp->Velocity.Length() > 0.f;
-	bool bGrounded = MovComp->IsMovingOnGround();
-	if (bMoving && bGrounded && !bDashing) { UFMODBlueprintStatics::PlayEvent2D(this, WalkEventSound, true); }
 }
 
 void AGoobunga_Player::Tick(float DeltaTime)
@@ -450,8 +451,10 @@ void AGoobunga_Player::LoadGameFromFile(const UGoobungaSaveFile& SaveGame)
 {
 	if (!WeaponComponent) { UE_LOG(LogTemp, Error, TEXT("No WeaponComponent AGoobunga_Player::SaveGameToFile")); return; }
 	if (!AbilityComponent) { UE_LOG(LogTemp, Error, TEXT("No AbilityComponent AGoobunga_Player::SaveGameToFile")); return; }
+	InventoryComponent->InitializeFromSave(SaveGame);
 	WeaponComponent->InitializeFromSave(SaveGame);
 	AbilityComponent->InitializeFromSave(SaveGame);
+	if (SaveGame.bUnlockedDash) { EquippedDash(); }
 }
 void AGoobunga_Player::SaveGameToFile(UGoobungaSaveFile& SaveGame)
 {
@@ -525,33 +528,19 @@ void AGoobunga_Player::HandleDamageEffect(EDamageType Type)
 	}
 }
 
+void AGoobunga_Player::FootStep()
+{
+	if (!WalkEventSound) { return; }
+	UCharacterMovementComponent* MovComp = GetCharacterMovement();
+	if (!MovComp || !IsValid(MovComp)) { return; }
+	bool bMoving = MovComp->Velocity.Length() > 0.f;
+	bool bGrounded = MovComp->IsMovingOnGround();
+	if (bMoving && bGrounded && !bDashing) { UFMODBlueprintStatics::PlayEvent2D(this, WalkEventSound, true); }
+}
+
 void AGoobunga_Player::DeathSequence()
 {
 	UKismetSystemLibrary::QuitGame(this, nullptr, EQuitPreference::Quit, true);
-}
-
-void AGoobunga_Player::PickUpWeapon(const FWeaponSaveData& WeaponData)
-{
-	if (!WeaponComponent) { return; }
-	if (TryStartAction(ECombatAction::Pickup)) { WeaponComponent->PickupWeapon(WeaponData); }
-}
-
-void AGoobunga_Player::EquipWeapon(AWeapon* Weapon)
-{
-	if (!Weapon) { UE_LOG(LogTemp, Error, TEXT("Weapon is null Goobunga_Player::EquipWeapon")); return;}
-	FName AttachSocketName = Weapon->GetAttachSocketName();
-	if (!FPMesh) { UE_LOG(LogTemp, Error, TEXT("No FPMesh Goobunga_Player::EquipWeapon")); return;}
-	Weapon->AttachToComponent(FPMesh, FAttachmentTransformRules::SnapToTargetIncludingScale, AttachSocketName);
-	if (AGoobunga_PlayerController* Goobunga_Controller = Cast<AGoobunga_PlayerController>(GetController()))
-	{
-		Goobunga_Controller->CreateWeaponUI(Weapon);
-	}
-	else { UE_LOG(LogTemp, Error, TEXT("Not goobunga_controller"));}
-}
-
-void AGoobunga_Player::UnequipWeapon(AWeapon* Weapon)
-{
-
 }
 
 bool AGoobunga_Player::ShouldGrip()
@@ -581,7 +570,7 @@ bool AGoobunga_Player::CanPerformAction(ECombatAction Action)
 	case ECombatAction::PrimFire:
 		return (!AbilityComponent->IsFlagBlocked(EAbilityBlockFlag::Fire));
 	case ECombatAction::SecFire:
-		return (!AbilityComponent->IsFlagBlocked(EAbilityBlockFlag::Fire));
+		return (!AbilityComponent->IsFlagBlocked(EAbilityBlockFlag::Fire)) && WeaponComponent->CanAltFire();
 	case ECombatAction::Reload:
 		return (!AbilityComponent->IsFlagBlocked(EAbilityBlockFlag::Reload) && WeaponComponent->CanReload());	
 	case ECombatAction::Aim:
@@ -600,7 +589,7 @@ bool AGoobunga_Player::CanPerformAction(ECombatAction Action)
 	case ECombatAction::Interact:
 		return CanInteract() && (!AbilityComponent->ActiveAbility);
 	case ECombatAction::Dash:
-		return !bDashing && bCanDash && (WeaponDrawn || !WeaponComponent->GetEquippedWeapon());
+		return bDashUnlocked && !bDashing && bCanDash && (WeaponDrawn || !WeaponComponent->GetEquippedWeapon());
 	case ECombatAction::Pickup:
 		return (!AbilityComponent->IsFlagBlocked(EAbilityBlockFlag::Swap));
 	default:
@@ -739,7 +728,16 @@ void AGoobunga_Player::StartAction(ECombatAction Action)
 }
 #pragma endregion ACTIONS
 
-#pragma region Ability
+#pragma region ABILITY
+
+void AGoobunga_Player::EquippedDash()
+{
+	if (AGoobunga_PlayerController* PC = Cast<AGoobunga_PlayerController>(GetController()))
+	{
+		bDashUnlocked = true;
+		PC->CreateDashUI();
+	}
+}
 
 void AGoobunga_Player::HideWeaponForAbility()
 {
@@ -827,4 +825,55 @@ void AGoobunga_Player::EquippedAbility(UAbilityBase* NewAbility)
 	}
 }
 
+#pragma endregion
+
+#pragma region WEAPON
+void AGoobunga_Player::PickUpWeapon(const FWeaponSaveData& WeaponData)
+{
+	if (!WeaponComponent) { return; }
+	if (TryStartAction(ECombatAction::Pickup)) { WeaponComponent->PickupWeapon(WeaponData); }
+}
+
+void AGoobunga_Player::EquipWeapon(AWeapon* Weapon)
+{
+	if (!Weapon) { UE_LOG(LogTemp, Error, TEXT("Weapon is null Goobunga_Player::EquipWeapon")); return;}
+	FName AttachSocketName = Weapon->GetAttachSocketName();
+	if (!FPMesh) { UE_LOG(LogTemp, Error, TEXT("No FPMesh Goobunga_Player::EquipWeapon")); return;}
+	Weapon->AttachToComponent(FPMesh, FAttachmentTransformRules::SnapToTargetNotIncludingScale, AttachSocketName);
+	if (AGoobunga_PlayerController* Goobunga_Controller = Cast<AGoobunga_PlayerController>(GetController()))
+	{
+		Goobunga_Controller->CreateWeaponUI(Weapon);
+	}
+	else { UE_LOG(LogTemp, Error, TEXT("Not goobunga_controller"));}
+}
+
+void AGoobunga_Player::UnequipWeapon(AWeapon* Weapon)
+{
+
+}
+#pragma endregion
+
+#pragma region ITEMS
+TArray<FName> AGoobunga_Player::GetOwnedItemIDs()
+{
+	TArray<FName> OutNames;
+	if (InventoryComponent)
+	{
+		for (auto& Item : InventoryComponent->GetAllOwnedItems())
+		{
+			OutNames.Add(Item->ID);
+		}
+	}
+	return OutNames;
+}
+
+void AGoobunga_Player::RecieveItem(EItemDataType Type, TObjectPtr<UItemData> ItemData, bool bEquip)
+{
+	if (!InventoryComponent) { return; }
+	InventoryComponent->AddItem(ItemData);
+	if (bEquip)
+	{
+		//Equip them
+	}
+}
 #pragma endregion

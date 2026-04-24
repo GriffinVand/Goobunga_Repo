@@ -21,8 +21,6 @@ void UPersistentDataSubsystem::NewSaveGame(FString FileName)
 		NewSaveFile->ID = FileName;
 		SetDefaultSaveGame(*NewSaveFile);
 		UGameplayStatics::SaveGameToSlot(NewSaveFile, FileName, 0);
-		TSubclassOf<AWeapon> Subclass = NewSaveFile->PlayerPrimaryWeapon.WeaponClass;
-		if (!Subclass) { UE_LOG(LogTemp, Error, TEXT("Weapon class is null after new save creation PDS::NewSavwGame")); }
 	}
 	LoadGame(FileName);
 }

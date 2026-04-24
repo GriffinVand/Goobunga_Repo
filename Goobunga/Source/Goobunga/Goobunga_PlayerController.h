@@ -36,8 +36,12 @@ public:
 	void InitializePlayerHUD();
 	void CreateWeaponUI(AWeapon* Weapon);
 	void CreateAbilityUI(UAbilityBase* Ability);
+	void CreateDashUI();
 	UFUNCTION()
 	void CreateObjectiveUI(const FMissionObjective& Objective, const bool bUpdate);
+	
+	UCommonActivatableWidget* PushWidgetToMaster(TSubclassOf<UCommonActivatableWidget> Class, ELayerType Layer);
+	void RemoveWidgetFromMaster(UCommonActivatableWidget* Widget);
 	
 	virtual void BeginPlay() override;
 	virtual void OnPossess(APawn* Pawn) override;

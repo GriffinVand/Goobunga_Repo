@@ -14,7 +14,7 @@ AGavinEnemy::AGavinEnemy()
 void AGavinEnemy::BeginPlay()
 {
 	Super::BeginPlay();
-	CurrentState = ENPCState::Walking;
+	CurrentState = ECombatantState::Walking;
 	if (FacialAnimationComponent)
 	{
 		FacialAnimationComponent->Material = GetMesh()->CreateAndSetMaterialInstanceDynamic(0);
@@ -34,7 +34,7 @@ void AGavinEnemy::AttackPrimary(AActor* Target)
 	{
 		if (UAnimInstance* AnimInst = GetMesh()->GetAnimInstance())
 		{
-			CurrentState = ENPCState::Attacking;
+			CurrentState = ECombatantState::Attacking;
 			AnimInst->Montage_Play(SpitMontage, 1);
 			FOnMontageEnded OnMontageEnded;
 			OnMontageEnded.BindLambda([this](UAnimMontage* Montage, bool bInteruppted)
@@ -53,7 +53,7 @@ void AGavinEnemy::AttackSecondary(AActor* Target)
 	{
 		if (UAnimInstance* AnimInst = GetMesh()->GetAnimInstance())
 		{
-			CurrentState = ENPCState::Attacking;
+			CurrentState = ECombatantState::Attacking;
 			AnimInst->Montage_Play(PopMontage, 1);
 			FOnMontageEnded OnMontageEnded;
 			OnMontageEnded.BindLambda([this](UAnimMontage* Montage, bool bIntercepted)
@@ -123,6 +123,6 @@ void AGavinEnemy::OnSpitFinished()
 	{
 		World->GetTimerManager().SetTimer(SpitAttackTimerHandle, [this](){ bCanSpitAttack = true; }, SpitAttackCooldown, false);
 	}
-	CurrentState = ENPCState::Walking;
+	CurrentState = ECombatantState::Walking;
 	OnAttackFinished.Broadcast();
 }

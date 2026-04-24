@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "EventInterface.h"
 #include "GameplayTagContainer.h"
 #include "GameFramework/Actor.h"
 #include "MissionEventTrigger.generated.h"
@@ -8,15 +9,24 @@
 class UBoxComponent;
 
 UCLASS()
-class GOOBUNGA_API AMissionEventTrigger : public AActor
+class GOOBUNGA_API AMissionEventTrigger : public AActor, public IEventInterface
 {
 	GENERATED_BODY()
 
 public:
 	AMissionEventTrigger();
 	
+	virtual void ReceiveEvent_Implementation(const FGameplayTag Tag) override;
+	
 	UPROPERTY(EditAnywhere,  BlueprintReadWrite)
 	UBoxComponent* BoxCollider;
+	
+	UPROPERTY(EditAnywhere,  BlueprintReadWrite)
+	bool bRequiresActivate = false;
+	UPROPERTY(EditAnywhere,  BlueprintReadWrite)
+	FGameplayTag ActivateEvent;
+	
+	bool bActive = true;
 	
 	UPROPERTY(EditAnywhere,  BlueprintReadWrite)
 	bool bIsEnterTrigger = false;

@@ -4,6 +4,7 @@
 #include "Goobunga/GoobungaGameInstance.h"
 #include "Goobunga/Audio/MusicSubsystem.h"
 #include "Goobunga/PersistentData/PersistentDataSubsystem.h"
+#include "Kismet/GameplayStatics.h"
 
 void UMissionSubsystem::OnWorldBeginPlay(UWorld& InWorld)
 {
@@ -38,6 +39,19 @@ void UMissionSubsystem::StartMission()
 
 void UMissionSubsystem::EndMission(bool bSuccess)
 {
+	FName HubLevel = "L_Forest";
+	if (UPersistentDataSubsystem* PDS = GetWorld()->GetGameInstance()->GetSubsystem<UPersistentDataSubsystem>())
+	{
+		if (UGoobungaSaveFile* CurrentSave = PDS->GetCurrentSaveFile())
+		{
+			HubLevel = CurrentSave->CurrentHub;
+		}
+	}
+	if (UGoobungaGameInstance* GI = Cast<UGoobungaGameInstance>(GetWorld()->GetGameInstance()))
+	{
+		GI->ClearMission();
+	}
+	UGameplayStatics::OpenLevel(this, HubLevel);
 	UE_LOG(LogTemp, Warning, TEXT("End mission MS::EndMission"));
 }
 
@@ -76,7 +90,7 @@ void UMissionSubsystem::StartEncounter(const FEncounter& NewEncounter)
 	{
 		if (UMusicSubsystem* MS = GetWorld()->GetGameInstance()->GetSubsystem<UMusicSubsystem>())
 		{
-			MS->PlayMusic(NewEncounter.EncounterMusic, 1);
+			MS->PlayMusic(NewEncounter.EncounterMusic, 0);
 		}
 	}
 }

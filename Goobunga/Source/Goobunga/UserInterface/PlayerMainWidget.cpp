@@ -2,6 +2,11 @@
 
 #include "Goobunga/Combat/CombatCallables.h"
 
+TOptional<FUIInputConfig> UPlayerMainWidget::GetDesiredInputConfig() const
+{
+	return FUIInputConfig(ECommonInputMode::Game, EMouseCaptureMode::NoCapture, EMouseLockMode::LockOnCapture);
+}
+
 void UPlayerMainWidget::HandleDamageEffect(EDamageType DamageType)
 {
 	switch (DamageType)

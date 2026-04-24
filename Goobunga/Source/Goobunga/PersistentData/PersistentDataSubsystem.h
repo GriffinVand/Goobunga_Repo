@@ -20,7 +20,7 @@ public:
 	void LoadGame(FString FileName);
 	void LoadPersistentActors();
 	void SaveGame(FString FileName);
-	const UGoobungaSaveFile* GetCurrentSaveFile() const { return CurrentSaveFile; }
+	UGoobungaSaveFile* GetCurrentSaveFile() const { return CurrentSaveFile; }
 	
 	FString ActiveSaveFileName = "";
 	int32 ActiveUserIndex = 0;

@@ -4,6 +4,7 @@
 #include "Blueprint/UserWidget.h"
 #include "DialogueReplyWidget.generated.h"
 
+class URichTextBlock;
 class UTextBlock;
 class UCommonButtonBase;
 
@@ -24,7 +25,7 @@ public:
 	int32 ReplyIndex = 0;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	UTextBlock* ReplyText;
+	URichTextBlock* ReplyText;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	UCommonButtonBase* ReplyButton;

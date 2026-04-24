@@ -71,8 +71,8 @@ public:
 	virtual void AbortLaunch() override { EndLaunch(); }
 	
 	virtual void UpdateCurrentState(float DeltaTime) override;
-	virtual bool GetCanAttackPrim() override { return AttackCooldown > AttackRate && CurrentState != ENPCState::Attacking; }
-	virtual bool GetCanAttackSec() override { return CurrentState == ENPCState::Launching && CurrentState != ENPCState::Attacking;}
+	virtual bool GetCanAttackPrim() override { return AttackCooldown > AttackRate && CurrentState != ECombatantState::Attacking; }
+	virtual bool GetCanAttackSec() override { return CurrentState == ECombatantState::Launching && CurrentState != ECombatantState::Attacking;}
 	
 	UFUNCTION()
 	void OnMontageNotifyBegin(FName NotifyName, const FBranchingPointNotifyPayload& Payload);

@@ -48,10 +48,10 @@ void AJoshEnemy::UpdateCurrentState(float DeltaTime)
 	{
 	default:
 		break;
-	case ENPCState::Launching:
+	case ECombatantState::Launching:
 		UpdateLaunchProgress(DeltaTime);
 		return;
-	case ENPCState::Death:
+	case ECombatantState::Death:
 		return;
 	}
 	LaunchCooldown += DeltaTime;
@@ -60,13 +60,13 @@ void AJoshEnemy::UpdateCurrentState(float DeltaTime)
 void AJoshEnemy::LaunchTowardsLocation(AActor* TargetActor, FOnLaunchFinished InOnLaunchFinished)
 {
 	LaunchFinishedDelegate = InOnLaunchFinished;
-	if (LaunchCooldown >= LaunchRate && CurrentState != ENPCState::Launching)
+	if (LaunchCooldown >= LaunchRate && CurrentState != ECombatantState::Launching)
 	{
 		if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
 		{
 			if (WindUpMontage)
 			{
-				CurrentState = ENPCState::Busy;
+				CurrentState = ECombatantState::Busy;
 				AnimInstance->Montage_Play(WindUpMontage);
 				FOnMontageEnded MontageEnded;
 				MontageEnded.BindLambda([this, TargetActor](UAnimMontage* Montage, bool bInteruppted)
@@ -108,7 +108,7 @@ void AJoshEnemy::StartLaunch(AActor* TargetActor)
 		NewTangent.Z = FMath::Lerp(CurrentEndTangent.Z, 0, 0.5f);
 		LaunchSpline->SetTangentAtSplinePoint(2, NewTangent, ESplineCoordinateSpace::World);
 		LaunchSplineAlpha = 0.f;
-		CurrentState = ENPCState::Launching;
+		CurrentState = ECombatantState::Launching;
 		Jump();
 		GetCharacterMovement()->bOrientRotationToMovement = true;
 		GetCharacterMovement()->SetMovementMode(MOVE_Flying);
@@ -150,7 +150,7 @@ void AJoshEnemy::EndLaunch()
 	AAIController* AIController = Cast<AAIController>(GetController());
 	if (AIController) AIController->SetFocus(UGameplayStatics::GetPlayerCharacter(this, 0), EAIFocusPriority::Gameplay);
 	LaunchCooldown = 0;
-	CurrentState = ENPCState::Walking;
+	CurrentState = ECombatantState::Walking;
 	GetCharacterMovement()->GravityScale = 1.f;
 	GetCharacterMovement()->SetMovementMode(MOVE_Falling);
 	if (LaunchFinishedDelegate.IsBound()) LaunchFinishedDelegate.Execute();
@@ -158,20 +158,20 @@ void AJoshEnemy::EndLaunch()
 
 void AJoshEnemy::AttackPrimary(AActor* Target)
 {
-	if (AttackCooldown >= AttackRate && CurrentState != ENPCState::Attacking)
+	if (AttackCooldown >= AttackRate && CurrentState != ECombatantState::Attacking)
 	{
 		if (StabMontage != nullptr)
 		{
 			if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
 			{
-				CurrentState = ENPCState::Attacking;
+				CurrentState = ECombatantState::Attacking;
 				AnimInstance->Montage_Play(StabMontage);
 				//UE_LOG(LogTemp, Warning, TEXT("PLAY MONTAGE"));
 				FOnMontageEnded MontageEnded;
 				MontageEnded.BindLambda([this](UAnimMontage* Montage, bool bInteruppted)
 				{
 					AttackCooldown = 0;
-					CurrentState = ENPCState::Walking;
+					CurrentState = ECombatantState::Walking;
 					OnAttackFinished.Broadcast();
 					//UE_LOG(LogTemp, Warning, TEXT("MONTAGE ENDED"));
 				});
@@ -188,19 +188,19 @@ void AJoshEnemy::AttackPrimary(AActor* Target)
 void AJoshEnemy::AttackSecondary(AActor* Target)
 {
 	//UE_LOG(LogTemp, Error, TEXT("Try attack sec"));
-	if (FallingStabMontage != nullptr && CurrentState != ENPCState::Attacking)
+	if (FallingStabMontage != nullptr && CurrentState != ECombatantState::Attacking)
 	{
-		if (CurrentState == ENPCState::Launching) { EndLaunch(); }
+		if (CurrentState == ECombatantState::Launching) { EndLaunch(); }
 		if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
 		{
-			CurrentState = ENPCState::Attacking;
+			CurrentState = ECombatantState::Attacking;
 			AnimInstance->Montage_Play(FallingStabMontage);
 			//UE_LOG(LogTemp, Warning, TEXT("PLAY MONTAGE"));
 			FOnMontageEnded MontageEnded;
 			MontageEnded.BindLambda([this](UAnimMontage* Montage, bool bInteruppted)
 			{
 				AttackCooldown = 0;
-				CurrentState = ENPCState::Walking;
+				CurrentState = ECombatantState::Walking;
 				OnAttackFinished.Broadcast();
 				//UE_LOG(LogTemp, Warning, TEXT("MONTAGE ENDED"));
 			});

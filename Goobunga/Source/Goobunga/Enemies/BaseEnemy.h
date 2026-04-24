@@ -61,9 +61,9 @@ public:
 	TArray<UStaticMeshComponent*> DismemberPartComponents;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	ENPCState StartState = ENPCState::Walking;
+	ECombatantState StartState = ECombatantState::Walking;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	ENPCState CurrentState = ENPCState::Walking;
+	ECombatantState CurrentState = ECombatantState::Walking;
 	
 	UFUNCTION()
 	virtual void Death(FVector LastMovementSpeed, EDeathType DeathType);
@@ -82,8 +82,8 @@ public:
 	virtual bool GetCanAttackPrim() override { return false; }
 	virtual bool GetCanAttackSec() override { return false; }
 	virtual FOnAttackFinished& GetAttackFinishedDelegate() override { return OnAttackFinished; }
-	virtual ENPCState GetCurrentState() override { return CurrentState; }
-	virtual void SetCurrentState(const ENPCState NewState) override { if (CurrentState != ENPCState::Death) CurrentState = NewState; }
+	virtual ECombatantState GetCurrentState() override { return CurrentState; }
+	virtual void SetCurrentState(const ECombatantState NewState) override { if (CurrentState != ECombatantState::Death) CurrentState = NewState; }
 	
 	virtual EDamageResult CombatDamage(AActor* DamageDealer, float Damage, EDamageType DamageType, EAllegiance Allegiance) override;
 	

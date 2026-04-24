@@ -27,6 +27,6 @@ public:
 	virtual bool GetCanAttackPrim() = 0;
 	virtual bool GetCanAttackSec() = 0;
 	virtual FOnAttackFinished& GetAttackFinishedDelegate() = 0;
-	virtual ENPCState GetCurrentState() = 0;
-	virtual void SetCurrentState(const ENPCState NewState) = 0;
+	virtual ECombatantState GetCurrentState() = 0;
+	virtual void SetCurrentState(const ECombatantState NewState) = 0;
 };

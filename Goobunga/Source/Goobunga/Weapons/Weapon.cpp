@@ -22,6 +22,10 @@ AWeapon::AWeapon()
 void AWeapon::BeginPlay()
 {
 	Super::BeginPlay();
+	CurrentAmmo = MaxAmmo;
+	CurrentMag = MaxMag;
+	CurrentAltMag = MaxAltMag;
+	CurrentAltAmmo = MaxAltAmmo;
 	
 }
 
@@ -125,11 +129,7 @@ void AWeapon::ApplyRecoil()
 				FMath::FRandRange(RecoilDirectionMin.X, RecoilDirectionMax.X),
 				FMath::FRandRange(RecoilDirectionMin.Y, RecoilDirectionMax.Y),
 				FMath::FRandRange(RecoilDirectionMin.Z, RecoilDirectionMax.Z));
-			FVector NewIntensity = FVector (
-			FMath::FRandRange(RecoilIntensityMin.X, RecoilIntensityMax.X),
-			FMath::FRandRange(RecoilIntensityMin.Y, RecoilIntensityMax.Y),
-			FMath::FRandRange(RecoilIntensityMin.Z, RecoilIntensityMax.Z));
-			PlayerCallablesInterface->ApplyAimOffset(NewDirection*NewIntensity*CurrentControl);
+			PlayerCallablesInterface->ApplyAimOffset(NewDirection*CurrentControl);
 			PlayerCallablesInterface->ApplyWeaponKick(KickDirection, KickRotation, MaxKickDirection, MaxKickRotation);
 		}
 		else { UE_LOG(LogTemp, Warning, TEXT("AWeapon::ApplyRecoil Player callable interface cast failed")); }
@@ -221,7 +221,7 @@ FRotator AWeapon::GetFireDirection(bool bTrue)
 		TrueStart = SightLocation;
 	}
 	
-	bool OwnerTrace = GetWorld()->LineTraceSingleByChannel(HitResult, TrueStart, TrueStart + TrueDirection*10000, ECollisionChannel::ECC_WorldDynamic, QueryParams);
+	bool OwnerTrace = GetWorld()->LineTraceSingleByChannel(HitResult, TrueStart, TrueStart + TrueDirection*10000, ECollisionChannel::ECC_Visibility, QueryParams);
 	FVector HitLocation = TrueStart + TrueDirection*10000;
 	if (OwnerTrace)
 	{

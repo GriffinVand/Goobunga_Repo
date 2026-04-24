@@ -21,7 +21,8 @@ enum class EWeapon : uint8
 {
 	None UMETA(DisplayName = "None"),
 	CatGun UMETA(DisplayName = "CatGun"),
-	GooGun UMETA(DisplayName = "GooGun")
+	GooGun UMETA(DisplayName = "GooGun"),
+	BananaGun UMETA(DisplayName = "BananaGun")
 };
 
 UCLASS()
@@ -36,131 +37,122 @@ public:
 	
 	// Sets default values for this actor's properties
 	AWeapon();
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FName WeaponID = "Weapon";
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	EWeapon WeaponEnum = EWeapon::None;
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Mesh, meta = (AllowPrivateAccess = "true"))
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Mesh)
 	USkeletalMeshComponent* WeaponMesh;
 
 	bool bWeaponReady = false;
-	//Owning actor
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Context, meta = (AllowPrivateAccess = "true"))
+
+	UPROPERTY()
 	AActor* WeaponOwner;
 
 	//Pose to use for bADS
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	UAnimationAsset* PoseAnim;
 	
 	//Attaching socket name
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Context, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Context)
 	FName AttachSocketName = "";
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = UserInterface, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = UserInterface)
 	EWeaponUItype WeaponUIType = EWeaponUItype::Thin;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats)
 	bool bGrips = false;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats)
+	bool bHasAlt = true;
 	//bADS information
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats)
 	bool bADS = false;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta=(EditCondition="bADS", EditConditionHides = "true"))
 	float ADSTime = 2.f;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta=(EditCondition="bADS", EditConditionHides = "true"))
 	float ADSSpeed = 1.f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(EditCondition="bADS"))
 	FTransform AimTransform;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Reload)
 	TArray<FReloadPhase> WeaponReloadPattern;
 	
 	//Default stats
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats)
 	float FireRate = 1.f;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	float FireCooldown = FireRate;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats)
 	int BaseDamage = 1.f;
 
 	//Recoil effect applied to owner controller
 	//Lower values = more control. 0 is perfect
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Recoil")
 	float HipControl = 1.f;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Recoil", meta = (EditCondition="bADS", EditConditionHides = "true"))
 	float AimControl = 0.3f;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
-	float CurrentControl = 1.f;
+	float CurrentControl = HipControl;
 
 	//Weapon random spread leaving barrel
 	//Lower accuracy values = more accurate
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Recoil")
 	FVector2D HipSpread = FVector2D(2, 2);
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Recoil", meta = (EditCondition = "bADS", EditConditionHides = "true"))
 	FVector2D AimSpread = FVector2D(.3, .3);
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
-	FVector2D CurrentSpread = FVector2D(.3, .3);
+	FVector2D CurrentSpread = HipSpread;
 
 	//Directions of recoil. Final recoil is direction*intensity
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Recoil", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Recoil")
 	FVector RecoilDirectionMin = FVector(1, 1, 1);
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Recoil", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Recoil")
 	FVector RecoilDirectionMax = FVector(1, 1, 1);
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Recoil", meta = (AllowPrivateAccess = "true"))
-	FVector RecoilIntensityMin = FVector(1, 1, 1);
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Recoil", meta = (AllowPrivateAccess = "true"))
-	FVector RecoilIntensityMax = FVector(1, 1, 1);
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Recoil")
 	FVector KickDirection;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Recoil")
 	FRotator KickRotation;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Recoil")
 	FVector MaxKickDirection;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Recoil")
 	FRotator MaxKickRotation;
 
 	//Ammo
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Ammo", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Ammo")
 	int MaxAmmo = 120;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Ammo", meta = (AllowPrivateAccess = "true"))
-	int CurrentAmmo = MaxAmmo;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Ammo", meta = (AllowPrivateAccess = "true"))
+	int CurrentAmmo = 120;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Ammo")
 	int MaxMag = 30;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Ammo", meta = (AllowPrivateAccess = "true"))
 	int CurrentMag = 30;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Ammo", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Ammo", meta = (EditCondition = "bHasAlt", EditConditionHides = "true"))
 	int MaxAltAmmo = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Ammo", meta = (AllowPrivateAccess = "true"))
-	int CurrentAltAmmo = MaxAltAmmo;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Ammo", meta = (AllowPrivateAccess = "true"))
+	int CurrentAltAmmo = 10;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Ammo", meta = (EditCondition = "bHasAlt", EditConditionHides = "true"))
 	int MaxAltMag = 1;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats|Ammo", meta = (AllowPrivateAccess = "true"))
 	int CurrentAltMag = 1;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Icons", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Icons")
 	TMap<FString, UTexture2D*> Icons;
 	
 	//Weapon may apply physical force when fired
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats)
 	float HitForce = 0.f;
 
 	//Effect to play when fired
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Visuals, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Visuals)
 	UNiagaraSystem* FireEffect;
 	//Sound to play when fired
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Audio)
 	UFMODAudioComponent* FireSoundComponent;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Audio)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Audio)
 	UFMODEvent* FireEventSound;
 
 	//Animations are stored in two maps. Uses names to find corresponding animations
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animation, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Animation)
 	TMap<FName, UAnimMontage*> WeaponAnimations;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animation, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Animation)
 	TMap<FName, UAnimMontage*> OwnerAnimations;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Animation)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Animation)
 	UAnimSequence* WeaponStaticAnim = nullptr;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Animation)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Animation)
 	UAnimSequence* OwnerStaticAnim = nullptr;
 	
 protected:
@@ -172,6 +164,8 @@ public:
 	virtual UAnimInstance* PlayAnimationSimultaneous(FName AnimationName, FOnMontageEnded& EndDelegate, float Speed);
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	
+	virtual void SetAmmo(int32 Ammo, int32 Mag, int32 AltAmmo, int32 AltMag) { CurrentAmmo = Ammo; CurrentMag = Mag; CurrentAltAmmo = AltAmmo; CurrentAltMag = AltMag; }
 	
 	//Fireable interface functions
 	virtual void FireEvent() override;

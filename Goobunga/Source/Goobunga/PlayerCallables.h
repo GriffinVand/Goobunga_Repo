@@ -7,6 +7,9 @@
 #include "UObject/Interface.h"
 #include "PlayerCallables.generated.h"
 
+class UInventoryComponent;
+class UItemData;
+enum class EItemDataType : uint8;
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI, BlueprintType)
 class UPlayerCallables : public UInterface
@@ -32,4 +35,7 @@ public:
 	virtual TArray<FVector> GetAimDirection() = 0;
 	virtual void PerformAction(const FString& Action) = 0;
 	virtual void PushWidget(FGameplayTag GameplayTag, UUserWidget* Widget) = 0;
+	virtual TArray<FName> GetOwnedItemIDs() = 0;
+	virtual void RecieveItem(EItemDataType Type, TObjectPtr<UItemData> ItemData, bool bEquip = false) = 0;
+	virtual UInventoryComponent* GetInventory() = 0;
 };
