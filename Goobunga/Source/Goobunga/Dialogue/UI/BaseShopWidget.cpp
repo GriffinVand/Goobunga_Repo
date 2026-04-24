@@ -12,7 +12,7 @@
 
 void UBaseShopWidget::NativeConstruct()
 {
-	if (CloseButton) { CloseButton->OnClicked().AddLambda([this]()
+	if (CloseButton) { CloseButton->OnClicked().Clear(); CloseButton->OnClicked().AddLambda([this]()
 	{
 		OnShopCloseInput.Broadcast();
 	}); }

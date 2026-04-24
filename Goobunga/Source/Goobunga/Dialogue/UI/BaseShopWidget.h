@@ -3,10 +3,11 @@
 #include "CoreMinimal.h"
 #include "CommonActivatableWidget.h"
 #include "CommonRichTextBlock.h"
+#include "CommonTextBlock.h"
 #include "BaseShopWidget.generated.h"
 
+class UCommonButtonBase;
 class UInventoryComponent;
-class UCommonRichTextBlock;
 class IPlayerCallables;
 class UUniformGridPanel;
 class UItemData;
@@ -27,14 +28,14 @@ public:
 	
 	virtual void PopulateShop(TArray<TObjectPtr<UItemData>> Items, TObjectPtr<UObject> Player);
 	virtual TOptional<FUIInputConfig> GetDesiredInputConfig() const override;
-	virtual void UpdateMoneyText(int32 NewMoney) { MoneyTextBlock->SetText(FText::FromString(FString("Pepper Bux: ") + FString::FromInt(NewMoney))); }
+	virtual void UpdateMoneyText(int32 NewMoney) { MoneyTextBlock->SetText(FText::FromString(FString("<Wiggle>Pepper Bux: ") + FString::FromInt(NewMoney) + FString("</>"))); }
 	
 	UPROPERTY(EditAnywhere, meta=(BindWidget))
 	UCommonRichTextBlock* MoneyTextBlock;
 	UPROPERTY(EditAnywhere, meta=(BindWidget))
 	UUniformGridPanel* ShopItemGrid;
 	UPROPERTY(EditAnywhere, meta=(BindWidget))
-	UCommonButton* CloseButton;
+	UCommonButtonBase* CloseButton;
 	
 protected:
 	virtual void NativeConstruct() override;

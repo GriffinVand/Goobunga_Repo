@@ -250,7 +250,7 @@ void AGoobunga_Player::InteractFinished()
 
 void AGoobunga_Player::InteractEnded(bool Cancelled)
 {
-	
+	//Exists because it feels right. Maybe for hold to interact
 }
 
 void AGoobunga_Player::StartReload()
@@ -518,6 +518,17 @@ void AGoobunga_Player::OnDealtDamage(EDamageResult DamageResult)
 	HitSoundComponent->Stop();
 	HitSoundComponent->SetSound(HitSound);
 	HitSoundComponent->Play();
+	FacialAnimationComponent->DefaultAnimation = GetFacialAnimationByHealth(CurrHealth/MaxHealth);
+	FacialAnimationComponent->PlayAnimation(FacialAnimationComponent->DefaultAnimation, true, -1);
+	
+}
+
+FName AGoobunga_Player::GetFacialAnimationByHealth(float HealthRatio)
+{
+	if (HealthRatio < 0.25) { return "Idle4"; }
+	if (HealthRatio < 0.5) { return "Idle3"; }
+	if (HealthRatio < 0.75) { return "Idle2"; }
+	return "Idle";
 }
 
 void AGoobunga_Player::HandleDamageEffect(EDamageType Type)

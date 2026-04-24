@@ -12,6 +12,7 @@
 void UDialogueWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
+	ReplyWidgets.Empty();
 	ReplyWidgets.Add(ReplyWidget1);
 	ReplyWidgets.Add(ReplyWidget2);
 	ReplyWidgets.Add(ReplyWidget3);
@@ -35,8 +36,8 @@ void UDialogueWidget::BindReplyWidgets()
 	{
 		UE_LOG(LogTemp, Display, TEXT("Bound widget"));
 		ReplyWidgets[i]->ReplyIndex = i;
-		ReplyWidgets[i]->OnReplySelected.RemoveAll(DialogueManager);
-		ReplyWidgets[i]->OnReplySelected.AddDynamic(DialogueManager, &UDialogueManagerComponent::OnReplySelected);
+		ReplyWidgets[i]->OnReplySelected.Clear();
+		ReplyWidgets[i]->OnReplySelected.AddUniqueDynamic(DialogueManager, &UDialogueManagerComponent::OnReplySelected);
 	}
 }
 

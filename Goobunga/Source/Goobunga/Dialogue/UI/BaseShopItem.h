@@ -34,6 +34,8 @@ public:
 	UCommonLazyImage* ItemImage;
 	UPROPERTY(EditAnywhere, meta=(BindWidget))
 	UCommonButtonBase* PurchaseButton;
+	UPROPERTY(EditAnywhere, meta=(BindWidget))
+	UCommonRichTextBlock* PurchaseText;
 	
 	UPROPERTY(EditAnywhere, Transient, meta=(BindWidgetAnim))
 	UWidgetAnimation* PurchaseFailedAnim;

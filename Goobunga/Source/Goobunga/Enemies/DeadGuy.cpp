@@ -58,9 +58,9 @@ void ADeadGuy::Interact_Implementation(AActor* Interactor)
 {
 	AudioComponent->Stop();
 	if (AGoobunga_Player* GP = Cast<AGoobunga_Player>(Interactor))
-	{
-		GP->DialogueManagerComponent->StartDialogue(this);
-		FacialAnimationComponent->PlayAnimation("Talk", true);
-	}
+    {
+        GP->DialogueManagerComponent->StartDialogue(this);
+        FacialAnimationComponent->PlayAnimation("Talk", true);
+    }
 }
 

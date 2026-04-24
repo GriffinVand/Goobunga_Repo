@@ -9,6 +9,7 @@
 #include "Goobunga/Quests/QuestManagerComponent.h"
 #include "DialogueManagerComponent.generated.h"
 
+class AGoobunga_PlayerController;
 class UFMODAudioComponent;
 class UDialogueWidget;
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
@@ -26,6 +27,11 @@ public:
 	
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UCommonActivatableWidget* ShopWidget;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	FName FallbackDialogueID;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float ViewBlendTime = 0.8;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -54,6 +60,7 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void StartDialogue(AActor* DialogueActor);
+	void OnStartBlendFinished(AGoobunga_PlayerController* PC);
 	UFUNCTION(BlueprintCallable)
 	void OnReplySelected(int ReplyIndex);
 
@@ -64,6 +71,8 @@ private:
 	
 	UFUNCTION()
 	void ContinueDialogue();
+	UFUNCTION()
+	void OnShopEnded();
 	void ProcessActions();
 	FDialogueReply LoadDialogueReply(FName ReplyID);
 	void DisplayDialogueReply(const TArray<FText>& ReplyTexts);

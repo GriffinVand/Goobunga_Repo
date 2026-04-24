@@ -9,6 +9,15 @@ UFacialAnimationComponent::UFacialAnimationComponent()
 void UFacialAnimationComponent::BeginPlay()
 {
 	Super::BeginPlay();
+	if (TargetSKM)
+	{
+		UMaterialInstanceDynamic::Create(TargetSKM->GetMaterial(MaterialIndex), Material);
+		if (Material)
+		{
+			TargetSKM->SetMaterial(MaterialIndex, Material);
+			PlayAnimation(DefaultAnimation, true);
+		}
+	}
 	
 }
 
@@ -47,10 +56,6 @@ void UFacialAnimationComponent::UpdateMaterial()
 
 void UFacialAnimationComponent::PlayAnimation(FName AnimationName, bool CanLoop)
 {
-	for (const TPair<FName, FFacialAnimationStruct>& Pair : Animations)
-	{
-		UE_LOG(LogTemp, Error, TEXT("Animation %s"), *Pair.Key.ToString());
-	}
 	if (Animations.Contains(AnimationName))
 	{
 		UE_LOG(LogTemp, Error, TEXT("Play Animation %s"), *AnimationName.ToString());

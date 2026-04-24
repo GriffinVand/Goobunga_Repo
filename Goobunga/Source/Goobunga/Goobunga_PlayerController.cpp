@@ -49,7 +49,6 @@ void AGoobunga_PlayerController::InitializePlayerHUD()
 	MainHUD = Cast<UPlayerMainWidget>(MasterWidget->PushWidget(MainHUDClass, ELayerType::Game));
 	SetInputMode(FInputModeGameOnly());
 	SetShowMouseCursor(false);
-	MainHUD->ActivateWidget();
 	if (!MainHUD) { UE_LOG(LogTemp, Error, TEXT("Failed to create MainHUD")); return;  }
 }
 

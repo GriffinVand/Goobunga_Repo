@@ -51,33 +51,49 @@ void UDialogueManagerComponent::StartDialogue(AActor* DialogueActor)
 		
 		if (IDialogueInterface::Execute_GetDialogueView(CurrDialogueActor))
 		{
+			IDialogueInterface::Execute_DialogueStarted(CurrDialogueActor, GetOwner());
+			
+			PC->FlushPressedKeys();
 			PC->SetViewTargetWithBlend(CurrDialogueActor, ViewBlendTime);
-		}
-		UE_LOG(LogTemp, Display, TEXT("Create Widget"));
-		DialogueWidget = Cast<UDialogueWidget>(PC->MasterWidget->PushWidget(DialogueWidgetClass, ELayerType::Menu));
-		if (DialogueWidget)
-		{
-			DialogueWidget->ActivateWidget();
-			UE_LOG(LogTemp, Display, TEXT("Widget exists"));
-			DialogueWidget->DialogueManager = this;
-			DialogueWidget->BindReplyWidgets();
-			UpdateDialogue(IDialogueInterface::Execute_GetCurrentDialogue(DialogueActor));
-			UE_LOG(LogTemp, Display, TEXT("Dialogue found"));
+			PC->SetInputMode(FInputModeUIOnly());
+			PC->SetShowMouseCursor(true);
 			
-			if (AGoobunga_Player* Goobunga_Player = Cast<AGoobunga_Player>(GetOwner()))
+			FTimerHandle Timer;
+			GetWorld()->GetTimerManager().SetTimer(Timer, [this, PC]()
 			{
-				UE_LOG(LogTemp, Error, TEXT("STARTING DIALOGUE ANIMATION"));
-				Goobunga_Player->FacialAnimationComponent->PlayAnimation("Talking", true);
-			}
-			
+				OnStartBlendFinished(PC);
+			}, ViewBlendTime+0.1, false);
 			return;
 		}
 	}
 	EndDialogue();
 }
 
+void UDialogueManagerComponent::OnStartBlendFinished(AGoobunga_PlayerController* PC)
+{
+	UE_LOG(LogTemp, Display, TEXT("Create Widget"));
+	if (DialogueWidget) { UE_LOG(LogTemp, Error, TEXT("Major issue: Dialogue widget persisting")); }
+	DialogueWidget = Cast<UDialogueWidget>(PC->MasterWidget->PushWidget(DialogueWidgetClass, ELayerType::Menu));
+	if (DialogueWidget && PC && CurrDialogueActor)
+	{
+		DialogueWidget->DialogueManager = this;
+		DialogueWidget->BindReplyWidgets();
+		UpdateDialogue(IDialogueInterface::Execute_GetCurrentDialogue(CurrDialogueActor));
+			
+		if (IPlayerCallables* PCI = Cast<IPlayerCallables>(GetOwner()))
+		{
+			PCI->GetFacialAnimation()->PlayAnimation("Talking", true, 0);
+		}
+		return;
+	}
+	EndDialogue();
+}
+
 void UDialogueManagerComponent::UpdateDialogue(FName DialogueID)
 {
+	if (DialogueID.IsNone()) { EndDialogue(); return; }
+	ReplyNextID = NAME_None;
+	ReplyActions.Empty();
 	CurrentDialogueReplies.Empty();
 	CurrentDialogueRepliesAvailable.Empty();
 	if (DialogueID.IsNone()) { EndDialogue(); return; }
@@ -119,18 +135,17 @@ void UDialogueManagerComponent::UpdateDialogue(FName DialogueID)
 FDialogueLine UDialogueManagerComponent::LoadDialogue(FName DialogueID)
 {
 	FDialogueLine* NewLine = DialogueData->FindRow<FDialogueLine>(DialogueID, "");
-	UE_LOG(LogTemp, Display, TEXT("Looking for DialogueID: %s"), *DialogueID.ToString());
+	//UE_LOG(LogTemp, Display, TEXT("Looking for DialogueID: %s"), *DialogueID.ToString());
 	if (NewLine)
 	{
-		UE_LOG(LogTemp, Display, TEXT("Found dialogue line"));
 		return *NewLine;
 	}
-	else
+	UE_LOG(LogTemp, Error, TEXT("Dialogue ID not recognized"));
+	if (FDialogueLine* FallbackLine = DialogueData->FindRow<FDialogueLine>(FallbackDialogueID, ""))
 	{
-		UE_LOG(LogTemp, Error, TEXT("Dialogue ID not recognized"));
-		UKismetSystemLibrary::QuitEditor();
-		return FDialogueLine();
+		return *FallbackLine;
 	}
+	return FDialogueLine();
 }
 
 FDialogueReply UDialogueManagerComponent::LoadDialogueReply(FName ReplyID)
@@ -138,7 +153,6 @@ FDialogueReply UDialogueManagerComponent::LoadDialogueReply(FName ReplyID)
 	FDialogueReply* NewReply = ReplyData->FindRow<FDialogueReply>(ReplyID, "");
 	if (NewReply)
 	{
-		UE_LOG(LogTemp, Display, TEXT("Dialogue reply displayed"));
 		return *NewReply;
 	}
 	else
@@ -152,7 +166,6 @@ void UDialogueManagerComponent::DisplayDialogue()
 {
 	if (DialogueWidget)
 	{
-		UE_LOG(LogTemp, Display, TEXT("Display dialogue"));
 		DialogueWidget->DisplayDialogue(CurrentDialogueLine.Text);
 		if (DialogueAudioComp && CurrentDialogueLine.Audio) { DialogueAudioComp->Stop(); DialogueAudioComp->SetEvent(CurrentDialogueLine.Audio); DialogueAudioComp->Play(); }
 	}
@@ -167,7 +180,6 @@ void UDialogueManagerComponent::DisplayDialogueReply(const TArray<FText>& ReplyT
 {
 	if (DialogueWidget)
 	{
-		UE_LOG(LogTemp, Display, TEXT("Display replies"));
 		DialogueWidget->DisplayReplies(ReplyTexts, CurrentDialogueRepliesAvailable);
 	}
 	else
@@ -182,12 +194,9 @@ void UDialogueManagerComponent::OnReplySelected(int ReplyIndex)
 	UE_LOG(LogTemp, Display, TEXT("ReplySelected"));
 	if (CurrentDialogueReplies.Num() > ReplyIndex)
 	{
-		UE_LOG(LogTemp, Display, TEXT("Reply index found"));
 		FDialogueReply SelectedReply = CurrentDialogueReplies[ReplyIndex];
-		
 		ReplyActions = SelectedReply.Actions;
-		ReplyNextID = SelectedReply.NextID == NAME_None || SelectedReply.NextID.IsNone() ? CurrentDialogueLine.NextID : SelectedReply.NextID;
-		if (ReplyNextID.IsNone()) { UE_LOG(LogTemp, Error, TEXT("No reply found")); EndDialogue(); return; }
+		ReplyNextID = SelectedReply.NextID.IsNone() ? CurrentDialogueLine.NextID : SelectedReply.NextID;
 		UE_LOG(LogTemp, Error, TEXT("Next ID %s"), *ReplyNextID.ToString());
 		ProcessActions();
 	}
@@ -200,6 +209,7 @@ void UDialogueManagerComponent::OnReplySelected(int ReplyIndex)
 
 void UDialogueManagerComponent::ProcessActions()
 {
+	UE_LOG(LogTemp, Display, TEXT("Processing Actions: %d"), ReplyActions.Num());
 	while (ReplyActions.Num() > 0)
 	{
 		UE_LOG(LogTemp, Error, TEXT("Handle reply action"));
@@ -216,6 +226,10 @@ void UDialogueManagerComponent::ProcessActions()
 
 void UDialogueManagerComponent::ContinueDialogue()
 {
+	if (IPlayerCallables* PCI = Cast<IPlayerCallables>(GetOwner()))
+	{
+		PCI->GetFacialAnimation()->PlayAnimation("Talking", true, 0);
+	}
 	ProcessActions();
 }
 
@@ -227,27 +241,29 @@ void UDialogueManagerComponent::EndDialogue()
 		DialogueAudioComp->Stop();
 		DialogueAudioComp->DestroyComponent(false);
 	}
-	if (DialogueWidget) { DialogueWidget->SetVisibility(ESlateVisibility::Hidden); }
+	if (DialogueWidget)
+	{
+		DialogueWidget->DeactivateWidget(); 
+		DialogueWidget = nullptr;
+	}
 	
 	if (AGoobunga_Player* Goobunga_Player = Cast<AGoobunga_Player>(GetOwner()))
 	{
-		Goobunga_Player->FacialAnimationComponent->PlayAnimation("Idle", true);
+		Goobunga_Player->FacialAnimationComponent->PlayDefaultAnimation();
 		if (AGoobunga_PlayerController* PC = Cast<AGoobunga_PlayerController>(Goobunga_Player->GetController()))
 		{
+			PC->SetShowMouseCursor(false);
 			PC->SetViewTargetWithBlend(GetOwner(), ViewBlendTime);
 			FTimerHandle TimerHandle;
 			GetWorld()->GetTimerManager().SetTimer(TimerHandle, [this, PC]()
 			{
-				if (!DialogueWidget) { return; }
-				DialogueWidget->DeactivateWidget(); 
-				DialogueWidget = nullptr;
+				PC->SetInputMode(FInputModeGameOnly());
+				if (!CurrDialogueActor) { return; }
+				if (CurrDialogueActor->Implements<UDialogueInterface>()) { IDialogueInterface::Execute_DialogueEnded(CurrDialogueActor); }
+				CurrDialogueActor = nullptr;
 			}, ViewBlendTime + 0.1, false);
 		}
 	}
-	
-	if (!CurrDialogueActor) { return; }
-	if (CurrDialogueActor->Implements<UDialogueInterface>()) { IDialogueInterface::Execute_DialogueEnded(CurrDialogueActor); }
-	CurrDialogueActor = nullptr;
 	UE_LOG(LogTemp, Error, TEXT("End Dialogue finished"));
 }
 
@@ -270,7 +286,10 @@ bool UDialogueManagerComponent::HandleReplyAction(const FDialogueActionStruct& A
 			UBaseShopWidget* ShopUI = Cast<UBaseShopWidget>(PC->MasterWidget->PushWidget(ShopWidgetClass, ELayerType::Menu));
 			if (ShopUI)
 			{
-				ShopUI->OnShopCloseInput.AddUniqueDynamic(this, &UDialogueManagerComponent::ContinueDialogue);
+				ShopWidget = ShopUI;
+				PCI->GetFacialAnimation()->PlayAnimation("Shop", true, 0);
+				ShopUI->OnShopCloseInput.Clear();
+				ShopUI->OnShopCloseInput.AddUniqueDynamic(this, &UDialogueManagerComponent::OnShopEnded);
 				ShopUI->PopulateShop(DI->GetShopItems(), GetOwner());
 				return false;
 			}
@@ -294,6 +313,18 @@ bool UDialogueManagerComponent::HandleReplyAction(const FDialogueActionStruct& A
 	default:
 		return true;
 	}
+}
+
+void UDialogueManagerComponent::OnShopEnded()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Shop Ended DMC::OnShopEnded"));
+	FTimerHandle TimerHandle;
+	GetWorld()->GetTimerManager().SetTimerForNextTick([this]()
+	{
+		if (ShopWidget) ShopWidget->DeactivateWidget();
+		ShopWidget = nullptr;
+		ContinueDialogue();
+	});
 }
 
 

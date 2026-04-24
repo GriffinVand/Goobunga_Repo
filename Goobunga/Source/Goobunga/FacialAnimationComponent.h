@@ -29,7 +29,10 @@ public:
 	UFacialAnimationComponent();
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UMaterialInstanceDynamic* Material = nullptr;
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	USkeletalMeshComponent* TargetSKM = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 MaterialIndex = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FName DefaultAnimation = "Idle";
 protected:
@@ -42,6 +45,7 @@ protected:
 	bool Looping = false;
 	
 	bool bPlaying = true;
+	int32 CurrPriority = -1;
 
 public:	
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
@@ -50,6 +54,8 @@ public:
 	void AnimationFinished();
 	UFUNCTION(BlueprintCallable)
 	void PlayAnimation(FName AnimationName, bool CanLoop);
+	void PlayAnimation(FName AnimationName, bool CanLoop, int32 Priority) { if (Priority >= CurrPriority) { PlayAnimation(AnimationName, CanLoop); } }
+	void PlayDefaultAnimation() { PlayAnimation(DefaultAnimation, true); }
 	UFUNCTION(BlueprintCallable)
 	void StopAnimation();
 		

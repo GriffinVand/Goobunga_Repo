@@ -7,6 +7,8 @@
 #include "UObject/Interface.h"
 #include "PlayerCallables.generated.h"
 
+class UFacialAnimationComponent;
+class UDialogueManagerComponent;
 class UInventoryComponent;
 class UItemData;
 enum class EItemDataType : uint8;
@@ -38,4 +40,6 @@ public:
 	virtual TArray<FName> GetOwnedItemIDs() = 0;
 	virtual void RecieveItem(EItemDataType Type, TObjectPtr<UItemData> ItemData, bool bEquip = false) = 0;
 	virtual UInventoryComponent* GetInventory() = 0;
+	virtual void StartDialogue(AActor* DialogueActor) = 0;
+	virtual UFacialAnimationComponent* GetFacialAnimation() = 0;
 };

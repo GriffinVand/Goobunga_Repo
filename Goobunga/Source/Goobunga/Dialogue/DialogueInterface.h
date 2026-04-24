@@ -36,6 +36,10 @@ public:
 	virtual void DialogueEnded_Implementation() {}
 	
 	UFUNCTION(BlueprintNativeEvent)
+	void DialogueStarted(AActor* SpeakerActor);
+	virtual void DialogueStarted_Implementation(AActor* SpeakerActor) {}
+	
+	UFUNCTION(BlueprintNativeEvent)
 	UCameraComponent* GetDialogueView();
 	virtual UCameraComponent* GetDialogueView_Implementation();
 };

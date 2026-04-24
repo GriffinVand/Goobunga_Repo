@@ -1,11 +1,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "FacialAnimationComponent.h"
 #include "InputActionValue.h"
 #include "PlayerCallables.h"
 #include "Abilities/AbilityComponent.h"
 #include "Combat/CombatCallables.h"
 #include "Combat/TeamInterface.h"
+#include "Dialogue/DialogueManagerComponent.h"
 #include "GameFramework/Character.h"
 #include "PersistentData/PersistentDataInterface.h"
 #include "Weapons/Weapon.h"
@@ -159,6 +161,7 @@ protected:
 	int MaxHealth = 100;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Stats, meta=(AllowPrivateAccess=true))
 	int CurrHealth = MaxHealth;
+	FName GetFacialAnimationByHealth(float HealthRatio);
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Stats, meta=(AllowPrivateAccess=true))
 	float SprintSpeed = 800.f;
 
@@ -348,6 +351,8 @@ public:
 	virtual TArray<FName> GetOwnedItemIDs() override;
 	virtual void RecieveItem(EItemDataType Type, TObjectPtr<UItemData> ItemData, bool bEquip = false) override;
 	virtual UInventoryComponent* GetInventory() override { return InventoryComponent; }
+	virtual void StartDialogue(AActor* DialogueActor) override { if (DialogueManagerComponent) { DialogueManagerComponent->StartDialogue(DialogueActor); } }
+	virtual UFacialAnimationComponent* GetFacialAnimation() override { return FacialAnimationComponent; }
 	//
 	//combat function. Should probably be moved to a component
 	//
