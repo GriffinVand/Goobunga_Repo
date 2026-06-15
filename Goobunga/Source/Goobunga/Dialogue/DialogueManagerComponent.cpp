@@ -34,6 +34,7 @@ void UDialogueManagerComponent::StartDialogue(AActor* DialogueActor)
 	if (!DialogueActor) { return; }
 	bool bImplementInterface = DialogueActor->Implements<UDialogueInterface>();
 	if (!bImplementInterface) { UE_LOG(LogTemp, Error, TEXT("Other actor does not have dialogue interface")); return; }
+	if (!DialogueData->FindRow<FDialogueLine>(IDialogueInterface::Execute_GetCurrentDialogue(DialogueActor), "")) { return; }
 	CurrDialogueActor = DialogueActor;
 	
 	if (DialogueAudioComp) { DialogueAudioComp->DestroyComponent(false); }

@@ -145,6 +145,8 @@ public:
 	UFUNCTION()
 	void OnMontageNotifyBegin(FName NotifyName, const FBranchingPointNotifyPayload& Payload);
 	
+	virtual void EndInteract_Implementation(AActor* InteractedActor) override;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UAudioComponent* HitSoundComponent;
 	
@@ -199,7 +201,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	FVector AimOffset = FVector::ZeroVector;
 	
-	
+	void UpdateReticle();
 	void UpdateFPAlign();
 	
 	
@@ -341,6 +343,13 @@ protected:
 #pragma endregion Audio
 	
 public:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Fade")
+	float FadeTime = 1.5f;
+	UFUNCTION(BlueprintCallable)
+	void FadeAndLoad(FName LevelName);
+	FName FadeLevel = NAME_None;
+	UFUNCTION()
+	void FadeFinished();
 	virtual void UpdateAds(float Alpha) override;
 	virtual void UpdateWeaponUI() override { return;}
 	void UpdateWeaponSwayData(float DeltaTime);

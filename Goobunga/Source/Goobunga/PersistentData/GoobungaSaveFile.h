@@ -45,13 +45,12 @@ enum class EItemDataType : uint8
 	Ability UMETA(DisplayName = "Ability"),
 };
 
-UCLASS()
+UCLASS(BlueprintType)
 class GOOBUNGA_API UItemData : public UDataAsset
 {
 	GENERATED_BODY()
 public:
 	virtual void OnPurchased(AActor* Purchaser);
-	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FName ID = NAME_None;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
@@ -68,26 +67,28 @@ public:
 	FTransform DisplayTransform = FTransform::Identity;
 };
 
-UCLASS()
+UCLASS(BlueprintType)
 class GOOBUNGA_API UAbilityItemData : public UItemData
 {
 	GENERATED_BODY()
 public:
 	
 	UAbilityItemData() { ItemType = EItemDataType::Ability; }
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TSubclassOf<UAbilityBase> AbilityClass;
 };
 
-UCLASS()
+UCLASS(BlueprintType)
 class GOOBUNGA_API UWeaponItemData : public UItemData
 {
 	GENERATED_BODY()
 public:
 	UWeaponItemData() { ItemType = EItemDataType::Weapon; }
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TSubclassOf<AWeapon> WeaponClass;
 };
 
-UCLASS()
+UCLASS(BlueprintType)
 class GOOBUNGA_API UEventItemData : public UItemData
 {
 	GENERATED_BODY()

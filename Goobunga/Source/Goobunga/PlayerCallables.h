@@ -41,5 +41,7 @@ public:
 	virtual void RecieveItem(EItemDataType Type, TObjectPtr<UItemData> ItemData, bool bEquip = false) = 0;
 	virtual UInventoryComponent* GetInventory() = 0;
 	virtual void StartDialogue(AActor* DialogueActor) = 0;
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	void EndInteract(AActor* InteractedActor);
 	virtual UFacialAnimationComponent* GetFacialAnimation() = 0;
 };

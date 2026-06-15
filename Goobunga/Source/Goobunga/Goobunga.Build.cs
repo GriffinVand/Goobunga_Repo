@@ -8,7 +8,8 @@ public class Goobunga : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "Niagara", "AIModule", "GameplayTasks", "NavigationSystem", "UMG", "CommonUI", "GameplayTags", "FMODStudio" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "Niagara", 
+			"AIModule", "GameplayTasks", "NavigationSystem", "UMG", "CommonUI", "GameplayTags", "FMODStudio", "MoviePlayer" });
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
 		// Uncomment if you are using Slate UI

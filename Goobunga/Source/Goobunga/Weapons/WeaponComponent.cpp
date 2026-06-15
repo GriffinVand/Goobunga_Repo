@@ -223,11 +223,35 @@ bool UWeaponComponent::CanReload()
 	UE_LOG(LogTemp, Error, TEXT("CurrentReserves = %d"), EquippedWeapon->CurrentAmmo);
 	return !bMagFull && bAmmoReserves && bReady;
 }
+
+void UWeaponComponent::OnReloadPhaseStarted(int32 Phase)
+{
+	if (AWeapon* Weapon = GetEquippedWeapon()) { Weapon->HandleReloadPhaseStart(Phase); }	
+}
+void UWeaponComponent::OnReloadPhaseFinished(int32 Phase)
+{
+	if (AWeapon* Weapon = GetEquippedWeapon())
+	{
+		if (Phase < 0) { Weapon->HandleReloadFinished(); return; }
+		Weapon->HandleReloadPhaseFinish(Phase);
+	}	
+}
 void UWeaponComponent::ReloadWeapon()
 {
 	AWeapon* EquippedWeapon = GetEquippedWeapon();
 	if (!EquippedWeapon) return;
 	EquippedWeapon->Reload();
+}
+
+bool UWeaponComponent::GetShowReticle()
+{
+	return GetEquippedWeapon() != nullptr && bReady && AdsAlpha <= 0.3;
+}
+
+float UWeaponComponent::GetScaleReticle()
+{
+	if (GetEquippedWeapon()) { return GetEquippedWeapon()->ReticleCurrentScale; }
+	return 1.f;
 }
 
 #pragma region FIRING

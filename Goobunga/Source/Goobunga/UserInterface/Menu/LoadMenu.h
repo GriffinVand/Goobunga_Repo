@@ -26,6 +26,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(BindWidget))
 	ULoadSlot* LoadSlot3;
 	
+protected:
 	virtual void NativeConstruct() override;
 	
 };

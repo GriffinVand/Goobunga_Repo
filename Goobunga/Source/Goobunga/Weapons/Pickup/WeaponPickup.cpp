@@ -30,6 +30,7 @@ void AWeaponPickup::Interact_Implementation(AActor* Actor)
 	{
 		bInteracted = true;
 		Player->PickUpWeapon(WeaponData);
+		Player->EndInteract_Implementation(this);
 		Destroy();
 	}
 }

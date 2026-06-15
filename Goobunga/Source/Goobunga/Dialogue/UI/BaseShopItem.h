@@ -4,6 +4,7 @@
 #include "CommonUserWidget.h"
 #include "BaseShopItem.generated.h"
 
+class UCommonTextBlock;
 class UOverlay;
 class UItemData;
 class UCommonLazyImage;
@@ -29,13 +30,15 @@ public:
 	UPROPERTY(EditAnywhere, meta=(BindWidget))
 	UCommonLazyImage* ItemOwnedCover;
 	UPROPERTY(EditAnywhere, meta=(BindWidget))
-	UCommonRichTextBlock* ItemTitle;
+	UCommonTextBlock* ItemTitle;
+	UPROPERTY(EditAnywhere, meta=(BindWidget))
+	UCommonTextBlock* ItemCost;
 	UPROPERTY(EditAnywhere, meta=(BindWidget))
 	UCommonLazyImage* ItemImage;
 	UPROPERTY(EditAnywhere, meta=(BindWidget))
 	UCommonButtonBase* PurchaseButton;
 	UPROPERTY(EditAnywhere, meta=(BindWidget))
-	UCommonRichTextBlock* PurchaseText;
+	UCommonTextBlock* PurchaseText;
 	
 	UPROPERTY(EditAnywhere, Transient, meta=(BindWidgetAnim))
 	UWidgetAnimation* PurchaseFailedAnim;

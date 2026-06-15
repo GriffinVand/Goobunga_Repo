@@ -33,14 +33,18 @@ void AWeapon::BeginPlay()
 void AWeapon::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	UpdateWeapon();
+	UpdateWeapon(DeltaTime);
 }
 
 //Increase fire cooldown timer
 //If firing, fire
-void AWeapon::UpdateWeapon()
+void AWeapon::UpdateWeapon(float DeltaTime)
 {
 	FireCooldown+=GetWorld()->GetDeltaSeconds();
+	
+	ReticleTargetScale = FMath::FInterpConstantTo(ReticleTargetScale, 1.f, DeltaTime, ReticleRecoverySpeed);
+	ReticleCurrentScale = FMath::FInterpConstantTo(ReticleCurrentScale, ReticleTargetScale, DeltaTime, ReticleScaleSpeed);
+	//UE_LOG(LogTemp, Error, TEXT("Current %f || Target %f"), ReticleCurrentScale, ReticleTargetScale);
 }
 
 //
@@ -54,6 +58,7 @@ void AWeapon::FireEvent()
 	{
 		FireWeapon();
 		FireCooldown  = 0;
+		ReticleTargetScale = ReticleMaxScale;
 	}
 }
 //
@@ -240,8 +245,38 @@ FRotator AWeapon::GetFireDirection(bool bTrue)
 	DrawDebugLine(GetWorld(), TrueStart, TrueStart + (FireDirection * 10000), FColor::Red);
 	return FireRotation;
 	
-	
-	
+}
+
+void AWeapon::HandleReloadPhaseStart(int32 Phase)
+{
+	if (WeaponReloadPattern.Num() > Phase)
+	{
+		const FReloadPhase& ReloadPhase = WeaponReloadPattern[Phase];
+		if (!ReloadPhase.bStartAction) { return; }
+		const FReloadPhaseAction& StartAction = ReloadPhase.StartAction;
+		if (StartAction.AudioEvent) { UFMODBlueprintStatics::PlayEventAtLocation(this, StartAction.AudioEvent, GetActorTransform(), true); }
+		if (StartAction.EffectSystem && WeaponMesh->DoesSocketExist(StartAction.EffectSocket)) { UNiagaraFunctionLibrary::SpawnSystemAttached(StartAction.EffectSystem, WeaponMesh, StartAction.EffectSocket, 
+			FVector::ZeroVector, 
+			FRotator::ZeroRotator, 
+			EAttachLocation::SnapToTarget, true); }
+		
+	}
+}
+
+void AWeapon::HandleReloadPhaseFinish(int32 Phase)
+{
+	if (WeaponReloadPattern.Num() > Phase)
+	{
+		const FReloadPhase& ReloadPhase = WeaponReloadPattern[Phase];
+		if (!ReloadPhase.bFinishAction) { return; }
+		const FReloadPhaseAction& FinishAction = ReloadPhase.FinishAction;
+		if (FinishAction.AudioEvent) { UFMODBlueprintStatics::PlayEventAtLocation(this, FinishAction.AudioEvent, GetActorTransform(), true); }
+		if (FinishAction.EffectSystem && WeaponMesh->DoesSocketExist(FinishAction.EffectSocket)) { UNiagaraFunctionLibrary::SpawnSystemAttached(FinishAction.EffectSystem, WeaponMesh, FinishAction.EffectSocket, 
+			FVector::ZeroVector, 
+			FRotator::ZeroRotator, 
+			EAttachLocation::SnapToTarget, true); }
+		
+	}
 }
 
 

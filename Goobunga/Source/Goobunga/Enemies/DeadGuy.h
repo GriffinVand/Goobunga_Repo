@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "Goobunga/Dialogue/DialogueInterface.h"
 #include "Goobunga/Interaction/InteractInterface.h"
+#include "Goobunga/NPC/BaseNPC.h"
 #include "DeadGuy.generated.h"
 
 class UFacialAnimationComponent;
@@ -14,14 +15,12 @@ class UFMODAudioComponent;
 class UBoxComponent;
 
 UCLASS()
-class GOOBUNGA_API ADeadGuy : public AActor, public IInteractInterface, public IDialogueInterface
+class GOOBUNGA_API ADeadGuy : public ABaseNPC
 {
 	GENERATED_BODY()
 
 public:
 	ADeadGuy();
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UFacialAnimationComponent* FacialAnimationComponent;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UBoxComponent* BoxComponent;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -43,6 +42,5 @@ public:
 	virtual void DialogueEnded_Implementation() override;
 	virtual FName GetCurrentDialogue_Implementation() override;
 	virtual void Interact_Implementation(AActor* Interactor) override;
-	virtual bool CanInteract_Implementation() override { return !bIsSpeaking; }
 	virtual FText GetInteractText_Implementation(AActor* Interactor) override { return FText::FromString("Press 'E' to talk"); }
 };

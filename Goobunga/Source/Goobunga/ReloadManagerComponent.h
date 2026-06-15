@@ -7,11 +7,29 @@
 #include "Goobunga/Combat/ReloadPatterns.h"
 #include "ReloadManagerComponent.generated.h"
 
+class UFMODEvent;
+class UNiagaraSystem;
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnReloadPhaseStarted, int32, Phase);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnReloadPhaseFinished, int32, Phase);
+
 UENUM(BlueprintType)
 enum class EReloadPhaseType : uint8
 {
 	Interactive UMETA(DisplayName = "Interactive"),
 	Visual UMETA(DisplayName = "Visual")
+};
+
+USTRUCT(BlueprintType)
+struct FReloadPhaseAction
+{
+	GENERATED_BODY()
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UFMODEvent* AudioEvent = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UNiagaraSystem* EffectSystem = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FName EffectSocket = "FireEffect_Socket";
 };
 
 USTRUCT(BlueprintType)
@@ -26,7 +44,14 @@ struct FReloadPhase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UAnimSequence* PhaseAnimation = nullptr;
 	
-	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	bool bStartAction = false;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(EditCondition="bStartAction", EditConditionHides=true))
+	FReloadPhaseAction StartAction = FReloadPhaseAction();
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	bool bFinishAction = false;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(EditCondition="bFinishAction", EditConditionHides=true))
+	FReloadPhaseAction FinishAction = FReloadPhaseAction();
 };
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -35,6 +60,10 @@ class GOOBUNGA_API UReloadManagerComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:	
+	
+	FOnReloadPhaseStarted OnReloadPhaseStarted;
+	FOnReloadPhaseFinished OnReloadPhaseFinished;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float ProgressRate = 5.f;
 	UReloadManagerComponent();
@@ -86,5 +115,7 @@ public:
 	void StopReload(bool Success);
 	void CreateReloadWidget();
 	void RemoveReloadWidget();
+	
+	bool ConsumeInput() { return CurrentReloadPhase >= 0 && ReloadSequence.Num() > CurrentReloadPhase && ReloadSequence[CurrentReloadPhase].PhaseType == EReloadPhaseType::Interactive; }
 		
 };

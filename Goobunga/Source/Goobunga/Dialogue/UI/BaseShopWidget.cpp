@@ -4,6 +4,7 @@
 
 #include "BaseShopItem.h"
 #include "CommonRichTextBlock.h"
+#include "Components/GridPanel.h"
 #include "Components/UniformGridPanel.h"
 #include "Goobunga/PlayerCallables.h"
 #include "Goobunga/CommonUI/CommonButton.h"
@@ -16,6 +17,10 @@ void UBaseShopWidget::NativeConstruct()
 	{
 		OnShopCloseInput.Broadcast();
 	}); }
+	for (auto Child : ShopItemGrid->GetAllChildren())
+	{
+		if (Child) ShopItemGrid->RemoveChild(Child);
+	}
 }
 
 void UBaseShopWidget::PopulateShop(TArray<TObjectPtr<UItemData>> Items, TObjectPtr<UObject> Player)
@@ -25,33 +30,35 @@ void UBaseShopWidget::PopulateShop(TArray<TObjectPtr<UItemData>> Items, TObjectP
 	PCI.SetInterface(Cast<IPlayerCallables>(Player));
 	if (!PCI) { return; }
 	TArray<FName> OwnedItems = PCI->GetOwnedItemIDs();
-	for (const auto& Item : Items)
+	for (auto Item : Items)
 	{
 		AddShopItem(Item, OwnedItems.Contains(Item->ID));
 	}
 	UpdateMoneyText(PCI->GetInventory()->CurrentMoney);
 }
 
-void UBaseShopWidget::AddShopItem(const TObjectPtr<UItemData>& Item, bool bOwned)
+void UBaseShopWidget::AddShopItem(TObjectPtr<UItemData> Item, bool bOwned)
 {
 	if (ShopItemClass)
 	{
 		UBaseShopItem* NewItem = CreateWidget<UBaseShopItem>(this, ShopItemClass);
 		if (!NewItem) { return; }
 		int32 ChildCount = ShopItemGrid->GetChildrenCount();
-		ShopItemGrid->AddChildToUniformGrid(NewItem, ChildCount/ItemsPerRow, ChildCount%ItemsPerRow );
+		ShopItemGrid->AddChildToGrid(NewItem, ChildCount/ItemsPerRow, ChildCount%ItemsPerRow );
 		NewItem->SetItemData(Item);
 		if (bOwned) { NewItem->DisableShopItem(); }
+		NewItem->OnPurchaseClicked.Clear();
 		NewItem->OnPurchaseClicked.AddDynamic(this, &UBaseShopWidget::TryPurchaseItem);
 	}
 }
 
 void UBaseShopWidget::TryPurchaseItem(UBaseShopItem* ClickedItem)
 {
-	if (!ClickedItem || !PCI) { return; }
+	if (!ClickedItem || !PCI || !ClickedItem->ItemData) { return; }
 	if (PCI->GetInventory()->CurrentMoney >= ClickedItem->ItemData->ItemCost)
 	{
 		UpdateMoneyText(PCI->GetInventory()->DeductMoney(ClickedItem->ItemData->ItemCost));
+		ClickedItem->ItemData->OnPurchased(Cast<AActor>(PCI.GetObject()));
 		ClickedItem->DisableShopItem();
 	}
 	else

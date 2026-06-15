@@ -3,6 +3,7 @@
 #include "CommonButtonBase.h"
 #include "CommonLazyImage.h"
 #include "CommonRichTextBlock.h"
+#include "CommonTextBlock.h"
 #include "Goobunga/PersistentData/GoobungaSaveFile.h"
 
 void UBaseShopItem::NativeConstruct()
@@ -16,8 +17,10 @@ void UBaseShopItem::NativeConstruct()
 
 void UBaseShopItem::SetItemData(TObjectPtr<UItemData> Item)
 {
-	if (!ItemData) { return; }
+	if (!Item) { UE_LOG(LogTemp, Error, TEXT("NULL Item BSI::SetItemData")) return; }
 	ItemData = Item;
+	ItemTitle->SetText(ItemData->ItemTitle);
+	ItemCost->SetText(FText::FromString(FString::FromInt(ItemData->ItemCost)));
 	PurchaseText->SetText(FText::FromString(FString("Purchase?\n") + FString::FromInt(ItemData->ItemCost)));
 }
 
@@ -29,6 +32,7 @@ void UBaseShopItem::DisableShopItem()
 
 void UBaseShopItem::PurchaseHoveredEvent()
 {
+	PurchaseState = 0;
 	PurchaseText->SetText(FText::FromString(FString("Purchase?\n") + FString::FromInt(ItemData->ItemCost)));
 	PurchaseButton->SetRenderOpacity(1.f);
 	PurchaseText->SetRenderOpacity(1.f);
@@ -44,7 +48,7 @@ void UBaseShopItem::PurchaseUnhoveredEvent()
 
 void UBaseShopItem::PurchaseClickedEvent()
 {
-	if (PurchaseState++ > 1)
+	if (PurchaseState >= 1)
 	{
 		OnPurchaseClicked.Broadcast(this);
 		
@@ -53,4 +57,5 @@ void UBaseShopItem::PurchaseClickedEvent()
 	{
 		PurchaseText->SetText(FText::FromString(FString("Confirm?")));
 	}
+	PurchaseState += 1;
 }

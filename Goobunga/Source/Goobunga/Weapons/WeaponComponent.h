@@ -74,6 +74,8 @@ public:
 	void InitializeFromSave(const UGoobungaSaveFile& SaveGame);
 	void SaveToSaveGame(UGoobungaSaveFile& SaveGame);
 	
+	bool GetShowReticle();
+	float GetScaleReticle();
 	
 	//bADS
 	FTransform GetWeaponSightTransform();
@@ -82,6 +84,10 @@ public:
 	void PrimFireStart();
 	void PrimFireStop(bool Cancelled);
 	bool CanReload();
+	UFUNCTION()
+	void OnReloadPhaseStarted(int32 Phase);
+	UFUNCTION()
+	void OnReloadPhaseFinished(int32 Phase);
 	void ReloadWeapon();
 	bool bPrimFirePressed = false;
 	bool bAltFirePressed = false;

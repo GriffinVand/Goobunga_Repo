@@ -59,6 +59,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = UserInterface)
 	EWeaponUItype WeaponUIType = EWeaponUItype::Thin;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = UserInterface)
+	UTexture2D* WeaponReticle = nullptr;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats)
 	bool bGrips = false;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stats)
@@ -155,6 +157,17 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Animation)
 	UAnimSequence* OwnerStaticAnim = nullptr;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=UserInterface)
+	float ReticleRecoverySpeed = 5;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=UserInterface)
+	float ReticleMaxScale = 1.5f;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=UserInterface)
+	float ReticleScaleSpeed = 30.f;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=UserInterface)
+	float ReticleCurrentScale = 1.f;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=UserInterface)
+	float ReticleTargetScale = 1.f;
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -194,10 +207,14 @@ public:
 	virtual void ApplyRecoil();
 	//Tells owner to update UI elements related to this weapon
 	virtual void UpdateOwnerUI();
-	virtual void UpdateWeapon();
+	virtual void UpdateWeapon(float DeltaTime);
 	virtual void PlayFireEffect();
 	virtual void PlayFireSound();
 	virtual void Reload();
 	virtual FRotator GetFireDirection(bool bTrue = false);
+	
+	virtual void HandleReloadPhaseStart(int32 Phase);
+	virtual void HandleReloadPhaseFinish(int32 Phase);
+	virtual void HandleReloadFinished() {}
 	
 };

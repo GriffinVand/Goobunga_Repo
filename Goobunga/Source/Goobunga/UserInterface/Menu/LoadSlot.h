@@ -3,6 +3,9 @@
 #include "CoreMinimal.h"
 #include "CommonUserWidget.h"
 #include "LoadSlot.generated.h"
+class UGenericButton;
+class UCommonTextBlock;
+class UCommonButtonBase;
 class UButton;
 class UTextBlock;
 
@@ -13,9 +16,7 @@ class GOOBUNGA_API ULoadSlot : public UCommonUserWidget
 public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	UTextBlock* ButtonText;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	UButton* LoadSlotButton;
+	UGenericButton* LoadSlotButton;
 	
 	FString LoadSlotID = "";
 	

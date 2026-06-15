@@ -3,6 +3,7 @@
 
 void UItemData::OnPurchased(AActor* Purchaser)
 {
+	if (!Purchaser) { return; }
 	UE_LOG(LogTemp, Display, TEXT("Purchased Item"));
 	if (IPlayerCallables* PCI = Cast<IPlayerCallables>(Purchaser))
 	{

@@ -8,6 +8,8 @@
 #include "Goobunga/Combat/DamageTypes.h"
 #include "PlayerMainWidget.generated.h"
 
+class AWeapon;
+class UPlayerReticleWidget;
 class UDodgeWidgetBase;
 class UInteractWidget;
 class UObjectiveWidgetBase;
@@ -27,6 +29,8 @@ public:
 	virtual TOptional<FUIInputConfig> GetDesiredInputConfig() const override;
 	void HandleDamageEffect(EDamageType DamageType);
 	void HandleHitEffect(EDamageResult DamageResult);
+	void InitializeReticle(UTexture2D* Texture);
+	void UpdateReticle(bool bVisible, float Scale);
 	
 	UPROPERTY(meta = (BindWidget))
 	UUserWidget* FaceCamWidget;
@@ -37,6 +41,8 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	UInteractWidget* InteractWidget;
 
+	UPROPERTY(meta = (BindWidget))
+	UPlayerReticleWidget* ReticleWidget;
 	
 	UPROPERTY(meta = (BindWidget))
 	USizeBox* WeaponUIContainer;
@@ -72,9 +78,6 @@ public:
 	UPROPERTY(meta = (BindWidgetAnim), Transient)
 	UWidgetAnimation* HitAnimation;
 	
-	
-	
-
-	
-	
+protected:
+	virtual void NativeConstruct() override;
 };

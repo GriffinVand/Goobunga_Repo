@@ -48,6 +48,10 @@ void ABaseNPC::DialogueStarted_Implementation(AActor* SpeakerActor)
 void ABaseNPC::DialogueEnded_Implementation()
 {
 	UE_LOG(LogTemp, Warning, TEXT("DialogueEnded_Implementation()"));
+	if (TargetActor && TargetActor->Implements<UPlayerCallables>())
+	{
+		IPlayerCallables::Execute_EndInteract(TargetActor, this);
+	}
 	TargetActor = nullptr;
 	CurrentState = ENonCombatantState::Idle;
 	FacialAnimationComponent->PlayAnimation(FacialAnimationComponent->DefaultAnimation, true);

@@ -50,6 +50,7 @@ void UReloadManagerComponent::StartReload(TArray<FReloadPhase>& NewReloadSequenc
 void UReloadManagerComponent::StartPhase(bool bFirst)
 {
 	if (bFirst) { CurrentReloadPhase = 0; } else { CurrentReloadPhase += 1; }
+	OnReloadPhaseStarted.Broadcast(CurrentReloadPhase);
 	FReloadPhase Curr = ReloadSequence[CurrentReloadPhase];
 	switch (Curr.PhaseType)
 	{
@@ -154,6 +155,7 @@ void UReloadManagerComponent::UpdateVisualPhase(FReloadPhase& CurrPhase, float D
 
 void UReloadManagerComponent::CompletePhase()
 {
+	OnReloadPhaseFinished.Broadcast(CurrentReloadPhase);
 	int32 NewPhase = CurrentReloadPhase + 1;
 	if ((ReloadSequence.Num()) > NewPhase) { StartPhase(false); return;}
 	StopReload(true);
@@ -162,6 +164,7 @@ void UReloadManagerComponent::CompletePhase()
 void UReloadManagerComponent::StopReload(bool Success)
 {
 	CurrentReloadPhase = -1;
+	OnReloadPhaseFinished.Broadcast(-1);
 	RemoveReloadWidget();
 	UE_LOG(LogTemp, Display, TEXT("Successful Reload"));
 	if (IPlayerCallables* PlayerCallablesInterface = Cast<IPlayerCallables>(GetOwner()))

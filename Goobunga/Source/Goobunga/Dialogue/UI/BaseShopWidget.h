@@ -6,6 +6,7 @@
 #include "CommonTextBlock.h"
 #include "BaseShopWidget.generated.h"
 
+class UGridPanel;
 class UCommonButtonBase;
 class UInventoryComponent;
 class IPlayerCallables;
@@ -28,19 +29,19 @@ public:
 	
 	virtual void PopulateShop(TArray<TObjectPtr<UItemData>> Items, TObjectPtr<UObject> Player);
 	virtual TOptional<FUIInputConfig> GetDesiredInputConfig() const override;
-	virtual void UpdateMoneyText(int32 NewMoney) { MoneyTextBlock->SetText(FText::FromString(FString("<Wiggle>Pepper Bux: ") + FString::FromInt(NewMoney) + FString("</>"))); }
+	virtual void UpdateMoneyText(int32 NewMoney) { MoneyTextBlock->SetText(FText::FromString(FString("Pepper Bux: ") + FString::FromInt(NewMoney))); }
 	
 	UPROPERTY(EditAnywhere, meta=(BindWidget))
-	UCommonRichTextBlock* MoneyTextBlock;
+	UCommonTextBlock* MoneyTextBlock;
 	UPROPERTY(EditAnywhere, meta=(BindWidget))
-	UUniformGridPanel* ShopItemGrid;
+	UGridPanel* ShopItemGrid;
 	UPROPERTY(EditAnywhere, meta=(BindWidget))
 	UCommonButtonBase* CloseButton;
 	
 protected:
 	virtual void NativeConstruct() override;
 	
-	virtual void AddShopItem(const TObjectPtr<UItemData>& Item, bool bOwned);
+	virtual void AddShopItem(TObjectPtr<UItemData> Item, bool bOwned);
 	UFUNCTION()
 	virtual void TryPurchaseItem(UBaseShopItem* ClickedItem);
 	

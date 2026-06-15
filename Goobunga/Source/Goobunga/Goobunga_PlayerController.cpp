@@ -84,6 +84,7 @@ void AGoobunga_PlayerController::CreateWeaponUI(AWeapon* Weapon)
 	{
 		WeaponUI->BindToWeapon(Weapon);
 		MainHUD->WeaponUIContainer->AddChild(WeaponUI);
+		MainHUD->InitializeReticle(Weapon->WeaponReticle);
 		UE_LOG(LogTemp, Error, TEXT("Added weapon ui to hud"));
 		return;
 	}

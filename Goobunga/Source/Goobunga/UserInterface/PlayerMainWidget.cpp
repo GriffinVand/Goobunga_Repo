@@ -1,6 +1,14 @@
 #include "PlayerMainWidget.h"
 
+#include "CommonLazyImage.h"
+#include "PlayerReticleWidget.h"
 #include "Goobunga/Combat/CombatCallables.h"
+
+void UPlayerMainWidget::NativeConstruct()
+{
+	Super::NativeConstruct();
+	ReticleWidget->SetVisibility(ESlateVisibility::Hidden);
+}
 
 TOptional<FUIInputConfig> UPlayerMainWidget::GetDesiredInputConfig() const
 {
@@ -41,4 +49,19 @@ void UPlayerMainWidget::HandleHitEffect(EDamageResult DamageResult)
 	default:
 		return;
 	}
+}
+
+void UPlayerMainWidget::InitializeReticle(UTexture2D* Texture)
+{
+	if (!Texture) { UE_LOG(LogTemp, Error, TEXT("Invalid texture PMW::InitializeReticle")); return; }
+	UE_LOG(LogTemp, Error, TEXT("Set texture PMW::InitializeReticle"));
+	ReticleWidget->MainReticle->SetBrushFromTexture(Texture);
+}
+
+void UPlayerMainWidget::UpdateReticle(bool bVisible, float Scale)
+{
+	//UE_LOG(LogTemp, Error, TEXT("Update reticle %s"), bVisible ? TEXT("Visible") : TEXT("Hidden"));
+	ReticleWidget->SetRenderScale(FVector2D(Scale));
+	if (bVisible) { ReticleWidget->SetVisibility(ESlateVisibility::Visible); return; }
+	ReticleWidget->SetVisibility(ESlateVisibility::Hidden);
 }

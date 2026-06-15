@@ -15,10 +15,9 @@ ADeadGuy::ADeadGuy()
 	PrimaryActorTick.bCanEverTick = true;
 	
 	BoxComponent = CreateDefaultSubobject<UBoxComponent>("BoxComponent");
-	RootComponent = BoxComponent;
+	BoxComponent->SetupAttachment(RootComponent);
 	SkeletalMeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>("SkeletalMeshComponent");
 	SkeletalMeshComponent->SetupAttachment(RootComponent);
-	FacialAnimationComponent = CreateDefaultSubobject<UFacialAnimationComponent>("FacialAnimationComponent");
 	AudioComponent = CreateDefaultSubobject<UFMODAudioComponent>("AudioComponent");
 	AudioComponent->SetupAttachment(RootComponent);
 }
@@ -46,6 +45,7 @@ FName ADeadGuy::GetCurrentDialogue_Implementation()
 
 void ADeadGuy::DialogueEnded_Implementation()
 {
+	Super::DialogueEnded_Implementation();
 	FacialAnimationComponent->PlayAnimation("Dead", true);
 	bIsSpeaking = false;
 	BoxComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
@@ -56,11 +56,7 @@ void ADeadGuy::DialogueEnded_Implementation()
 
 void ADeadGuy::Interact_Implementation(AActor* Interactor)
 {
+	Super::Interact_Implementation(Interactor);
 	AudioComponent->Stop();
-	if (AGoobunga_Player* GP = Cast<AGoobunga_Player>(Interactor))
-    {
-        GP->DialogueManagerComponent->StartDialogue(this);
-        FacialAnimationComponent->PlayAnimation("Talk", true);
-    }
 }
 

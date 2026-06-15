@@ -27,10 +27,18 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	UMissionData* SelectedMission = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TSubclassOf<UUserWidget> LoadingScreenClass;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Inventory)
 	int32 CurrentMoney = 0;
 	
+	virtual void Init() override;
+	
+	UFUNCTION()
+	void StartLoadingScreen(const FString& MapName);
+	UFUNCTION()
+	void EndLoadingScreen(UWorld* World);
 	
 	void SetDefaultSaveFile(UGoobungaSaveFile& SaveFile);
 	void ClearMission() { SelectedMission = nullptr; }

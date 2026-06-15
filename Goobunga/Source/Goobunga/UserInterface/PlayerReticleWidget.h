@@ -6,27 +6,16 @@
 #include "CommonUserWidget.h"
 #include "PlayerReticleWidget.generated.h"
 
-/**
- * 
- */
-class UImage;
+class UCommonLazyImage;
+
 UCLASS()
 class GOOBUNGA_API UPlayerReticleWidget : public UCommonUserWidget
 {
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UImage* MainReticle;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UImage* HitMarker;
-
-	UFUNCTION(BlueprintCallable)
-	void ShowHitMarker();
-	UFUNCTION(BlueprintCallable)
-	void HideHitMarker();
-
-	virtual void NativeOnInitialized() override;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(BindWidget))
+	UCommonLazyImage* MainReticle;
 	
 	
 };

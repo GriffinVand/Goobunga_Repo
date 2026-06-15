@@ -1,21 +1,24 @@
 #include "LoadSlot.h"
 
+#include "CommonButtonBase.h"
+#include "CommonTextBlock.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
 #include "Goobunga/PersistentData/PersistentDataSubsystem.h"
 #include "Kismet/GameplayStatics.h"
+#include "./GenericButton.h"
 
 void ULoadSlot::InitializeLoadSlot(int32 ID)
 {
 	LoadSlotID = FString::FromInt(ID);
 	if (UGameplayStatics::DoesSaveGameExist(FString::FromInt(ID), 0))
 	{
-		ButtonText->SetText(FText::FromString("Load"));
-		LoadSlotButton->OnClicked.AddUniqueDynamic(this, &ULoadSlot::LoadSlot);
+		LoadSlotButton->ButtonText->SetText(FText::FromString("Load"));
+		LoadSlotButton->OnClicked().AddUObject(this, &ULoadSlot::LoadSlot);
 		return;
 	}
-	ButtonText->SetText(FText::FromString("New"));
-	LoadSlotButton->OnClicked.AddUniqueDynamic(this, &ULoadSlot::LoadNewSlot);
+	LoadSlotButton->ButtonText->SetText(FText::FromString("New"));
+	LoadSlotButton->OnClicked().AddUObject(this, &ULoadSlot::LoadNewSlot);
 }
 
 void ULoadSlot::LoadSlot()

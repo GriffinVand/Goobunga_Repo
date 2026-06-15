@@ -15,6 +15,7 @@
 #include "Quests/QuestManagerComponent.h"
 #include "Weapons/Weapon.h"
 #include "Abilities/AbilityComponent.h"
+#include "Blueprint/WidgetLayoutLibrary.h"
 #include "Components/SceneCaptureComponent2D.h"
 #include "Interaction/InteractInterface.h"
 #include "Inventory/InventoryComponent.h"
@@ -74,6 +75,14 @@ void AGoobunga_Player::BeginPlay()
 		}
 	}
 	
+	if (ReloadManagerComponent)
+	{
+		ReloadManagerComponent->OnReloadPhaseStarted.Clear();
+		ReloadManagerComponent->OnReloadPhaseFinished.Clear();
+		ReloadManagerComponent->OnReloadPhaseStarted.AddUniqueDynamic(WeaponComponent, &UWeaponComponent::OnReloadPhaseStarted);
+		ReloadManagerComponent->OnReloadPhaseFinished.AddUniqueDynamic(WeaponComponent, &UWeaponComponent::OnReloadPhaseFinished);
+	}
+	
 	APlayerController* PlayerController = Cast<APlayerController>(GetController());
 	if (PlayerController)
 	{
@@ -105,18 +114,8 @@ void AGoobunga_Player::Tick(float DeltaTime)
 	UpdateWeaponSwayData(DeltaTime);
 	UpdateInteract();
 	if (Reloading) { ReloadManagerComponent->UpdatePhase(DeltaTime); }
-	if (bDashing) { UpdateDash(DeltaTime); }
-	else if (!bCanDash)
-	{
-		DashElapsed = FMath::Min(DashCooldown, DashElapsed + DeltaTime);  
-		if (DashElapsed >= DashCooldown) { bCanDash = true; }
-		if (AGoobunga_PlayerController* PC = Cast<AGoobunga_PlayerController>(GetController()))
-		{
-			float Percent = DashElapsed == 0 ? 0 : DashElapsed/DashCooldown;
-			Percent = 1 - Percent;
-			PC->UpdateDodgeUI(Percent);
-		}
-	}
+	UpdateDash(DeltaTime);
+	UpdateReticle();
 }
 
 
@@ -189,19 +188,30 @@ void AGoobunga_Player::EndDash()
 
 void AGoobunga_Player::UpdateDash(float DeltaTime)
 {
-	DashElapsedTime = FMath::Min(DashElapsedTime + DeltaTime, DashTotalTime);
-	float Alpha = DashElapsedTime / DashTotalTime;
-	float Speed = DashCurve->GetFloatValue(Alpha);
+	if (bDashing)
+	{
+		DashElapsedTime = FMath::Min(DashElapsedTime + DeltaTime, DashTotalTime);
+		float Alpha = DashElapsedTime / DashTotalTime;
+		float Speed = DashCurve->GetFloatValue(Alpha);
 	
-	GetCharacterMovement()->Velocity = ((Speed * DashPeakSpeed) + GetCharacterMovement()->MaxWalkSpeed) * DashDirection;
-	if (Alpha >= 1.f) { EndDash(); }
+		GetCharacterMovement()->Velocity = ((Speed * DashPeakSpeed) + GetCharacterMovement()->MaxWalkSpeed) * DashDirection;
+		if (Alpha >= 1.f) { EndDash(); }
+	}
+	DashElapsed = FMath::Min(DashCooldown, DashElapsed + DeltaTime);  
+	if (DashElapsed >= DashCooldown) { bCanDash = true; }
+	if (AGoobunga_PlayerController* PC = Cast<AGoobunga_PlayerController>(GetController()))
+	{
+		float Percent = DashElapsed == 0 ? 0 : DashElapsed/DashCooldown;
+		Percent = 1 - Percent;
+		PC->UpdateDodgeUI(Percent);
+	}
 }
 
 void AGoobunga_Player::UpdateInteract()
 {
 	AGoobunga_PlayerController* PC = Cast<AGoobunga_PlayerController>(GetController());
 	if (!PC) { return; }
-	if (bInteracting) { PC->CreateInteractUI(FText::FromString(""), true); InteractActor = nullptr; }
+	if (bInteracting) { PC->CreateInteractUI(FText::FromString(""), true); return; }
 	FHitResult Hit;
 	FVector Start = FPCamera->GetComponentLocation();
 	FVector End = Start + (FPCamera->GetForwardVector() * InteractRange);
@@ -232,6 +242,7 @@ bool AGoobunga_Player::CanInteract()
 void AGoobunga_Player::InteractStarted()
 {
 	if (!InteractActor) { UE_LOG(LogTemp, Error, TEXT("No interact actor GB::InteractStarted")); return; }
+	bInteracting = true;
 	if (IInteractInterface::Execute_PlayAnim(InteractActor) && InteractMontage)
 	{
 		HideWeaponForAbility();
@@ -240,12 +251,25 @@ void AGoobunga_Player::InteractStarted()
 		FPMesh->GetAnimInstance()->Montage_Play(InteractMontage);
 	}
 	IInteractInterface::Execute_Interact(InteractActor, this);
+	
 }
 
 void AGoobunga_Player::InteractFinished()
 {
 	bInteracting = false;
 	ShowWeaponAfterAbility();
+	AGoobunga_PlayerController* PC = Cast<AGoobunga_PlayerController>(GetController());
+	if (!PC) { return; }
+	PC->CreateInteractUI(FText::FromString(""), true);
+}
+
+void AGoobunga_Player::EndInteract_Implementation(AActor* InteractedActor)
+{
+	if (!InteractedActor || !InteractActor) { InteractFinished(); return; }
+	if (InteractedActor == InteractActor)
+	{
+		InteractFinished();
+	}
 }
 
 void AGoobunga_Player::InteractEnded(bool Cancelled)
@@ -365,7 +389,11 @@ void AGoobunga_Player::ApplyWeaponKick(FVector KickDirection, FRotator KickRotat
 	DirX = FMath::Clamp(DirX, -MaxDir.X, MaxDir.X);
 	DirY = FMath::Clamp(DirY, -MaxDir.Y, MaxDir.Y);
 	DirZ = FMath::Clamp(DirZ, -MaxDir.Z, MaxDir.Z);
+	float RotRoll = FMath::Clamp(KickRotation.Roll, -MaxRot.Roll, MaxRot.Roll);
+	float RotPitch = FMath::Clamp(KickRotation.Pitch, -MaxRot.Pitch, MaxRot.Pitch);
+	float RotYaw = FMath::Clamp(KickRotation.Yaw, -MaxRot.Yaw, MaxRot.Yaw);
 	CurrentWeaponKickDir = FVector(DirX, DirY, DirZ);
+	CurrentWeaponKickRot = FRotator(RotPitch, RotYaw, RotRoll);
 	UpdateWeaponKick();
 	
 }
@@ -373,6 +401,7 @@ void AGoobunga_Player::ApplyWeaponKick(FVector KickDirection, FRotator KickRotat
 void AGoobunga_Player::UpdateWeaponKick()
 {
 	CurrentWeaponKickDir = FMath::VInterpTo(CurrentWeaponKickDir, FVector::ZeroVector, GetWorld()->GetDeltaSeconds(), 20.f);
+	CurrentWeaponKickRot = FMath::RInterpTo(CurrentWeaponKickRot, FRotator::ZeroRotator, GetWorld()->GetDeltaSeconds(), 20.f);
 	if (!WeaponComponent || !WeaponComponent->GetEquippedWeapon()) { TrueWeaponKickDir = FVector::ZeroVector; return; }
 	if (!WeaponComponent->GetEquippedWeapon()->WeaponMesh) { TrueWeaponKickDir = FVector::ZeroVector; return; }
 	FTransform WeaponTransform = WeaponComponent->GetEquippedWeapon()->WeaponMesh->GetSocketTransform("Fire_Location");
@@ -488,6 +517,7 @@ EDamageResult AGoobunga_Player::CombatDamage(AActor* DamageCauser, float Damage,
 	if (HurtEventSound) { UFMODBlueprintStatics::PlayEvent2D(this, HurtEventSound, true); }
 	HandleDamageEffect(DamageType);
 	UE_LOG(LogTemp, Error, TEXT("PLAYER WAS HURT"))
+	FacialAnimationComponent->DefaultAnimation = GetFacialAnimationByHealth(CurrHealth/MaxHealth);
 	if (CurrHealth <= 0) { DeathSequence(); return EDamageResult::Kill; }
 	return EDamageResult::Default;
 }
@@ -518,9 +548,6 @@ void AGoobunga_Player::OnDealtDamage(EDamageResult DamageResult)
 	HitSoundComponent->Stop();
 	HitSoundComponent->SetSound(HitSound);
 	HitSoundComponent->Play();
-	FacialAnimationComponent->DefaultAnimation = GetFacialAnimationByHealth(CurrHealth/MaxHealth);
-	FacialAnimationComponent->PlayAnimation(FacialAnimationComponent->DefaultAnimation, true, -1);
-	
 }
 
 FName AGoobunga_Player::GetFacialAnimationByHealth(float HealthRatio)
@@ -583,7 +610,7 @@ bool AGoobunga_Player::CanPerformAction(ECombatAction Action)
 	case ECombatAction::SecFire:
 		return (!AbilityComponent->IsFlagBlocked(EAbilityBlockFlag::Fire)) && WeaponComponent->CanAltFire();
 	case ECombatAction::Reload:
-		return (!AbilityComponent->IsFlagBlocked(EAbilityBlockFlag::Reload) && WeaponComponent->CanReload());	
+		return (!AbilityComponent->IsFlagBlocked(EAbilityBlockFlag::Reload) && WeaponComponent->CanReload() && !Reloading);	
 	case ECombatAction::Aim:
 		return (!AbilityComponent->IsFlagBlocked(EAbilityBlockFlag::Aim));
 	case ECombatAction::SmallAbility:
@@ -600,7 +627,7 @@ bool AGoobunga_Player::CanPerformAction(ECombatAction Action)
 	case ECombatAction::Interact:
 		return CanInteract() && (!AbilityComponent->ActiveAbility);
 	case ECombatAction::Dash:
-		return bDashUnlocked && !bDashing && bCanDash && (WeaponDrawn || !WeaponComponent->GetEquippedWeapon());
+		return bDashUnlocked && !bDashing && bCanDash && GetCharacterMovement()->Velocity.Length() > 0.f;
 	case ECombatAction::Pickup:
 		return (!AbilityComponent->IsFlagBlocked(EAbilityBlockFlag::Swap));
 	default:
@@ -858,6 +885,17 @@ void AGoobunga_Player::EquipWeapon(AWeapon* Weapon)
 	else { UE_LOG(LogTemp, Error, TEXT("Not goobunga_controller"));}
 }
 
+void AGoobunga_Player::UpdateReticle()
+{
+	if (AGoobunga_PlayerController* PC = Cast<AGoobunga_PlayerController>(GetController()))
+	{
+		if (!WeaponComponent) { UE_LOG(LogTemp, Error, TEXT("No WeaponComponent AGP::UpdateReticle")); return; }
+		bool bVisible = !bInteracting && !Reloading && WeaponComponent->GetShowReticle();
+		float Scale = WeaponComponent->GetScaleReticle();
+		PC->MainHUD->UpdateReticle(bVisible, Scale);
+	}
+}
+
 void AGoobunga_Player::UnequipWeapon(AWeapon* Weapon)
 {
 
@@ -888,3 +926,31 @@ void AGoobunga_Player::RecieveItem(EItemDataType Type, TObjectPtr<UItemData> Ite
 	}
 }
 #pragma endregion
+
+void AGoobunga_Player::FadeAndLoad(FName LevelName)
+{
+	FadeLevel = LevelName;
+	if (AGoobunga_PlayerController* PC = Cast<AGoobunga_PlayerController>(GetController()))
+	{
+		PC->SetInputMode(FInputModeUIOnly());
+		UWidgetLayoutLibrary::RemoveAllWidgets(this);
+		PC->FlushPressedKeys();
+	}
+	if (APlayerCameraManager* PCM = UGameplayStatics::GetPlayerCameraManager(this, 0))
+	{
+		PCM->StartCameraFade(
+			0.0f,
+			1.0f,
+			FadeTime,
+			FLinearColor::Green,
+			false,
+			true);
+		FTimerHandle Timer;
+		GetWorldTimerManager().SetTimer(Timer, this, &AGoobunga_Player::FadeFinished, FadeTime + 0.01);
+	}
+}
+
+void AGoobunga_Player::FadeFinished()
+{
+	UGameplayStatics::OpenLevel(this, FadeLevel);
+}
